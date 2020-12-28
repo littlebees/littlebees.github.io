@@ -21,17 +21,20 @@
     var CONFIG = {"hostname":"littlebees.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="想到什麼就寫什麼">
-<meta property="og:type" content="website">
-<meta property="og:title" content="記事本">
-<meta property="og:url" content="https://littlebees.github.io/tags/binary-search/index.html">
+  <meta name="description" content="動機 medium!?">
+<meta property="og:type" content="article">
+<meta property="og:title" content="leetcode-692">
+<meta property="og:url" content="https://littlebees.github.io/2020/12/leetcode-692/index.html">
 <meta property="og:site_name" content="記事本">
-<meta property="og:description" content="想到什麼就寫什麼">
+<meta property="og:description" content="動機 medium!?">
 <meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-12-28T17:37:37.000Z">
+<meta property="article:modified_time" content="2020-12-28T17:38:35.373Z">
 <meta property="article:author" content="zhengcf">
+<meta property="article:tag" content="hash">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://littlebees.github.io/tags/binary-search/">
+<link rel="canonical" href="https://littlebees.github.io/2020/12/leetcode-692/">
 
 
 <script id="page-configurations">
@@ -39,12 +42,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-tw'
   };
 </script>
 
-  <title>Tag: binary search | 記事本</title>
+  <title>leetcode-692 | 記事本</title>
   
 
 
@@ -191,77 +194,126 @@
         <div class="content-wrap">
           
 
-          <div class="content tag">
+          <div class="content post posts-expand">
             
 
+    
   
   
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2020/12/leetcode-692/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhengcf">
+      <meta itemprop="description" content="想到什麼就寫什麼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="記事本">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          leetcode-692
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-12-29 01:37:37 / Modified: 01:38:35" itemprop="dateCreated datePublished" datetime="2020-12-29T01:37:37+08:00">2020-12-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
+                </span>
+            </span>
+
+          
   
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">binary search
-          <small>Tag</small>
-        </h2>
-      </div>
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2020/12/leetcode-692/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/12/leetcode-692/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2020</span>
+        <h2 id="動機">動機</h2>
+<p>medium!?</p>
+<a id="more"></a>
+<h2 id="Sol">Sol</h2>
+<p>兩個hash去對</p>
+<ul>
+<li>string =&gt; 次數</li>
+<li>次數 =&gt; [string]</li>
+</ul>
+<p>BTW，<code>from collections import Counter</code><br>
+可以計算 string =&gt; 次數</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">topKFrequent</span><span class="params">(self, ws: List[str], kk: int)</span> -&gt; List[str]:</span></span><br><span class="line">        w_t = &#123;&#125;</span><br><span class="line">        t_ws = &#123;&#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> w <span class="keyword">in</span> ws:</span><br><span class="line">            <span class="keyword">if</span> w <span class="keyword">not</span> <span class="keyword">in</span> w_t:</span><br><span class="line">                w_t[w] = <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                w_t[w] += <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (k,v) <span class="keyword">in</span> w_t.items():</span><br><span class="line">            <span class="keyword">if</span> v <span class="keyword">not</span> <span class="keyword">in</span> t_ws:</span><br><span class="line">                t_ws[v] = [k]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                t_ws[v].append(k)</span><br><span class="line">        </span><br><span class="line">        t_iter = iter(sorted(t_ws.keys(),reverse=<span class="literal">True</span>))</span><br><span class="line">        ret = []</span><br><span class="line">        <span class="keyword">while</span> kk != <span class="number">0</span>:</span><br><span class="line">            t = next(t_iter)</span><br><span class="line">            <span class="keyword">if</span> kk &lt; len(t_ws[t]):</span><br><span class="line">                ret += sorted(t_ws[t])[:kk]</span><br><span class="line">                kk = <span class="number">0</span></span><br><span class="line">            <span class="keyword">elif</span> kk == len(t_ws[t]):</span><br><span class="line">                ret += sorted(t_ws[t])</span><br><span class="line">                kk = <span class="number">0</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                ret += sorted(t_ws[t])</span><br><span class="line">                kk -= len(t_ws[t])</span><br><span class="line">        <span class="keyword">return</span> ret</span><br></pre></td></tr></table></figure>
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-12-12T21:22:55+08:00"
-              content="2020-12-12">
-          12-12
-        </time>
-      </div>
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/hash/" rel="tag"># hash</a>
+          </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/12/bsearch-and-two-ptr/" itemprop="url">
-            <span itemprop="name">二分搜尋與two pointer</span>
-          </a>
-      </div>
+        
 
-    </header>
-  </article>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-11-07T02:40:45+08:00"
-              content="2020-11-07">
-          11-07
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/11/leetcode-4/" itemprop="url">
-            <span itemprop="name">leetcode-4</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/12/leetcode-313/" rel="prev" title="leetcode-313">
+      <i class="fa fa-chevron-left"></i> leetcode-313
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-  </div>
+      </footer>
+    
+  </article>
   
   
-  
-
   
 
 
 
           </div>
           
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -308,6 +360,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol"><span class="nav-number">2.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -430,7 +483,7 @@
       quicklink({
         timeout : 1000,
         priority: true,
-        ignores : [uri => uri.includes('#'),uri => uri === 'https://littlebees.github.io/tags/binary-search/',]
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://littlebees.github.io/2020/12/leetcode-692/',]
       });
       });
   </script>
@@ -444,6 +497,26 @@
   }
   // defer loading until the whole page loading is completed
   window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://littlebees.github.io/2020/12/leetcode-692/";
+    this.page.identifier = "2020/12/leetcode-692/";
+    this.page.title = "leetcode-692";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://littlebee-2.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
 </script>
 
 </body>
