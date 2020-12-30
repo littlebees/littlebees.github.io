@@ -21,21 +21,20 @@
     var CONFIG = {"hostname":"littlebees.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="動機 Ref的文章看起來很有趣，還沒看過用這種方式探討PL的 所以就寫下自己的心得了">
+  <meta name="description" content="動機 整理一下">
 <meta property="og:type" content="article">
-<meta property="og:title" content="memory model">
-<meta property="og:url" content="https://littlebees.github.io/2020/8/mem-model/index.html">
+<meta property="og:title" content="binary-search最佳實踐">
+<meta property="og:url" content="https://littlebees.github.io/2020/12/binary-search-best-practice/index.html">
 <meta property="og:site_name" content="記事本">
-<meta property="og:description" content="動機 Ref的文章看起來很有趣，還沒看過用這種方式探討PL的 所以就寫下自己的心得了">
+<meta property="og:description" content="動機 整理一下">
 <meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2020-08-05T15:58:19.000Z">
-<meta property="article:modified_time" content="2020-12-30T18:04:42.645Z">
+<meta property="article:published_time" content="2020-12-30T18:04:04.000Z">
+<meta property="article:modified_time" content="2020-12-30T18:04:42.641Z">
 <meta property="article:author" content="zhengcf">
-<meta property="article:tag" content="PLT">
-<meta property="article:tag" content="PL">
+<meta property="article:tag" content="binary search">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://littlebees.github.io/2020/8/mem-model/">
+<link rel="canonical" href="https://littlebees.github.io/2020/12/binary-search-best-practice/">
 
 
 <script id="page-configurations">
@@ -48,7 +47,7 @@
   };
 </script>
 
-  <title>memory model | 記事本</title>
+  <title>binary-search最佳實踐 | 記事本</title>
   
 
 
@@ -202,7 +201,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2020/8/mem-model/">
+    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2020/12/binary-search-best-practice/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -215,7 +214,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          memory model
+          binary-search最佳實踐
         </h1>
 
         <div class="post-meta">
@@ -224,23 +223,17 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2020-08-05 23:58:19" itemprop="dateCreated datePublished" datetime="2020-08-05T23:58:19+08:00">2020-08-05</time>
+              <time title="Created: 2020-12-31 02:04:04 / Modified: 02:04:42" itemprop="dateCreated datePublished" datetime="2020-12-31T02:04:04+08:00">2020-12-31</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-12-31 02:04:42" itemprop="dateModified" datetime="2020-12-31T02:04:42+08:00">2020-12-31</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/PLT/" itemprop="url" rel="index"><span itemprop="name">PLT</span></a>
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
                 </span>
             </span>
 
@@ -253,8 +246,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/2020/8/mem-model/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/8/mem-model/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2020/12/binary-search-best-practice/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/12/binary-search-best-practice/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -270,67 +263,45 @@
 
       
         <h2 id="動機">動機</h2>
-<p>Ref的文章看起來很有趣，還沒看過用這種方式探討PL的<br>
-所以就寫下自己的心得了</p>
+<p>整理一下</p>
 <a id="more"></a>
-<h2 id="COBOL">COBOL</h2>
-<p>記憶體就是一層又一層的嵌套<br>
-而記憶體就是這些不會變大也不會變小</p>
-<p>就是C中的struct、union、array</p>
-<h3 id="控制可見度">控制可見度</h3>
-<p>大家都在同一塊地方，沒辦法控制可見度</p>
-<h3 id="如何access">如何access</h3>
-<p>因為只有primitive type所以用算的去看offset</p>
-<h3 id="序列化">序列化</h3>
-<p>都只有固定長度，所以容易序列化</p>
-<h2 id="LISP">LISP</h2>
-<p>只有pointer</p>
-<p>十分的靈活</p>
-<p>但</p>
+<h2 id="1-first-last">1. [first, last)</h2>
+<p>左右 * 閉開 =&gt; 4種</p>
+<p>假設長度為4的array，範圍如下</p>
 <ol>
-<li>需要GC</li>
-<li>容易type error</li>
-<li>要管理pointer</li>
-<li>占用大量記憶體</li>
+<li>0 &lt;= x &lt; 4</li>
+<li>0 &lt;= x &lt;= 3</li>
+<li>-1 &lt; x &lt;= 3</li>
+<li>-1 &lt; x &lt; 4</li>
 </ol>
-<h3 id="控制可見度-2">控制可見度</h3>
-<p>有pointer才能access，可見度很好控管</p>
-<h3 id="如何access-2">如何access</h3>
-<p>用pointer一路走過去</p>
-<h3 id="序列化-2">序列化</h3>
-<p>序列化不容易做，想想cycle-reference要怎麼辦?<br>
-如果有共用的部分要怎麼處理?</p>
-<h2 id="FORTRAN">FORTRAN</h2>
-<p>世界只剩下array</p>
-<p>有點像COBOL的折衷，因為可以用array的格子來表示結構或是union<br>
-但是不同於COBOL我們可以有很多塊array</p>
-<h3 id="控制可見度-3">控制可見度</h3>
-<p>因為array可以拆成好幾份，來保持不同的可見度</p>
-<h3 id="如何access-3">如何access</h3>
-<p>array加index</p>
-<h3 id="序列化-3">序列化</h3>
-<p>序列化容易做</p>
-<h2 id="其他">其他</h2>
-<h3 id="Pipe">Pipe</h3>
-<p>當世界只剩下queue</p>
-<p>有點像FORTRAN但是沒有index</p>
-<p>這個Model經常用在concurrent上，可以看go的channel或是pi calculus</p>
-<h3 id="File-folder">File&amp;folder</h3>
-<p>有點像LISP但是</p>
+<p>如果bsearch到最後，左右兩邊重合</p>
 <ol>
-<li>只能是tree(所有有分leaf與node)</li>
-<li>只有leaf才能放資料</li>
+<li>0 &lt;= x &lt; 0</li>
+<li>0 &lt;= x &lt;= -1</li>
+<li>-1 &lt; x &lt;= -1</li>
+<li>-1 &lt; x &lt; 0</li>
 </ol>
-<h4 id="如何表示attribute">如何表示attribute</h4>
-<p>folder+many files (ex: /proc/<pid>/)</p>
-<h3 id="SQL">SQL</h3>
-<p>基本上就是COBOL加LISP<br>
-key是pointer<br>
-column從COBOL來<br>
-每次select都是新的matrix(FORTURN)</p>
+<p>所以我們還是選第一種左閉右開</p>
+<p>因此，終止條件是</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> i &lt; j:</span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-mid-first-last-first-2">2. mid = first + (last - first) // 2</h2>
+<p>原本算中點是<code>(last + first)//2</code>，但是有可能會加到溢位!!</p>
+<p>改成用起點再加上多的部分</p>
+<p>記得，中點就是往開去算，故如果變成右閉左開要用<br>
+<code>last - (last-first)//2</code>去算</p>
+<p>另外注意，這裡是無條件捨去，另外有無條件進位的中點算法，但我還不知道使用上要怎麼選擇，但有遇過因此被婊的時候</p>
+<h2 id="3-first-mid-1-last-mid">3. first = mid + 1, last = mid</h2>
+<p>參考文中是用歸納法(那個loop invariant與我印象中的loop invariant不一樣，所以先叫他歸納法)去證為什麼是<code>first = mid + 1, last = mid</code></p>
+<p>但這裡用終止條件的來看，為什麼是<code>first = mid + 1, last = mid</code></p>
+<p>我們的終止條件左閉右開，所以之後的first與last都要左閉右開</p>
+<p>因為mid看過了不用保留所以<code>first = mid + 1</code>，那last呢?<br>
+右邊是開，所以<code>last = mid</code></p>
+<p>等到了搜尋完成，最後的結果會是<code>last == first</code>，所以在<strong>最後</strong>last的值會連同first被保留，十分有趣。</p>
+<h2 id="總結">總結</h2>
+<p>再一次，去看參考的文章，必看阿!!!</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lower_bound</span><span class="params">(array, first, last, value)</span>:</span></span><br><span class="line">  <span class="comment"># 求非降序范围[first, last)内第一个不小于value的值的位置</span></span><br><span class="line">  <span class="keyword">while</span> first &lt; last: <span class="comment"># 搜索区间[first, last)不为空</span></span><br><span class="line">    mid = first + (last - first) // <span class="number">2</span> <span class="comment"># 防溢出</span></span><br><span class="line">    <span class="keyword">if</span> array[mid] &lt; value:</span><br><span class="line">      first = mid + <span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">      last = mid</span><br><span class="line">  <span class="keyword">return</span> first <span class="comment"># last也行，因为[first, last)为空的时候它们重合</span></span><br></pre></td></tr></table></figure>
 <h2 id="Ref">Ref</h2>
-<p><span class="exturl" data-url="aHR0cDovL2Nhbm9uaWNhbC5vcmcvfmtyYWdlbi9tZW1vcnktbW9kZWxzLw==">The memory models that underlie programming languages<i class="fa fa-external-link-alt"></i></span><br>
-<span class="exturl" data-url="aHR0cDovL2FydGh1cmNoaWFvLmFydC9ibG9nL21lbW9yeS1tb2RlbHMtdW5kZXJsaWUtcHJvZ3JhbW1pbmctbGFuZ3VhZ2VzLXpo">编程语言中的 6 种内存模型<i class="fa fa-external-link-alt"></i></span></p>
+<p><span class="exturl" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3F1ZXN0aW9uLzM2MTMyMzg2L2Fuc3dlci81MzAzMTM4NTI=">炒讚，快去看<i class="fa fa-external-link-alt"></i></span></p>
 
     </div>
 
@@ -340,8 +311,7 @@ column從COBOL來<br>
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/PLT/" rel="tag"># PLT</a>
-              <a href="/tags/PL/" rel="tag"># PL</a>
+              <a href="/tags/binary-search/" rel="tag"># binary search</a>
           </div>
 
         
@@ -350,13 +320,10 @@ column從COBOL來<br>
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/8/strange-things-port-to/" rel="prev" title="奇聞軼事 - 把程式port到其他或舊平台運行">
-      <i class="fa fa-chevron-left"></i> 奇聞軼事 - 把程式port到其他或舊平台運行
+    <a href="/2020/12/leetcode-274/" rel="prev" title="leetcode-274">
+      <i class="fa fa-chevron-left"></i> leetcode-274
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/8/dockerfile-note/" rel="next" title="dockerfile的用法">
-      dockerfile的用法 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -422,7 +389,7 @@ column從COBOL來<br>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#COBOL"><span class="nav-number">2.</span> <span class="nav-text">COBOL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#控制可見度"><span class="nav-number">2.1.</span> <span class="nav-text">控制可見度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何access"><span class="nav-number">2.2.</span> <span class="nav-text">如何access</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#序列化"><span class="nav-number">2.3.</span> <span class="nav-text">序列化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LISP"><span class="nav-number">3.</span> <span class="nav-text">LISP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#控制可見度-2"><span class="nav-number">3.1.</span> <span class="nav-text">控制可見度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何access-2"><span class="nav-number">3.2.</span> <span class="nav-text">如何access</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#序列化-2"><span class="nav-number">3.3.</span> <span class="nav-text">序列化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FORTRAN"><span class="nav-number">4.</span> <span class="nav-text">FORTRAN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#控制可見度-3"><span class="nav-number">4.1.</span> <span class="nav-text">控制可見度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何access-3"><span class="nav-number">4.2.</span> <span class="nav-text">如何access</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#序列化-3"><span class="nav-number">4.3.</span> <span class="nav-text">序列化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">5.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Pipe"><span class="nav-number">5.1.</span> <span class="nav-text">Pipe</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#File-folder"><span class="nav-number">5.2.</span> <span class="nav-text">File&amp;folder</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#如何表示attribute"><span class="nav-number">5.2.1.</span> <span class="nav-text">如何表示attribute</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL"><span class="nav-number">5.3.</span> <span class="nav-text">SQL</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">6.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-first-last"><span class="nav-number">2.</span> <span class="nav-text">1. [first, last)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-mid-first-last-first-2"><span class="nav-number">3.</span> <span class="nav-text">2. mid &#x3D; first + (last - first) &#x2F;&#x2F; 2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-first-mid-1-last-mid"><span class="nav-number">4.</span> <span class="nav-text">3. first &#x3D; mid + 1, last &#x3D; mid</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#總結"><span class="nav-number">5.</span> <span class="nav-text">總結</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">6.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -545,7 +512,7 @@ column從COBOL來<br>
       quicklink({
         timeout : 1000,
         priority: true,
-        ignores : [uri => uri.includes('#'),uri => uri === 'https://littlebees.github.io/2020/8/mem-model/',]
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://littlebees.github.io/2020/12/binary-search-best-practice/',]
       });
       });
   </script>
@@ -562,9 +529,9 @@ column從COBOL來<br>
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://littlebees.github.io/2020/8/mem-model/";
-    this.page.identifier = "2020/8/mem-model/";
-    this.page.title = "memory model";
+    this.page.url = "https://littlebees.github.io/2020/12/binary-search-best-practice/";
+    this.page.identifier = "2020/12/binary-search-best-practice/";
+    this.page.title = "binary-search最佳實踐";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {
