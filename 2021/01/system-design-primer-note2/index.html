@@ -21,17 +21,20 @@
     var CONFIG = {"hostname":"littlebees.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="想到什麼就寫什麼">
-<meta property="og:type" content="website">
-<meta property="og:title" content="記事本">
-<meta property="og:url" content="https://littlebees.github.io/tags/golang/index.html">
+  <meta name="description" content="動機 這次是設計流程與估算 設計系統，要先做出評估與假設 分成user與system user部分要問，誰會用、怎麼用、多少人 對system而言，會先收到request，之後變成data，之後要io 所以system部分要問，做什麼、input&#x2F;output是、每秒處理多少request、希望處理多少資料、預期的讀、寫比例">
+<meta property="og:type" content="article">
+<meta property="og:title" content="system design primer筆記 設計流程與估算篇">
+<meta property="og:url" content="https://littlebees.github.io/2021/01/system-design-primer-note2/index.html">
 <meta property="og:site_name" content="記事本">
-<meta property="og:description" content="想到什麼就寫什麼">
+<meta property="og:description" content="動機 這次是設計流程與估算 設計系統，要先做出評估與假設 分成user與system user部分要問，誰會用、怎麼用、多少人 對system而言，會先收到request，之後變成data，之後要io 所以system部分要問，做什麼、input&#x2F;output是、每秒處理多少request、希望處理多少資料、預期的讀、寫比例">
 <meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-01-07T15:27:53.000Z">
+<meta property="article:modified_time" content="2021-01-07T15:28:42.377Z">
 <meta property="article:author" content="zhengcf">
+<meta property="article:tag" content="system design">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://littlebees.github.io/tags/golang/">
+<link rel="canonical" href="https://littlebees.github.io/2021/01/system-design-primer-note2/">
 
 
 <script id="page-configurations">
@@ -39,12 +42,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-tw'
   };
 </script>
 
-  <title>Tag: golang | 記事本</title>
+  <title>system design primer筆記 設計流程與估算篇 | 記事本</title>
   
 
 
@@ -191,97 +194,181 @@
         <div class="content-wrap">
           
 
-          <div class="content tag">
+          <div class="content post posts-expand">
             
 
+    
   
   
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2021/01/system-design-primer-note2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhengcf">
+      <meta itemprop="description" content="想到什麼就寫什麼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="記事本">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          system design primer筆記 設計流程與估算篇
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-01-07 23:27:53 / Modified: 23:28:42" itemprop="dateCreated datePublished" datetime="2021-01-07T23:27:53+08:00">2021-01-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Survey/" itemprop="url" rel="index"><span itemprop="name">Survey</span></a>
+                </span>
+            </span>
+
+          
   
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">golang
-          <small>Tag</small>
-        </h2>
-      </div>
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2021/01/system-design-primer-note2/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/01/system-design-primer-note2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2020</span>
+        <h2 id="動機">動機</h2>
+<p>這次是設計流程與估算</p>
+<p>設計系統，要先做出評估與假設</p>
+<p>分成user與system</p>
+<p>user部分要問，誰會用、怎麼用、多少人</p>
+<p>對system而言，會先收到request，之後變成data，之後要io</p>
+<p>所以system部分要問，做什麼、input/output是、每秒處理多少request、希望處理多少資料、預期的讀、寫比例</p>
+<a id="more"></a>
+<h2 id="系統設計流程">系統設計流程</h2>
+<ol>
+<li>描述使用的場景、限制及假設</li>
+</ol>
+<ul>
+<li>user
+<ul>
+<li>誰會使用這個系統</li>
+<li>他們怎麼使用系統</li>
+<li>有多少使用者</li>
+</ul>
+</li>
+<li>system
+<ul>
+<li>系統的作用是什麼</li>
+<li>系統的輸入和輸出是什麼</li>
+<li>輸入
+<ul>
+<li>希望每秒處理多少請求
+<ul>
+<li>預期希望處理多少資料
+<ul>
+<li>預期的讀、寫比例為何</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>user*N == req*N ==&gt; (system :: read/write) == res ==&gt; user</code></li>
+</ul>
+<ol start="2">
+<li>建立一個高階的設計</li>
+</ol>
+<ul>
+<li>畫出主要的元件與其相互連接情況</li>
+</ul>
+<ol start="3">
+<li>設計核心的元件</li>
+</ol>
+<ul>
+<li>對每一個核心元件進行深入的分析 (要用什麼實作, SQL/NoSQL, schema, …)</li>
+</ul>
+<ol start="4">
+<li>評估你的設計</li>
+</ol>
+<ul>
+<li>確認及指出你的設計的瓶頸與限制</li>
+</ul>
+<h2 id="估算">估算</h2>
+<ul>
+<li>Read 1 MB sequentially from memory: 250 us</li>
+<li>Read 1 MB sequentially from SSD: 1,000 us,1 ms (~1GB/sec SSD, 4X memory)</li>
+<li>Read 1 MB sequentially from 1 Gbps: 10,000 us,10 ms (40x memory, 10X SSD)</li>
+<li>Read 1 MB sequentially from disk: 30,000 us,30 ms (120x memory, 30X SSD)</li>
+</ul>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-10-10T02:37:06+08:00"
-              content="2020-10-10">
-          10-10
-        </time>
-      </div>
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/system-design/" rel="tag"># system design</a>
+          </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/10/setup-go-admin/" itemprop="url">
-            <span itemprop="name">setup-go-admin</span>
-          </a>
-      </div>
+        
 
-    </header>
-  </article>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-09-19T17:03:28+08:00"
-              content="2020-09-19">
-          09-19
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/9/golang-db/" itemprop="url">
-            <span itemprop="name">golang的db操作</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-09-12T12:45:04+08:00"
-              content="2020-09-12">
-          09-12
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/9/go-first-step/" itemprop="url">
-            <span itemprop="name">初見golang</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/system-design-primer-note/" rel="prev" title="system design primer筆記 工具篇">
+      <i class="fa fa-chevron-left"></i> system design primer筆記 工具篇
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-  </div>
+      </footer>
+    
+  </article>
   
   
-  
-
   
 
 
 
           </div>
           
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -328,6 +415,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系統設計流程"><span class="nav-number">2.</span> <span class="nav-text">系統設計流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#估算"><span class="nav-number">3.</span> <span class="nav-text">估算</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -450,7 +538,7 @@
       quicklink({
         timeout : 1000,
         priority: true,
-        ignores : [uri => uri.includes('#'),uri => uri === 'https://littlebees.github.io/tags/golang/',]
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://littlebees.github.io/2021/01/system-design-primer-note2/',]
       });
       });
   </script>
@@ -464,6 +552,26 @@
   }
   // defer loading until the whole page loading is completed
   window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://littlebees.github.io/2021/01/system-design-primer-note2/";
+    this.page.identifier = "2021/01/system-design-primer-note2/";
+    this.page.title = "system design primer筆記 設計流程與估算篇";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://littlebee-2.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
 </script>
 
 </body>
