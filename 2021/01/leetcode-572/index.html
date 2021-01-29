@@ -21,22 +21,20 @@
     var CONFIG = {"hostname":"littlebees.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="動機 從 數量 或 距離">
+  <meta name="description" content="動機 比對到失智">
 <meta property="og:type" content="article">
-<meta property="og:title" content="leetcode-219">
-<meta property="og:url" content="https://littlebees.github.io/2021/01/leetcode-219/index.html">
+<meta property="og:title" content="leetcode-572">
+<meta property="og:url" content="https://littlebees.github.io/2021/01/leetcode-572/index.html">
 <meta property="og:site_name" content="記事本">
-<meta property="og:description" content="動機 從 數量 或 距離">
+<meta property="og:description" content="動機 比對到失智">
 <meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2021-01-17T16:39:59.000Z">
+<meta property="article:published_time" content="2021-01-29T19:17:56.000Z">
 <meta property="article:modified_time" content="2021-01-29T19:18:52.236Z">
 <meta property="article:author" content="zhengcf">
-<meta property="article:tag" content="interesting">
-<meta property="article:tag" content="hash">
-<meta property="article:tag" content="sliding window">
+<meta property="article:tag" content="tree">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://littlebees.github.io/2021/01/leetcode-219/">
+<link rel="canonical" href="https://littlebees.github.io/2021/01/leetcode-572/">
 
 
 <script id="page-configurations">
@@ -49,7 +47,7 @@
   };
 </script>
 
-  <title>leetcode-219 | 記事本</title>
+  <title>leetcode-572 | 記事本</title>
   
 
 
@@ -208,7 +206,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2021/01/leetcode-219/">
+    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2021/01/leetcode-572/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -221,7 +219,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          leetcode-219
+          leetcode-572
         </h1>
 
         <div class="post-meta">
@@ -230,16 +228,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2021-01-18 00:39:59" itemprop="dateCreated datePublished" datetime="2021-01-18T00:39:59+08:00">2021-01-18</time>
+              <time title="Created: 2021-01-30 03:17:56 / Modified: 03:18:52" itemprop="dateCreated datePublished" datetime="2021-01-30T03:17:56+08:00">2021-01-30</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-30 03:18:52" itemprop="dateModified" datetime="2021-01-30T03:18:52+08:00">2021-01-30</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -259,8 +251,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/2021/01/leetcode-219/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/01/leetcode-219/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2021/01/leetcode-572/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/01/leetcode-572/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -276,14 +268,30 @@
 
       
         <h2 id="動機">動機</h2>
-<p>從 <strong>數量</strong> 或 <strong>距離</strong></p>
+<p>比對到失智</p>
 <a id="more"></a>
-<h2 id="Sol-數量">Sol: 數量</h2>
-<p>用hash把一個範圍內的所有數字做統計</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(self,i)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> any([self.ns[i] == self.ns[j] <span class="keyword">for</span> j <span class="keyword">in</span> range(i+<span class="number">1</span>,min(i+self.k+<span class="number">1</span>,len(self.ns)))])</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">containsNearbyDuplicate</span><span class="params">(self, nums: List[int], k: int)</span> -&gt; bool:</span></span><br><span class="line">        self.ns = nums</span><br><span class="line">        self.k = k</span><br><span class="line">        tbl = Counter(nums[:k+<span class="number">1</span>])</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">            <span class="comment">#print("before",tbl)</span></span><br><span class="line">            <span class="keyword">if</span> tbl.get(nums[i],<span class="number">0</span>) &gt; <span class="number">1</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            <span class="keyword">if</span> nums[i] <span class="keyword">in</span> tbl <span class="keyword">and</span> tbl[nums[i]] &gt; <span class="number">0</span>:</span><br><span class="line">                tbl[nums[i]] -= <span class="number">1</span></span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> i+k+<span class="number">1</span> &lt; len(nums):</span><br><span class="line">                tbl[nums[i+k+<span class="number">1</span>]] = tbl.get(nums[i+k+<span class="number">1</span>],<span class="number">0</span>)+<span class="number">1</span></span><br><span class="line">            <span class="comment">#print("after",tbl)</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
-<h2 id="Case-study-距離">Case study: 距離</h2>
-<p>用hash把數字的index記錄下來，等下次遇到時算距離</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">containsNearbyDuplicate</span><span class="params">(self, nums: List[int], k: int)</span> -&gt; bool:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> nums: <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        counts = &#123;&#125;</span><br><span class="line">        <span class="keyword">for</span> i,n <span class="keyword">in</span> enumerate(nums):</span><br><span class="line">            <span class="keyword">if</span> n <span class="keyword">in</span> counts <span class="keyword">and</span> i-counts[n] &lt;= k:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                counts[n] = i</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+<h2 id="Sol-WA">Sol: WA</h2>
+<p>一開始想著把</p>
+<ul>
+<li>比對</li>
+<li>走訪</li>
+</ul>
+<p>一起做完，最後就悲劇了，比對要一次比對完，不然比對的對象會被拆掉，像</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[3,4,5,1,null,2]</span><br><span class="line">[3,1,2]</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isSubtree</span><span class="params">(self, s: TreeNode, t: TreeNode)</span> -&gt; bool:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> t <span class="keyword">and</span> <span class="keyword">not</span> s:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">elif</span> <span class="keyword">not</span> t <span class="keyword">or</span> <span class="keyword">not</span> s:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            ret = self.isSubtree(s.left,t) <span class="keyword">or</span> self.isSubtree(s.right,t)</span><br><span class="line">            <span class="keyword">if</span> s.val == t.val:</span><br><span class="line">                ret = ret <span class="keyword">or</span> self.isSubtree(s.left,t.left) <span class="keyword">and</span> self.isSubtree(s.right,t.right)</span><br><span class="line">            <span class="keyword">return</span> ret</span><br></pre></td></tr></table></figure>
+<h2 id="Sol-recursion">Sol: recursion</h2>
+<p>把</p>
+<ul>
+<li>比對</li>
+<li>走訪</li>
+</ul>
+<p>拆掉就沒事了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="comment"># dont integrate two recursion into one</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">equal</span><span class="params">(self,s,t)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> t <span class="keyword">and</span> <span class="keyword">not</span> s:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">elif</span> <span class="keyword">not</span> t <span class="keyword">or</span> <span class="keyword">not</span> s:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> s.val == t.val <span class="keyword">and</span> self.equal(s.left,t.left) <span class="keyword">and</span> self.equal(s.right,t.right)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(self,s,t)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> s:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> self.equal(s,t) <span class="keyword">or</span> self.f(s.left,t) <span class="keyword">or</span> self.f(s.right,t)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isSubtree</span><span class="params">(self, s: TreeNode, t: TreeNode)</span> -&gt; bool:</span></span><br><span class="line">        <span class="keyword">return</span> self.f(s,t)</span><br></pre></td></tr></table></figure>
+<h2 id="Sol-preorder">Sol: preorder</h2>
+<p>走preorder找substring，不過要注意像</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[12,1]</span><br><span class="line">[2,1]</span><br></pre></td></tr></table></figure>
+<p>這種，要加個符號區分點與點</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="comment"># dont integrate two recursion into one</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pre</span><span class="params">(self,s,t)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> s:</span><br><span class="line">            t.append(<span class="string">'y'</span>)</span><br><span class="line">            <span class="keyword">return</span> t</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            t.append(<span class="string">"x"</span>+str(s.val))</span><br><span class="line">            <span class="keyword">return</span> self.pre(s.right,self.pre(s.left,t))</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isSubtree</span><span class="params">(self, s: TreeNode, t: TreeNode)</span> -&gt; bool:</span></span><br><span class="line">        s = self.pre(s,[])</span><br><span class="line">        t = self.pre(t,[])</span><br><span class="line">        print(s,t)</span><br><span class="line">        s = <span class="string">','</span>.join(s)</span><br><span class="line">        t = <span class="string">','</span>.join(t)</span><br><span class="line">        print(s,<span class="string">"::"</span>,t)</span><br><span class="line">        <span class="keyword">return</span> t <span class="keyword">in</span> s</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -292,9 +300,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/interesting/" rel="tag"># interesting</a>
-              <a href="/tags/hash/" rel="tag"># hash</a>
-              <a href="/tags/sliding-window/" rel="tag"># sliding window</a>
+              <a href="/tags/tree/" rel="tag"># tree</a>
           </div>
 
         
@@ -303,13 +309,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/01/leetcode-384/" rel="prev" title="leetcode-384">
-      <i class="fa fa-chevron-left"></i> leetcode-384
+    <a href="/2021/01/leetcode-448/" rel="prev" title="leetcode-448">
+      <i class="fa fa-chevron-left"></i> leetcode-448
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2021/01/leetcode-454/" rel="next" title="leetcode-454">
-      leetcode-454 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -375,7 +378,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-數量"><span class="nav-number">2.</span> <span class="nav-text">Sol: 數量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Case-study-距離"><span class="nav-number">3.</span> <span class="nav-text">Case study: 距離</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-WA"><span class="nav-number">2.</span> <span class="nav-text">Sol: WA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-recursion"><span class="nav-number">3.</span> <span class="nav-text">Sol: recursion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-preorder"><span class="nav-number">4.</span> <span class="nav-text">Sol: preorder</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -498,7 +501,7 @@
       quicklink({
         timeout : 1000,
         priority: true,
-        ignores : [uri => uri.includes('#'),uri => uri === 'https://littlebees.github.io/2021/01/leetcode-219/',]
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://littlebees.github.io/2021/01/leetcode-572/',]
       });
       });
   </script>
@@ -515,9 +518,9 @@
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://littlebees.github.io/2021/01/leetcode-219/";
-    this.page.identifier = "2021/01/leetcode-219/";
-    this.page.title = "leetcode-219";
+    this.page.url = "https://littlebees.github.io/2021/01/leetcode-572/";
+    this.page.identifier = "2021/01/leetcode-572/";
+    this.page.title = "leetcode-572";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {
