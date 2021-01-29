@@ -21,21 +21,20 @@
     var CONFIG = {"hostname":"littlebees.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="動機 有用到就記著">
+  <meta name="description" content="動機 當初想用處理interval的老套路，stack去做，一直gg 直到看解答才發現，原來這麼簡單">
 <meta property="og:type" content="article">
-<meta property="og:title" content="procd-turoial">
-<meta property="og:url" content="https://littlebees.github.io/2020/9/procd-turoial/index.html">
+<meta property="og:title" content="leetcode-435">
+<meta property="og:url" content="https://littlebees.github.io/2021/01/leetcode-435/index.html">
 <meta property="og:site_name" content="記事本">
-<meta property="og:description" content="動機 有用到就記著">
+<meta property="og:description" content="動機 當初想用處理interval的老套路，stack去做，一直gg 直到看解答才發現，原來這麼簡單">
 <meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2020-09-12T18:21:25.000Z">
+<meta property="article:published_time" content="2021-01-29T15:30:54.000Z">
 <meta property="article:modified_time" content="2021-01-29T15:31:48.716Z">
 <meta property="article:author" content="zhengcf">
-<meta property="article:tag" content="bash">
-<meta property="article:tag" content="procd">
+<meta property="article:tag" content="interval">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://littlebees.github.io/2020/9/procd-turoial/">
+<link rel="canonical" href="https://littlebees.github.io/2021/01/leetcode-435/">
 
 
 <script id="page-configurations">
@@ -48,7 +47,7 @@
   };
 </script>
 
-  <title>procd-turoial | 記事本</title>
+  <title>leetcode-435 | 記事本</title>
   
 
 
@@ -207,7 +206,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2020/9/procd-turoial/">
+    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2021/01/leetcode-435/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -220,7 +219,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          procd-turoial
+          leetcode-435
         </h1>
 
         <div class="post-meta">
@@ -229,23 +228,17 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2020-09-13 02:21:25" itemprop="dateCreated datePublished" datetime="2020-09-13T02:21:25+08:00">2020-09-13</time>
+              <time title="Created: 2021-01-29 23:30:54 / Modified: 23:31:48" itemprop="dateCreated datePublished" datetime="2021-01-29T23:30:54+08:00">2021-01-29</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-29 23:31:48" itemprop="dateModified" datetime="2021-01-29T23:31:48+08:00">2021-01-29</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Survey/" itemprop="url" rel="index"><span itemprop="name">Survey</span></a>
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
                 </span>
             </span>
 
@@ -258,8 +251,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/2020/9/procd-turoial/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/9/procd-turoial/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2021/01/leetcode-435/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/01/leetcode-435/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -275,24 +268,18 @@
 
       
         <h2 id="動機">動機</h2>
-<p>有用到就記著</p>
+<p>當初想用處理interval的老套路，stack去做，一直gg<br>
+直到看解答才發現，原來這麼簡單</p>
 <a id="more"></a>
-<h2 id="procd-script">procd script</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/sh /etc/rc.common</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 決定執行服務的順序</span></span><br><span class="line">START=90 <span class="comment"># /etc/rc.d/S90#&#123;SERVICE&#125; =&gt; /etc/rc.d/S90app</span></span><br><span class="line">STOP=90 <span class="comment"># /etc/rc.d/K90#&#123;SERVICE&#125; =&gt; /etc/rc.d/K90app</span></span><br><span class="line">SERVICE=app</span><br><span class="line"></span><br><span class="line">EXTRA_COMMANDS=<span class="string">"custom"</span></span><br><span class="line">EXTRA_HELP=<span class="string">"        custom  Help for the custom command"</span></span><br><span class="line"> </span><br><span class="line">USE_PROCD=1</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">custom</span></span>() &#123;</span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"custom command"</span></span><br><span class="line">        <span class="comment"># do your custom stuff</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">start_service() </span><br><span class="line">&#123;</span><br><span class="line">	procd_open_instance</span><br><span class="line">	procd_set_param <span class="built_in">command</span> /usr/sbin/app</span><br><span class="line">	procd_append_param <span class="built_in">command</span> -bar 42 <span class="comment"># append command parameters</span></span><br><span class="line"></span><br><span class="line">	<span class="comment"># respawn automatically if something died, be careful if you have an alternative process supervisor</span></span><br><span class="line">	<span class="comment"># if process dies sooner than respawn_threshold, it is considered crashed and after 5 retries the service is stopped</span></span><br><span class="line">	procd_set_param respawn <span class="variable">$&#123;respawn_threshold:-3600&#125;</span> <span class="variable">$&#123;respawn_timeout:-5&#125;</span> <span class="variable">$&#123;respawn_retry:-5&#125;</span></span><br><span class="line"></span><br><span class="line">	procd_set_param env SOME_VARIABLE=funtimes  <span class="comment"># pass environment variables to your process</span></span><br><span class="line">	procd_set_param limits core=<span class="string">"unlimited"</span>  <span class="comment"># If you need to set ulimit for your process</span></span><br><span class="line">	procd_set_param file /var/etc/your_service.conf <span class="comment"># /etc/init.d/your_service reload will restart the daemon if these files have changed</span></span><br><span class="line">	procd_set_param netdev dev <span class="comment"># likewise, except if dev's ifindex changes.</span></span><br><span class="line">	procd_set_param data name=value ... <span class="comment"># likewise, except if this data changes.</span></span><br><span class="line">	procd_set_param stdout 1 <span class="comment"># forward stdout of the command to logd</span></span><br><span class="line">	procd_set_param stderr 1 <span class="comment"># same for stderr</span></span><br><span class="line">	procd_set_param user nobody <span class="comment"># run service as user nobody</span></span><br><span class="line">	procd_set_param pidfile /var/run/somefile.pid <span class="comment"># write a pid file on instance start and remote it on stop</span></span><br><span class="line">	procd_close_instance</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">service_triggers()</span><br><span class="line">&#123;</span><br><span class="line">    procd_add_reload_trigger <span class="string">"config_file_name"</span> <span class="comment"># 當/etc/config/config_file_name 的MD5變的時候，就會reload</span></span><br><span class="line">    procd_add_reload_trigger <span class="string">"uci-file-name"</span> <span class="string">"second-uci-file"</span></span><br><span class="line">    procd_add_network_trigger <span class="string">"lan"</span>|<span class="string">"etho0"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">reload_service() </span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment"># when /etc/init.d/service restart invokes, this callback will be triggered</span></span><br><span class="line">	procd_send_signal service_name [instance_name] [signal]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">stop_service() </span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment"># when /etc/init.d/service stop invokes, this callback will be triggered</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="procd-basic-command">procd basic command</h2>
+<h2 id="Sol">Sol</h2>
 <ul>
-<li>start   Start the service</li>
-<li>stop    Stop the service</li>
-<li>restart Restart the service</li>
-<li>reload  Reload configuration files (or restart if that fails)</li>
-<li>enable  Enable service autostart</li>
-<li>disable Disable service autostart</li>
+<li>如果有overlap就一定會刪一個
+<ul>
+<li>刪end最大的那一個</li>
 </ul>
-<h2 id="Ref">Ref</h2>
-<p><span class="exturl" data-url="aHR0cHM6Ly9vcGVud3J0Lm9yZy9kb2NzL3RlY2hyZWYvaW5pdHNjcmlwdHM=">offical doc<i class="fa fa-external-link-alt"></i></span><br>
-<span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dkc2Z1cC9hcnRpY2xlL2RldGFpbHMvNzA3NzAzMTk=">procd tutorial1<i class="fa fa-external-link-alt"></i></span><br>
-<span class="exturl" data-url="aHR0cHM6Ly9vbGR3aWtpLmFyY2hpdmUub3BlbndydC5vcmcvaW5ib3gvcHJvY2QtaW5pdC1zY3JpcHRz">procd tutorial2<i class="fa fa-external-link-alt"></i></span></p>
-
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">eraseOverlapIntervals</span><span class="params">(self, ins: List[List[int]])</span> -&gt; int:</span></span><br><span class="line">        ins.sort(key=<span class="keyword">lambda</span> x: x[<span class="number">0</span>])</span><br><span class="line">        </span><br><span class="line">        ret = <span class="number">0</span></span><br><span class="line">        last = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,len(ins)):</span><br><span class="line">            <span class="keyword">if</span> ins[i][<span class="number">0</span>] &lt; ins[last][<span class="number">1</span>]:</span><br><span class="line">                ret += <span class="number">1</span></span><br><span class="line">                <span class="keyword">if</span> ins[i][<span class="number">1</span>] &lt; ins[last][<span class="number">1</span>]:</span><br><span class="line">                    last = i</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                last = i</span><br><span class="line">        <span class="keyword">return</span> ret</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -301,8 +288,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/bash/" rel="tag"># bash</a>
-              <a href="/tags/procd/" rel="tag"># procd</a>
+              <a href="/tags/interval/" rel="tag"># interval</a>
           </div>
 
         
@@ -311,13 +297,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/9/pthread-cond-var/" rel="prev" title="奇聞軼事 - condition variable">
-      <i class="fa fa-chevron-left"></i> 奇聞軼事 - condition variable
+    <a href="/2021/01/leetcode-127/" rel="prev" title="leetcode-127">
+      <i class="fa fa-chevron-left"></i> leetcode-127
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/9/golang-db/" rel="next" title="golang的db操作">
-      golang的db操作 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -383,7 +366,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#procd-script"><span class="nav-number">2.</span> <span class="nav-text">procd script</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#procd-basic-command"><span class="nav-number">3.</span> <span class="nav-text">procd basic command</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">4.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol"><span class="nav-number">2.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -506,7 +489,7 @@
       quicklink({
         timeout : 1000,
         priority: true,
-        ignores : [uri => uri.includes('#'),uri => uri === 'https://littlebees.github.io/2020/9/procd-turoial/',]
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://littlebees.github.io/2021/01/leetcode-435/',]
       });
       });
   </script>
@@ -523,9 +506,9 @@
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://littlebees.github.io/2020/9/procd-turoial/";
-    this.page.identifier = "2020/9/procd-turoial/";
-    this.page.title = "procd-turoial";
+    this.page.url = "https://littlebees.github.io/2021/01/leetcode-435/";
+    this.page.identifier = "2021/01/leetcode-435/";
+    this.page.title = "leetcode-435";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {
