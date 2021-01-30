@@ -21,20 +21,21 @@
     var CONFIG = {"hostname":"littlebees.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="動機 同樣的點好可怕">
+  <meta name="description" content="動機 看到greedy解後恍然大悟">
 <meta property="og:type" content="article">
-<meta property="og:title" content="leetcode-149">
-<meta property="og:url" content="https://littlebees.github.io/2021/01/leetcode-149/index.html">
+<meta property="og:title" content="leetcode-763">
+<meta property="og:url" content="https://littlebees.github.io/2021/01/leetcode-763/index.html">
 <meta property="og:site_name" content="記事本">
-<meta property="og:description" content="動機 同樣的點好可怕">
+<meta property="og:description" content="動機 看到greedy解後恍然大悟">
 <meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2021-01-30T06:14:46.000Z">
+<meta property="article:published_time" content="2021-01-30T16:55:22.000Z">
 <meta property="article:modified_time" content="2021-01-30T16:56:03.355Z">
 <meta property="article:author" content="zhengcf">
-<meta property="article:tag" content="adhoc">
+<meta property="article:tag" content="stack">
+<meta property="article:tag" content="greedy">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://littlebees.github.io/2021/01/leetcode-149/">
+<link rel="canonical" href="https://littlebees.github.io/2021/01/leetcode-763/">
 
 
 <script id="page-configurations">
@@ -47,7 +48,7 @@
   };
 </script>
 
-  <title>leetcode-149 | 記事本</title>
+  <title>leetcode-763 | 記事本</title>
   
 
 
@@ -206,7 +207,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2021/01/leetcode-149/">
+    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2021/01/leetcode-763/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -219,7 +220,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          leetcode-149
+          leetcode-763
         </h1>
 
         <div class="post-meta">
@@ -228,16 +229,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2021-01-30 14:14:46" itemprop="dateCreated datePublished" datetime="2021-01-30T14:14:46+08:00">2021-01-30</time>
+              <time title="Created: 2021-01-31 00:55:22 / Modified: 00:56:03" itemprop="dateCreated datePublished" datetime="2021-01-31T00:55:22+08:00">2021-01-31</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-31 00:56:03" itemprop="dateModified" datetime="2021-01-31T00:56:03+08:00">2021-01-31</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -257,8 +252,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/2021/01/leetcode-149/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/01/leetcode-149/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2021/01/leetcode-763/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/01/leetcode-763/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -274,17 +269,14 @@
 
       
         <h2 id="動機">動機</h2>
-<p>同樣的點好可怕</p>
+<p>看到greedy解後恍然大悟</p>
 <a id="more"></a>
-<h2 id="Sol">Sol</h2>
-<p>先依照x與y軸排序，再從每個點去看所有右手邊的點，統計所有斜率</p>
-<p>這裡有兩個重點</p>
-<ul>
-<li>斜率不能用float存，不然可能算出來會不一樣，所以要用pair</li>
-<li><strong>看所有右手邊的點</strong>還是會重疊，所以每次看完要去更新大表看有沒有比他多</li>
-</ul>
-<p>還有一個很可怕的，同樣的點可以出現很多次，所以在計算斜率有多少點時，要加上這個點出現的次數</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxPoints</span><span class="params">(self, points: List[List[int]])</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> len(points) &lt;= <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> len(points)</span><br><span class="line">        </span><br><span class="line">        points = [(p[<span class="number">0</span>],p[<span class="number">1</span>]) <span class="keyword">for</span> p <span class="keyword">in</span> points]</span><br><span class="line">        points = Counter(points)</span><br><span class="line">        global_cnt = &#123;<span class="literal">None</span>: max(points.values())&#125;</span><br><span class="line">        ps = list(points.keys())</span><br><span class="line">        ps.sort(key=<span class="keyword">lambda</span> x: (x[<span class="number">0</span>],x[<span class="number">1</span>]))</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(ps)):</span><br><span class="line">            local_cnt = &#123;&#125;</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(i+<span class="number">1</span>,len(ps)):</span><br><span class="line">                a, b = ps[j][<span class="number">1</span>]-ps[i][<span class="number">1</span>], ps[j][<span class="number">0</span>]-ps[i][<span class="number">0</span>]</span><br><span class="line">                c = max(<span class="number">1</span>,math.gcd(abs(a),abs(b)))</span><br><span class="line">                slope = (a//c, b//c)</span><br><span class="line">                <span class="keyword">if</span> slope <span class="keyword">not</span> <span class="keyword">in</span> local_cnt:</span><br><span class="line">                    local_cnt[slope] = points[ps[j]]</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    local_cnt[slope] += points[ps[j]]</span><br><span class="line">                <span class="comment">#print((a//c, b//c), ps[i], ps[j])</span></span><br><span class="line">            <span class="keyword">for</span> k <span class="keyword">in</span> local_cnt:</span><br><span class="line">                global_cnt[k] = max(global_cnt.get(k,<span class="number">0</span>), local_cnt[k]+ points[ps[i]]) </span><br><span class="line">        <span class="comment">#print(global_cnt)</span></span><br><span class="line">        <span class="keyword">return</span> max(global_cnt.values())</span><br></pre></td></tr></table></figure>
+<h2 id="Sol-stack">Sol: stack</h2>
+<p>把每個字元當成一個一個區塊，如果stack中有出現過的字元就做interval merge</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">partitionLabels</span><span class="params">(self, S: str)</span> -&gt; List[int]:</span></span><br><span class="line">        stk = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(S)):</span><br><span class="line">            j = len(stk)<span class="number">-1</span></span><br><span class="line">            <span class="keyword">while</span> j &gt;= <span class="number">0</span> <span class="keyword">and</span> S[i] <span class="keyword">not</span> <span class="keyword">in</span> stk[j][<span class="number">1</span>]:</span><br><span class="line">                j -= <span class="number">1</span></span><br><span class="line">                </span><br><span class="line">            <span class="keyword">if</span> j &lt; <span class="number">0</span>:</span><br><span class="line">                stk.append([<span class="number">1</span>,set([S[i]])])</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">for</span> _ <span class="keyword">in</span> range(len(stk)-j<span class="number">-1</span>):</span><br><span class="line">                    tmp = stk.pop()</span><br><span class="line">                    stk[<span class="number">-1</span>][<span class="number">0</span>] += tmp[<span class="number">0</span>]</span><br><span class="line">                    stk[<span class="number">-1</span>][<span class="number">1</span>] = stk[<span class="number">-1</span>][<span class="number">1</span>] | tmp[<span class="number">1</span>]</span><br><span class="line">                stk[<span class="number">-1</span>][<span class="number">0</span>] += <span class="number">1</span></span><br><span class="line">            <span class="comment">#print(stk,S[:i+1])</span></span><br><span class="line">        <span class="keyword">return</span> [seg[<span class="number">0</span>] <span class="keyword">for</span> seg <span class="keyword">in</span> stk]</span><br></pre></td></tr></table></figure>
+<h2 id="Sol2-greedy">Sol2: greedy</h2>
+<p>如果能知道每個字元的最後位置(hash)，就能知道這個區塊的最後位置!!</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">partitionLabels</span><span class="params">(self, S)</span>:</span></span><br><span class="line">        last = &#123;c: i <span class="keyword">for</span> i, c <span class="keyword">in</span> enumerate(S)&#125;</span><br><span class="line">        end = start = <span class="number">0</span></span><br><span class="line">        ans = []</span><br><span class="line">        <span class="keyword">for</span> i, c <span class="keyword">in</span> enumerate(S):</span><br><span class="line">            end = max(end, last[c])</span><br><span class="line">            <span class="keyword">if</span> i == end:</span><br><span class="line">                ans.append(i - start + <span class="number">1</span>)</span><br><span class="line">                start = i + <span class="number">1</span></span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -293,7 +285,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/adhoc/" rel="tag"># adhoc</a>
+              <a href="/tags/stack/" rel="tag"># stack</a>
+              <a href="/tags/greedy/" rel="tag"># greedy</a>
           </div>
 
         
@@ -302,13 +295,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/01/leetcode-297/" rel="prev" title="leetcode-297">
-      <i class="fa fa-chevron-left"></i> leetcode-297
+    <a href="/2021/01/leetcode-581/" rel="prev" title="leetcode-581">
+      <i class="fa fa-chevron-left"></i> leetcode-581
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2021/01/leetcode-416/" rel="next" title="leetcode-416">
-      leetcode-416 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -374,7 +364,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol"><span class="nav-number">2.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-stack"><span class="nav-number">2.</span> <span class="nav-text">Sol: stack</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol2-greedy"><span class="nav-number">3.</span> <span class="nav-text">Sol2: greedy</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -497,7 +487,7 @@
       quicklink({
         timeout : 1000,
         priority: true,
-        ignores : [uri => uri.includes('#'),uri => uri === 'https://littlebees.github.io/2021/01/leetcode-149/',]
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://littlebees.github.io/2021/01/leetcode-763/',]
       });
       });
   </script>
@@ -514,9 +504,9 @@
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://littlebees.github.io/2021/01/leetcode-149/";
-    this.page.identifier = "2021/01/leetcode-149/";
-    this.page.title = "leetcode-149";
+    this.page.url = "https://littlebees.github.io/2021/01/leetcode-763/";
+    this.page.identifier = "2021/01/leetcode-763/";
+    this.page.title = "leetcode-763";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {

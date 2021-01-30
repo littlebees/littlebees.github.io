@@ -202,6 +202,113 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2020/5/block-nonblock-sync-async/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhengcf">
+      <meta itemprop="description" content="想到什麼就寫什麼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="記事本">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/5/block-nonblock-sync-async/" class="post-title-link" itemprop="url">block-nonblock-sync-async</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-05-04 23:58:14" itemprop="dateCreated datePublished" datetime="2020-05-04T23:58:14+08:00">2020-05-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-01-31 00:56:03" itemprop="dateModified" datetime="2021-01-31T00:56:03+08:00">2021-01-31</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Survey/" itemprop="url" rel="index"><span itemprop="name">Survey</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2020/5/block-nonblock-sync-async/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/5/block-nonblock-sync-async/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="caller-block-nonblock">caller: block &amp; nonblock</h2>
+<p>caller會等 =&gt; block<br>
+caller不等 =&gt; nonblock (所以要自己時不是去確認好了沒，或是，callee通知)</p>
+<h2 id="return-val-sync-async">return val: sync &amp; async</h2>
+<p>調用後會拿到<br>
+sync: 我們想要的資料<br>
+async: 類似raincheck的東西，也許馬上，也許要一段時間後，才會拿到我們想要的資料</p>
+<h2 id="比較圖">比較圖</h2>
+<p><img src="https://i.imgur.com/bksJ3NL.jpg" alt="來自java nio 的比較圖"></p>
+<h2 id="AJAX">AJAX</h2>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> httpRequest = httpRequest = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line"></span><br><span class="line">httpRequest.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 等狀態變成請求完成狀態</span></span><br><span class="line">    <span class="keyword">if</span> (httpRequest.readyState === <span class="number">4</span> &amp;&amp; httpRequest.status == <span class="number">200</span>) &#123;</span><br><span class="line">        httpRequest.responseText</span><br><span class="line">    &#125;</span><br><span class="line">    alert(<span class="string">`ERROR - server status code: <span class="subst">$&#123;httpRequest.status&#125;</span> xdr status: <span class="subst">$&#123;httpRequest.readyState&#125;</span>`</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">httpRequest.open(<span class="string">'GET'</span>, <span class="string">'/api/get_something'</span>);</span><br><span class="line">httpRequest.send(<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line">httpRequest.open(<span class="string">'POST'</span>, <span class="string">'/api/test.php'</span>);</span><br><span class="line">httpRequest.setRequestHeader(<span class="string">'Content-Type'</span>, <span class="string">'application/x-www-form-urlencoded'</span>); <span class="comment">// 注意CORS</span></span><br><span class="line">httpRequest.send(<span class="string">`name=value&amp;anothername=<span class="subst">$&#123;<span class="built_in">encodeURIComponent</span>(myVar)&#125;</span>&amp;so=on`</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="fetch-API">fetch API</h2>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">postData</span>(<span class="params">url, data</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// Default options are marked with *</span></span><br><span class="line">  <span class="keyword">return</span> fetch(url, &#123;</span><br><span class="line">    body: <span class="built_in">JSON</span>.stringify(data), <span class="comment">// must match 'Content-Type' header, and data can be `string` or &#123;object&#125;!</span></span><br><span class="line">    cache: <span class="string">'no-cache'</span>, <span class="comment">// *default, no-cache, reload, force-cache, only-if-cached</span></span><br><span class="line">    credentials: <span class="string">'same-origin'</span>, <span class="comment">// include, same-origin, *omit</span></span><br><span class="line">    headers: &#123;</span><br><span class="line">      <span class="string">'user-agent'</span>: <span class="string">'Mozilla/4.0 MDN Example'</span>,</span><br><span class="line">      <span class="string">'content-type'</span>: <span class="string">'application/json'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    method: <span class="string">'POST'</span>, <span class="comment">// *GET, POST, PUT, DELETE, etc.</span></span><br><span class="line">    mode: <span class="string">'cors'</span>, <span class="comment">// no-cors, cors, *same-origin</span></span><br><span class="line">    redirect: <span class="string">'follow'</span>, <span class="comment">// manual, *follow, error</span></span><br><span class="line">    referrer: <span class="string">'no-referrer'</span>, <span class="comment">// *client, no-referrer</span></span><br><span class="line">    credentials: <span class="string">'omit'</span>, <span class="comment">// same-origin, include</span></span><br><span class="line">  &#125;)</span><br><span class="line">  .then(<span class="function"><span class="params">response</span> =&gt;</span> response.json()) <span class="comment">// 輸出成 json</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/5/block-nonblock-sync-async/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
     <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2020/5/css-z-index-position/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -233,7 +340,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-31 00:39:23" itemprop="dateModified" datetime="2021-01-31T00:39:23+08:00">2021-01-31</time>
+                <time title="Modified: 2021-01-31 00:56:03" itemprop="dateModified" datetime="2021-01-31T00:56:03+08:00">2021-01-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -343,7 +450,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-31 00:39:23" itemprop="dateModified" datetime="2021-01-31T00:39:23+08:00">2021-01-31</time>
+                <time title="Modified: 2021-01-31 00:56:03" itemprop="dateModified" datetime="2021-01-31T00:56:03+08:00">2021-01-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -459,7 +566,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-31 00:39:23" itemprop="dateModified" datetime="2021-01-31T00:39:23+08:00">2021-01-31</time>
+                <time title="Modified: 2021-01-31 00:56:03" itemprop="dateModified" datetime="2021-01-31T00:56:03+08:00">2021-01-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -565,7 +672,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-31 00:39:23" itemprop="dateModified" datetime="2021-01-31T00:39:23+08:00">2021-01-31</time>
+                <time title="Modified: 2021-01-31 00:56:03" itemprop="dateModified" datetime="2021-01-31T00:56:03+08:00">2021-01-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -669,7 +776,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-31 00:39:23" itemprop="dateModified" datetime="2021-01-31T00:39:23+08:00">2021-01-31</time>
+                <time title="Modified: 2021-01-31 00:56:03" itemprop="dateModified" datetime="2021-01-31T00:56:03+08:00">2021-01-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -781,7 +888,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-31 00:39:23" itemprop="dateModified" datetime="2021-01-31T00:39:23+08:00">2021-01-31</time>
+                <time title="Modified: 2021-01-31 00:56:03" itemprop="dateModified" datetime="2021-01-31T00:56:03+08:00">2021-01-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -890,7 +997,7 @@ A: 保證人能找到更強的保證人來擔保</p>
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-31 00:39:23" itemprop="dateModified" datetime="2021-01-31T00:39:23+08:00">2021-01-31</time>
+                <time title="Modified: 2021-01-31 00:56:03" itemprop="dateModified" datetime="2021-01-31T00:56:03+08:00">2021-01-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -996,7 +1103,7 @@ A: 保證人能找到更強的保證人來擔保</p>
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-31 00:39:23" itemprop="dateModified" datetime="2021-01-31T00:39:23+08:00">2021-01-31</time>
+                <time title="Modified: 2021-01-31 00:56:03" itemprop="dateModified" datetime="2021-01-31T00:56:03+08:00">2021-01-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1091,7 +1198,7 @@ A: 保證人能找到更強的保證人來擔保</p>
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-31 00:39:23" itemprop="dateModified" datetime="2021-01-31T00:39:23+08:00">2021-01-31</time>
+                <time title="Modified: 2021-01-31 00:56:03" itemprop="dateModified" datetime="2021-01-31T00:56:03+08:00">2021-01-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1141,129 +1248,6 @@ A: 保證人能找到更強的保證人來擔保</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/4/js-concepts/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2020/4/boys-BL/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="zhengcf">
-      <meta itemprop="description" content="想到什麼就寫什麼">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="記事本">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/4/boys-BL/" class="post-title-link" itemprop="url">爺們的BL：閃亮腐海就讓宅宅大叔帶你探索 讀後筆記</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-04-19 00:05:02" itemprop="dateCreated datePublished" datetime="2020-04-19T00:05:02+08:00">2020-04-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-31 00:39:23" itemprop="dateModified" datetime="2021-01-31T00:39:23+08:00">2021-01-31</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Reading/" itemprop="url" rel="index"><span itemprop="name">Reading</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2020/4/boys-BL/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/4/boys-BL/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="看到鉛筆與橡皮擦，你會想到什麼">看到鉛筆與橡皮擦，你會想到什麼</h2>
-<h3 id="BL腦補的兩個必要條件">BL腦補的兩個必要條件</h3>
-<ol>
-<li>將兩個角色(擬人化的也算)的關係解釋成戀愛關係</li>
-<li>兩者必須都是男性角色</li>
-</ol>
-<h3 id="BL腦補的作法">BL腦補的作法</h3>
-<ol>
-<li>先對角色性格的解釋進行補充修正 (哪方比較有男子氣概)</li>
-<li>構築兩者之間的關係 (他們如何看待彼此)
-<ul>
-<li>以此決定哪一方在精神上佔有優勢</li>
-<li>哪一方處於接受的立場</li>
-<li>被動的一方是單純的接受，還是想像成有包容力等</li>
-</ul>
-</li>
-</ol>
-<h3 id="BL腦補的開始">BL腦補的開始</h3>
-<ol>
-<li>誰在精神上佔優勢</li>
-<li>實在戀愛時佔上風</li>
-<li>誰有哪種自卑情結</li>
-<li>如何【注意】對方</li>
-</ol>
-<h2 id="BL-Yaoi-的定義">BL &amp; Yaoi 的定義</h2>
-<p>BL: 描繪男性之間戀愛的原創作品<br>
-Yaoi: 將原創作品中的角色關係解讀為戀愛關係的心理活動或創作活動</p>
-<p>Yaoi的魅力: 自己從作品中找出萌角<br>
-BL則是對象與想像都具體呈現在眼前</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/4/boys-BL/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -1352,7 +1336,7 @@ BL則是對象與想像都具體呈現在眼前</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">202</span>
+          <span class="site-state-item-count">203</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
