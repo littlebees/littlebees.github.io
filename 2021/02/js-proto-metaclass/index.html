@@ -23,13 +23,13 @@
 
   <meta name="description" content="動機 之前在看js的proto時，突然想起之前看的metaclass">
 <meta property="og:type" content="article">
-<meta property="og:title" content="js-proto-metaclass">
+<meta property="og:title" content="js的proto與metaclass">
 <meta property="og:url" content="https://littlebees.github.io/2021/02/js-proto-metaclass/index.html">
 <meta property="og:site_name" content="記事本">
 <meta property="og:description" content="動機 之前在看js的proto時，突然想起之前看的metaclass">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-02-01T15:39:47.000Z">
-<meta property="article:modified_time" content="2021-02-01T15:40:44.196Z">
+<meta property="article:modified_time" content="2021-02-01T16:01:24.500Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="javascript">
 <meta name="twitter:card" content="summary">
@@ -47,7 +47,7 @@
   };
 </script>
 
-  <title>js-proto-metaclass | 記事本</title>
+  <title>js的proto與metaclass | 記事本</title>
   
 
 
@@ -214,7 +214,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          js-proto-metaclass
+          js的proto與metaclass
         </h1>
 
         <div class="post-meta">
@@ -223,10 +223,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2021-02-01 23:39:47 / Modified: 23:40:44" itemprop="dateCreated datePublished" datetime="2021-02-01T23:39:47+08:00">2021-02-01</time>
+              <time title="Created: 2021-02-01 23:39:47" itemprop="dateCreated datePublished" datetime="2021-02-01T23:39:47+08:00">2021-02-01</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-02-02 00:01:24" itemprop="dateModified" datetime="2021-02-02T00:01:24+08:00">2021-02-02</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -275,8 +281,21 @@
 <li>這樣就不能玩metaclass的那些奇異功能，因為所有method都放在同一個地方</li>
 <li>不好模擬private，因為所有method都放在同一個地方，像js要自己用clousre包</li>
 </ol>
+<h2 id="js的this">js的this</h2>
+<p>會要這個就是method阿，也就是說，js把method當成一級function用…</p>
+<p>但this因為是關鍵字，所以不能用單純的變數去看</p>
+<ol>
+<li>如果在object中宣告，以及在被調用時有使用物件，就用物件作為this</li>
+<li>如果都沒有就是windows(global)</li>
+</ol>
+<h2 id="順便記一下-JavaScript是synchronous在執行的">順便記一下: JavaScript是synchronous在執行的</h2>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">waitThreeSeconds</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"> <span class="keyword">var</span> ms = <span class="number">3000</span> + <span class="keyword">new</span> <span class="built_in">Date</span>().getTime();</span><br><span class="line"> <span class="keyword">while</span>(<span class="keyword">new</span> <span class="built_in">Date</span>() &lt; ms)&#123;&#125;</span><br><span class="line"> <span class="built_in">console</span>.log(<span class="string">"finished function"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">clickHandler</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"> <span class="built_in">console</span>.log(<span class="string">"click event!"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">'click'</span>, clickHandler);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"started execution"</span>);</span><br><span class="line">waitThreeSeconds();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"finished execution"</span>);</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">started execution</span></span><br><span class="line"><span class="comment">finished execution</span></span><br><span class="line"><span class="comment">click event! * n</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>在等的時候點擊，waitThreeSeconds沒有被中斷，而是會等到跑完再反映事件</p>
+<p>先把execution context的內容執行完畢，接著才去執行&quot;event queue&quot;</p>
 <h2 id="Ref">Ref</h2>
-<p><span class="exturl" data-url="aHR0cHM6Ly9ibG9nLnRlY2hicmlkZ2UuY2MvMjAxNy8wNC8yMi9qYXZhc2NyaXB0LXByb3RvdHlwZS8=">該來理解 JavaScript 的原型鍊了<i class="fa fa-external-link-alt"></i></span></p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9ibG9nLnRlY2hicmlkZ2UuY2MvMjAxNy8wNC8yMi9qYXZhc2NyaXB0LXByb3RvdHlwZS8=">該來理解 JavaScript 的原型鍊了<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly9wamNoZW5kZXIuYmxvZ3Nwb3QuY29tLzIwMTYvMDMvamF2YXNjcmlwdHRoaXNidWcuaHRtbA==">談談 JavaScript 中的 “this” 和它的問題<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly9wamNoZW5kZXIuYmxvZ3Nwb3QuY29tLzIwMTYvMDEvamF2YXNjcmlwdGFzeW5jaHJvbm91c2V2ZW50LXF1ZXVlLmh0bWw=">談談JavaScript中的asynchronous和event queue<i class="fa fa-external-link-alt"></i></span></p>
 
     </div>
 
@@ -364,7 +383,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#proto就是上一層"><span class="nav-number">2.</span> <span class="nav-text">proto就是上一層</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#js只有一個指標，但metaclass有兩個，why"><span class="nav-number">3.</span> <span class="nav-text">js只有一個指標，但metaclass有兩個，why?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">4.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#proto就是上一層"><span class="nav-number">2.</span> <span class="nav-text">proto就是上一層</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#js只有一個指標，但metaclass有兩個，why"><span class="nav-number">3.</span> <span class="nav-text">js只有一個指標，但metaclass有兩個，why?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#js的this"><span class="nav-number">4.</span> <span class="nav-text">js的this</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#順便記一下-JavaScript是synchronous在執行的"><span class="nav-number">5.</span> <span class="nav-text">順便記一下: JavaScript是synchronous在執行的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">6.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -506,7 +525,7 @@
   var disqus_config = function() {
     this.page.url = "https://littlebees.github.io/2021/02/js-proto-metaclass/";
     this.page.identifier = "2021/02/js-proto-metaclass/";
-    this.page.title = "js-proto-metaclass";
+    this.page.title = "js的proto與metaclass";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {
