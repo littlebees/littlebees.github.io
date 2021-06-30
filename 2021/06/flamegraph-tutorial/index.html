@@ -21,21 +21,21 @@
     var CONFIG = {"hostname":"littlebees.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="動機 資料本身也是有特性的">
+  <meta name="description" content="動機">
 <meta property="og:type" content="article">
-<meta property="og:title" content="leetcode-41">
-<meta property="og:url" content="https://littlebees.github.io/2020/12/leetcode-41/index.html">
+<meta property="og:title" content="flamegraph筆記">
+<meta property="og:url" content="https://littlebees.github.io/2021/06/flamegraph-tutorial/index.html">
 <meta property="og:site_name" content="記事本">
-<meta property="og:description" content="動機 資料本身也是有特性的">
+<meta property="og:description" content="動機">
 <meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2020-12-28T14:45:52.000Z">
-<meta property="article:modified_time" content="2021-06-30T07:13:50.893Z">
+<meta property="article:published_time" content="2021-06-30T07:13:07.000Z">
+<meta property="article:modified_time" content="2021-06-30T07:13:50.901Z">
 <meta property="article:author" content="zhengcf">
-<meta property="article:tag" content="Classic">
-<meta property="article:tag" content="interesting">
+<meta property="article:tag" content="note">
+<meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://littlebees.github.io/2020/12/leetcode-41/">
+<link rel="canonical" href="https://littlebees.github.io/2021/06/flamegraph-tutorial/">
 
 
 <script id="page-configurations">
@@ -48,7 +48,7 @@
   };
 </script>
 
-  <title>leetcode-41 | 記事本</title>
+  <title>flamegraph筆記 | 記事本</title>
   
 
 
@@ -202,7 +202,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2020/12/leetcode-41/">
+    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2021/06/flamegraph-tutorial/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -215,7 +215,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          leetcode-41
+          flamegraph筆記
         </h1>
 
         <div class="post-meta">
@@ -224,23 +224,21 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2020-12-28 22:45:52" itemprop="dateCreated datePublished" datetime="2020-12-28T22:45:52+08:00">2020-12-28</time>
+              <time title="Created: 2021-06-30 15:13:07 / Modified: 15:13:50" itemprop="dateCreated datePublished" datetime="2021-06-30T15:13:07+08:00">2021-06-30</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-30 15:13:50" itemprop="dateModified" datetime="2021-06-30T15:13:50+08:00">2021-06-30</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Leetcode/" itemprop="url" rel="index"><span itemprop="name">Leetcode</span></a>
+                  <a href="/categories/tutorial/" itemprop="url" rel="index"><span itemprop="name">tutorial</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/tutorial/bash/" itemprop="url" rel="index"><span itemprop="name">bash</span></a>
                 </span>
             </span>
 
@@ -253,8 +251,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/2020/12/leetcode-41/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/12/leetcode-41/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2021/06/flamegraph-tutorial/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/06/flamegraph-tutorial/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -270,20 +268,165 @@
 
       
         <h2 id="動機">動機</h2>
-<p>資料本身也是有特性的</p>
 <a id="more"></a>
-<h2 id="Sol">Sol</h2>
-<p>從array中找出沒有的最小的正整數</p>
-<p>同時要求時間是O(n)，空間是常數</p>
-<p>如果不管空間，就是用hash，走兩次就ok了</p>
-<p>但現在不能用hash，又要類似排序的效果，這時就只能看有沒有辦法把每筆資料定位</p>
-<p>注意到array的index一定是正整數，又可以一一對應，i對到i+1</p>
-<p>所以接下來的任務就是讓每個i盡量是i+1。</p>
-<p>那麼要從i+1到最後一個去找嗎?<br>
-這樣會變成O(n^2)!!</p>
-<p>如果資料是在範圍內的，就一定只有那個位置可以擺，所以就是根據資料把資料換到正確的位置，反覆換下去，直到合法或是無法再換了</p>
-<p>這個過程讓我想到，seasoned schemer的scramble，與little mler的exception的例子</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">firstMissingPositive</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> nums:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,len(nums)):</span><br><span class="line">            <span class="keyword">while</span> (nums[i] &gt; <span class="number">0</span> <span class="keyword">and</span> nums[i] &lt;= len(nums)) <span class="keyword">and</span> nums[i] != nums[nums[i]<span class="number">-1</span>]:</span><br><span class="line">                tmp = nums[nums[i]<span class="number">-1</span>]</span><br><span class="line">                nums[nums[i]<span class="number">-1</span>] = nums[i]</span><br><span class="line">                nums[i] = tmp</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,len(nums)):</span><br><span class="line">            <span class="keyword">if</span> i+<span class="number">1</span> != nums[i]:</span><br><span class="line">                <span class="keyword">return</span> i+<span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> len(nums)+<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h2 id="perf">perf</h2>
+<p>perf是linux2.6之後就內建的工具，可以對cpu採樣</p>
+<p>perf會對cpu抽樣，去看現在cpu上的proc是什麼<br>
+<code>perf record -F &lt;how-many-times-should-perf-probe&gt; -e &lt;which-event-want-to-trace&gt; -p &lt;pid&gt; -g -- sleep &lt;how-long-does-perf-keep-profiling&gt;</code></p>
+<p>在linux上採樣還有ebpf可以用，但是最好是在4.10之後的版本用</p>
+<p>之後透過其他工具整理成flamegraph</p>
+<h2 id="flamegraph">flamegraph</h2>
+<ul>
+<li>x軸
+<ul>
+<li>沒有什麼意義，因為重點是stack
+<ul>
+<li>但chrome的devtools是時間，所以會變成現在這時間點上有什麼stack</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>y軸
+<ul>
+<li>stack的深度</li>
+<li>最上面就是正在跑的function</li>
+<li>從底往上長</li>
+</ul>
+</li>
+<li>顏色
+<ul>
+<li>沒有什麼意義</li>
+<li>但也可以讓他表示不同的東西，分別用不同的顏色
+<ul>
+<li>來源: jvm, c++, kernel…</li>
+<li>cycle/inst的比重: 看是cycle多(stall)，或是都在跑inst</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>點 =&gt; 長方形
+<ul>
+<li>就是function在stack中的佔比</li>
+<li>所以可以換perf的事件，看在stack中發生的佔比!!</li>
+</ul>
+</li>
+<li>除了追花費時間
+<ul>
+<li>cxt switch
+<ul>
+<li>找blocked proc</li>
+</ul>
+</li>
+<li>page fault
+<ul>
+<li>找誰在要mem</li>
+</ul>
+</li>
+<li>disk io req
+<ul>
+<li>找用disk的</li>
+</ul>
+</li>
+<li>cpu + off-cpu
+<ul>
+<li>cpu就是原本誰在跑的flamegraph</li>
+<li>off-cpu就是看誰睡著的flamegraph</li>
+<li>ebpf可以把兩個和在一起，看
+<ul>
+<li>睡著的理由</li>
+<li>睡覺時誰在做事</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>還可以追tcp event, CPU cache miss(LLC-loads)</li>
+</ul>
+</li>
+</ul>
+<h2 id="常見問題">常見問題</h2>
+<p>一般profiler都透過下面兩個東西去走</p>
+<ol>
+<li>stack pointer frame(或DWARF)</li>
+<li>symbol table</li>
+</ol>
+<ul>
+<li>stack frame pointer
+<ul>
+<li>compiler優化會把frame ptr當成一般來用
+<ul>
+<li>解法
+<ul>
+<li>關掉</li>
+<li>改用DWARF</li>
+<li>用JIT runtime walker?
+<ul>
+<li>這樣看不到kernel</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>inline
+<ul>
+<li>stack frame會消失</li>
+<li>解法
+<ul>
+<li>關掉
+<ul>
+<li>別，很可怕</li>
+</ul>
+</li>
+<li>限制inline的size (java可以，C能嗎?)</li>
+<li>runtime支援可選的un-inline (java可以，C能嗎?)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>perf的stack depth限制
+<ul>
+<li>預設127</li>
+<li>linux4.8之後可以改</li>
+</ul>
+</li>
+<li>debug symbol
+<ul>
+<li>沒symbol就傻眼</li>
+<li>解法
+<ul>
+<li>找有<code>dbgsym</code>的同名package裝</li>
+<li>自己編有debug symbol的
+<ul>
+<li>注意到優化等級，有時候優化會把symbol丟了
+<ul>
+<li>可以用針對debug的優化，<code>-Og</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>JIT要由runtime生(java的perf-map-agent)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>code跑在container上
+<ul>
+<li>進不去怎麼perf</li>
+<li>解法
+<ul>
+<li>copy出來需要的東西出來</li>
+<li>linux4.13的improve</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Ref">Ref</h2>
+<p><span class="exturl" data-url="aHR0cHM6Ly93d3cuc2xpZGVzaGFyZS5uZXQvYnJlbmRhbmdyZWdnL3VzZW5peC1hdGMtMjAxNy12aXN1YWxpemluZy1wZXJmb3JtYW5jZS13aXRoLWZsYW1lLWdyYXBocw==">Brendan Gregg大大的slide 十分明瞭一定要看<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cDovL3d3dy5icmVuZGFuZ3JlZ2cuY29tL2ZsYW1lZ3JhcGhzLmh0bWw=">Brendan Gregg的flamegraphs blog有實例<i class="fa fa-external-link-alt"></i></span></p>
+
     </div>
 
     
@@ -292,8 +435,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Classic/" rel="tag"># Classic</a>
-              <a href="/tags/interesting/" rel="tag"># interesting</a>
+              <a href="/tags/note/" rel="tag"># note</a>
+              <a href="/tags/linux/" rel="tag"># linux</a>
           </div>
 
         
@@ -302,13 +445,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/12/leetcode-122/" rel="prev" title="leetcode-122">
-      <i class="fa fa-chevron-left"></i> leetcode-122
+    <a href="/2021/06/systemtap-tutorial/" rel="prev" title="systemtap使用筆記">
+      <i class="fa fa-chevron-left"></i> systemtap使用筆記
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/12/leetcode-451/" rel="next" title="leetcode-451">
-      leetcode-451 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -374,7 +514,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol"><span class="nav-number">2.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#perf"><span class="nav-number">2.</span> <span class="nav-text">perf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flamegraph"><span class="nav-number">3.</span> <span class="nav-text">flamegraph</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常見問題"><span class="nav-number">4.</span> <span class="nav-text">常見問題</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">5.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -497,7 +637,7 @@
       quicklink({
         timeout : 1000,
         priority: true,
-        ignores : [uri => uri.includes('#'),uri => uri === 'https://littlebees.github.io/2020/12/leetcode-41/',]
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://littlebees.github.io/2021/06/flamegraph-tutorial/',]
       });
       });
   </script>
@@ -514,9 +654,9 @@
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://littlebees.github.io/2020/12/leetcode-41/";
-    this.page.identifier = "2020/12/leetcode-41/";
-    this.page.title = "leetcode-41";
+    this.page.url = "https://littlebees.github.io/2021/06/flamegraph-tutorial/";
+    this.page.identifier = "2021/06/flamegraph-tutorial/";
+    this.page.title = "flamegraph筆記";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {
