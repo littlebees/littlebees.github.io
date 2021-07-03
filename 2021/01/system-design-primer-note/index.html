@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 會知道system design primer是因為某場面試，原本以為system design在網路上沒有什麼資料 結果是很多資料，但是system design資料會多，很大一部分是system design包含的面向很廣 所以來整理一下，作為了解的開始 這篇是介紹會用到的工具，接下來是設計 但設計還要帶一下估計的方法與常用數字 所以之後還有兩篇要整理">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-01-06T16:46:39.000Z">
-<meta property="article:modified_time" content="2021-07-01T16:29:35.219Z">
+<meta property="article:modified_time" content="2021-07-03T18:45:51.161Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="note">
 <meta property="article:tag" content="system design">
@@ -232,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-02 00:29:35" itemprop="dateModified" datetime="2021-07-02T00:29:35+08:00">2021-07-02</time>
+                <time title="Modified: 2021-07-04 02:45:51" itemprop="dateModified" datetime="2021-07-04T02:45:51+08:00">2021-07-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -240,7 +240,11 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Survey/" itemprop="url" rel="index"><span itemprop="name">Survey</span></a>
+                  <a href="/categories/tutorial/" itemprop="url" rel="index"><span itemprop="name">tutorial</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/tutorial/system-design/" itemprop="url" rel="index"><span itemprop="name">system design</span></a>
                 </span>
             </span>
 
@@ -808,29 +812,30 @@
 </li>
 <li>快取策略
 <ul>
-<li>快取模式
+<li>Write around
 <ul>
 <li>應用程式負責從儲存裝置中進行讀取及寫入快取不直接和儲存裝置進行互動</li>
 <li>過程
 <ul>
-<li>查快取、拉資料、寫到快取、return</li>
+<li>讀快取、拉資料、寫到快取 (讀的都一樣，下面就pass)</li>
+<li>直接寫到DB</li>
 </ul>
 </li>
 <li>缺點
 <ul>
 <li>當請求的資料不在快取中時，就需要經過三個步驟來獲得資料，這會導致明顯的延遲</li>
-<li>如果資料庫中的資料被更新了，會導致快取中的資料過時，這需要透過設定 TTL 強制更新快取，或透過直接更新模式來解決這種問題</li>
+<li>如果資料庫中的資料被更新了，會導致快取中的資料過時，這需要透過設定 TTL 強制更新快取，或透過Write through來解決這種問題</li>
 <li>當快取的某個節點發生故障時，會需要被一個新的節點取代，這會導致延遲</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>寫入模式
+<li>Write through
 <ul>
 <li>應用程式使用快取當作主要的資料儲存服務，將資料寫入/讀取到快取中，由快取服務負責向資料庫讀寫資料</li>
 <li>過程
 <ul>
-<li>寫/讀快取、寫到資料庫、return</li>
+<li>寫快取、寫到資料庫</li>
 </ul>
 </li>
 <li>缺點
@@ -849,12 +854,12 @@
 </li>
 </ul>
 </li>
-<li>事後寫入(回寫)
+<li>Write back
 <ul>
 <li>應用程式使用快取當作主要的資料儲存服務，將資料寫入/讀取到快取中，由快取服務負責向資料庫<strong>非同步的</strong>讀寫資料</li>
 <li>過程
 <ul>
-<li>寫/讀快取、寫到Queue、return、(等一下)寫到DB</li>
+<li>寫快取、寫到Queue、return、(等一下)寫到DB</li>
 </ul>
 </li>
 <li>缺點
@@ -908,6 +913,16 @@
 <li>缺點
 <ul>
 <li>簡單的運算和需要即時的工作可能更適合使用同步運算，導入佇列可能會增加延遲或系統複雜度</li>
+<li>訊息可能不會照發送順序完成
+<ul>
+<li>想想TCP為什麼需要ACK</li>
+</ul>
+</li>
+<li>同樣的訊息被重複處理
+<ul>
+<li>通常訊息佇列會讓處理失敗的訊息重新入列 (扣款?)</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -1018,14 +1033,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">239</span>
+          <span class="site-state-item-count">240</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-count">32</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
