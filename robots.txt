@@ -8,5 +8,4 @@ Disallow: /vendors/
 Disallow: /fonts/
 Disallow: /fancybox/
 Disallow: /resume/
-Sitemap: https://mikolaje.github.io/sitemap.xml
-Sitemap: https://mikolaje.github.io/baidu_sitemap.xml
+Sitemap: https://littlebees.github.io/sitemap.xml
