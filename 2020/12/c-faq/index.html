@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 整理一些之前的問題">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-12-19T19:53:12.000Z">
-<meta property="article:modified_time" content="2021-07-08T19:17:07.889Z">
+<meta property="article:modified_time" content="2021-07-08T20:27:23.449Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="note">
 <meta property="article:tag" content="C">
@@ -233,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-09 03:17:07" itemprop="dateModified" datetime="2021-07-09T03:17:07+08:00">2021-07-09</time>
+                <time title="Modified: 2021-07-09 04:27:23" itemprop="dateModified" datetime="2021-07-09T04:27:23+08:00">2021-07-09</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -495,6 +495,54 @@ c. many kernel threads to many user threads</li>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[<span class="number">10</span>]; <span class="comment">// An array of 10 integers</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> *a[<span class="number">10</span>]; <span class="comment">// An array of 10 pointers to integers</span></span><br><span class="line"><span class="comment">// int ((*a)[10])</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> (*a)[<span class="number">10</span>]; <span class="comment">// A pointer to an array of 10 integers</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> (*a)(<span class="keyword">int</span>); <span class="comment">// A pointer to a function a that takes an integer argument and returns an integer</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> (*a[<span class="number">10</span>])(<span class="keyword">int</span>); <span class="comment">// An array of 10 pointers to functions that take an integer argument and return an integer</span></span><br></pre></td></tr></table></figure>
 <h3 id="const-pointer">const &amp; pointer</h3>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> <span class="keyword">const</span> *a; <span class="comment">// ptr的內容固定</span></span><br><span class="line"><span class="keyword">int</span> * <span class="keyword">const</span> a; <span class="comment">// 被指到的int固定</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> <span class="keyword">const</span> * a; <span class="comment">// 兩個都固定</span></span><br></pre></td></tr></table></figure>
+<h2 id="計組">計組</h2>
+<h3 id="Pipeline">Pipeline</h3>
+<ol>
+<li>instruction fetch</li>
+<li>instruction decode/fetch register</li>
+<li>instruction execute/ branch or jump</li>
+<li>memory access</li>
+<li>write back</li>
+</ol>
+<p>因為現在是所有指令共用datapath，所以要pipeline reg讓stage去load需要的資料去完成每個階段的任務</p>
+<h3 id="harzards">harzards</h3>
+<ul>
+<li>Data Hazard
+<ul>
+<li>LoadStore (RAW): 還沒寫完就被讀(拿到舊的值)</li>
+<li>StoreStore (WAW): 前面還沒寫完，後面已經寫進去了</li>
+<li>StoreLoad (WAR): 來沒讀完就被寫(拿到未來的值)</li>
+<li>sol
+<ul>
+<li>compiler 或是 cpu的 stall</li>
+<li>forwarding: 把需要的資訊丟到後面的pipeline reg，讓後面的stage先做事</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Control Hazard
+<ul>
+<li>if 的 bool還沒被算出來!!</li>
+<li>sol
+<ul>
+<li>stall</li>
+<li>分支預測(猜)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Structural hazard
+<ul>
+<li>在pipeline上指令的需要同一個資源</li>
+<li>sol
+<ul>
+<li>stall</li>
+<li>亂序執行</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
     </div>
 
@@ -587,7 +635,7 @@ c. many kernel threads to many user threads</li>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#extern-static-global"><span class="nav-number">2.</span> <span class="nav-text">extern, static, global</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#extern-“C”"><span class="nav-number">2.1.</span> <span class="nav-text">extern “C”</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#use-C-lib-in-C"><span class="nav-number">2.1.1.</span> <span class="nav-text">use C lib in C++</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#use-C-lib-in-C-2"><span class="nav-number">2.1.2.</span> <span class="nav-text">use C++ lib in C</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#static-為什麼放在-data"><span class="nav-number">2.2.</span> <span class="nav-text">static 為什麼放在.data</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#about-C-class"><span class="nav-number">3.</span> <span class="nav-text">about C++ class</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#friend"><span class="nav-number">3.1.</span> <span class="nav-text">friend</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#virtual"><span class="nav-number">3.2.</span> <span class="nav-text">virtual</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#object-slicing"><span class="nav-number">3.3.</span> <span class="nav-text">object slicing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#the-rule-of-five"><span class="nav-number">3.4.</span> <span class="nav-text">the rule of five</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OS-related"><span class="nav-number">4.</span> <span class="nav-text">OS related</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mutex-semaphore"><span class="nav-number">4.1.</span> <span class="nav-text">mutex &amp; semaphore</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Big-Endian-Little-Endian"><span class="nav-number">4.2.</span> <span class="nav-text">Big Endian &amp; Little Endian</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#how-to-IPC"><span class="nav-number">4.3.</span> <span class="nav-text">how to IPC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#deadlock-condition"><span class="nav-number">4.4.</span> <span class="nav-text">deadlock condition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#thread-process"><span class="nav-number">4.5.</span> <span class="nav-text">thread &amp; process</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#how-to-talk-to-kernel"><span class="nav-number">4.6.</span> <span class="nav-text">how to talk to kernel</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#volatile"><span class="nav-number">5.</span> <span class="nav-text">volatile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#malloc、calloc、realloc"><span class="nav-number">6.</span> <span class="nav-text">malloc、calloc、realloc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pointer-size"><span class="nav-number">7.</span> <span class="nav-text">pointer size</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#macro"><span class="nav-number">8.</span> <span class="nav-text">macro</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一些工具"><span class="nav-number">8.1.</span> <span class="nav-text">一些工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用時要注意"><span class="nav-number">8.2.</span> <span class="nav-text">使用時要注意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#useful-macro-case-study"><span class="nav-number">8.3.</span> <span class="nav-text">useful macro &amp; case study</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#floating-point"><span class="nav-number">9.</span> <span class="nav-text">floating point</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pitfall"><span class="nav-number">10.</span> <span class="nav-text">pitfall</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#typedef"><span class="nav-number">10.1.</span> <span class="nav-text">typedef</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pointer-array-type"><span class="nav-number">10.2.</span> <span class="nav-text">pointer &amp; array type</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#const-pointer"><span class="nav-number">10.3.</span> <span class="nav-text">const &amp; pointer</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#extern-static-global"><span class="nav-number">2.</span> <span class="nav-text">extern, static, global</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#extern-“C”"><span class="nav-number">2.1.</span> <span class="nav-text">extern “C”</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#use-C-lib-in-C"><span class="nav-number">2.1.1.</span> <span class="nav-text">use C lib in C++</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#use-C-lib-in-C-2"><span class="nav-number">2.1.2.</span> <span class="nav-text">use C++ lib in C</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#static-為什麼放在-data"><span class="nav-number">2.2.</span> <span class="nav-text">static 為什麼放在.data</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#about-C-class"><span class="nav-number">3.</span> <span class="nav-text">about C++ class</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#friend"><span class="nav-number">3.1.</span> <span class="nav-text">friend</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#virtual"><span class="nav-number">3.2.</span> <span class="nav-text">virtual</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#object-slicing"><span class="nav-number">3.3.</span> <span class="nav-text">object slicing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#the-rule-of-five"><span class="nav-number">3.4.</span> <span class="nav-text">the rule of five</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OS-related"><span class="nav-number">4.</span> <span class="nav-text">OS related</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mutex-semaphore"><span class="nav-number">4.1.</span> <span class="nav-text">mutex &amp; semaphore</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Big-Endian-Little-Endian"><span class="nav-number">4.2.</span> <span class="nav-text">Big Endian &amp; Little Endian</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#how-to-IPC"><span class="nav-number">4.3.</span> <span class="nav-text">how to IPC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#deadlock-condition"><span class="nav-number">4.4.</span> <span class="nav-text">deadlock condition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#thread-process"><span class="nav-number">4.5.</span> <span class="nav-text">thread &amp; process</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#how-to-talk-to-kernel"><span class="nav-number">4.6.</span> <span class="nav-text">how to talk to kernel</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#volatile"><span class="nav-number">5.</span> <span class="nav-text">volatile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#malloc、calloc、realloc"><span class="nav-number">6.</span> <span class="nav-text">malloc、calloc、realloc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pointer-size"><span class="nav-number">7.</span> <span class="nav-text">pointer size</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#macro"><span class="nav-number">8.</span> <span class="nav-text">macro</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一些工具"><span class="nav-number">8.1.</span> <span class="nav-text">一些工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用時要注意"><span class="nav-number">8.2.</span> <span class="nav-text">使用時要注意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#useful-macro-case-study"><span class="nav-number">8.3.</span> <span class="nav-text">useful macro &amp; case study</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#floating-point"><span class="nav-number">9.</span> <span class="nav-text">floating point</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pitfall"><span class="nav-number">10.</span> <span class="nav-text">pitfall</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#typedef"><span class="nav-number">10.1.</span> <span class="nav-text">typedef</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pointer-array-type"><span class="nav-number">10.2.</span> <span class="nav-text">pointer &amp; array type</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#const-pointer"><span class="nav-number">10.3.</span> <span class="nav-text">const &amp; pointer</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#計組"><span class="nav-number">11.</span> <span class="nav-text">計組</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Pipeline"><span class="nav-number">11.1.</span> <span class="nav-text">Pipeline</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#harzards"><span class="nav-number">11.2.</span> <span class="nav-text">harzards</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
