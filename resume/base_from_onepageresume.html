@@ -25,10 +25,21 @@
         dl { display: grid; grid-template-columns: 0.5fr 3fr; row-gap: 1rem; column-gap: 0;}
         dt { font-style: italic; font-weight: bold; font-size: 1rem; text-align: right; padding: 0 1.75rem 0 0; width: 10rem; height: 6rem; border-right: 1px solid #999; }
         dd { padding-left: 1rem; }
-        @media only screen and (max-width: 900px) {
+        .pl-sect { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(1, 1fr); }
+        .dev-sect { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 1fr); }
+        .admin-sect { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(1, 1fr); }
+        .cloud-sect { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(1, 1fr); }
+        .read-sect { display: grid; grid-template-columns: repeat(2, 1fr); }
+
+        @media (orientation: portrait), (max-width: 900px) {
             /* For mobile: */
             #page-wrap { margin: 40px 5vw 60px; }
-            h2 span { position:relative; display: block; float:unset; }
+            h2 span { display: block; float:unset; }
+            dt { font-size: 1.5rem; }
+
+            .pl-sect { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); }
+            .dev-sect { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(3, 1fr); }
+            .admin-sect { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); }
         }
      </style>
 </head>
@@ -53,8 +64,6 @@
                 I am a software engineer, love using programs to better my development process and daily life, and interest in system programming, programming language theory, and networking. Now, I am studying Linux kernel and Parallel computing to improve my ability of system programming.
             </p>
         </div>
-        
-        <div class="clear"></div>
         
         <dl>
             
@@ -115,7 +124,7 @@
 
             <dt>Programming Language</dt>
             <dd>
-                <div style="display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(1, 1fr);">
+                <div class="pl-sect">
                     <ul>
                         <li>C/C++</li>
                         <li>Python</li>
@@ -137,7 +146,7 @@
 
             <dt>Dev Tools</dt>
             <dd>
-                <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 1fr);">
+                <div class="dev-sect">
                     <ul>
                         <li><a href="https://littlebees.github.io/tags/bash/">bash</a></li>
                         <li>make/autoconf/cmake</li>
@@ -163,7 +172,7 @@
 
             <dt>Linux Administration</dt>
             <dd>
-                <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 1fr);">
+                <div class="admin-sect">
                     <ul>
                         <li>DHCP</li>
                         <li>LDAP</li>
@@ -188,7 +197,7 @@
 
             <dt>Cloud service</dt>
             <dd>
-                <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(1, 1fr);">
+                <div class="cloud-sect">
                     <ul>
                         <li>AWS
                             <ul>
@@ -219,7 +228,7 @@
 
             <dt>Reading</dt>
             <dd>
-                <div style="display: grid; grid-template-columns: repeat(2, 1fr);">
+                <div class="read-sect">
                     <ul>
                         <li>Verification Automation
                             <ul>
