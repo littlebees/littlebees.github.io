@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="AEpTGuQAkxnTOlmfF4INDna3S660LxrkyZ4BQzVbRSw">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"littlebees.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="前篇就是介紹資料型別與會用到的工具與定義一些關鍵字，讓大家熟悉一下 因為是定義，就放原文">
+<meta property="og:type" content="article">
+<meta property="og:title" content="little typer 前篇(1~7) 整理與筆記">
+<meta property="og:url" content="https://littlebees.github.io/2020/5/little-typer-1-7/index.html">
+<meta property="og:site_name" content="記事本">
+<meta property="og:description" content="前篇就是介紹資料型別與會用到的工具與定義一些關鍵字，讓大家熟悉一下 因為是定義，就放原文">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/Dy6c2TF.png">
+<meta property="og:image" content="https://i.imgur.com/itHmjN4.png">
+<meta property="og:image" content="https://i.imgur.com/nVYfYcB.png">
+<meta property="og:image" content="https://i.imgur.com/z3hF3IC.png">
+<meta property="og:image" content="https://i.imgur.com/PGnohrW.png">
+<meta property="og:image" content="https://i.imgur.com/q5pxhiA.png">
+<meta property="og:image" content="https://i.imgur.com/SlyIFpg.png">
+<meta property="og:image" content="https://i.imgur.com/2jrHzHA.png">
+<meta property="og:image" content="https://i.imgur.com/97W2xkI.png">
+<meta property="og:image" content="https://i.imgur.com/LmTwQlc.png">
+<meta property="og:image" content="https://i.imgur.com/mzsicqP.png">
+<meta property="og:image" content="https://i.imgur.com/1zVgQNT.png">
+<meta property="og:image" content="https://i.imgur.com/VY2eetc.png">
+<meta property="og:image" content="https://i.imgur.com/m66dwhH.png">
+<meta property="og:image" content="https://i.imgur.com/dqhH89l.png">
+<meta property="og:image" content="https://i.imgur.com/nnw4W2v.png">
+<meta property="og:image" content="https://i.imgur.com/L1fc8bt.png">
+<meta property="og:image" content="https://i.imgur.com/a4eM7J7.png">
+<meta property="og:image" content="https://i.imgur.com/wsZZQen.png">
+<meta property="og:image" content="https://i.imgur.com/SzGcBkn.png">
+<meta property="og:image" content="https://i.imgur.com/DjsCXeV.png">
+<meta property="og:image" content="https://i.imgur.com/OqOD5Uz.png">
+<meta property="article:published_time" content="2020-05-16T09:34:21.000Z">
+<meta property="article:modified_time" content="2021-07-08T08:54:50.419Z">
+<meta property="article:author" content="zhengcf">
+<meta property="article:tag" content="note">
+<meta property="article:tag" content="Lisp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/Dy6c2TF.png">
+
+<link rel="canonical" href="https://littlebees.github.io/2020/5/little-typer-1-7/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>little typer 前篇(1~7) 整理與筆記 | 記事本</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">記事本</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">寫下來，不然會忘</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2020/5/little-typer-1-7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhengcf">
+      <meta itemprop="description" content="想到什麼就寫什麼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="記事本">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          little typer 前篇(1~7) 整理與筆記
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-05-16 17:34:21" itemprop="dateCreated datePublished" datetime="2020-05-16T17:34:21+08:00">2020-05-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-07-08 16:54:50" itemprop="dateModified" datetime="2021-07-08T16:54:50+08:00">2021-07-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Reading/" itemprop="url" rel="index"><span itemprop="name">Reading</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2020/5/little-typer-1-7/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/5/little-typer-1-7/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>前篇就是介紹資料型別與會用到的工具與定義一些關鍵字，讓大家熟悉一下<br>
+因為是定義，就放原文</p>
+<a id="more"></a>
+<h2 id="ch1">ch1</h2>
+<h3 id="Judgment-Type">Judgment &amp; Type</h3>
+<blockquote>
+<p>A <strong>judgment</strong> is an attitude that a person takes towards expressions.<br>
+When we come to know something, we are making a judgment.<br>
+Judgments are acts of knowing, and believing is part of knowing.</p>
+</blockquote>
+<p>有四種形式</p>
+<ol>
+<li>{expression} is a {type}.</li>
+<li>{expression} is the same {type} as {expression}.</li>
+<li>{type} is a type.</li>
+<li>{type} and {type} are the same type.</li>
+</ol>
+<p>例子:</p>
+<p>0 is the same Nat as 0<br>
+如果 n is the same Nat as k,<br>
+那麼 (add1 n) is the same Nat as (add1 k).</p>
+<p>有些judgment需要其他judgment先寫好不然會看起來很尷尬</p>
+<p>像<br>
+'pêche the same 'fruit as 'pêche<br>
+但是<br>
+'fruit is a type 很明顯不是type，他是某個Atom</p>
+<blockquote>
+<p>Expressions that describe other expressions, such as Atom, are called <strong>types</strong>.</p>
+</blockquote>
+<p>下面這段不是定義某個名詞，但感覺很重要所以也記在這裡</p>
+<blockquote>
+<p>Sentences get their meaning from those who understand them.<br>
+The sentences capture thoughts that we have, and thoughts are more important than the words we use to express them.</p>
+</blockquote>
+<h3 id="normal-form-same">normal form &amp; same</h3>
+<blockquote>
+<p>The <strong>normal form</strong> of an expression is the most direct way of writing it.</p>
+</blockquote>
+<p>那要如何寫出normal form呢? (evaluation strategy)<br>
+這就是後面的問題了</p>
+<blockquote>
+<p>Any two expressions that are the <strong>same</strong> have identical normal forms, and<br>
+any two expressions with identical normal forms are the same.<br>
+Sameness is always according to a type, so normal forms are also determined by a type.</p>
+</blockquote>
+<h3 id="ill-typed-type-normal-form">ill-typed &amp; type normal form</h3>
+<blockquote>
+<p>Expressions that cannot be described by a type and that are not themselves types are also called <strong>ill-typed</strong>.</p>
+</blockquote>
+<p>以下面的code做例子</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">Pair</span></span><br><span class="line">    (<span class="name">cdr</span></span><br><span class="line">        (<span class="name">cons</span> Atom 'olive))</span><br><span class="line">    (<span class="name">car</span></span><br><span class="line">        (<span class="name">cons</span> 'oil Atom)))</span><br></pre></td></tr></table></figure>
+<p>這最後會產出 <code>(Pair 'olive 'oil)</code>，WTF<br>
+這不是type也不是value，WTF<br>
+這就是ill-typed</p>
+<p>而下面的code就是type了</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">Pair</span></span><br><span class="line">    (<span class="name">car</span></span><br><span class="line">        (<span class="name">cons</span> Atom 'olive))</span><br><span class="line">    (<span class="name">cdr</span></span><br><span class="line">        (<span class="name">cons</span> 'oil Atom)))</span><br></pre></td></tr></table></figure>
+<p>從剛剛上面，就可以知道有時候type也是走一段路才知道是不是type<br>
+所以type也有normal form</p>
+<blockquote>
+<p>Every expression that is a type has a normal form, which is the most direct way of writing that type.<br>
+If two expressions are the same type, then they have identical normal forms, and<br>
+if two types have identical normal forms, then they are the same type.</p>
+</blockquote>
+<h3 id="constructor-values">constructor &amp; values</h3>
+<blockquote>
+<p>An expression with a constructor at the top is called a <strong>value</strong>.<br>
+Values are also called canonical expressions</p>
+</blockquote>
+<blockquote>
+<p>8 is normal because its top, add1 is a <strong>constructor</strong><br>
+because the argument tucked under the top add1, namely 7, is normal.</p>
+</blockquote>
+<p>在定義normal form時，說normal form就是最直接寫出來的方式</p>
+<p>那什麼是最直接?</p>
+<p>constructor在頂部，同時其參數都是normal form</p>
+<h4 id="都是constructor在頂部，values-與-normal-form差在哪裡">都是constructor在頂部，values 與 normal form差在哪裡</h4>
+<p>value的參數不一定是normal form<br>
+normal form連其參數都是normal form</p>
+<h3 id="evaluation-normal-expression">evaluation &amp; normal expression</h3>
+<blockquote>
+<p>Finding a value that is the same as some starting expression is called <strong>evaluation</strong>.</p>
+</blockquote>
+<blockquote>
+<p>A <strong>normal expression</strong> has no remaining opportunities for evaluation.</p>
+</blockquote>
+<h3 id="Everything-is-expression">Everything is expression</h3>
+<p>在dependent type中，大家都是expression</p>
+<h4 id="evaluation-value">evaluation &amp; value</h4>
+<p>在dependent type中，evaluation得到的是expression<br>
+在一般PL(像lisp)中，evaluation得到的是value<br>
+在一般PL中，expression與value是不同類別的東西</p>
+<h4 id="the-meaning-of-an-expression-evaluation">the meaning of an expression &amp; evaluation</h4>
+<p>Q:<br>
+Doesn’t evaluation refer to finding the meaning of an expression, not just some simpler expression?</p>
+<p>A:<br>
+Expressions do not refer to some external notion of meaning<br>
+In Pie, there is nothing but expressions and what we judge about them.</p>
+<h3 id="type-constructor-data">type constructor &amp; data</h3>
+<blockquote>
+<p>Nat is not a constructor. zero and add1 are constructors that create <strong>data</strong>,<br>
+while Nat describes data that is just zero,or data that has add1 at its top and another Nat as its argument.</p>
+</blockquote>
+<blockquote>
+<p>Pair is a <strong>type constructor</strong> because it constructs a type</p>
+</blockquote>
+<h2 id="Ch2">Ch2</h2>
+<h3 id="Eliminators">Eliminators</h3>
+<blockquote>
+<p><strong>Eliminators</strong> take apart the values built by constructors. ex: car,cdr</p>
+</blockquote>
+<p>一種看待Eliminator的方式就是 eliminator 可以把藏在某個type的資料拉出來</p>
+<p>像是function的Eliminator就是apply</p>
+<h3 id="neutral-value">neutral (&amp; value)</h3>
+<blockquote>
+<p>Expressions that are not values and cannot yet be evaluated due to a variable are called <strong>neutral</strong>.</p>
+</blockquote>
+<p><code>(cons y 'rutabaga)</code><br>
+is a value.</p>
+<p><code>(cdr x)</code><br>
+is neutral.</p>
+<h4 id="Each-variable-is-the-same-as-itself-no-matter-what-type-it-has">Each variable is the same as itself, no matter what type it has.</h4>
+<p>前面提過same必需要知道type，但是neutral expression沒有type!!</p>
+<p>所以</p>
+<blockquote>
+<p>Each variable is the same as itself, no matter what type it has.</p>
+</blockquote>
+<p>Q:<br>
+為什麼variable有這種待遇?</p>
+<p>A:<br>
+因為要替換variable時，長得一樣的variable都是一起被換掉的</p>
+<blockquote>
+<p>If two expressions have identical eliminators at the top and all arguments to the eliminators are the same,<br>
+then the expressions are the same.</p>
+</blockquote>
+<blockquote>
+<p>Neutral expressions that are written identically are the same, no matter their type.</p>
+</blockquote>
+<h3 id="Recursion-is-not-an-option">Recursion is not an option.</h3>
+<blockquote>
+<p>Recursion is not an option because every expression must have a value.</p>
+</blockquote>
+<blockquote>
+<p>Some recursive definitions make it possible to write expressions that do not have values.</p>
+</blockquote>
+<h3 id="Type-Values-Type長什麼樣子">Type Values: Type長什麼樣子?</h3>
+<p>An expression that is a type is a value when it has a type constructor at its top.</p>
+<p><code>(cons Atom Atom)</code><br>
+is a<br>
+<code>(Pair U U)</code>.</p>
+<p><img src="https://i.imgur.com/Dy6c2TF.png" alt=""></p>
+<h2 id="Ch3">Ch3</h2>
+<h3 id="total-function">total function</h3>
+<blockquote>
+<p>A function that assigns a value to every possible argument is called a <strong>total function</strong>.</p>
+</blockquote>
+<h2 id="ch4">ch4</h2>
+<p>在這裡出現了另一種lambda，現在type可以寫需要參數的type了<br>
+<img src="https://i.imgur.com/itHmjN4.png" alt=""><br>
+上面的code都是eliminator，而這些eliminator都需要使用著提供return value的type</p>
+<p><img src="https://i.imgur.com/nVYfYcB.png" alt=""><br>
+<img src="https://i.imgur.com/z3hF3IC.png" alt=""></p>
+<h2 id="Ch5">Ch5</h2>
+<p>這章就是介紹List與寫寫相關的function</p>
+<p>:: as cons<br>
+(List Type)</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">claim</span> len-step</span><br><span class="line">  (<span class="name">Pi</span> ((<span class="name">A</span> U))</span><br><span class="line">    (<span class="name">-&gt;</span> A (<span class="name">List</span> A) Nat Nat)))</span><br><span class="line">(<span class="name">define</span> len-step</span><br><span class="line">  (λ (<span class="name">A</span>)</span><br><span class="line">    (λ (<span class="name">A</span> l ret)</span><br><span class="line">      (<span class="name">add1</span> ret))))</span><br><span class="line">(<span class="name">claim</span> len</span><br><span class="line">  (<span class="name">Pi</span> ((<span class="name">A</span> U))</span><br><span class="line">    (<span class="name">-&gt;</span> (<span class="name">List</span> A) Nat)))</span><br><span class="line">(<span class="name">define</span> len</span><br><span class="line">  (λ (<span class="name">A</span>)</span><br><span class="line">    (λ (<span class="name">l</span>)</span><br><span class="line">      (<span class="name">rec-List</span> l</span><br><span class="line">        <span class="number">0</span></span><br><span class="line">        (<span class="name">len-step</span> A)))))</span><br><span class="line">(<span class="name">claim</span> append</span><br><span class="line">  (<span class="name">Pi</span> ((<span class="name">A</span> U))</span><br><span class="line">    (<span class="name">-&gt;</span> (<span class="name">List</span> A) (<span class="name">List</span> A) (<span class="name">List</span> A))))</span><br><span class="line">(<span class="name">define</span> append</span><br><span class="line">  (λ (<span class="name">A</span> a b)</span><br><span class="line">    (<span class="name">rec-List</span> a</span><br><span class="line">      b</span><br><span class="line">      (λ (<span class="name">a1</span> as ret)</span><br><span class="line">        (:: a1 ret)))))</span><br><span class="line">(<span class="name">claim</span> snoc</span><br><span class="line">  (<span class="name">Pi</span> ((<span class="name">A</span> U))</span><br><span class="line">    (<span class="name">-&gt;</span> (<span class="name">List</span> A) A (<span class="name">List</span> A))))</span><br><span class="line">(<span class="name">define</span> snoc</span><br><span class="line">  (λ (<span class="name">A</span>)</span><br><span class="line">    (λ (<span class="name">l</span> a)</span><br><span class="line">      (<span class="name">rec-List</span> l</span><br><span class="line">        (:: a <span class="literal">nil</span>)</span><br><span class="line">        (λ (<span class="name">l1</span> ls ret)</span><br><span class="line">          (:: l1 ret))))))</span><br><span class="line">(<span class="name">claim</span> concat</span><br><span class="line">  (<span class="name">Pi</span> ((<span class="name">A</span> U))</span><br><span class="line">    (<span class="name">-&gt;</span> (<span class="name">List</span> A) (<span class="name">List</span> A) (<span class="name">List</span> A))))</span><br><span class="line">(<span class="name">define</span> concat</span><br><span class="line">  (λ (<span class="name">A</span> a b)</span><br><span class="line">    (<span class="name">rec-List</span> a</span><br><span class="line">      b</span><br><span class="line">      (λ (<span class="name">a1</span> as ret)</span><br><span class="line">        (<span class="name">snoc</span> A ret a1)))))</span><br><span class="line">(<span class="name">claim</span> rev</span><br><span class="line">  (<span class="name">Pi</span> ((<span class="name">A</span> U))</span><br><span class="line">    (<span class="name">-&gt;</span> (<span class="name">List</span> A) (<span class="name">List</span> A))))</span><br><span class="line">(<span class="name">define</span> rev</span><br><span class="line">  (λ (<span class="name">A</span> l)</span><br><span class="line">    (<span class="name">rec-List</span> l</span><br><span class="line">      (<span class="name">the</span> (<span class="name">List</span> A) <span class="literal">nil</span>)</span><br><span class="line">      (λ (<span class="name">l1</span> l ret)</span><br><span class="line">        (<span class="name">snoc</span> A ret l1)))))</span><br></pre></td></tr></table></figure>
+<h2 id="ch6">ch6</h2>
+<h3 id="從這裡有一點dependent-type的感覺了">從這裡有一點dependent type的感覺了</h3>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">claim</span> first</span><br><span class="line">  (<span class="name">Pi</span> ((<span class="name">A</span> U)</span><br><span class="line">       (<span class="name">l</span> Nat))</span><br><span class="line">    (<span class="name">-&gt;</span> (<span class="name">Vec</span> A l) A)))</span><br><span class="line">(<span class="name">define</span> first</span><br><span class="line">  (λ (<span class="name">A</span> l v)</span><br><span class="line">    (<span class="name">head</span> v)))</span><br></pre></td></tr></table></figure>
+<p>這有什麼問題?<br>
+如果丟一個長度為0的?</p>
+<p>所以在type中要強迫type的長度至少為1</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">claim</span> first</span><br><span class="line">  (<span class="name">Pi</span> ((<span class="name">A</span> U)</span><br><span class="line">       (<span class="name">l</span> Nat))</span><br><span class="line">    (<span class="name">-&gt;</span> (<span class="name">Vec</span> A (<span class="name">add1</span> l)) A)))</span><br><span class="line">(<span class="name">define</span> first</span><br><span class="line">  (λ (<span class="name">A</span> l v)</span><br><span class="line">    (<span class="name">head</span> v)))</span><br><span class="line">(<span class="name">claim</span> rest</span><br><span class="line">  (<span class="name">Pi</span> ((<span class="name">A</span> U)</span><br><span class="line">       (<span class="name">l</span> Nat))</span><br><span class="line">    (<span class="name">-&gt;</span> (<span class="name">Vec</span> A (<span class="name">add1</span> l)) (<span class="name">Vec</span> A l))))</span><br><span class="line">(<span class="name">define</span> rest</span><br><span class="line">  (λ (<span class="name">A</span> l v)</span><br><span class="line">    (<span class="name">tail</span> v)))</span><br></pre></td></tr></table></figure>
+<h3 id="箭頭其實是pie的簡寫">箭頭其實是pie的簡寫</h3>
+<p><img src="https://i.imgur.com/PGnohrW.png" alt=""><br>
+<img src="https://i.imgur.com/q5pxhiA.png" alt=""><br>
+注意P與lambda的參數，一邊暗，另一邊就不暗了!!</p>
+<h2 id="ch7">ch7</h2>
+<h3 id="我們需要ind-Nat">我們需要ind-Nat</h3>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">claim</span> peas</span><br><span class="line">    (<span class="name">-&gt;</span> l (<span class="name">Vec</span> Atom l)))</span><br><span class="line">(<span class="name">define</span> peas</span><br><span class="line">  (λ (<span class="name">l</span>)</span><br><span class="line">    (<span class="name">rec-Nat</span> l</span><br><span class="line">        vecnil</span><br><span class="line">        (λ (<span class="name">l-1</span> ret</span><br><span class="line">            (<span class="name">vec</span>:: 'pea ret))))))</span><br></pre></td></tr></table></figure>
+<p>Q:<br>
+為什麼不能用rec-Nat?</p>
+<p>A:<br>
+回傳值的type不一樣。<code>(Vec A l)</code> 與 <code>(Vec A (add1 l))</code> 不一樣!!</p>
+<p>所以我們需要ind-Nat</p>
+<h3 id="為什麼需要mot在dependent-type上">為什麼需要mot在dependent type上?</h3>
+<p>因為每一步生出的新資料或值的type都不一樣，而mot就是產生會出現的type<br>
+同時mot固定了，其他不會動的type的部分<br>
+<img src="https://i.imgur.com/SlyIFpg.png" alt=""></p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">claim</span> mot-last</span><br><span class="line">    (→ &lt;主體中需要的type...&gt; &lt;要遞迴的part&gt;</span><br><span class="line">      U))</span><br><span class="line">  </span><br><span class="line">(<span class="name">define</span> mot-last</span><br><span class="line">    (λ (<span class="name">E</span> k)</span><br><span class="line">        (→ (<span class="name">Vec</span> E (<span class="name">add1</span> k))</span><br><span class="line">            E))) <span class="comment">;; 就是last的claim的主體的part</span></span><br></pre></td></tr></table></figure>
+<p>base捕捉到達base case值的前一刻的參數<br>
+<img src="https://i.imgur.com/2jrHzHA.png" alt=""><br>
+<img src="https://i.imgur.com/97W2xkI.png" alt=""></p>
+<p><img src="https://i.imgur.com/LmTwQlc.png" alt=""><br>
+<img src="https://i.imgur.com/mzsicqP.png" alt=""></p>
+<p><img src="https://i.imgur.com/1zVgQNT.png" alt=""></p>
+<p>剩下就是這個章節的code</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">claim</span> last</span><br><span class="line">  (<span class="name">Pi</span> ((<span class="name">A</span> U)</span><br><span class="line">       (<span class="name">l</span> Nat))</span><br><span class="line">    (<span class="name">-&gt;</span> (<span class="name">Vec</span> A (<span class="name">add1</span> l))</span><br><span class="line">      A)))</span><br><span class="line"></span><br><span class="line"><span class="comment">;; (last Atom 0) =&gt; (-&gt; (Vec Atom 1) Atom)</span></span><br><span class="line">(<span class="name">define</span> last</span><br><span class="line">  (λ (<span class="name">A</span> l)</span><br><span class="line">    (<span class="name">ind-Nat</span> l</span><br><span class="line">      (λ (<span class="name">n</span>)</span><br><span class="line">        (<span class="name">-&gt;</span> (<span class="name">Vec</span> A (<span class="name">add1</span> n)) A))</span><br><span class="line">      (λ (<span class="name">v</span>)</span><br><span class="line">        (<span class="name">head</span> v))</span><br><span class="line">      (λ (<span class="name">n</span> f)</span><br><span class="line">        (λ (<span class="name">v</span>)</span><br><span class="line">          (<span class="name">f</span> (<span class="name">tail</span> v)))))))</span><br><span class="line"></span><br><span class="line">(<span class="name">claim</span> drop-last</span><br><span class="line">  (<span class="name">Pi</span> ((<span class="name">A</span> U)</span><br><span class="line">       (<span class="name">l</span> Nat))</span><br><span class="line">    <span class="comment">;; ^  mot</span></span><br><span class="line">    <span class="comment">;; \/ mot-define</span></span><br><span class="line">    (<span class="name">-&gt;</span> (<span class="name">Vec</span> A (<span class="name">add1</span> l)) (<span class="name">Vec</span> A l))))</span><br><span class="line">(<span class="name">claim</span> drop-last-mot</span><br><span class="line">  (<span class="name">Pi</span> ((<span class="name">A</span> U)</span><br><span class="line">       (<span class="name">l</span> Nat))</span><br><span class="line">    U))</span><br><span class="line">(<span class="name">define</span> drop-last-mot</span><br><span class="line">  (λ (<span class="name">A</span> l)</span><br><span class="line">    (<span class="name">-&gt;</span> (<span class="name">Vec</span> A (<span class="name">add1</span> l)) (<span class="name">Vec</span> A l))))</span><br><span class="line"><span class="comment">;;(define drop-last</span></span><br><span class="line"><span class="comment">;;  (λ (A l)</span></span><br><span class="line"><span class="comment">;;    (ind-Nat l</span></span><br><span class="line"><span class="comment">;;      (λ (n) (-&gt; (Vec A (add1 n)) (Vec A n)))</span></span><br><span class="line"><span class="comment">;;      (λ (v)</span></span><br><span class="line"><span class="comment">;;        vecnil)</span></span><br><span class="line"><span class="comment">;;      (λ (n f)</span></span><br><span class="line"><span class="comment">;;        (λ (v)</span></span><br><span class="line"><span class="comment">;;          (vec:: (head v) (f (tail v))))))))</span></span><br><span class="line">(<span class="name">claim</span> drop-last-base</span><br><span class="line">  (<span class="name">Pi</span> ((<span class="name">A</span> U))</span><br><span class="line">    (<span class="name">drop-last-mot</span> A <span class="number">0</span>)))</span><br><span class="line">(<span class="name">define</span> drop-last-base</span><br><span class="line">  (λ (<span class="name">A</span> v)</span><br><span class="line">    vecnil))</span><br><span class="line">(<span class="name">claim</span> drop-last-step</span><br><span class="line">  (<span class="name">Pi</span> ((<span class="name">A</span> U)</span><br><span class="line">       (<span class="name">l</span> Nat))</span><br><span class="line">    (<span class="name">-&gt;</span> (<span class="name">drop-last-mot</span> A l) (<span class="name">drop-last-mot</span> A (<span class="name">add1</span> l)))))</span><br><span class="line">(<span class="name">define</span> drop-last-step</span><br><span class="line">  (λ (<span class="name">A</span> l)</span><br><span class="line">    (λ (<span class="name">f</span>)</span><br><span class="line">      (λ (<span class="name">v</span>)</span><br><span class="line">        (<span class="name">vec</span>:: (<span class="name">head</span> v) (<span class="name">f</span> (<span class="name">tail</span> v)))))))</span><br><span class="line">(<span class="name">define</span> drop-last</span><br><span class="line">  (λ (<span class="name">A</span> l)</span><br><span class="line">    (<span class="name">ind-Nat</span> l</span><br><span class="line">      (<span class="name">drop-last-mot</span> A)</span><br><span class="line">      (<span class="name">drop-last-base</span> A)</span><br><span class="line">      (<span class="name">drop-last-step</span> A))))</span><br></pre></td></tr></table></figure>
+<h2 id="Pie-lang">Pie lang</h2>
+<h3 id="claim-define">claim &amp; define</h3>
+<p>在pie中要產生一個變數要先claim再define</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">claim</span> one</span><br><span class="line">    Nat)</span><br><span class="line">(<span class="name">define</span> one</span><br><span class="line">    (<span class="name">add1</span> <span class="number">0</span>))</span><br></pre></td></tr></table></figure>
+<h3 id="iter-Nat">iter-Nat</h3>
+<p><img src="https://i.imgur.com/VY2eetc.png" alt="iter-Nat"></p>
+<p><img src="https://i.imgur.com/m66dwhH.png" alt=""><br>
+<code>(-&gt; Nat X (-&gt; Nat X X) X)</code></p>
+<p><img src="https://i.imgur.com/dqhH89l.png" alt=""><br>
+<img src="https://i.imgur.com/nnw4W2v.png" alt=""></p>
+<h4 id="is-this-recursive">is this recursive?</h4>
+<p>If the step does not rely on the almost-answer, then a value has already been reached.</p>
+<p>If the step does rely on the almost-answer, then the recursion is guaranteed to reach the base, which is always a value or an expression that becomes a value.</p>
+<h3 id="rec-Nat-rec-List">rec-Nat &amp; rec-List</h3>
+<p><img src="https://i.imgur.com/L1fc8bt.png" alt=""><br>
+要注意的是rec-List的step，比起rec-Nat的step多了要傳List的head<br>
+所以在這裡可以推想，step的參數就是放pattern matching後所有的東西，再加一個回傳值<br>
+<img src="https://i.imgur.com/a4eM7J7.png" alt=""></p>
+<p><img src="https://i.imgur.com/wsZZQen.png" alt=""><br>
+<img src="https://i.imgur.com/SzGcBkn.png" alt=""></p>
+<h3 id="ind-Nat">ind-Nat</h3>
+<p><img src="https://i.imgur.com/DjsCXeV.png" alt=""></p>
+<h3 id="ind-type">ind-{type}</h3>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">ind-</span>&#123;type&#125; &#123;val :: type&#125;</span><br><span class="line">    (λ (&#123;val&#125;) &#123;return type&#125;)</span><br><span class="line">    &#123;base :: return type&#125;</span><br><span class="line">    (λ (&#123;inductive case :: type&#125;)</span><br><span class="line">        <span class="comment">;; [n-1::Nat] :: Nat</span></span><br><span class="line">        <span class="comment">;; [a :: A, l :: List A] :: List A</span></span><br><span class="line">        <span class="comment">;; [l :: Nat, a :: A, v :: (Vec A l)] :: (Vec A (add1 l))</span></span><br><span class="line">        (λ (<span class="name">ret</span> :: return type)</span><br><span class="line">            ...)))</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/OqOD5Uz.png" alt=""></p>
+<p>紅底就是mot的參數type與eliminator一樣<br>
+step的參數就是把eliminator的參數分解到丟到step的參數列，然後加一個ret</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/note/" rel="tag"># note</a>
+              <a href="/tags/Lisp/" rel="tag"># Lisp</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/5/hexo-generate-empty-page-on-travisci/" rel="prev" title="在travisCI上hexo generate出空白頁面">
+      <i class="fa fa-chevron-left"></i> 在travisCI上hexo generate出空白頁面
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/5/little-typer-8-16/" rel="next" title="little typer 後篇(8~16) 整理與筆記">
+      little typer 後篇(8~16) 整理與筆記 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ch1"><span class="nav-number">1.</span> <span class="nav-text">ch1</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Judgment-Type"><span class="nav-number">1.1.</span> <span class="nav-text">Judgment &amp; Type</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#normal-form-same"><span class="nav-number">1.2.</span> <span class="nav-text">normal form &amp; same</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ill-typed-type-normal-form"><span class="nav-number">1.3.</span> <span class="nav-text">ill-typed &amp; type normal form</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#constructor-values"><span class="nav-number">1.4.</span> <span class="nav-text">constructor &amp; values</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#都是constructor在頂部，values-與-normal-form差在哪裡"><span class="nav-number">1.4.1.</span> <span class="nav-text">都是constructor在頂部，values 與 normal form差在哪裡</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#evaluation-normal-expression"><span class="nav-number">1.5.</span> <span class="nav-text">evaluation &amp; normal expression</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Everything-is-expression"><span class="nav-number">1.6.</span> <span class="nav-text">Everything is expression</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#evaluation-value"><span class="nav-number">1.6.1.</span> <span class="nav-text">evaluation &amp; value</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#the-meaning-of-an-expression-evaluation"><span class="nav-number">1.6.2.</span> <span class="nav-text">the meaning of an expression &amp; evaluation</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#type-constructor-data"><span class="nav-number">1.7.</span> <span class="nav-text">type constructor &amp; data</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ch2"><span class="nav-number">2.</span> <span class="nav-text">Ch2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Eliminators"><span class="nav-number">2.1.</span> <span class="nav-text">Eliminators</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#neutral-value"><span class="nav-number">2.2.</span> <span class="nav-text">neutral (&amp; value)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Each-variable-is-the-same-as-itself-no-matter-what-type-it-has"><span class="nav-number">2.2.1.</span> <span class="nav-text">Each variable is the same as itself, no matter what type it has.</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Recursion-is-not-an-option"><span class="nav-number">2.3.</span> <span class="nav-text">Recursion is not an option.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Type-Values-Type長什麼樣子"><span class="nav-number">2.4.</span> <span class="nav-text">Type Values: Type長什麼樣子?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ch3"><span class="nav-number">3.</span> <span class="nav-text">Ch3</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#total-function"><span class="nav-number">3.1.</span> <span class="nav-text">total function</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ch4"><span class="nav-number">4.</span> <span class="nav-text">ch4</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ch5"><span class="nav-number">5.</span> <span class="nav-text">Ch5</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ch6"><span class="nav-number">6.</span> <span class="nav-text">ch6</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#從這裡有一點dependent-type的感覺了"><span class="nav-number">6.1.</span> <span class="nav-text">從這裡有一點dependent type的感覺了</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#箭頭其實是pie的簡寫"><span class="nav-number">6.2.</span> <span class="nav-text">箭頭其實是pie的簡寫</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ch7"><span class="nav-number">7.</span> <span class="nav-text">ch7</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#我們需要ind-Nat"><span class="nav-number">7.1.</span> <span class="nav-text">我們需要ind-Nat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#為什麼需要mot在dependent-type上"><span class="nav-number">7.2.</span> <span class="nav-text">為什麼需要mot在dependent type上?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pie-lang"><span class="nav-number">8.</span> <span class="nav-text">Pie lang</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#claim-define"><span class="nav-number">8.1.</span> <span class="nav-text">claim &amp; define</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iter-Nat"><span class="nav-number">8.2.</span> <span class="nav-text">iter-Nat</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#is-this-recursive"><span class="nav-number">8.2.1.</span> <span class="nav-text">is this recursive?</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rec-Nat-rec-List"><span class="nav-number">8.3.</span> <span class="nav-text">rec-Nat &amp; rec-List</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ind-Nat"><span class="nav-number">8.4.</span> <span class="nav-text">ind-Nat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ind-type"><span class="nav-number">8.5.</span> <span class="nav-text">ind-{type}</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">zhengcf</p>
+  <div class="site-description" itemprop="description">想到什麼就寫什麼</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">244</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">87</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhengcf</span>
+</div>
+  <div class="powered-by">Powered by <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl theme-link" data-url="aHR0cHM6Ly9tdXNlLnRoZW1lLW5leHQub3Jn">NexT.Muse</span>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 1000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://littlebees.github.io/2020/5/little-typer-1-7/',]
+      });
+      });
+  </script>
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://littlebee-2.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://littlebees.github.io/2020/5/little-typer-1-7/";
+    this.page.identifier = "2020/5/little-typer-1-7/";
+    this.page.title = "little typer 前篇(1~7) 整理與筆記";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://littlebee-2.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

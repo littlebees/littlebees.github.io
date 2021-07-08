@@ -1,0 +1,327 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+     <title>One Page Resume</title>
+
+     <style type="text/css">
+        * { margin: 0; padding: 0; }
+        body { font: 16px Helvetica, Sans-Serif; line-height: 24px; background: url(images/noise.jpg); }
+        .clear { clear: both; }
+        #page-wrap { margin: 40px 10vw 60px; }
+        h1 { margin: 0 0 1rem 0; padding: 0 0 1rem 0; font-size: 3rem; font-weight: bold; letter-spacing: -2px; border-bottom: 1px solid #999; }
+        h2 { font-size: 1.5rem; margin: 0 0 0.5rem 0; position: relative; }
+        h2 span { float:right;  font-style: italic; font-family: Georgia, Serif; font-size: 1rem; color: #999; font-weight: normal; }
+        p { margin: 0 0 1rem 0; }
+        a { color: hsl(300, 2%, 32%); text-decoration: none; border-bottom: 1px dotted #999; }
+        h2 > a { color: black; text-decoration: none; border-bottom: 1px dotted #999; }
+        a:hover { border-bottom-style: solid; color: #999; }
+        ul { margin: 0 0 2rem 1rem; }
+        #objective { float: left; }
+        #objective p { font-family: Georgia, Serif; font-style: italic; color: #666; }
+        dl { display: grid; grid-template-columns: 0.5fr 3fr; row-gap: 1rem; column-gap: 0;}
+        dt { font-style: italic; font-weight: bold; font-size: 1rem; text-align: right; padding: 0 1.75rem 0 0; width: 10rem; height: 6rem; border-right: 1px solid #999; }
+        dd { padding-left: 1rem; }
+        @media only screen and (max-width: 900px) {
+            /* For mobile: */
+            #page-wrap { margin: 40px 5vw 60px; }
+            h2 span { position:relative; display: block; float:unset; }
+        }
+     </style>
+</head>
+
+<body>
+
+    <div id="page-wrap">
+    
+        <div id="contact-info" class="vcard">
+        
+            <!-- Microformats! -->
+        
+            <h1 class="fn">Chung-Feng Zheng</h1>
+        
+            <p>
+                Email: <a class="email" href="mailto:zhengcf@cs.nctu.edu.tw">zhengcf@cs.nctu.edu.tw</a>
+            </p>
+        </div>
+                
+        <div id="objective">
+            <p>
+                I am a software engineer, love using programs to better my development process and daily life, and interest in system programming, programming language theory, and networking. Now, I am studying Linux kernel and Parallel computing to improve my ability of system programming.
+            </p>
+        </div>
+        
+        <div class="clear"></div>
+        
+        <dl>
+            
+            <dt>Open source</dt>
+            <dd>
+                <h2><a href="https://github.com/littlebees/manga-loader/tree/one-page-with-mutiple-pics">manga-loader</a></h2>
+                <p>(JavaScript) Extend manga-loader to load multiple pictures on a single page. Manga-loader assumed only one picture on a page.</p>
+                <h2><a href="https://github.com/littlebees/nautilus-open-any-terminal">nautilus-open-any-terminal</a></h2>
+                <p>(Python & Glib & bash) Add support for sakura terminal and fix a bug in installation script. (PR accepted)</p>
+            </dd>
+
+
+            <dt>Side project</dt>
+            <dd>
+                <h2><a href="https://github.com/littlebees/signal-tracing-wrapper">signal-tracing-wrapper</a></h2>
+                <p>(C++) A wrapper to trace who kills a process.</p>
+                <h2><a href="https://github.com/littlebees/install-arch-by-ansible">install-arch-by-ansible</a></h2>
+                <p>(Ansible) Used Ansible to install Arch Linux, and customize environments like adding ssh key to Github, adding hotkeys of GNOME, and applying my configurations.</p>
+                <h2><a href="https://littlebees.github.io/">My blog</a></h2>
+                <p>(JavaScript & TravisCI & git) Use TravisCI & npm-run-script with some bash to facilitate creating a new branch for each draft and publishing posts.</p>
+            </dd>
+
+            <dt>Education</dt>
+            <dd>
+                <h2>National Chiao Tung University, Hsinchu, Taiwan</h2>
+                <p>Master of Science in Computer Science, August 2019<br/>
+                GPA: 3.88 on a 4.0 scale</p>
+                
+                <h2>National Taipei University of Technology, Taipei, Taiwan</h2>
+                <p>Bachelor of Science in Computer Science, June 2017<br/>
+                GPA: 3.83 on a 4.0 scale</p>
+            </dd>
+            
+            <dt>Skills</dt>
+            <dd>
+                <h2>QNAP, Software Engineer <span>Nov 2019 ~ June 2021</span></h2>
+                <ul>
+                    <li>Resolved the transparent proxy was killed by OOM when multiple TCP connections established</li>
+                    <li>Hacked Linux kernel to extend the functionality of Iptables and Ipset</li>
+                    <li>Resolved the Lost Wake-Up Problem of pthread_cond_wait on the transparent proxy</li>
+                    <li>Integrate nsshtb (hardware-accelerated htb) into libnl & iproute2</li>
+                    <li>Used k8s & ansible to build local testing environment</li>
+                    <li>Wrote a ipsec log praser in Golang to monitor Ipsec status in real-time</li>
+                </ul>
+                
+                <h2>FLOLAC 2020, Teaching Assistant <span>Aug 2020 to Aug 2020 (8/10 ~ 8/20)</span></h2>
+                <ul>
+                    <li>FLOLAC is a Summer School hosted by the Institute of Information Science in Academia Sinica.</li>
+                    <li>FLOLAC teaches the concept of logic, functional programming, and the famous topics in programming language theory using Haskell & Agda.</li>
+                </ul>
+
+                <h2>Freelance Programmer <span>Aug 2019 to Nov 2019</span></h2>
+                <ul>
+                    <li>When I did my military service,
+                        <ul>
+                            <li>Migrated a military online testing website to a virtual machine and upgrade MS SQL</li>
+                            <li>Wrote a single-page Information ability evaluation webpage in vanilla JavaScript & HTML</li>
+                        </ul>
+                    </li>
+                    <li>Hacked and deployed Signal Server, which is an open-source private messaging service, on AWS EC2
+                        <ul>
+                            <li>Use Nginx as reverse proxy and TLS termination proxy</li>
+                            <li>Route53 as DNS & S3 as object store & RDS(postgres) as DB</li>
+                        </ul>
+                    </li>
+                </ul>
+            </dd>
+
+            <dt>Programming Language</dt>
+            <dd>
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(1, 1fr);">
+                    <ul>
+                        <li>C/C++</li>
+                        <li>Python</li>
+                    </ul>
+                    <ul>
+                        <li><a href="https://littlebees.github.io/tags/Ruby/">Ruby</a> & <a href="https://littlebees.github.io/tags/Rails/">Rails</a></li>
+                        <li><a href="https://littlebees.github.io/tags/java/">Java</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="https://littlebees.github.io/tags/javascript/">JavaScript</a></li>
+                        <li>Golang</li>
+                    </ul>
+                    <ul>
+                        <li>Scheme</li>
+                        <li>Haskell</li>
+                    </ul>
+                </div>
+            </dd>
+
+            <dt>Dev Tools</dt>
+            <dd>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 1fr);">
+                    <ul>
+                        <li><a href="https://littlebees.github.io/tags/bash/">bash</a></li>
+                        <li>make/autoconf/cmake</li>
+                    </ul>
+                    <ul>
+                        <li>buildroot</li>
+                        <li>Docker</li>
+                    </ul>
+                    <ul>
+                        <li>Github Action</li>
+                        <li>Ansible</li>
+                    </ul>
+                    <ul>
+                        <li><a href="https://littlebees.github.io/2021/06/systemtap-tutorial/">systemtap</a></li>
+                        <li><a href="https://littlebees.github.io/2021/07/gdb-tutorial/">gdb</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="https://littlebees.github.io/2020/9/tcpdunp-cond/">tcpdump</a></li>
+                        <li><a href="https://littlebees.github.io/2021/07/bpf-tutorial/">bpf</a></li>
+                    </ul>
+                </div>
+            </dd>
+
+            <dt>Linux Administration</dt>
+            <dd>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 1fr);">
+                    <ul>
+                        <li>DHCP</li>
+                        <li>LDAP</li>
+                    </ul>
+                    <ul>
+                        <li>DNS</li>
+                        <li>Mail server</li>
+                    </ul>
+                    <ul>
+                        <li>PXE</li>
+                        <li>OpenVPN, Wireguard</li>
+                    </ul>
+                    <ul>
+                        <li>iptables</li>
+                        <li>MSSQL</li>
+                    </ul>
+                    <ul>
+                        <li>MySQL</li>
+                    </ul>
+                </div>
+            </dd>
+
+            <dt>Cloud service</dt>
+            <dd>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(1, 1fr);">
+                    <ul>
+                        <li>AWS
+                            <ul>
+                                <li>EC2</li>
+                                <li>RDS</li>
+                                <li>Route53</li>
+                            </ul>
+                        </li>
+                    </ul>
+    
+                    <ul>
+                        <li>GCP
+                            <ul>
+                                <li>Compute Engine</li>
+                            </ul>
+                        </li>
+                    </ul>
+    
+                    <ul>
+                        <li>DigitalOcean
+                            <ul>
+                                <li>Droplet</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </dd>
+
+            <dt>Thesis</dt>
+            <dd>
+                <h2>SDN-assisted MPTCP Path Scheduling for Heterogeneous Networks</h2>
+                <ul>
+                    <li>Used an SDN (Software-Defined Networking) controller to monitor the global network information to improve the total throughput</li>
+                    <li>Traced and modified the Linux kernel source code to backport a related work</li>
+                    <li>Used Python to setup an UDP server/client to automate evaluations</li>
+                </ul>
+            </dd>
+
+            <dt>Language</dt>
+            <dd>
+                <ul>
+                    <li>TOEIC 815</li>
+                    <li>JLPT N1 passed</li>
+                </ul>
+            </dd>
+
+            <dt>Reading</dt>
+            <dd>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr);">
+                    <ul>
+                        <li>Verification Automation
+                            <ul>
+                                <li>Dependent type
+                                    <ul>
+                                        <li>(Lisp) The Little Typer <a href="https://littlebees.github.io/2020/5/little-typer-1-7/">part1</a> <a href="https://littlebees.github.io/2020/5/little-typer-8-16/">part2</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <ul>
+                                <li>Proof assistant
+                                    <ul>
+                                        <li>(Lisp) The Little Prover</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+    
+                    <ul>
+                        <li>Functional programming
+                            <ul>
+                                <li>(ML lang) <a href="https://littlebees.github.io/2020/5/the-little-mler-note/">The Little MLer</a></li>
+                                <li>(Java) <a href="https://littlebees.github.io/2021/07/a-little-java-a-few-patterns-note/">A Little Java, a Few Patterns</a></li>
+                                <li>(Lisp) <a href="https://littlebees.github.io/2020/4/TSS/">The Seasoned Schemer</a></li>
+                                <li>(Lisp) <a href="https://littlebees.github.io/2020/4/TLS/">The Little Schemer</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+    
+                    <ul>
+                        <li>Programming Language Theory
+                            <ul>
+                                <li>(Lisp) EoPL 3rd</li>
+                                <li>(Lisp) EoPL 1st</li>
+                                <li>(Lisp) SICP</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>Linux
+                            <ul>
+                                <li><a href="https://littlebees.github.io/2021/06/linux-kernel-work-principle-reading/">圖解linux核心工作原理</a></li>
+                                <li><a href="https://littlebees.github.io/2021/06/Linux-Kernel-Development-3rd-note/">Linux Kernel Development 3rd</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>Rails
+                            <ul>
+                                <li>(Ruby) <a href="https://littlebees.github.io/2020/4/rebuilding-rails-note/">Rebuilding Rails</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>System Design
+                            <ul>
+                                <li><a href="https://littlebees.github.io/categories/tutorial/system-design/">system design primer</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>Green thread
+                            <ul>
+                                <li>(C) <a href="https://littlebees.github.io/2021/06/Green-Threads-Explained-note/">Green Threads Explained</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </dd>
+        </dl>
+    </div>
+
+</body>
+
+</html>
