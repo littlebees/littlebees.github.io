@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 分治也是可以重複走的">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-12-20T08:50:09.000Z">
-<meta property="article:modified_time" content="2021-07-11T13:06:47.928Z">
+<meta property="article:modified_time" content="2021-07-11T13:29:29.469Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="note">
 <meta property="article:tag" content="Classic">
@@ -232,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-11 21:06:47" itemprop="dateModified" datetime="2021-07-11T21:06:47+08:00">2021-07-11</time>
+                <time title="Modified: 2021-07-11 21:29:29" itemprop="dateModified" datetime="2021-07-11T21:29:29+08:00">2021-07-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -289,6 +289,17 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mss</span><span class="params">(l)</span>:</span></span><br><span class="line">  <span class="keyword">if</span> <span class="keyword">not</span> l:</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">  <span class="keyword">if</span> len(l) == <span class="number">1</span>:</span><br><span class="line">    <span class="keyword">return</span> l[<span class="number">0</span>]</span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">    mid = len(l)//<span class="number">2</span></span><br><span class="line">    onlyLeft = mss(l[:mid])</span><br><span class="line">    onlyRight = mss(l[mid+<span class="number">1</span>:])</span><br><span class="line"></span><br><span class="line">    left = <span class="number">0</span></span><br><span class="line">    tmp = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> reversed(l[:mid<span class="number">-1</span>]):</span><br><span class="line">      tmp += n</span><br><span class="line">      left = max([tmp,left])</span><br><span class="line">    </span><br><span class="line">    right = <span class="number">0</span></span><br><span class="line">    tmp = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> l[mid+<span class="number">2</span>:]:</span><br><span class="line">      tmp += n</span><br><span class="line">      right = max([tmp,right])</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> max([l[mid]+left+right, onlyLeft, onlyRight])</span><br></pre></td></tr></table></figure>
 <h2 id="DP">DP</h2>
 <p>tmp紀錄定義為以此為終點的mss</p>
+<p>面對數字只有兩個做法</p>
+<ol>
+<li>加</li>
+<li>換成這個數字，把之前的丟掉</li>
+</ol>
+<p>所以加的條件就是</p>
+<ol>
+<li>如果加了比原本大，加!!</li>
+<li>如果加了比原本的數字大，也只能加了</li>
+<li>最後只好換掉了</li>
+</ol>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mss</span><span class="params">(l)</span>:</span></span><br><span class="line">  ret = <span class="number">0</span></span><br><span class="line">  tmp = <span class="number">0</span></span><br><span class="line">  <span class="keyword">for</span> n <span class="keyword">in</span> l:</span><br><span class="line">    <span class="keyword">if</span> tmp+n &gt;= tmp:</span><br><span class="line">      tmp += n</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">      <span class="keyword">if</span> tmp+n &gt; n:</span><br><span class="line">        tmp += n</span><br><span class="line">      <span class="keyword">else</span>:</span><br><span class="line">        tmp = n</span><br><span class="line">    ret = max([ret, tmp])</span><br><span class="line">  <span class="keyword">return</span> ret</span><br></pre></td></tr></table></figure>
 <h2 id="Ref">Ref</h2>
 <p><span class="exturl" data-url="aHR0cHM6Ly93d3cuZ2Vla3Nmb3JnZWVrcy5vcmcvbWF4aW11bS1zdWJhcnJheS1zdW0tdXNpbmctZGl2aWRlLWFuZC1jb25xdWVyLWFsZ29yaXRobS8=">分治 P.S.:geeksforgeeks的資料會不會太贊了<i class="fa fa-external-link-alt"></i></span></p>
