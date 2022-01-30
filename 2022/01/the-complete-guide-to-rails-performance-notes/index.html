@@ -38,7 +38,7 @@
 <meta property="og:image" content="https://i.imgur.com/OkHYBqz.png">
 <meta property="og:image" content="https://i.imgur.com/lU9IXtn.png">
 <meta property="article:published_time" content="2022-01-30T06:44:01.000Z">
-<meta property="article:modified_time" content="2022-01-30T06:44:22.328Z">
+<meta property="article:modified_time" content="2022-01-30T07:29:16.208Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://i.imgur.com/uUmuAAc.png">
@@ -87,7 +87,119 @@
   </style>
 </noscript>
 
-</head>
+<style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <div class="container use-motion">
@@ -234,7 +346,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-01-30 14:44:01 / Modified: 14:44:22" itemprop="dateCreated datePublished" datetime="2022-01-30T14:44:01+08:00">2022-01-30</time>
+              <time title="Created: 2022-01-30 14:44:01 / Modified: 15:29:16" itemprop="dateCreated datePublished" datetime="2022-01-30T14:44:01+08:00">2022-01-30</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -289,10 +401,10 @@ webfont, CDN, SSL, HTTP cache, Rails Cache, Backgrounding Work</p>
 <p>Pareto’s law告訴我們把時間花在找出那20%決定80%的部分</p>
 <p>所以下面的章節有很大一部分在怎麼測量，與測量什麼</p>
 <h3 id="little-law">little law</h3>
-<p>$l=\lambda w$<br>
-$l$是幾台主機<br>
-$\lambda$是單位時間有多少req<br>
-$w$是主機的avg. response time</p>
+<p><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.186ex" xmlns="http://www.w3.org/2000/svg" width="6.63ex" height="1.756ex" role="img" focusable="false" viewBox="0 -694 2930.6 776"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D459" d="M117 59Q117 26 142 26Q179 26 205 131Q211 151 215 152Q217 153 225 153H229Q238 153 241 153T246 151T248 144Q247 138 245 128T234 90T214 43T183 6T137 -11Q101 -11 70 11T38 85Q38 97 39 102L104 360Q167 615 167 623Q167 626 166 628T162 632T157 634T149 635T141 636T132 637T122 637Q112 637 109 637T101 638T95 641T94 647Q94 649 96 661Q101 680 107 682T179 688Q194 689 213 690T243 693T254 694Q266 694 266 686Q266 675 193 386T118 83Q118 81 118 75T117 65V59Z"></path></g><g data-mml-node="mo" transform="translate(575.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mi" transform="translate(1631.6,0)"><path data-c="1D706" d="M166 673Q166 685 183 694H202Q292 691 316 644Q322 629 373 486T474 207T524 67Q531 47 537 34T546 15T551 6T555 2T556 -2T550 -11H482Q457 3 450 18T399 152L354 277L340 262Q327 246 293 207T236 141Q211 112 174 69Q123 9 111 -1T83 -12Q47 -12 47 20Q47 37 61 52T199 187Q229 216 266 252T321 306L338 322Q338 323 288 462T234 612Q214 657 183 657Q166 657 166 673Z"></path></g><g data-mml-node="mi" transform="translate(2214.6,0)"><path data-c="1D464" d="M580 385Q580 406 599 424T641 443Q659 443 674 425T690 368Q690 339 671 253Q656 197 644 161T609 80T554 12T482 -11Q438 -11 404 5T355 48Q354 47 352 44Q311 -11 252 -11Q226 -11 202 -5T155 14T118 53T104 116Q104 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Q21 293 29 315T52 366T96 418T161 441Q204 441 227 416T250 358Q250 340 217 250T184 111Q184 65 205 46T258 26Q301 26 334 87L339 96V119Q339 122 339 128T340 136T341 143T342 152T345 165T348 182T354 206T362 238T373 281Q402 395 406 404Q419 431 449 431Q468 431 475 421T483 402Q483 389 454 274T422 142Q420 131 420 107V100Q420 85 423 71T442 42T487 26Q558 26 600 148Q609 171 620 213T632 273Q632 306 619 325T593 357T580 385Z"></path></g></g></g></svg></mjx-container><br>
+<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex" xmlns="http://www.w3.org/2000/svg" width="0.674ex" height="1.595ex" role="img" focusable="false" viewBox="0 -694 298 705"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D459" d="M117 59Q117 26 142 26Q179 26 205 131Q211 151 215 152Q217 153 225 153H229Q238 153 241 153T246 151T248 144Q247 138 245 128T234 90T214 43T183 6T137 -11Q101 -11 70 11T38 85Q38 97 39 102L104 360Q167 615 167 623Q167 626 166 628T162 632T157 634T149 635T141 636T132 637T122 637Q112 637 109 637T101 638T95 641T94 647Q94 649 96 661Q101 680 107 682T179 688Q194 689 213 690T243 693T254 694Q266 694 266 686Q266 675 193 386T118 83Q118 81 118 75T117 65V59Z"></path></g></g></g></svg></mjx-container>是幾台主機<br>
+<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.027ex" xmlns="http://www.w3.org/2000/svg" width="1.319ex" height="1.597ex" role="img" focusable="false" viewBox="0 -694 583 706"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D706" d="M166 673Q166 685 183 694H202Q292 691 316 644Q322 629 373 486T474 207T524 67Q531 47 537 34T546 15T551 6T555 2T556 -2T550 -11H482Q457 3 450 18T399 152L354 277L340 262Q327 246 293 207T236 141Q211 112 174 69Q123 9 111 -1T83 -12Q47 -12 47 20Q47 37 61 52T199 187Q229 216 266 252T321 306L338 322Q338 323 288 462T234 612Q214 657 183 657Q166 657 166 673Z"></path></g></g></g></svg></mjx-container>是單位時間有多少req<br>
+<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex" xmlns="http://www.w3.org/2000/svg" width="1.62ex" height="1.027ex" role="img" focusable="false" viewBox="0 -443 716 454"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D464" d="M580 385Q580 406 599 424T641 443Q659 443 674 425T690 368Q690 339 671 253Q656 197 644 161T609 80T554 12T482 -11Q438 -11 404 5T355 48Q354 47 352 44Q311 -11 252 -11Q226 -11 202 -5T155 14T118 53T104 116Q104 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Q21 293 29 315T52 366T96 418T161 441Q204 441 227 416T250 358Q250 340 217 250T184 111Q184 65 205 46T258 26Q301 26 334 87L339 96V119Q339 122 339 128T340 136T341 143T342 152T345 165T348 182T354 206T362 238T373 281Q402 395 406 404Q419 431 449 431Q468 431 475 421T483 402Q483 389 454 274T422 142Q420 131 420 107V100Q420 85 423 71T442 42T487 26Q558 26 600 148Q609 171 620 213T632 273Q632 306 619 325T593 357T580 385Z"></path></g></g></g></svg></mjx-container>是主機的avg. response time</p>
 <p>這是針對長期而言的式子，主要是用來看有沒有over-scaled(太多主機了、太少主機了(主機數剛好是算出來的數字!?))<br>
 另外，little law預設，req彼此獨立、server彼此獨立(不能互卡(IO)、卡資源(cpu或mem有限))、response不能差平均太多(95th percentile response times很重要)</p>
 <p>同時也是說，scale對avg. response time沒有影響，對</p>
@@ -434,7 +546,7 @@ $w$是主機的avg. response time</p>
 </ul>
 <h3 id="ruby-Ruby-Prof">ruby: Ruby-Prof</h3>
 <p>Ruby-Prof直接與MRI掛勾(tracing)，所以一但跑了就會比平常慢2到3倍</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span> <span class="string">&#x27;ruby-prof&#x27;</span></span><br><span class="line">SORTED_ARRAY = Array.new(<span class="number">10_000</span>) &#123; rand(<span class="number">100_000</span>) &#125;.sort!</span><br><span class="line">array_size = SORTED_ARRAY.size</span><br><span class="line">RubyProf.measure_mode = RubyProf::CPU_TIME</span><br><span class="line">result = RubyProf.profile <span class="keyword">do</span></span><br><span class="line">    <span class="number">1_000_000</span>.times &#123; bsearch2(SORTED_ARRAY, rand(array_size)) &#125;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">printer = RubyProf::FlatPrinter.new(result)</span><br><span class="line">printer.print(STDOUT)</span><br></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span> <span class="string">'ruby-prof'</span></span><br><span class="line">SORTED_ARRAY = Array.new(<span class="number">10_000</span>) { rand(<span class="number">100_000</span>) }.sort!</span><br><span class="line">array_size = SORTED_ARRAY.size</span><br><span class="line">RubyProf.measure_mode = RubyProf::CPU_TIME</span><br><span class="line">result = RubyProf.profile <span class="keyword">do</span></span><br><span class="line">    <span class="number">1_000_000</span>.times { bsearch2(SORTED_ARRAY, rand(array_size)) }</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">printer = RubyProf::FlatPrinter.new(result)</span><br><span class="line">printer.print(STDOUT)</span><br></pre></td></tr></table></figure>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">%self total self wait child calls name</span><br><span class="line">17.22 19.117 12.777 0.000 6.340 13182869 Fixnum#==</span><br><span class="line">8.54 6.340 6.340 0.000 0.000 13182869 BasicObject#==</span><br><span class="line">5.73 71.918 4.252 0.000 67.666 14182869 *Object#bsearch2</span><br><span class="line">2.14 74.196 1.590 0.000 72.606 1 Integer#times</span><br><span class="line">0.93 0.688 0.688 0.000 0.000 1000000 Kernel#rand</span><br><span class="line">0.68 0.508 0.508 0.000 0.000 1000000 Array#count</span><br><span class="line">0.00 74.196 0.000 0.000 74.196 1 Global#[No method]</span><br></pre></td></tr></table></figure>
 <p><code>%self</code>: 花在這個method的時間占比<br>
 <code>total</code>: 這個method與child共花了多少時間<br>
@@ -527,7 +639,7 @@ profile-gc就是GC.stat，可以看</p>
 <p>ObjectSpace就是所有object的存放地，因為是與MRI深度綁定，所以不要在prodution用</p>
 <p>下面來看看有什麼有趣的功能</p>
 <p>像ObjectSpace.count_objects</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">irb(main):001:0&gt; ObjectSpace.count_objects</span><br><span class="line">=&gt; &#123;:TOTAL=&gt;53802, :FREE=&gt;31, :T_OBJECT=&gt;3373,</span><br><span class="line">:T_CLASS=&gt;888, :T_MODULE=&gt;30, :T_FLOAT=&gt;4,</span><br><span class="line">:T_STRING=&gt;36497, :T_REGEXP=&gt;164, :T_ARRAY=&gt;9399,</span><br><span class="line">:T_HASH=&gt;789, :T_STRUCT=&gt;2, :T_BIGNUM=&gt;2, :T_FILE=&gt;7,</span><br><span class="line">:T_DATA=&gt;1443, :T_MATCH=&gt;85, :T_COMPLEX=&gt;1,</span><br><span class="line">:T_NODE=&gt;1050, :T_ICLASS=&gt;37&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">irb(main):001:0&gt; ObjectSpace.count_objects</span><br><span class="line">=&gt; {:TOTAL=&gt;53802, :FREE=&gt;31, :T_OBJECT=&gt;3373,</span><br><span class="line">:T_CLASS=&gt;888, :T_MODULE=&gt;30, :T_FLOAT=&gt;4,</span><br><span class="line">:T_STRING=&gt;36497, :T_REGEXP=&gt;164, :T_ARRAY=&gt;9399,</span><br><span class="line">:T_HASH=&gt;789, :T_STRUCT=&gt;2, :T_BIGNUM=&gt;2, :T_FILE=&gt;7,</span><br><span class="line">:T_DATA=&gt;1443, :T_MATCH=&gt;85, :T_COMPLEX=&gt;1,</span><br><span class="line">:T_NODE=&gt;1050, :T_ICLASS=&gt;37}</span><br></pre></td></tr></table></figure>
 <p>好懂的好懂，但還是有些怪怪的</p>
 <ul>
 <li>T_NODE: AST</li>
@@ -535,13 +647,13 @@ profile-gc就是GC.stat，可以看</p>
 </ul>
 <p>這裡就看我們知道的基本type就好</p>
 <p>利用這個與gc開關可以來寫個簡單的benchmark看一段code產生多少object</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">allocate_count</span></span></span><br><span class="line">    GC.disable</span><br><span class="line">    before = ObjectSpace.count_objects</span><br><span class="line">    <span class="keyword">yield</span></span><br><span class="line">    after = ObjectSpace.count_objects</span><br><span class="line">    after.each &#123; <span class="params">|k,v|</span> after[k] = v - before[k] &#125;</span><br><span class="line">    after[<span class="symbol">:T_HASH</span>] -= <span class="number">1</span> <span class="comment"># probe effect - we created the before hash.</span></span><br><span class="line">    after[<span class="symbol">:FREE</span>] += <span class="number">1</span> <span class="comment"># same</span></span><br><span class="line">    GC.enable</span><br><span class="line">    after.reject &#123; <span class="params">|k,v|</span> v == <span class="number">0</span> &#125;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">allocate_count &#123; <span class="number">100</span>.times &#123; <span class="string">&#x27;hello&#x27;</span> + <span class="string">&#x27;hi&#x27;</span> &#125;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">allocate_count</span></span></span><br><span class="line">    GC.disable</span><br><span class="line">    before = ObjectSpace.count_objects</span><br><span class="line">    <span class="keyword">yield</span></span><br><span class="line">    after = ObjectSpace.count_objects</span><br><span class="line">    after.each { <span class="params">|k,v|</span> after[k] = v - before[k] }</span><br><span class="line">    after[<span class="symbol">:T_HASH</span>] -= <span class="number">1</span> <span class="comment"># probe effect - we created the before hash.</span></span><br><span class="line">    after[<span class="symbol">:FREE</span>] += <span class="number">1</span> <span class="comment"># same</span></span><br><span class="line">    GC.enable</span><br><span class="line">    after.reject { <span class="params">|k,v|</span> v == <span class="number">0</span> }</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">allocate_count { <span class="number">100</span>.times { <span class="string">'hello'</span> + <span class="string">'hi'</span> }}</span><br></pre></td></tr></table></figure>
 <p>同時也可以看現在有多少存活的object</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">puts ObjectSpace.each_object.count</span><br><span class="line">puts ObjectSpace.each_object(Numeric).count</span><br><span class="line">puts ObjectSpace.each_object(Complex).count</span><br><span class="line">ObjectSpace.each_object(Complex) &#123; <span class="params">|c|</span> puts c </span><br></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">puts ObjectSpace.each_object.count</span><br><span class="line">puts ObjectSpace.each_object(Numeric).count</span><br><span class="line">puts ObjectSpace.each_object(Complex).count</span><br><span class="line">ObjectSpace.each_object(Complex) { <span class="params">|c|</span> puts c </span><br></pre></td></tr></table></figure>
 <p>看一個type總共花的多少mem</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">irb(main):057:0&gt; ObjectSpace.count_objects_size</span><br><span class="line">&#123;</span><br><span class="line">:T_OBJECT =&gt; 198560,</span><br><span class="line">:T_CLASS =&gt; 614784,</span><br><span class="line">:T_MODULE =&gt; 66712,</span><br><span class="line">:T_FLOAT =&gt; 160,</span><br><span class="line">:T_STRING =&gt; 1578522,</span><br><span class="line">:T_REGEXP =&gt; 122875,</span><br><span class="line">:T_ARRAY =&gt; 630976,</span><br><span class="line">:T_HASH =&gt; 165672,</span><br><span class="line">:T_STRUCT =&gt; 160</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">irb(main):057:0&gt; ObjectSpace.count_objects_size</span><br><span class="line">{</span><br><span class="line">:T_OBJECT =&gt; 198560,</span><br><span class="line">:T_CLASS =&gt; 614784,</span><br><span class="line">:T_MODULE =&gt; 66712,</span><br><span class="line">:T_FLOAT =&gt; 160,</span><br><span class="line">:T_STRING =&gt; 1578522,</span><br><span class="line">:T_REGEXP =&gt; 122875,</span><br><span class="line">:T_ARRAY =&gt; 630976,</span><br><span class="line">:T_HASH =&gt; 165672,</span><br><span class="line">:T_STRUCT =&gt; 160</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 <p>看看這個物件佔了多少mem</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">irb(main):062:0&gt; ObjectSpace.memsize_of(&quot;The quick brown fox jumps over the lazy dog&quot;)</span><br><span class="line">40 # NOT ACCURATE</span><br><span class="line">irb(main):063:0&gt; ObjectSpace.memsize_of(&quot;The quick brown fox&quot;)</span><br><span class="line">40</span><br><span class="line">irb(main):064:0&gt; ObjectSpace.memsize_of([])</span><br><span class="line">40</span><br><span class="line">irb(main):065:0&gt;ObjectSpace.memsize_of(Array.new(10_000) &#123; :a &#125;)</span><br><span class="line">80040</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">irb(main):062:0&gt; ObjectSpace.memsize_of("The quick brown fox jumps over the lazy dog")</span><br><span class="line">40 # NOT ACCURATE</span><br><span class="line">irb(main):063:0&gt; ObjectSpace.memsize_of("The quick brown fox")</span><br><span class="line">40</span><br><span class="line">irb(main):064:0&gt; ObjectSpace.memsize_of([])</span><br><span class="line">40</span><br><span class="line">irb(main):065:0&gt;ObjectSpace.memsize_of(Array.new(10_000) { :a })</span><br><span class="line">80040</span><br></pre></td></tr></table></figure>
 <p>為什麼是40?<br>
 ruby vm的RVALUE大小就是40bytes</p>
 <p>使用時機:</p>
@@ -576,7 +688,7 @@ ruby vm的RVALUE大小就是40bytes</p>
 <p>GC.count就是從執行程式以來GC被執行的總次數，包含major與minor<br>
 GC.stat就是各種參數，除了GC的還有memory本身的各種數值</p>
 <p>跑跑GC::profiler吧</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">GC::Profiler.enable</span><br><span class="line"><span class="keyword">require</span> <span class="string">&#x27;set&#x27;</span></span><br><span class="line">GC.start</span><br><span class="line">GC::Profiler.report</span><br><span class="line">GC::Profiler.disable</span><br></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">GC::Profiler.enable</span><br><span class="line"><span class="keyword">require</span> <span class="string">'set'</span></span><br><span class="line">GC.start</span><br><span class="line">GC::Profiler.report</span><br><span class="line">GC::Profiler.disable</span><br></pre></td></tr></table></figure>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GC 133 invokes.</span><br><span class="line">Index Invoke    Time(sec)    Use Size(byte)    Total Size(byte)    Total Object    GC Time(ms)</span><br><span class="line">1    1.966    801240    6315840    157896    2.33700000000003349498</span><br></pre></td></tr></table></figure>
 <p>invoke的值與GC.count一樣也就是，這是從執行程式以來GC被執行的總次數</p>
 <p>使用時機:<br>
@@ -600,7 +712,7 @@ GC.stat就是各種參數，除了GC的還有memory本身的各種數值</p>
 <h4 id="memory-profiler">memory_profiler</h4>
 <p>memory_profiler其實是derailed_benchmarks的backend</p>
 <p>memory_profiler可以只對一段code做profile</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span> <span class="string">&#x27;memory_profiler&#x27;</span></span><br><span class="line">report = MemoryProfiler.report <span class="keyword">do</span></span><br><span class="line">    <span class="comment"># run your code here</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">report.pretty_print</span><br></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span> <span class="string">'memory_profiler'</span></span><br><span class="line">report = MemoryProfiler.report <span class="keyword">do</span></span><br><span class="line">    <span class="comment"># run your code here</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">report.pretty_print</span><br></pre></td></tr></table></figure>
 <p>之後的report會有</p>
 <ul>
 <li>Retained memory
@@ -736,7 +848,7 @@ GC.stat就是各種參數，除了GC的還有memory本身的各種數值</p>
 <li>把html轉成dom</li>
 <li>下載需要的resource
 <ul>
-<li><code>&lt;script src=&quot;/assets/application.js&quot; async=&quot;async&quot; ... /&gt;</code>
+<li><code>&lt;script src="/assets/application.js" async="async" ... /&gt;</code>
 <ul>
 <li>這個有加async，所以不會block整個parse</li>
 <li>如果沒加parse會等下載完才繼續</li>
@@ -1183,7 +1295,7 @@ Are they asset requests? Redirects? Errors?</p>
 <p>benchmark: 測code花多少時間或是花多少資源</p>
 <p>也許某段code的benchmark好，但是其實這段code的占比不大，那就不用特別去改<br>
 還有可能是單單benchmark快，但是對整體沒有影響甚至是拖累整體</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span> <span class="string">&#x27;benchmark/ips&#x27;</span></span><br><span class="line">Benchmark.ips <span class="keyword">do</span> <span class="params">|x|</span></span><br><span class="line">    SORTED_ARRAY = Array.new(<span class="number">10_000</span>) &#123; rand(<span class="number">100_000</span>) &#125;.sort!</span><br><span class="line">    array_size = SORTED_ARRAY.size</span><br><span class="line">    <span class="comment"># Typical mode, runs the block as many times as it can</span></span><br><span class="line">    x.report(<span class="string">&quot;bsearch1&quot;</span>) &#123; bsearch1(SORTED_ARRAY, rand(array_size))&#125;</span><br><span class="line">    x.report(<span class="string">&quot;bsearch2&quot;</span>) &#123; bsearch2(SORTED_ARRAY, rand(array_size))&#125;</span><br><span class="line">    x.compare!</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span> <span class="string">'benchmark/ips'</span></span><br><span class="line">Benchmark.ips <span class="keyword">do</span> <span class="params">|x|</span></span><br><span class="line">    SORTED_ARRAY = Array.new(<span class="number">10_000</span>) { rand(<span class="number">100_000</span>) }.sort!</span><br><span class="line">    array_size = SORTED_ARRAY.size</span><br><span class="line">    <span class="comment"># Typical mode, runs the block as many times as it can</span></span><br><span class="line">    x.report(<span class="string">"bsearch1"</span>) { bsearch1(SORTED_ARRAY, rand(array_size))}</span><br><span class="line">    x.report(<span class="string">"bsearch2"</span>) { bsearch2(SORTED_ARRAY, rand(array_size))}</span><br><span class="line">    x.compare!</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 <p>整個網站</p>
 <ul>
 <li>ab</li>
@@ -1406,7 +1518,7 @@ process是怎麼與shared resource溝通</p>
 </li>
 </ul>
 <p>這裡有一個小程式可以看上面的訊息</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">Thread.new <span class="keyword">do</span></span><br><span class="line">    logger = Logger.new(<span class="string">&#x27;mem_log.txt&#x27;</span>)</span><br><span class="line">    logger.formatter = <span class="built_in">proc</span> &#123; <span class="params">|sev, date, prog, msg|</span> msg &#125;</span><br><span class="line">    headers = [</span><br><span class="line">        <span class="string">&quot;RSS&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Live slots&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Free slots&quot;</span>,</span><br><span class="line">        ObjectSpace.count_objects.keys</span><br><span class="line">    ].flatten</span><br><span class="line">    logger.info headers.join(<span class="string">&quot;,&quot;</span>)</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">true</span></span><br><span class="line">        pid = Process.pid</span><br><span class="line">        rss = <span class="string">`ps -eo pid,rss | grep <span class="subst">#&#123;pid&#125;</span> | awk &#x27;&#123;print $2&#125;&#x27;`</span></span><br><span class="line">        memory_info = [</span><br><span class="line">            rss.strip,</span><br><span class="line">            GC.stat[<span class="symbol">:heap_live_slots</span>],</span><br><span class="line">            GC.stat[<span class="symbol">:heap_free_slots</span>],</span><br><span class="line">            ObjectSpace.count_objects.values</span><br><span class="line">        ].flatten</span><br><span class="line">        logger.info memory_info.join(<span class="string">&quot;,&quot;</span>)</span><br><span class="line">        logger.info <span class="string">&quot;\n&quot;</span></span><br><span class="line">        sleep <span class="number">5</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">Thread.new <span class="keyword">do</span></span><br><span class="line">    logger = Logger.new(<span class="string">'mem_log.txt'</span>)</span><br><span class="line">    logger.formatter = <span class="built_in">proc</span> { <span class="params">|sev, date, prog, msg|</span> msg }</span><br><span class="line">    headers = [</span><br><span class="line">        <span class="string">"RSS"</span>,</span><br><span class="line">        <span class="string">"Live slots"</span>,</span><br><span class="line">        <span class="string">"Free slots"</span>,</span><br><span class="line">        ObjectSpace.count_objects.keys</span><br><span class="line">    ].flatten</span><br><span class="line">    logger.info headers.join(<span class="string">","</span>)</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">true</span></span><br><span class="line">        pid = Process.pid</span><br><span class="line">        rss = <span class="string">`ps -eo pid,rss | grep <span class="subst">#{pid}</span> | awk '{print $2}'`</span></span><br><span class="line">        memory_info = [</span><br><span class="line">            rss.strip,</span><br><span class="line">            GC.stat[<span class="symbol">:heap_live_slots</span>],</span><br><span class="line">            GC.stat[<span class="symbol">:heap_free_slots</span>],</span><br><span class="line">            ObjectSpace.count_objects.values</span><br><span class="line">        ].flatten</span><br><span class="line">        logger.info memory_info.join(<span class="string">","</span>)</span><br><span class="line">        logger.info <span class="string">"\n"</span></span><br><span class="line">        sleep <span class="number">5</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 <p>把上面的code放到config/initializers，之後就會有csv<br>
 這樣就可以用seige打打看，生10~15k的資料，之後就可以分析了</p>
 <ul>
@@ -1741,7 +1853,7 @@ scale只有在有queue時才會提升response times</p>
 </ul>
 <p>trace gc count可以看r background job是不是會一直觸發gc<br>
 像下面就是可以用來trace的midleware</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GCCounter</span></span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">initialize</span><span class="params">(app)</span></span></span><br><span class="line">    <span class="variable">@app</span> = app</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">call</span><span class="params">(env)</span></span></span><br><span class="line">    gc_counts_before = GC.stat.select &#123; <span class="params">|k,v|</span> k =~ <span class="regexp">/count/</span></span><br><span class="line">    <span class="variable">@app</span>.call(env)</span><br><span class="line">    gc_counts_after = GC.stat.select &#123; <span class="params">|k,v|</span> k =~ <span class="regexp">/count/</span></span><br><span class="line">    puts gc_counts_before.merge(gc_counts_after) &#123; <span class="params">|k, vb, va|</span> va - vb &#125;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GCCounter</span></span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">initialize</span><span class="params">(app)</span></span></span><br><span class="line">    <span class="variable">@app</span> = app</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">call</span><span class="params">(env)</span></span></span><br><span class="line">    gc_counts_before = GC.stat.select { <span class="params">|k,v|</span> k =~ <span class="regexp">/count/</span></span><br><span class="line">    <span class="variable">@app</span>.call(env)</span><br><span class="line">    gc_counts_after = GC.stat.select { <span class="params">|k,v|</span> k =~ <span class="regexp">/count/</span></span><br><span class="line">    puts gc_counts_before.merge(gc_counts_after) { <span class="params">|k, vb, va|</span> va - vb }</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 <p>ruby的ObjectSpace(heap)就是記憶體，一個ptr(RVALUE)對到一個slot，好多個slot變成一個page</p>
 <p>heap_sorted_length是目前alloc的連續長度(想像怎麼實作vma的)<br>
 heap_allocated_pages是只有多少page(已經變成page的mem)<br>
@@ -1810,7 +1922,7 @@ eden_pages就是至少有一個live slot</p>
 </ul>
 </li>
 </ul>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">module</span> <span class="title">LogQuerySource</span></span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">debug</span><span class="params">(*args, &amp;block)</span></span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">unless</span> <span class="keyword">super</span></span><br><span class="line">        </span><br><span class="line">        backtrace = Rails.backtrace_cleaner.clean caller</span><br><span class="line">        relevant_caller_line = backtrace.detect <span class="keyword">do</span> <span class="params">|caller_line|</span></span><br><span class="line">        !caller_line.<span class="keyword">include</span>?(<span class="string">&#x27;/initializers/&#x27;</span>)</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">if</span> relevant_caller_line</span><br><span class="line">            logger.debug(<span class="string">&quot; -&gt; <span class="subst">#&#123; relevant_caller_line.sub(<span class="string">&quot;<span class="subst">#&#123;</span></span></span></span></span><br><span class="line"><span class="subst"><span class="string"><span class="subst"><span class="string">        <span class="keyword">end</span></span></span></span></span></span><br><span class="line"><span class="subst"><span class="string"><span class="subst"><span class="string">    <span class="keyword">end</span></span></span></span></span></span><br><span class="line"><span class="subst"><span class="string"><span class="subst"><span class="string"><span class="keyword">end</span></span></span></span></span></span><br><span class="line"><span class="subst"><span class="string"><span class="subst"><span class="string"></span></span></span></span></span><br><span class="line"><span class="subst"><span class="string"><span class="subst"><span class="string">ActiveRecord::LogSubscriber.send <span class="symbol">:prepend</span>, LogQuerySource</span></span></span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">module</span> <span class="title">LogQuerySource</span></span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">debug</span><span class="params">(*args, &amp;block)</span></span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">unless</span> <span class="keyword">super</span></span><br><span class="line">        </span><br><span class="line">        backtrace = Rails.backtrace_cleaner.clean caller</span><br><span class="line">        relevant_caller_line = backtrace.detect <span class="keyword">do</span> <span class="params">|caller_line|</span></span><br><span class="line">        !caller_line.<span class="keyword">include</span>?(<span class="string">'/initializers/'</span>)</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">if</span> relevant_caller_line</span><br><span class="line">            logger.debug(<span class="string">" -&gt; <span class="subst">#{ relevant_caller_line.sub(<span class="string">"<span class="subst">#{</span></span></span></span></span><br><span class="line"><span class="subst"><span class="string"><span class="subst"><span class="string">        <span class="keyword">end</span></span></span></span></span></span><br><span class="line"><span class="subst"><span class="string"><span class="subst"><span class="string">    <span class="keyword">end</span></span></span></span></span></span><br><span class="line"><span class="subst"><span class="string"><span class="subst"><span class="string"><span class="keyword">end</span></span></span></span></span></span><br><span class="line"><span class="subst"><span class="string"><span class="subst"><span class="string"></span></span></span></span></span><br><span class="line"><span class="subst"><span class="string"><span class="subst"><span class="string">ActiveRecord::LogSubscriber.send <span class="symbol">:prepend</span>, LogQuerySource</span></span></span></span></span><br></pre></td></tr></table></figure>
 <p>書上的例子是<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3J1YnlnZW1zL3J1YnlnZW1zLm9yZy9wdWxsLzExODkvZmlsZXM=">這個<i class="fa fa-external-link-alt"></i></span><br>
 partial會對每個collections的東西call find_by!!</p>
 <p>using an ActiveRecord query method like find_by which is called on every element in a collection - is extremely common<br>

@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 這題很經典，在programming pearls有出現過">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-01-29T19:01:18.000Z">
-<meta property="article:modified_time" content="2022-01-30T06:44:22.304Z">
+<meta property="article:modified_time" content="2022-01-30T07:29:16.180Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Array">
 <meta property="article:tag" content="Hash Table">
@@ -232,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-30 14:44:22" itemprop="dateModified" datetime="2022-01-30T14:44:22+08:00">2022-01-30</time>
+                <time title="Modified: 2022-01-30 15:29:16" itemprop="dateModified" datetime="2022-01-30T15:29:16+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -267,12 +267,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-158">動機</h2>
+        <h2 id="動機-145">動機</h2>
 <p>這題很經典，在programming pearls有出現過</p>
 <span id="more"></span>
-<h2 id="Problem-74">Problem</h2>
+<h2 id="Problem-71">Problem</h2>
 <p>Given an array <code>nums</code> of <code>n</code> integers where <code>nums[i]</code> is in the range <code>[1, n]</code>, return <em>an array of all the integers in the range</em> <code>[1, n]</code> <em>that do not appear in</em> <code>nums</code>.</p><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input:</strong> nums = [4,3,2,7,8,2,3,1]<strong>Output:</strong> [5,6]</pre><p><strong>Example 2:</strong></p><pre><strong>Input:</strong> nums = [1,1]<strong>Output:</strong> [2]</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>n == nums.length</code></li><li><code>1 <= n <= 10<sup>5</sup></code></li><li><code>1 <= nums[i] <= n</code></li></ul><p> </p><p><strong>Follow up:</strong> Could you do it without extra space and in <code>O(n)</code> runtime? You may assume the returned list does not count as extra space.</p>
-<h2 id="Sol-50">Sol</h2>
+<h2 id="Sol-49">Sol</h2>
 <p>注意到內容物如果排序完，會與對應的index差一</p>
 <p>可以利用這個特性，把目前不適合的換到適合的位置，一路換到最後<br>
 之後就是直接看有哪個不是內容物與index差一的就是要找的</p>
@@ -361,7 +361,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-158"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-74"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-50"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-145"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-71"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-49"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

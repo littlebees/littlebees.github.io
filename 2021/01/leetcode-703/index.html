@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 當初想的太複雜了，還想用兩個heap">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-01-01T14:23:09.000Z">
-<meta property="article:modified_time" content="2022-01-30T06:44:22.304Z">
+<meta property="article:modified_time" content="2022-01-30T07:29:16.180Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Design">
 <meta property="article:tag" content="Heap (Priority Queue)">
@@ -236,7 +236,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-30 14:44:22" itemprop="dateModified" datetime="2022-01-30T14:44:22+08:00">2022-01-30</time>
+                <time title="Modified: 2022-01-30 15:29:16" itemprop="dateModified" datetime="2022-01-30T15:29:16+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -271,12 +271,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-171">動機</h2>
+        <h2 id="動機-158">動機</h2>
 <p>當初想的太複雜了，還想用兩個heap</p>
 <span id="more"></span>
-<h2 id="Problem-87">Problem</h2>
+<h2 id="Problem-84">Problem</h2>
 <p>Design a class to find the <code>k<sup>th</sup></code> largest element in a stream. Note that it is the <code>k<sup>th</sup></code> largest element in the sorted order, not the <code>k<sup>th</sup></code> distinct element.</p><p>Implement <code>KthLargest</code> class:</p><ul><li><code>KthLargest(int k, int[] nums)</code> Initializes the object with the integer <code>k</code> and the stream of integers <code>nums</code>.</li><li><code>int add(int val)</code> Returns the element representing the <code>k<sup>th</sup></code> largest element in the stream.</li></ul><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input</strong>[KthLargest, add, add, add, add, add][[3, [4, 5, 8, 2]], [3], [5], [10], [9], [4]]<strong>Output</strong>[null, 4, 5, 5, 8, 8]<strong>Explanation</strong>KthLargest kthLargest = new KthLargest(3, [4, 5, 8, 2]);kthLargest.add(3);   // return 4kthLargest.add(5);   // return 5kthLargest.add(10);  // return 5kthLargest.add(9);   // return 8kthLargest.add(4);   // return 8</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>1 <= k <= 10<sup>4</sup></code></li><li><code>0 <= nums.length <= 10<sup>4</sup></code></li><li><code>-10<sup>4</sup> <= nums[i] <= 10<sup>4</sup></code></li><li><code>-10<sup>4</sup> <= val <= 10<sup>4</sup></code></li><li>At most <code>10<sup>4</sup></code> calls will be made to <code>add</code>.</li><li>It is guaranteed that there will be at least <code>k</code> elements in the array when you search for the <code>k<sup>th</sup></code> element.</li></ul>
-<h2 id="Sol-59">Sol</h2>
+<h2 id="Sol-58">Sol</h2>
 <p>Min heap保持最多k個</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">KthLargest</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, k: <span class="built_in">int</span>, nums: <span class="type">List</span>[<span class="built_in">int</span>]</span>):</span></span><br><span class="line">        self.minh = nums</span><br><span class="line">        self.k = k</span><br><span class="line">        heapify(self.minh)</span><br><span class="line">        <span class="keyword">while</span> <span class="built_in">len</span>(self.minh) &gt; k:</span><br><span class="line">            heappop(self.minh)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add</span>(<span class="params">self, val: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        heappush(self.minh,val)</span><br><span class="line">        <span class="comment">#print(self.minh, &quot;=&gt;&quot;)</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(self.minh) &gt; self.k:</span><br><span class="line">            heappop(self.minh)</span><br><span class="line">        <span class="comment">#print(self.minh)</span></span><br><span class="line">        <span class="keyword">return</span> self.minh[<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
     </div>
@@ -366,7 +366,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-171"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-87"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-59"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-158"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-84"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-58"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
