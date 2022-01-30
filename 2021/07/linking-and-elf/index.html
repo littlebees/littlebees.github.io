@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://www.programmersought.com/images/584/fbf9a9389a613ea331fd15d3771b0620.png">
 <meta property="article:published_time" content="2021-07-01T16:28:49.000Z">
-<meta property="article:modified_time" content="2022-01-30T06:31:02.322Z">
+<meta property="article:modified_time" content="2022-01-30T06:44:22.316Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://www.programmersought.com/images/584/fbf9a9389a613ea331fd15d3771b0620.png">
@@ -232,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
+                <time title="Modified: 2022-01-30 14:44:22" itemprop="dateModified" datetime="2022-01-30T14:44:22+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -259,7 +259,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-637">動機</h2>
+        <h2 id="動機-398">動機</h2>
 <p>看bpf時突然想起來，整理一下</p>
 <span id="more"></span>
 <h2 id="行前工具">行前工具</h2>
@@ -445,7 +445,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">bee314@DESKTOP-259SCE7:~$ ldd main</span><br><span class="line">        linux-vdso.so.1 (0x00007fffc4a8a000)</span><br><span class="line">        libb.so =&gt; not found</span><br><span class="line">        libc.so.6 =&gt; /lib/x86_64-linux-gnu/libc.so.6 (0x00007f5a07ce0000)</span><br><span class="line">        /lib64/ld-linux-x86-64.so.2 (0x00007f5a07efa000)</span><br></pre></td></tr></table></figure>
 <p>讓<code>ldd</code>好看一點，把libb.so移到<code>/lib/x86_64-linux-gnu/</code>(抄libc.so.6)</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">bee314@DESKTOP-259SCE7:~$ ldd main</span><br><span class="line">        linux-vdso.so.1 (0x00007fffeb59a000)</span><br><span class="line">        libb.so =&gt; /lib/x86_64-linux-gnu/libb.so (0x00007fe732bc0000)</span><br><span class="line">        libc.so.6 =&gt; /lib/x86_64-linux-gnu/libc.so.6 (0x00007fe7329c0000)</span><br><span class="line">        /lib64/ld-linux-x86-64.so.2 (0x00007fe732be1000)</span><br></pre></td></tr></table></figure>
-<h2 id="Ref-135">Ref</h2>
+<h2 id="Ref-88">Ref</h2>
 <p><span class="exturl" data-url="aHR0cDovL3d3dy5jandpbmQuaWR2LnR3L0R5bmFtaWMtTGlua2luZy1QSUMv">Dynamic Linking Position-independent Code（PIC）<i class="fa fa-external-link-alt"></i></span></p>
 
     </div>
@@ -527,7 +527,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-637"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%8C%E5%89%8D%E5%B7%A5%E5%85%B7"><span class="nav-number">2.</span> <span class="nav-text">行前工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#compile%E6%B5%81%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">compile流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ELF"><span class="nav-number">4.</span> <span class="nav-text">ELF</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linking"><span class="nav-number">5.</span> <span class="nav-text">linking</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%A6%E9%9A%9B%E8%A9%A6%E8%A9%A6%E7%9C%8B"><span class="nav-number">6.</span> <span class="nav-text">實際試試看</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#compile-assemble"><span class="nav-number">6.1.</span> <span class="nav-text">compile+assemble</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#static-linking"><span class="nav-number">6.2.</span> <span class="nav-text">static linking</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#nm"><span class="nav-number">6.2.1.</span> <span class="nav-text">nm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#readelf-objdump"><span class="nav-number">6.2.2.</span> <span class="nav-text">readelf &amp; objdump</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ldd"><span class="nav-number">6.2.3.</span> <span class="nav-text">ldd</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dynamic-linking"><span class="nav-number">6.3.</span> <span class="nav-text">dynamic linking</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#nm-2"><span class="nav-number">6.3.1.</span> <span class="nav-text">nm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#readelf-objdump-2"><span class="nav-number">6.3.2.</span> <span class="nav-text">readelf &amp; objdump</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ldd-2"><span class="nav-number">6.3.3.</span> <span class="nav-text">ldd</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-135"><span class="nav-number">7.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-398"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%8C%E5%89%8D%E5%B7%A5%E5%85%B7"><span class="nav-number">2.</span> <span class="nav-text">行前工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#compile%E6%B5%81%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">compile流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ELF"><span class="nav-number">4.</span> <span class="nav-text">ELF</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linking"><span class="nav-number">5.</span> <span class="nav-text">linking</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%A6%E9%9A%9B%E8%A9%A6%E8%A9%A6%E7%9C%8B"><span class="nav-number">6.</span> <span class="nav-text">實際試試看</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#compile-assemble"><span class="nav-number">6.1.</span> <span class="nav-text">compile+assemble</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#static-linking"><span class="nav-number">6.2.</span> <span class="nav-text">static linking</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#nm"><span class="nav-number">6.2.1.</span> <span class="nav-text">nm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#readelf-objdump"><span class="nav-number">6.2.2.</span> <span class="nav-text">readelf &amp; objdump</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ldd"><span class="nav-number">6.2.3.</span> <span class="nav-text">ldd</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dynamic-linking"><span class="nav-number">6.3.</span> <span class="nav-text">dynamic linking</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#nm-2"><span class="nav-number">6.3.1.</span> <span class="nav-text">nm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#readelf-objdump-2"><span class="nav-number">6.3.2.</span> <span class="nav-text">readelf &amp; objdump</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ldd-2"><span class="nav-number">6.3.3.</span> <span class="nav-text">ldd</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-88"><span class="nav-number">7.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -541,7 +541,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">683</span>
+          <span class="site-state-item-count">684</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

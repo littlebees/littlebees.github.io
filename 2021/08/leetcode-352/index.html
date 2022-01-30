@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 為什麼我的interval merge這麼痛苦 insight: 只要sort過的list就可以直接當heap用">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-08-10T18:04:53.000Z">
-<meta property="article:modified_time" content="2022-01-30T06:31:02.322Z">
+<meta property="article:modified_time" content="2022-01-30T06:44:22.316Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Design">
 <meta property="article:tag" content="Binary Search">
@@ -233,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
+                <time title="Modified: 2022-01-30 14:44:22" itemprop="dateModified" datetime="2022-01-30T14:44:22+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -260,13 +260,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-228">動機</h2>
+        <h2 id="動機-436">動機</h2>
 <p>為什麼我的interval merge這麼痛苦</p>
 <p>insight: <em>只要sort過的list就可以直接當heap用</em></p>
 <span id="more"></span>
-<h2 id="Problem-122">Problem</h2>
+<h2 id="Problem-316">Problem</h2>
 <p>Given a data stream input of non-negative integers <code>a<sub>1</sub>, a<sub>2</sub>, ..., a<sub>n</sub></code>, summarize the numbers seen so far as a list of disjoint intervals.</p><p>Implement the <code>SummaryRanges</code> class:</p><ul>t<li><code>SummaryRanges()</code> Initializes the object with an empty stream.</li>t<li><code>void addNum(int val)</code> Adds the integer <code>val</code> to the stream.</li>t<li><code>int[][] getIntervals()</code> Returns a summary of the integers in the stream currently as a list of disjoint intervals <code>[start<sub>i</sub>, end<sub>i</sub>]</code>.</li></ul><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input</strong>["SummaryRanges", "addNum", "getIntervals", "addNum", "getIntervals", "addNum", "getIntervals", "addNum", "getIntervals", "addNum", "getIntervals"][[], [1], [], [3], [], [7], [], [2], [], [6], []]<strong>Output</strong>[Algorithm, Leetcode, null, [[1, 1]], null, [[1, 1], [3, 3]], null, [[1, 1], [3, 3], [7, 7]], null, [[1, 3], [7, 7]], null, [[1, 3], [6, 7]]]<strong>Explanation</strong>SummaryRanges summaryRanges = new SummaryRanges();summaryRanges.addNum(1);      // arr = [1]summaryRanges.getIntervals(); // return [[1, 1]]summaryRanges.addNum(3);      // arr = [1, 3]summaryRanges.getIntervals(); // return [[1, 1], [3, 3]]summaryRanges.addNum(7);      // arr = [1, 3, 7]summaryRanges.getIntervals(); // return [[1, 1], [3, 3], [7, 7]]summaryRanges.addNum(2);      // arr = [1, 2, 3, 7]summaryRanges.getIntervals(); // return [[1, 3], [7, 7]]summaryRanges.addNum(6);      // arr = [1, 2, 3, 6, 7]summaryRanges.getIntervals(); // return [[1, 3], [6, 7]]</pre><p> </p><p><strong>Constraints:</strong></p><ul>t<li><code>0 <= val <= 10<sup>4</sup></code></li>t<li>At most <code>3 * 10<sup>4</sup></code> calls will be made to <code>addNum</code> and <code>getIntervals</code>.</li></ul><p> </p><p><strong>Follow up:</strong> What if there are lots of merges and the number of disjoint intervals is small compared to the size of the data stream?</p>
-<h2 id="Sol-93">Sol</h2>
+<h2 id="Sol-283">Sol</h2>
 <p>做interval merge，但是case很多很痛苦<br>
 就是因為想在insert時做merge就很痛苦</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SummaryRanges</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.stream = [] <span class="comment"># (end,start)</span></span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">addNum</span>(<span class="params">self, val: <span class="built_in">int</span></span>) -&gt; <span class="literal">None</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> self.stream:</span><br><span class="line">            self.stream.append([val,val])</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        </span><br><span class="line">        i = bisect_left(self.stream, [val,val])</span><br><span class="line">        <span class="keyword">if</span> i == <span class="built_in">len</span>(self.stream):</span><br><span class="line">            end, start = self.stream[-<span class="number">1</span>]</span><br><span class="line">            <span class="keyword">if</span> val == end+<span class="number">1</span>:</span><br><span class="line">                self.stream[-<span class="number">1</span>][<span class="number">0</span>] = val</span><br><span class="line">            <span class="keyword">elif</span> val == end <span class="keyword">or</span> val == start:</span><br><span class="line">                <span class="keyword">pass</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                self.stream.append([val,val])</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            big_end, big_start = self.stream[i]</span><br><span class="line">            small_end, small_start = self.stream[i-<span class="number">1</span>]</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> small_end+<span class="number">1</span> == val <span class="keyword">and</span> big_start-<span class="number">1</span> == val:</span><br><span class="line">                self.stream[i][<span class="number">1</span>] = self.stream[i-<span class="number">1</span>][<span class="number">1</span>]</span><br><span class="line">                <span class="keyword">del</span> self.stream[i-<span class="number">1</span>]</span><br><span class="line">            <span class="keyword">elif</span> small_end+<span class="number">1</span> == val:</span><br><span class="line">                self.stream[i-<span class="number">1</span>][<span class="number">0</span>] = val</span><br><span class="line">            <span class="keyword">elif</span> big_start-<span class="number">1</span> == val:</span><br><span class="line">                self.stream[i][<span class="number">1</span>] = val</span><br><span class="line">            <span class="keyword">elif</span> big_start &lt;= val &lt;= big_end <span class="keyword">or</span> small_start &lt;= val &lt;= small_end:</span><br><span class="line">                <span class="keyword">pass</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                self.stream.insert(i,[val,val])</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getIntervals</span>(<span class="params">self</span>) -&gt; <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]]:</span></span><br><span class="line">        <span class="keyword">return</span> [v[::-<span class="number">1</span>] <span class="keyword">for</span> v <span class="keyword">in</span> self.stream]</span><br></pre></td></tr></table></figure>
@@ -357,7 +357,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-228"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-122"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-93"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-436"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-316"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-283"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -371,7 +371,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">683</span>
+          <span class="site-state-item-count">684</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

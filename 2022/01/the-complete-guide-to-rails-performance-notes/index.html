@@ -1,0 +1,2040 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="AEpTGuQAkxnTOlmfF4INDna3S660LxrkyZ4BQzVbRSw">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"littlebees.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="動機 好看的書，但我主要是看怎麼profile與gc所以有跳過一些部分 跳過: webfont, CDN, SSL, HTTP cache, Rails Cache, Backgrounding Work">
+<meta property="og:type" content="article">
+<meta property="og:title" content="the complete guide to rails performance讀後筆記">
+<meta property="og:url" content="https://littlebees.github.io/2022/01/the-complete-guide-to-rails-performance-notes/index.html">
+<meta property="og:site_name" content="記事本">
+<meta property="og:description" content="動機 好看的書，但我主要是看怎麼profile與gc所以有跳過一些部分 跳過: webfont, CDN, SSL, HTTP cache, Rails Cache, Backgrounding Work">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/uUmuAAc.png">
+<meta property="og:image" content="https://i.imgur.com/x2jHpeF.png">
+<meta property="og:image" content="https://i.imgur.com/kxq0WSa.png">
+<meta property="og:image" content="https://i.imgur.com/Ad8QDG1.png">
+<meta property="og:image" content="https://i.imgur.com/eGRXTwR.png">
+<meta property="og:image" content="https://i.imgur.com/1QDuC56.png">
+<meta property="og:image" content="https://i.imgur.com/64zJgBX.png">
+<meta property="og:image" content="https://i.imgur.com/OkHYBqz.png">
+<meta property="og:image" content="https://i.imgur.com/lU9IXtn.png">
+<meta property="article:published_time" content="2022-01-30T06:44:01.000Z">
+<meta property="article:modified_time" content="2022-01-30T06:44:22.328Z">
+<meta property="article:author" content="zhengcf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/uUmuAAc.png">
+
+<link rel="canonical" href="https://littlebees.github.io/2022/01/the-complete-guide-to-rails-performance-notes/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>the complete guide to rails performance讀後筆記 | 記事本</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">記事本</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">寫下來，不然會忘</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2022/01/the-complete-guide-to-rails-performance-notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhengcf">
+      <meta itemprop="description" content="想到什麼就寫什麼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="記事本">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          the complete guide to rails performance讀後筆記
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-01-30 14:44:01 / Modified: 14:44:22" itemprop="dateCreated datePublished" datetime="2022-01-30T14:44:01+08:00">2022-01-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/System/" itemprop="url" rel="index"><span itemprop="name">System</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Rails/" itemprop="url" rel="index"><span itemprop="name">Rails</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Rails/Reading/" itemprop="url" rel="index"><span itemprop="name">Reading</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/System/Reading/" itemprop="url" rel="index"><span itemprop="name">Reading</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="動機-658">動機</h2>
+<p>好看的書，但我主要是看怎麼profile與gc所以有跳過一些部分</p>
+<p>跳過:<br>
+webfont, CDN, SSL, HTTP cache, Rails Cache, Backgrounding Work</p>
+<span id="more"></span>
+<h2 id="principle">principle</h2>
+<h3 id="Benford’s-Law">Benford’s Law</h3>
+<p>越大的數，以它為首幾位的數出現的機率就越低。它可用於檢查各種數據是否有造假<br>
+<img src="https://i.imgur.com/uUmuAAc.png" alt=""></p>
+<h3 id="Zipf’s-law">Zipf’s law</h3>
+<p>一個單詞出現的頻率與它在頻率表里的排名成反比<br>
+只有少數的單字常常被使用<br>
+<img src="https://i.imgur.com/x2jHpeF.png" alt=""></p>
+<p>Zipf’s law是離散的分布，如果用成連續的就是Pareto’s law(80/20)</p>
+<h3 id="Pareto’s-law">Pareto’s law</h3>
+<p>80%的財富掌握在20%的人手上<br>
+<img src="https://i.imgur.com/kxq0WSa.png" alt=""></p>
+<p>Pareto’s law告訴我們把時間花在找出那20%決定80%的部分</p>
+<p>所以下面的章節有很大一部分在怎麼測量，與測量什麼</p>
+<h3 id="little-law">little law</h3>
+<p>$l=\lambda w$<br>
+$l$是幾台主機<br>
+$\lambda$是單位時間有多少req<br>
+$w$是主機的avg. response time</p>
+<p>這是針對長期而言的式子，主要是用來看有沒有over-scaled(太多主機了、太少主機了(主機數剛好是算出來的數字!?))<br>
+另外，little law預設，req彼此獨立、server彼此獨立(不能互卡(IO)、卡資源(cpu或mem有限))、response不能差平均太多(95th percentile response times很重要)</p>
+<p>同時也是說，scale對avg. response time沒有影響，對</p>
+<ul>
+<li>throughput有影響</li>
+<li>減少user在queue中的等待時間有影響
+<ul>
+<li>如果在queue中平均等待的人數少於1，或是在queue中等待的時間太短
+<ul>
+<li>scale的效果就不明顯</li>
+<li>server沒有全力工作(100%)</li>
+</ul>
+</li>
+<li>所以要在到達這個點之前先scale
+<ul>
+<li>如果avg. response time慢，更應該如此
+<ul>
+<li>但要注意邊際遞減 (Amdahl’s law)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="The-Performance-Workflow">The Performance Workflow</h2>
+<ol>
+<li>有沒有metrics怪怪的</li>
+<li>profile找兇手，在哪邊花了最多時間</li>
+<li>做小範圍的benchmark，測時間或是花費資源
+<ul>
+<li>develop環境的benchmark結果會與production的有差距
+<ul>
+<li>例: 500ms in production vs 1000ms locally
+<ul>
+<li>Generally a factor of 3 is acceptable</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>profile的結果不一定準
+<ul>
+<li>如果把佔了50%的method拿掉，不一定讓結果變好50%</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>做整體的benchmark與profile，確定改的是對的</li>
+</ol>
+<h2 id="profile-2">profile</h2>
+<p>profile: 測code各個部位的資源占比</p>
+<h3 id="profile-mode">profile mode</h3>
+<p>mode不同讓測出來的時間不一樣</p>
+<ul>
+<li>CPU - clock counter
+<ul>
+<li>數clock cycles
+<ul>
+<li>“Amount of clock cycles” / “CPU frequency”</li>
+<li>但現在cpu會stepping
+<ul>
+<li>load重的時候把clock frequency調高</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>system-wide
+<ul>
+<li>改用time stamp counter去算時間</li>
+<li>這樣其他工作也會影響到當前的profile</li>
+</ul>
+</li>
+<li>建議
+<ul>
+<li>Use CPU time when you’re interested in seeing the profile without I/O</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Wall time
+<ul>
+<li>就是看start之後扣掉end
+<ul>
+<li>wall就是牆上的時間</li>
+</ul>
+</li>
+<li>影響到當前的profile
+<ul>
+<li>其他process使用相同的資源</li>
+<li>Network or I/O</li>
+</ul>
+</li>
+<li>建議
+<ul>
+<li>Despite its flaws, wall time is usually the mode you’ll want to use</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Process time
+<ul>
+<li>只測量目前process花的時間
+<ul>
+<li>不包括forked的process</li>
+</ul>
+</li>
+<li>建議
+<ul>
+<li>process time, if available, is usually a better choice over CPU time.</li>
+<li>If you have code that spawns subprocesses, you may need to stick with CPU time (or wall time).</li>
+</ul>
+</li>
+<li>有的profiler把cpu time當成這裡的process time</li>
+</ul>
+</li>
+</ul>
+<p>還有測量方式，profiler都是看在stack上花的時間去算占比</p>
+<ul>
+<li>Tracing
+<ul>
+<li>每個invoke都記錄
+<ul>
+<li>超準</li>
+<li>超浪費資源</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Sampling
+<ul>
+<li>一定時間固定去看stack的樣子，紀錄占比
+<ul>
+<li>要抽樣夠多次才準</li>
+</ul>
+</li>
+<li>因為資源占比小，所以可以放在prodution環境中看profile</li>
+</ul>
+</li>
+</ul>
+<h3 id="ruby-Ruby-Prof">ruby: Ruby-Prof</h3>
+<p>Ruby-Prof直接與MRI掛勾(tracing)，所以一但跑了就會比平常慢2到3倍</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span> <span class="string">&#x27;ruby-prof&#x27;</span></span><br><span class="line">SORTED_ARRAY = Array.new(<span class="number">10_000</span>) &#123; rand(<span class="number">100_000</span>) &#125;.sort!</span><br><span class="line">array_size = SORTED_ARRAY.size</span><br><span class="line">RubyProf.measure_mode = RubyProf::CPU_TIME</span><br><span class="line">result = RubyProf.profile <span class="keyword">do</span></span><br><span class="line">    <span class="number">1_000_000</span>.times &#123; bsearch2(SORTED_ARRAY, rand(array_size)) &#125;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">printer = RubyProf::FlatPrinter.new(result)</span><br><span class="line">printer.print(STDOUT)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">%self total self wait child calls name</span><br><span class="line">17.22 19.117 12.777 0.000 6.340 13182869 Fixnum#==</span><br><span class="line">8.54 6.340 6.340 0.000 0.000 13182869 BasicObject#==</span><br><span class="line">5.73 71.918 4.252 0.000 67.666 14182869 *Object#bsearch2</span><br><span class="line">2.14 74.196 1.590 0.000 72.606 1 Integer#times</span><br><span class="line">0.93 0.688 0.688 0.000 0.000 1000000 Kernel#rand</span><br><span class="line">0.68 0.508 0.508 0.000 0.000 1000000 Array#count</span><br><span class="line">0.00 74.196 0.000 0.000 74.196 1 Global#[No method]</span><br></pre></td></tr></table></figure>
+<p><code>%self</code>: 花在這個method的時間占比<br>
+<code>total</code>: 這個method與child共花了多少時間<br>
+<code>self</code>: 這個method花了多少時間<br>
+<code>child</code>: <code>total</code> - <code>self</code><br>
+<code>calls</code>: 被call了幾次</p>
+<p>從<code>%self</code>的下手!!</p>
+<h3 id="ruby-Stackprof">ruby: Stackprof</h3>
+<p>做sampling的profiler是rack-mini-profiler的backend</p>
+<p>一般不會在開發時使用，因為Ruby-Prof比較準</p>
+<h3 id="rack-rack-mini-profiler">rack: rack-mini-profiler</h3>
+<p>除了一般的profile還可以看</p>
+<ul>
+<li>SQL query</li>
+<li>server response time</li>
+<li>method的flamegraph</li>
+<li>memory leak(gc)</li>
+</ul>
+<p>同時rack-mini-profiler本來就是設計給production用的!!</p>
+<p>記得，如果在profile速度時，要調到prodution mode，因為development mode會有需多方便開發的功能把速度拖慢</p>
+<p>裝完就可以啟動網站，之後網頁會出現一個badge裡面大概像<br>
+<img src="https://i.imgur.com/Ad8QDG1.png" alt=""></p>
+<p>之後就可以問</p>
+<ul>
+<li>How many SQL queries am I generating?
+<ul>
+<li>一般來說一個orm的class就只會有一條SQL</li>
+<li>一個簡單page一般來說是1~3條SQL</li>
+</ul>
+</li>
+<li>What’s my total request time?
+<ul>
+<li>一般會希望在50ms以下</li>
+</ul>
+</li>
+<li>What % of time am I spending in SQL?
+<ul>
+<li>最好使用production的DB去測
+<ul>
+<li>通常production的資料量遠比develop大</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>How long until DOMContentLoaded fires?
+<ul>
+<li>從收到response到出現在畫面上需要一段過程
+<ul>
+<li>這留到前端優化</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Are any of the parts of the page taking up an extreme amount of time compared to others?</li>
+</ul>
+<p>往有SQL的項目點，可以看partial render時間與SQL時間，與花在這個項目的時間(左邊)<br>
+<img src="https://i.imgur.com/eGRXTwR.png" alt=""></p>
+<p>那中間差的時間呢?<br>
+就是在code上的，詳細的需要看flamegraph</p>
+<p>通常遇到partial的SQL可以試著</p>
+<ul>
+<li>把整個拿掉</li>
+<li>cache partial</li>
+<li>善用includes一次多load一點</li>
+</ul>
+<p>另外還有profile-gc、profile-memory可以看記憶體與gc的情況!!<br>
+profile-gc就是GC.stat，可以看</p>
+<ul>
+<li>New bytes allocated outside of Ruby heaps
+<ul>
+<li>過了10MB要特別注意</li>
+</ul>
+</li>
+<li>ObjectSpace delta caused by request
+<ul>
+<li>收到req之後多了多少物件與哪種物件</li>
+</ul>
+</li>
+</ul>
+<p>rack-mini-profiler利用profile-memory去看</p>
+<ul>
+<li>allocated memory by gem</li>
+<li>allocated memory by file</li>
+<li>allocated objects by gem</li>
+</ul>
+<h3 id="memory-profile">memory profile</h3>
+<p>因為多了vm這一層，所以memory profile變得很麻煩<br>
+下面的工具都是基於MRI的</p>
+<h4 id="ObjectSpace-and-objspace-so">ObjectSpace and <span class="exturl" data-url="aHR0cDovL29ianNwYWNlLnNv">objspace.so<i class="fa fa-external-link-alt"></i></span></h4>
+<p>ObjectSpace就是所有object的存放地，因為是與MRI深度綁定，所以不要在prodution用</p>
+<p>下面來看看有什麼有趣的功能</p>
+<p>像ObjectSpace.count_objects</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">irb(main):001:0&gt; ObjectSpace.count_objects</span><br><span class="line">=&gt; &#123;:TOTAL=&gt;53802, :FREE=&gt;31, :T_OBJECT=&gt;3373,</span><br><span class="line">:T_CLASS=&gt;888, :T_MODULE=&gt;30, :T_FLOAT=&gt;4,</span><br><span class="line">:T_STRING=&gt;36497, :T_REGEXP=&gt;164, :T_ARRAY=&gt;9399,</span><br><span class="line">:T_HASH=&gt;789, :T_STRUCT=&gt;2, :T_BIGNUM=&gt;2, :T_FILE=&gt;7,</span><br><span class="line">:T_DATA=&gt;1443, :T_MATCH=&gt;85, :T_COMPLEX=&gt;1,</span><br><span class="line">:T_NODE=&gt;1050, :T_ICLASS=&gt;37&#125;</span><br></pre></td></tr></table></figure>
+<p>好懂的好懂，但還是有些怪怪的</p>
+<ul>
+<li>T_NODE: AST</li>
+<li>T_DATA: interrupter自己的東西</li>
+</ul>
+<p>這裡就看我們知道的基本type就好</p>
+<p>利用這個與gc開關可以來寫個簡單的benchmark看一段code產生多少object</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">allocate_count</span></span></span><br><span class="line">    GC.disable</span><br><span class="line">    before = ObjectSpace.count_objects</span><br><span class="line">    <span class="keyword">yield</span></span><br><span class="line">    after = ObjectSpace.count_objects</span><br><span class="line">    after.each &#123; <span class="params">|k,v|</span> after[k] = v - before[k] &#125;</span><br><span class="line">    after[<span class="symbol">:T_HASH</span>] -= <span class="number">1</span> <span class="comment"># probe effect - we created the before hash.</span></span><br><span class="line">    after[<span class="symbol">:FREE</span>] += <span class="number">1</span> <span class="comment"># same</span></span><br><span class="line">    GC.enable</span><br><span class="line">    after.reject &#123; <span class="params">|k,v|</span> v == <span class="number">0</span> &#125;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">allocate_count &#123; <span class="number">100</span>.times &#123; <span class="string">&#x27;hello&#x27;</span> + <span class="string">&#x27;hi&#x27;</span> &#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>同時也可以看現在有多少存活的object</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">puts ObjectSpace.each_object.count</span><br><span class="line">puts ObjectSpace.each_object(Numeric).count</span><br><span class="line">puts ObjectSpace.each_object(Complex).count</span><br><span class="line">ObjectSpace.each_object(Complex) &#123; <span class="params">|c|</span> puts c </span><br></pre></td></tr></table></figure>
+<p>看一個type總共花的多少mem</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">irb(main):057:0&gt; ObjectSpace.count_objects_size</span><br><span class="line">&#123;</span><br><span class="line">:T_OBJECT =&gt; 198560,</span><br><span class="line">:T_CLASS =&gt; 614784,</span><br><span class="line">:T_MODULE =&gt; 66712,</span><br><span class="line">:T_FLOAT =&gt; 160,</span><br><span class="line">:T_STRING =&gt; 1578522,</span><br><span class="line">:T_REGEXP =&gt; 122875,</span><br><span class="line">:T_ARRAY =&gt; 630976,</span><br><span class="line">:T_HASH =&gt; 165672,</span><br><span class="line">:T_STRUCT =&gt; 160</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>看看這個物件佔了多少mem</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">irb(main):062:0&gt; ObjectSpace.memsize_of(&quot;The quick brown fox jumps over the lazy dog&quot;)</span><br><span class="line">40 # NOT ACCURATE</span><br><span class="line">irb(main):063:0&gt; ObjectSpace.memsize_of(&quot;The quick brown fox&quot;)</span><br><span class="line">40</span><br><span class="line">irb(main):064:0&gt; ObjectSpace.memsize_of([])</span><br><span class="line">40</span><br><span class="line">irb(main):065:0&gt;ObjectSpace.memsize_of(Array.new(10_000) &#123; :a &#125;)</span><br><span class="line">80040</span><br></pre></td></tr></table></figure>
+<p>為什麼是40?<br>
+ruby vm的RVALUE大小就是40bytes</p>
+<p>使用時機:</p>
+<ul>
+<li>各種try，以增加gc的知識</li>
+<li>用 ObjectSpace.each_object 去check live objects</li>
+<li>如果市面上的profiler不行了，可以hack這個來做profile</li>
+</ul>
+<h4 id="GC-Profiler">GC::Profiler</h4>
+<p>ruby的gc是generational garbage collector</p>
+<ul>
+<li>看object活過幾次GC來對object分類
+<ul>
+<li>活過一次就是old
+<ul>
+<li>可以看old_objects(GC.stat)找有沒有memory leak發生
+<ul>
+<li>如果這個值慢慢上升就是中了</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Minor GCs
+<ul>
+<li>只挑new處理</li>
+<li>核心思想是 通常object沒有幾個會活很久</li>
+</ul>
+</li>
+</ul>
+<p>GC.count就是從執行程式以來GC被執行的總次數，包含major與minor<br>
+GC.stat就是各種參數，除了GC的還有memory本身的各種數值</p>
+<p>跑跑GC::profiler吧</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">GC::Profiler.enable</span><br><span class="line"><span class="keyword">require</span> <span class="string">&#x27;set&#x27;</span></span><br><span class="line">GC.start</span><br><span class="line">GC::Profiler.report</span><br><span class="line">GC::Profiler.disable</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GC 133 invokes.</span><br><span class="line">Index Invoke    Time(sec)    Use Size(byte)    Total Size(byte)    Total Object    GC Time(ms)</span><br><span class="line">1    1.966    801240    6315840    157896    2.33700000000003349498</span><br></pre></td></tr></table></figure>
+<p>invoke的值與GC.count一樣也就是，這是從執行程式以來GC被執行的總次數</p>
+<p>使用時機:<br>
+如果gc跑太久，GC與GC::Profiler是個很好的開始</p>
+<h4 id="derailed-benchmarks">derailed_benchmarks</h4>
+<p>這個是看memory用量，可以追memory bloat</p>
+<p>像<code>bundle exec derailed bundle:mem</code><br>
+會列出每個gem用多少memory</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">delayed_job: 18.9805 MiB (Also required by:</span><br><span class="line">delayed/railtie, delayed_job_active_record)</span><br><span class="line">delayed/performable_mailer: 17.8633 MiB</span><br><span class="line">mail: 17.8555 MiB (Also required by: TOP)</span><br><span class="line">mime/types: 12.9492 MiB (Also required by:</span><br><span class="line">/Users/nateberkopec/.gem/ruby/2.3.0/gems/rest-client1.8.0/lib/restclient/request,</span><br><span class="line">/Users/nateberkopec/.gem/ruby/2.3.0/gems/rest-client1.8.0/lib/restclient/payload)</span><br><span class="line">mail/field: 2.0039 MiB</span><br><span class="line">mail/message: 0.8477 MiB</span><br><span class="line">delayed/worker: 0.6055 MiB</span><br><span class="line">rails/all: 15.8125 MiB</span><br><span class="line">rails: 7.5352 MiB (Also required by:</span><br><span class="line">active_record/railtie, active_model/railtie, and 10</span><br><span class="line">others)</span><br><span class="line">rails/application: 5.3867 MiB</span><br><span class="line">[… continues on and on]</span><br></pre></td></tr></table></figure>
+<p>跑app多次，看最後花了多少mem<br>
+<code>derailed exec perf:mem_over_time</code><br>
+如果持續上升，memory leak</p>
+<p>看object到底在哪產生的<br>
+<code>derailed exec perf:objects</code><br>
+可以用來追哪個指令用memory太兇</p>
+<p>使用時機:</p>
+<ul>
+<li>bundle:mem來check gem的mem占量，與減少mem bloat</li>
+<li>trace mem leak</li>
+</ul>
+<h4 id="memory-profiler">memory_profiler</h4>
+<p>memory_profiler其實是derailed_benchmarks的backend</p>
+<p>memory_profiler可以只對一段code做profile</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span> <span class="string">&#x27;memory_profiler&#x27;</span></span><br><span class="line">report = MemoryProfiler.report <span class="keyword">do</span></span><br><span class="line">    <span class="comment"># run your code here</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">report.pretty_print</span><br></pre></td></tr></table></figure>
+<p>之後的report會有</p>
+<ul>
+<li>Retained memory
+<ul>
+<li>在跑profiler之前就在的object</li>
+</ul>
+</li>
+<li>Allocated memory
+<ul>
+<li>跑profiler時alloc的object
+<ul>
+<li>高Allocated memory代表gc會跑比較多次，程式會變慢</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>另外，memory_profiler跑出來的usage與會比ps看到的少，因為ruby有memory fragmentation</p>
+<p>memory_profiler也可以profile c extendsion的memory</p>
+<p>使用時機</p>
+<ul>
+<li>要追non-Rack-app與background jobs的mem issue</li>
+<li>Rack的app可以用 derailed and rack-mini-profiler</li>
+</ul>
+<h3 id="front-end-chrome-timeline">front-end: chrome timeline</h3>
+<p>對於end-user而言，Server response times(100ms~300ms)不是重點，因為占比很小(10%)<br>
+整個load time大概是1~3秒</p>
+<ul>
+<li>
+<p>gzipped size對於<strong>花多久時間下載</strong>很重要</p>
+</li>
+<li>
+<p>unzip 後的size對<strong>花多久時間parse與construct</strong>很重要</p>
+</li>
+<li>
+<p>New Relic的real user monitoring (RUM)可以提供大概end-user感覺的page load time</p>
+</li>
+<li>
+<p>Chrome Timeline可以看到每一步的實際狀況</p>
+<ul>
+<li>Chrome Timeline同時會記錄其他extensions的事件!! (記得關其他extendsion)</li>
+</ul>
+</li>
+</ul>
+<p>整個流程 (從browser的角度)</p>
+<ol>
+<li>DNS/TCP/SSL setup</li>
+<li>download html</li>
+<li>parsing html. 一但遇到其他資源就停下parse等載好跑完才會繼續parse
+<ul>
+<li>css不會擋parse</li>
+<li>js上async或是defer不會擋parse</li>
+</ul>
+</li>
+<li>剛剛提到不會被擋的東西，preloader會在他簡單掃過後去preload!!</li>
+</ol>
+<p>所以我們要</p>
+<ol>
+<li>Don’t stop the parser.
+<ul>
+<li>preloader會在parser跑之前先掃看有沒有可以先下載的東西
+<ul>
+<li>head, script, …</li>
+</ul>
+</li>
+<li>如果用js做動態生dom(script)，這樣preloader看不到!!</li>
+</ul>
+</li>
+<li>Get out of the browser preloader’s way.
+<ul>
+<li>preloader不吃
+<ul>
+<li>iframe</li>
+<li>webfont</li>
+<li>HTML5 audio/video</li>
+<li>css <code>@import</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Use HTTP caching - but not too much.
+<ul>
+<li>把常用的設成cache，自己打包(jquery…)
+<ul>
+<li>如果賭user有大廠的api(來自google的cdn之類)
+<ul>
+<li>有，沒事</li>
+<li>沒有，整個parse被block!!</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Use the Resource Hint API.
+<ul>
+<li>DNS Prefetch</li>
+<li>Preconnect</li>
+<li>Prefetch</li>
+<li>Prerender</li>
+</ul>
+</li>
+</ol>
+<p>整個流程 (從網頁的角度)</p>
+<ul>
+<li>送request，等response
+<ul>
+<li>這不會出現在timeline上，前面的空白就是這段時間</li>
+<li>包含
+<ul>
+<li>service response time (大約10ms)</li>
+<li>network latency (大約10ms~300ms，看有沒有跨境)
+<ul>
+<li>光速從新加坡到US都要花70ms!!</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Receive Response
+<ul>
+<li>在收到任何byte就會有這一事件</li>
+<li>這就是下載，完成下載後會有Finish Loading
+<ul>
+<li>所以後面會看到很多這個event</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Parse HTML
+<ul>
+<li>把html轉成dom</li>
+<li>下載需要的resource
+<ul>
+<li><code>&lt;script src=&quot;/assets/application.js&quot; async=&quot;async&quot; ... /&gt;</code>
+<ul>
+<li>這個有加async，所以不會block整個parse</li>
+<li>如果沒加parse會等下載完才繼續</li>
+</ul>
+</li>
+<li>CSS不會block</li>
+</ul>
+</li>
+<li>跑裡面寫的JS (會有對應的js)
+<ul>
+<li>async會下載完直接跑(中斷parse)</li>
+<li>defer會下載完等parse跑完再跑</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Recalculate Styles
+<ul>
+<li>parse CSS 把 DON 轉成 CSSOM</li>
+<li>如果css還沒載完?
+<ul>
+<li>先用browser預設的</li>
+</ul>
+</li>
+<li>如果這邊花很久時間，代表css太複雜了</li>
+</ul>
+</li>
+<li>Layout
+<ul>
+<li>走訪DOM，算
+<ul>
+<li>visibility</li>
+<li>applicable CSSs tyles</li>
+<li>relative geometry (width)</li>
+</ul>
+</li>
+<li>複雜的CSS與HTML會讓這事件變久</li>
+<li>layout thrashing(reflow)
+<ul>
+<li>Any time you change the geometry of an element (its height, width, whatever), you trigger a layout event</li>
+<li>一般browsers不知道哪邊要重算
+<ul>
+<li>因此大部分都是全部重算(reflow)</li>
+</ul>
+</li>
+<li>通常發生在
+<ul>
+<li>js在搞dom</li>
+<li>太多張stylesheets</li>
+</ul>
+</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXN0LmdpdGh1Yi5jb20vcGF1bGlyaXNoLzVkNTJmYjA4MWIzNTcwYzgxZTNh">What forces layout / reflow<i class="fa fa-external-link-alt"></i></span></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>DomContentLoaded
+<ul>
+<li>html與css與沒有標async的js(整個html)都跑完了 (<span class="exturl" data-url="aHR0cHM6Ly96aHVhbmxhbi56aGlodS5jb20vcC8yNTg3NjA0OA==">照順序跑<i class="fa fa-external-link-alt"></i></span>)
+<ul>
+<li>但其他資源還沒載完
+<ul>
+<li>都載完會trigger load</li>
+</ul>
+</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly90ZXN0ZHJpdmUtYXJjaGl2ZS5henVyZXdlYnNpdGVzLm5ldC9IVE1MNS9ET01Db250ZW50TG9hZGVkL0RlZmF1bHQuaHRtbA==">實際體驗<i class="fa fa-external-link-alt"></i></span></li>
+</ul>
+</li>
+<li>但現在不會有任何東西在畫面上</li>
+</ul>
+</li>
+<li>Paint
+<ul>
+<li>把CSSOM畫在畫面上!!</li>
+</ul>
+</li>
+</ul>
+<p>之後可能還有其他CSS,JS<br>
+就會再產生對應的事件</p>
+<p>怎麼用timeline來profile</p>
+<ol>
+<li>Hard reload (ctrl-shift-r) and load the Timeline with fresh data</li>
+<li>Look at the pie graph for the entire page load
+<ul>
+<li>Reduce Idle
+<ul>
+<li>slow server responses</li>
+<li>asset requests</li>
+</ul>
+</li>
+<li>Reduce Loading
+<ul>
+<li>HTML/CSS太大了</li>
+</ul>
+</li>
+<li>Reduce Scripting
+<ul>
+<li>通常是花在下載其他的script
+<ul>
+<li>
+<ul>
+<li>async or defer</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>或是對js做profile</li>
+</ul>
+</li>
+<li>Reduce Rendering and Painting
+<ul>
+<li>這與css優化有關</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>為什麼要整成一包?<br>
+HTML, TCP and latency are the problems, not bandwidth.<br>
+與render或是執行相比，network latency其實很重</p>
+<p>一個inline的1MB page與有著100個external request的1MB page，一定是inline的最快，光是當下載就飽了<br>
+重點是什麼時候畫，什麼時間載入不是重點</p>
+<p>對於end-user而言最重要的時間</p>
+<ol>
+<li>First paint: 雖然說只會看到框框，但還是很重要，這與人感知速度有關</li>
+<li>First paint of text content</li>
+<li>The load event</li>
+</ol>
+<p>Encoding</p>
+<ol>
+<li>http header</li>
+<li>meta tag
+<ul>
+<li>要放在第一個，不然會讓parse從頭再跑一次</li>
+</ul>
+</li>
+<li>browser去猜</li>
+</ol>
+<p>Viewports<br>
+要放在第一個，不然之後有css會讓browser去reflow</p>
+<p>css first<br>
+如果有js的head，且沒有async，這種情況下把js的head放css前面，這樣會讓css的下載被block</p>
+<h3 id="3rd-party-New-Relic">3rd-party: New Relic</h3>
+<h4 id="development-production-環境會有差異的原因">development &amp; production 環境會有差異的原因</h4>
+<ul>
+<li>Application settings
+<ul>
+<li>code reloading</li>
+</ul>
+</li>
+<li>Caching behavior</li>
+<li>Differences in data
+<ul>
+<li>production資料量一定比較大(用includes)</li>
+</ul>
+</li>
+<li>Network latency
+<ul>
+<li>大概數字
+<ul>
+<li>在同一個城市: 10ms</li>
+<li>在兩個州之間: 20ms</li>
+<li>從US東到US西: 100ms</li>
+<li>到世界的另一邊: up to 300ms</li>
+<li>如果是手機網路，可能要再乘4倍</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>JavaScript and devices
+<ul>
+<li>同樣的js code不同的裝置
+<ul>
+<li>PC</li>
+<li>mobile: 跑起來比較痛苦</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>System configuration and resources
+<ul>
+<li>同樣的container可以跑在不同硬體上</li>
+<li>程式用不同的compiler或是compile flag編</li>
+</ul>
+</li>
+<li>Virtualization
+<ul>
+<li>negatively and unpredictably impact performance when one virtualized server is hogging up the resources available</li>
+</ul>
+</li>
+</ul>
+<h4 id="New-Relic-profile-in-production-env">New Relic: profile in production env</h4>
+<p>Transactions: response<br>
+Real-User Monitoring (also RUM and Browser monitoring):</p>
+<ul>
+<li>在每頁插入JS測時間
+<ul>
+<li>NavigationTimingAPI</li>
+<li>Events set include domContentLoaded, domfomplete, requestStart and responseEnd</li>
+</ul>
+</li>
+</ul>
+<h4 id="process-time">process time</h4>
+<p>The web transaction response time graph</p>
+<p>預設時間是30mins，我們要看時間的越長越好，最好是一個月，new relic最長到7天，但也夠了</p>
+<p>純後端性能</p>
+<table>
+<thead>
+<tr>
+<th>App server avg response time</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&lt; 100ms</td>
+<td>Fast!</td>
+</tr>
+<tr>
+<td>&lt; 300ms</td>
+<td>Average</td>
+</tr>
+<tr>
+<td>&gt; 300ms</td>
+<td>Slow!</td>
+</tr>
+</tbody>
+</table>
+<p>如果是JSON的API server，可以把時間再減半</p>
+<p>後端加前端性能</p>
+<table>
+<thead>
+<tr>
+<th>Browser avg load time</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&lt; 3 sec</td>
+<td>Fast!</td>
+</tr>
+<tr>
+<td>&lt; 6 sec</td>
+<td>Average</td>
+</tr>
+<tr>
+<td>&gt; 6 sec</td>
+<td>Slow!</td>
+</tr>
+</tbody>
+</table>
+<p>Next, I’m considering the shape of the response time graph<br>
+<img src="https://i.imgur.com/1QDuC56.png" alt=""><br>
+重點是在每個部分中，時間都花到哪裡去了</p>
+<ul>
+<li>一般來說應該花在ruby上最多</li>
+<li>如果database, web external, or other processes比較多就是有問題
+<ul>
+<li>web external就是有人在等外部API</li>
+<li>request queueing代表需要更多server</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://i.imgur.com/64zJgBX.png" alt=""></p>
+<p>這裡是看哪次request(transaction)最特別</p>
+<p>看最左(95th Percentiles)，去做優化<br>
+但也要記得看最右，為什麼這麼快，Are they asset requests? Redirects? Errors?<br>
+Are they asset requests? Redirects? Errors?</p>
+<table>
+<thead>
+<tr>
+<th>Requests per minute</th>
+<th>Scale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&lt; 10</td>
+<td>Should only have 1 server/Heroku dyno.</td>
+</tr>
+<tr>
+<td>10 - 1000</td>
+<td>Average</td>
+</tr>
+<tr>
+<td>&gt; 1000</td>
+<td>High. “Just add more servers” may not work anymore.</td>
+</tr>
+</tbody>
+</table>
+<p>大於1000時就要考慮怎麼處理databases或是cache stores，以及引入devops</p>
+<h4 id="Transactions">Transactions</h4>
+<p>如果requests-per-minute scale靠前，用most time consuming排序(80%時間花在20%的controller)</p>
+<p>requests-per-minute小，用slowest average response time排序</p>
+<p>因為把一個100ms的response變成10ms對user體驗沒有太大影響(所以注意超過500ms的request)</p>
+<h4 id="database">database</h4>
+<p>用most time consuming看有沒有query太久</p>
+<p>常見病症</p>
+<ul>
+<li>Lots of time in #find
+<ul>
+<li>Pay attention to the “time consumption by caller” graph
+<ul>
+<li>where is this query being called the most?
+<ul>
+<li>Go check out those controllers and see
+<ul>
+<li>where的欄位沒有index</li>
+<li>N+1 query</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>SQL - OTHER
+<ul>
+<li>Rails periodically issues queries
+<ul>
+<li>別管他們</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="External-Services">External Services</h4>
+<p><img src="https://i.imgur.com/OkHYBqz.png" alt=""></p>
+<p>Most Ruby applications will block on network requests<br>
+一般Rails會被外部API的request給block<br>
+根據不同的timeout，可以delay載入大概200ms~500ms，如果是95th percentile還可以到20秒</p>
+<p>一個是用background worker去跑，把東西放到cache<br>
+或是設定<span class="exturl" data-url="aHR0cHM6Ly9tYXJ0aW5mb3dsZXIuY29tL2JsaWtpL0NpcmN1aXRCcmVha2VyLmh0bWw=">Circuit Breaker<i class="fa fa-external-link-alt"></i></span>，如果看到request一直timeout讓之後的request直接fail</p>
+<h4 id="GC-stats-and-Reports">GC stats and Reports</h4>
+<p>不準，忘了他</p>
+<h4 id="Browser-Real-user-monitoring-RUM">Browser / Real user monitoring (RUM)</h4>
+<p><img src="https://i.imgur.com/lU9IXtn.png" alt=""></p>
+<p>切成“Browser page load time”，之後看每個元件的average load time</p>
+<ul>
+<li>Request queueing
+<ul>
+<li>通常最多10-20ms</li>
+</ul>
+</li>
+<li>Web application
+<ul>
+<li>就是你的app，但注意到這裡的時間占比很小</li>
+</ul>
+</li>
+<li>Network
+<ul>
+<li>通常比 response + queueing 還久</li>
+<li>這是算雙向的時間</li>
+</ul>
+</li>
+<li>DOM Processing
+<ul>
+<li>花很多時間 &gt; Web application+Request queueing</li>
+<li>算load finish到DOMContentReady</li>
+<li>這個時候只是html parse完
+<ul>
+<li>後面還有其他CSS與JS</li>
+</ul>
+</li>
+<li>這個時候畫面還是白的</li>
+</ul>
+</li>
+<li>Page Rendering
+<ul>
+<li>算DOMContentReady到load
+<ul>
+<li>DOMContentReady就是$(document).ready</li>
+<li>load就是所有資源都好了才會動</li>
+</ul>
+</li>
+<li>到load之前，browser可能會顯示一些畫面</li>
+</ul>
+</li>
+</ul>
+<h2 id="Turbolinks-“HTML-over-the-wire”">Turbolinks &amp; “HTML-over-the-wire”</h2>
+<p>HTML-over-the-wire與SPA差在一個傳HTML一個傳資料</p>
+<p>一般來說，rails app (大約1秒)</p>
+<ul>
+<li>return a response in 100-300ms,</li>
+<li>spend about 200ms loading the HTML and CSSOM, a few hundred more ms renderingand painting</li>
+<li>then likely loads of JS scripting tied to the onload event.</li>
+</ul>
+<p>Turbolinks可以把上面的時間減少200-700ms</p>
+<p>代價</p>
+<ul>
+<li>不能用一般的方式寫js
+<ul>
+<li>idempotent function</li>
+<li>不能往ready一直掛hook
+<ul>
+<li>被Turbolinks拿去用了!! (load也被拿走了)
+<ul>
+<li>所以要用其他<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3R1cmJvbGlua3MvdHVyYm9saW5rcy1jbGFzc2ljI2V2ZW50cw==">事件<i class="fa fa-external-link-alt"></i></span></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>不能與其他client side JS frameworks共存
+<ul>
+<li>load被拿走了</li>
+</ul>
+</li>
+<li>做Integration testing會很痛苦</li>
+<li>在mobile上基本沒用</li>
+<li>不能offline(SPA可以)</li>
+</ul>
+<p>常見錯誤</p>
+<ol>
+<li>確信這個page有被Turbolinks
+<ul>
+<li>開console看有沒有<code>Navigated to http://www.whatever.com/foo</code>
+<ul>
+<li>有就gg</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>用dom append的方式改網頁
+<ul>
+<li>因為Turbolinks是回傳整個html，所以應該
+<ul>
+<li>用controller產生資料帶到erb，之後生html</li>
+<li>不是一直用js塞</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="關於反應時間">關於反應時間</h2>
+<p>0.1秒: 很快<br>
+1秒: 可以接受，也許有人會覺得慢<br>
+10秒: 人能夠忍耐的上限，需要feedback讓user知道跑到哪了<br>
+<span class="exturl" data-url="aHR0cHM6Ly93d3cubm5ncm91cC5jb20vYXJ0aWNsZXMvcmVzcG9uc2UtdGltZXMtMy1pbXBvcnRhbnQtbGltaXRzLw==">source<i class="fa fa-external-link-alt"></i></span></p>
+<h2 id="benchmark">benchmark</h2>
+<p>benchmark: 測code花多少時間或是花多少資源</p>
+<p>也許某段code的benchmark好，但是其實這段code的占比不大，那就不用特別去改<br>
+還有可能是單單benchmark快，但是對整體沒有影響甚至是拖累整體</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span> <span class="string">&#x27;benchmark/ips&#x27;</span></span><br><span class="line">Benchmark.ips <span class="keyword">do</span> <span class="params">|x|</span></span><br><span class="line">    SORTED_ARRAY = Array.new(<span class="number">10_000</span>) &#123; rand(<span class="number">100_000</span>) &#125;.sort!</span><br><span class="line">    array_size = SORTED_ARRAY.size</span><br><span class="line">    <span class="comment"># Typical mode, runs the block as many times as it can</span></span><br><span class="line">    x.report(<span class="string">&quot;bsearch1&quot;</span>) &#123; bsearch1(SORTED_ARRAY, rand(array_size))&#125;</span><br><span class="line">    x.report(<span class="string">&quot;bsearch2&quot;</span>) &#123; bsearch2(SORTED_ARRAY, rand(array_size))&#125;</span><br><span class="line">    x.compare!</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>整個網站</p>
+<ul>
+<li>ab</li>
+<li>wrk</li>
+</ul>
+<h2 id="performance之於企業">performance之於企業</h2>
+<ul>
+<li>Create a Performance Culture
+<ul>
+<li>用$衡量效率</li>
+<li>設定 a front-end load time
+<ul>
+<li>DOMContentLoaded</li>
+<li>window.load</li>
+<li>start render time</li>
+</ul>
+</li>
+<li>設定 MART and/or M95RT
+<ul>
+<li>Set a maximum average response time and/or a maximum 95th percentile response time for your server responses</li>
+<li>it’s important to capture what’s going on in the “long tail” as well as what’s happening to the average case.</li>
+</ul>
+</li>
+<li>設定 a page weight
+<ul>
+<li>cannot exceed <code>&lt;projected user bandwidth in megabytes/second&gt; / &lt;load time budget in seconds&gt;</code></li>
+</ul>
+</li>
+<li>設定 integration costs</li>
+<li>Add automated performance and page weight tests
+<ul>
+<li>An acceptance test
+<ul>
+<li>make a GET request to this page
+<ul>
+<li>record two or three numbers
+<ul>
+<li>Server response time</li>
+<li>User page load timings (DOMContentLoaded &amp; load)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>benchmark “hot code”</li>
+</ul>
+</li>
+<li>Run the performance acceptance tests separately from your unit and acceptance/integration tests.</li>
+<li>這一定有灰色地帶</li>
+<li>有第三方服務
+<ul>
+<li>Blazemeter</li>
+<li><span class="exturl" data-url="aHR0cDovL0xvYWRlci5pbw==">Loader.io<i class="fa fa-external-link-alt"></i></span></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="DB-optimization">DB optimization</h2>
+<p>加index的好地方</p>
+<ul>
+<li>Foreign keys</li>
+<li>Primary keys</li>
+<li>Polymorphic relationships</li>
+<li>updated_at
+<ul>
+<li>給 Russian Doll caching</li>
+</ul>
+</li>
+</ul>
+<p>當覺得sql效能怪怪的，用EXPLAIN</p>
+<p>MVCC會產生新資料與舊資料，通常在transaction好了之後舊資料會被清掉，但總是會有漏的</p>
+<p>VACUUM!!</p>
+<ul>
+<li>省空間</li>
+<li>讓query planner更有效率</li>
+</ul>
+<p>scale的時候，除了process變多，還有<br>
+process是怎麼與shared resource溝通</p>
+<ul>
+<li>database</li>
+<li>Redis, memcache, and other key-value stores</li>
+</ul>
+<p>這是重點的理由是<br>
+連線數量有限制!!<br>
+要記的算!!</p>
+<p>在test的時候，可以放鬆ACID，加快測試速度</p>
+<ul>
+<li>db放RAMdisk</li>
+<li>把fsync 與 synchronous commit關掉</li>
+</ul>
+<h2 id="Rails-slow">Rails slow?</h2>
+<ul>
+<li>log to disk</li>
+<li>useless gems
+<ul>
+<li>Sprockets</li>
+<li>ActionMailer</li>
+<li>…</li>
+</ul>
+</li>
+<li>useless rack middleware
+<ul>
+<li>Rack::Sendfile</li>
+<li>ActionDispatch::Cookies</li>
+<li>ActionDispatch::Session::CookieStore</li>
+<li>ActionDispatch::Flash</li>
+<li>ActionDispatch::RemoteIp</li>
+<li>ActionDispatch::ShowExceptions</li>
+<li>ActionDispatch::DebugExceptions</li>
+<li>ActionDispatch::Callbacks</li>
+<li>ActionDispatch::RequestId</li>
+<li>Rack::Runtime</li>
+<li>…</li>
+</ul>
+</li>
+</ul>
+<h2 id="exception-slow">exception slow!!</h2>
+<p>Exceptions should not be used for flow control, use throw/catch for that.</p>
+<p>This reserves exceptions for true failure conditions.</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">catch(<span class="symbol">:done</span>) <span class="keyword">do</span></span><br><span class="line">    i = <span class="number">0</span></span><br><span class="line">    loop <span class="keyword">do</span></span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">        throw <span class="symbol">:done</span> <span class="keyword">if</span> i &gt; <span class="number">100_000</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">finish_up</span><br></pre></td></tr></table></figure>
+<h2 id="memory-bloat">memory bloat</h2>
+<p>要看什麼?</p>
+<ul>
+<li>Resident Set Size (RSS): process用到的記憶體 (包含shared)
+<ul>
+<li>Shared Memory</li>
+<li>Private Memory: 包含forked的child
+<ul>
+<li>Real Memory = Shared Memory + Private Memory</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>怎麼看?</p>
+<ul>
+<li>ps</li>
+<li>get_process_mem</li>
+<li>Oink</li>
+</ul>
+<p>減少memory bloat</p>
+<ul>
+<li>Beware Big Allocations
+<ul>
+<li>不是說GC完所有不用的mem都會還回去
+<ul>
+<li>可以看成還記憶體很慢</li>
+</ul>
+</li>
+<li>替代方案是streaming: file.gets</li>
+</ul>
+</li>
+<li>Gemfile Auditing
+<ul>
+<li>檢查gem: derailed_benchmarks</li>
+</ul>
+</li>
+<li>jemalloc
+<ul>
+<li><span class="exturl" data-url="aHR0cHM6Ly93d3cuY3luaW5nc3VuLmNvbS8wNy0wNy0yMDE4L21lbW9yeS1hbGxvY2F0b3ItY29udHJhc3RzLmh0bWw=">ptmalloc、tcmalloc与jemalloc对比分析<i class="fa fa-external-link-alt"></i></span></li>
+</ul>
+</li>
+<li>GC Parameters</li>
+</ul>
+<h2 id="Memory-Leaks">Memory Leaks</h2>
+<p>有不同等級</p>
+<ul>
+<li>Managed Ruby object leaks</li>
+<li>C-extension leaks</li>
+<li>Leaks in Ruby itself (the VM)</li>
+</ul>
+<p>| Item | Memory bloat | Memory leaks |<br>
+| ———— | —— | ————— |<br>
+| Allocated memory is actually required | Yes | No |<br>
+| Growth | Fast and large | Slow and steady |<br>
+| Levels off | Eventually | Never |</p>
+<p>一般來說大概2~3小時mem用量會平緩下來，最慢大概24小時<br>
+沒有就有可能leak</p>
+<p>怎麼重現</p>
+<ol>
+<li>調高環境的記憶體上限與設定不要把process砍掉</li>
+<li>放著跑，看用量有沒有收斂</li>
+</ol>
+<p>siege做多次測試，之後看</p>
+<ul>
+<li>RSS memory usage</li>
+<li><code>GC.stat[:heap_live_slots]</code>
+<ul>
+<li>這是有多少slot被object占用</li>
+<li>如果RSS上升，但這個不變
+<ul>
+<li>可能是C-extension leak</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>GC.stat[:heap_free_slots]</code>
+<ul>
+<li>這是沒有被object占用的slot</li>
+<li>如果這個數字大，代表
+<ul>
+<li>ruby vm沒有把mem還給記憶體</li>
+<li>有人alloc大量記憶體之後就不用了</li>
+<li>這是 memory bloat</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>ObjectSpace.count_objects</code>
+<ul>
+<li>這是目前在ruby vm中的object數量</li>
+<li>如果有個type的object一直漲，代表
+<ul>
+<li>Ruby memory leak</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>這裡有一個小程式可以看上面的訊息</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">Thread.new <span class="keyword">do</span></span><br><span class="line">    logger = Logger.new(<span class="string">&#x27;mem_log.txt&#x27;</span>)</span><br><span class="line">    logger.formatter = <span class="built_in">proc</span> &#123; <span class="params">|sev, date, prog, msg|</span> msg &#125;</span><br><span class="line">    headers = [</span><br><span class="line">        <span class="string">&quot;RSS&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Live slots&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Free slots&quot;</span>,</span><br><span class="line">        ObjectSpace.count_objects.keys</span><br><span class="line">    ].flatten</span><br><span class="line">    logger.info headers.join(<span class="string">&quot;,&quot;</span>)</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">true</span></span><br><span class="line">        pid = Process.pid</span><br><span class="line">        rss = <span class="string">`ps -eo pid,rss | grep <span class="subst">#&#123;pid&#125;</span> | awk &#x27;&#123;print $2&#125;&#x27;`</span></span><br><span class="line">        memory_info = [</span><br><span class="line">            rss.strip,</span><br><span class="line">            GC.stat[<span class="symbol">:heap_live_slots</span>],</span><br><span class="line">            GC.stat[<span class="symbol">:heap_free_slots</span>],</span><br><span class="line">            ObjectSpace.count_objects.values</span><br><span class="line">        ].flatten</span><br><span class="line">        logger.info memory_info.join(<span class="string">&quot;,&quot;</span>)</span><br><span class="line">        logger.info <span class="string">&quot;\n&quot;</span></span><br><span class="line">        sleep <span class="number">5</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>把上面的code放到config/initializers，之後就會有csv<br>
+這樣就可以用seige打打看，生10~15k的資料，之後就可以分析了</p>
+<ul>
+<li>Managed Ruby object leaks
+<ul>
+<li>heap live slots &amp; RSS 上升, heap free slots不高</li>
+<li>用memory_profiler看<code> retained objects by location</code></li>
+</ul>
+</li>
+<li>C-extension leaks
+<ul>
+<li>heap live slots &amp; heap free slots不變, RSS 上升</li>
+<li>Ruby的Heap dumping</li>
+<li>jemalloc Introspection</li>
+</ul>
+</li>
+<li>Leaks in Ruby itself (the VM)
+<ul>
+<li>heap live slots &amp; heap free slots不變, RSS 上升
+<ul>
+<li>但是找不到任何C-extension leak!!</li>
+</ul>
+</li>
+<li>直接回報</li>
+</ul>
+</li>
+</ul>
+<p>真的不行了就Worker-Killers</p>
+<h2 id="Memory-Fragmentation">Memory Fragmentation</h2>
+<p>Memory fragmentation會讓mem usage對數上升，直到一個可怕的limit</p>
+<p>主要原因在於ruby沒辦法移動meme中的obj</p>
+<p>ObjectSpace就是ruby vm的mem，slot存的就是RVALUE(40 bytes)，也就是object的指標<br>
+RVALUE會被集合在一起成一個page</p>
+<p>所以ruby其實本身也有Fragmentation<br>
+看到GC.stat</p>
+<ul>
+<li>heap_live_slots: 代表現在有被RVALUE占用的slot有多少 aka 現在有多少object活著</li>
+<li>heap_eden_pages
+<ul>
+<li>eden_page是至少有一個活著的slot的page</li>
+<li>tomb_page就是都沒有一個活著的slot的page
+<ul>
+<li>tomb_page才可以還給OS</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>heap_sorted_length
+<ul>
+<li>一開始分配mem都是一塊一塊配上去
+<ul>
+<li>這個以分配的長度是heap_sorted_length</li>
+</ul>
+</li>
+<li>但是如果中間有幾塊被free了…
+<ul>
+<li>heap_sorted_length不變，因為不是連續的</li>
+<li>但是中間的就沒辦法用了 (Fragmentation)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>所以可以用兩種方式看Fragmentation</p>
+<ul>
+<li>heap_live_slots / heap_eden_pages的slot數量</li>
+</ul>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">GC.stat[<span class="symbol">:heap_live_slots</span>] <span class="comment"># 24508</span></span><br><span class="line">GC.stat[<span class="symbol">:heap_eden_pages</span>] <span class="comment"># 83</span></span><br><span class="line">GC::INTERNAL_CONSTANTS[<span class="symbol">:HEAP_PAGE_OBJ_LIMIT</span>] <span class="comment"># 408</span></span><br><span class="line"><span class="comment"># 1 - live_slots / (eden_pages * slots_per_page)</span></span><br><span class="line"><span class="comment"># 24508 / (83 * 408) = 72.3</span></span><br><span class="line"><span class="comment"># 100% - 72.3% = 27.7%</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>GC.stat[:heap_sorted_length]</code>/<code>GC.stat[:heap_sorted_length]</code></li>
+</ul>
+<p>per-thread memory arena</p>
+<ol>
+<li>We call malloc in a thread</li>
+<li>The thread attempts to obtain the lock for the memory arena it accessed previously</li>
+<li>If that arena is not available, try the next memory arena</li>
+<li>If none of the memory arenas are available, create a new arena and use that
+<ul>
+<li>同時加回去arena的list</li>
+</ul>
+</li>
+</ol>
+<p>所以arena其實就是記憶體!!<br>
+但現在如果沒有限制arena數量的話</p>
+<ol>
+<li>變成有好幾塊小塊的記憶體沒辦法合併</li>
+<li>ruby的ptr不能被移動 (RVALUE的ptr直接指到mem)</li>
+</ol>
+<p>arena少，mem usage少，但contention會變多</p>
+<p>所以下次遇到</p>
+<ol>
+<li>Reduce Memory Arenas(改MALLOC_ARENA_MAX)</li>
+<li>Use jemalloc</li>
+<li>Compacting GC (夢想)</li>
+</ol>
+<h2 id="關於application-server本身">關於application server本身</h2>
+<p>aws與heroku很好scale，也同時讓人容易過度scale</p>
+<blockquote>
+<p>Scaling increases throughput, not speed.<br>
+scale只有在有queue時才會提升response times</p>
+</blockquote>
+<p>所以別只看response times做scale，要看有多少queue的request</p>
+<p>因為不同server的io model與process/thread model不同，讓server在scale上有巨大的差別</p>
+<h3 id="The-life-of-a-request">The life of a request</h3>
+<p>重點是request會被queue在哪裡</p>
+<ol>
+<li>load balancer</li>
+<li>Heroku router
+<ul>
+<li>it will then wait up to five seconds for that dyno to accept the request and open a connection.</li>
+</ul>
+</li>
+<li>available host
+<ul>
+<li>backlog: the socket on the dyno will accept the connection even if the webserver is busy processing other requests.</li>
+</ul>
+</li>
+</ol>
+<p>上面最重要的有兩點</p>
+<ol>
+<li>router會等5秒直到成功連線</li>
+<li>request可以活在host的backlog中 (server要有這功能)</li>
+</ol>
+<h3 id="server在scale上差在">server在scale上差在?</h3>
+<p>主要是處理兩件事</p>
+<ol>
+<li>slow client protection
+<ul>
+<li>request buffering，會等req下載好了才會轉給app</li>
+</ul>
+</li>
+<li>slow response protection
+<ul>
+<li>kind of concurrency - either multithreading or multiprocess/forking
+<ul>
+<li>至少不會卡IO (如果thread有特別處理)</li>
+<li>但如果是multithread會因為GIL，讓其他人不能用cpu
+<ul>
+<li>所以ruby的multithreading對cpu-bound的request不好</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>這樣看下來只有</p>
+<ul>
+<li>Puma in clustered mode</li>
+<li>Phusion Passenger 5<br>
+可以用於scale server</li>
+</ul>
+<h4 id="設定server參數">設定server參數</h4>
+<p>目標</p>
+<ul>
+<li>讓memory 與 CPU使用最大化</li>
+<li>讓throughput最大化</li>
+</ul>
+<p>要4個要注意的</p>
+<ul>
+<li>process數目
+<ul>
+<li>process才是真的平行</li>
+<li>建議一台最少3個process
+<ul>
+<li>最多?
+<ul>
+<li>要看mem與cpu
+<ul>
+<li>mem
+<ul>
+<li>不能太多mem，不然會overcommit與swap</li>
+<li>測ruby app的mem用量
+<ul>
+<li>放著跑12~24小時</li>
+<li>用ps看</li>
+</ul>
+</li>
+<li>procs = <code>(TOTAL_RAM / (RAM_PER_PROCESS * 1.2))</code></li>
+</ul>
+</li>
+<li>cpu
+<ul>
+<li>每5分鐘或15分鐘看cpu load
+<ul>
+<li>如果靠近或是到100%，就減少process數量</li>
+</ul>
+</li>
+<li>procs = 1.2~1.5倍的hyperthread</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>一般來說是8個</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>多process的好處是?
+<ul>
+<li>可以讓OS做load balance</li>
+<li>比讓load balancer做load balance還要好
+<ul>
+<li>OS可以知道process的狀態!!</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>thread數量
+<ul>
+<li>ruby的thread只能處理IO(db)</li>
+<li>所以要多少
+<ul>
+<li>最多5~6個</li>
+<li>再多就會
+<ul>
+<li>碰Amdahl’s law</li>
+<li>mem會被吃爆(看mem fragmentation)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>copy-on-write
+<ul>
+<li>在init好了之後fork (preload)</li>
+<li>但省的空間沒有想像的多
+<ul>
+<li>如果用大分頁，只要改一個bit就會被copy，導致copy大量資料
+<ul>
+<li>想想ruby vm怎麼用page的，好幾個object塞同一個page</li>
+</ul>
+</li>
+<li>fragmentation!!</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Container size
+<ul>
+<li>就是cpu與mem要多少</li>
+<li>針對
+<ul>
+<li>你的app需求 (吃mem? 吃cpu?)</li>
+<li>前面提到的process數量
+<ul>
+<li>3process，ruby app一個大約300MB
+<ul>
+<li>所以mem至少要1G</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>步驟</p>
+<ol>
+<li>找出1 process跑5 thread要多少mem</li>
+<li>一個child process需要<code> (TOTAL_RAM / (RAM_PER_PROCESS * 1.2))</code>
+<ul>
+<li>一台需要3個process，以此推算出需要的總mem</li>
+</ul>
+</li>
+<li>確認hyperthread的數量夠
+<ul>
+<li>child process的數量要等於1.25~1.5的hyperthread</li>
+</ul>
+</li>
+<li>monitor cpu與mem usage，調整process數量與container的規格</li>
+</ol>
+<h2 id="gc">gc</h2>
+<p>Generational GC認為通常都是年輕的object掛掉，所以分成兩個gc</p>
+<ul>
+<li>minor gc只處理new object(活不超過3以下的object)
+<ul>
+<li>在沒有free slot啟動
+<ul>
+<li>處理new object、在remember set的object、沒有write barrier的object
+<ul>
+<li>remember set: 一群old object但是有new object的ptr</li>
+<li>write barrier: ruby runtime與object之間的interface</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>major gc處理所有object
+<ul>
+<li>在下面2種case下啟動
+<ul>
+<li>跑完minor gc後還是沒有free slot</li>
+<li>4個limit的其中一個超標
+<ul>
+<li>malloc_increase_bytes_limit
+<ul>
+<li>malloc_increase_bytes
+<ul>
+<li>當RVALUE不夠存時需要alloc資料到其他地方</li>
+<li>malloc_increase_bytes就是他的大小</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>oldmalloc_increase_bytes_limit
+<ul>
+<li>與malloc_increase_bytes同樣道理但是只針對old</li>
+</ul>
+</li>
+<li>old_objects_limit
+<ul>
+<li>old object的slot</li>
+</ul>
+</li>
+<li>remembered_wb_unprotected_objects_limit
+<ul>
+<li>remembere set與沒有write barrier的object</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>trace gc count可以看r background job是不是會一直觸發gc<br>
+像下面就是可以用來trace的midleware</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GCCounter</span></span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">initialize</span><span class="params">(app)</span></span></span><br><span class="line">    <span class="variable">@app</span> = app</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">call</span><span class="params">(env)</span></span></span><br><span class="line">    gc_counts_before = GC.stat.select &#123; <span class="params">|k,v|</span> k =~ <span class="regexp">/count/</span></span><br><span class="line">    <span class="variable">@app</span>.call(env)</span><br><span class="line">    gc_counts_after = GC.stat.select &#123; <span class="params">|k,v|</span> k =~ <span class="regexp">/count/</span></span><br><span class="line">    puts gc_counts_before.merge(gc_counts_after) &#123; <span class="params">|k, vb, va|</span> va - vb &#125;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>ruby的ObjectSpace(heap)就是記憶體，一個ptr(RVALUE)對到一個slot，好多個slot變成一個page</p>
+<p>heap_sorted_length是目前alloc的連續長度(想像怎麼實作vma的)<br>
+heap_allocated_pages是只有多少page(已經變成page的mem)<br>
+heap_allocatable_pages是指可以再有多少page(已經malloc了的mem)</p>
+<p>heap_live_slots是指現在有多少object<br>
+heap_free_slots是指有多少空的slot<br>
+heap_final_slots是指多少slot被finalize<br>
+heap_marked_slots是指old的object與沒有write barrier的物件(c-extendsion的mem)</p>
+<p>tomb_pages就是slot都是free (可以還給OS)<br>
+eden_pages就是至少有一個live slot</p>
+<p>tune gc的目的</p>
+<ul>
+<li>減少memory bloat</li>
+<li>減少跑gc的時間</li>
+</ul>
+<p>核心想法: 讓free slot不要太多</p>
+<p>調</p>
+<ul>
+<li>RUBY_GC_HEAP_FREE_SLOTS_GOAL_RATIO</li>
+<li>RUBY_GC_HEAP_INIT_SLOTS</li>
+<li>RUBY_GC_HEAP_FREE_SLOTS_MAX_RATIO</li>
+<li>RUBY_GC_HEAP_FREE_SLOTS_MIN_RATIO</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">RUBY_GC_HEAP_FREE_SLOTS_GOAL_RATIO=<span class="number">0.1</span></span><br><span class="line">RUBY_GC_HEAP_FREE_SLOTS_MAX_RATIO=<span class="number">0.2</span></span><br><span class="line">RUBY_GC_HEAP_FREE_SLOTS_MIN_RATIO=<span class="number">0.05</span></span><br><span class="line">RUBY_GC_HEAP_INIT_SLOTS=<span class="number">1000000</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="orm">orm</h2>
+<p>核心概念: avoiding instantiating ActiveRecord objects</p>
+<ul>
+<li>如果很多records，不要用each一筆一筆讀，mem會起飛
+<ul>
+<li>find_each and in_batches loads them in batches</li>
+</ul>
+</li>
+<li>Select Only What You Need</li>
+<li>Preloads somehow
+<ul>
+<li>eager_load use LEFT OUTER JOIN when eager loading the model associations.</li>
+<li>includes 最先考慮他</li>
+<li>preload 會產生qeury把指定的model載入，之後透過ruby把剩下的接起來</li>
+<li>Each eager load increases the number of instantiated objects, and in turn slows down the query
+<ul>
+<li>Each eager load increases the number of instantiated objects, and in production-like data turn slows down the query</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Don’t Use Many Queries When One Will Do
+<ul>
+<li>create too many ActiveRecord objects is when doing mass updates</li>
+<li>如果可以一行sql處理掉，就讓sql處理
+<ul>
+<li>update_all, destroy_all</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Do Math In The Database
+<ul>
+<li>如果需要統計可以留給db</li>
+</ul>
+</li>
+<li>N+1
+<ul>
+<li>用production的資料，跑看sql的log</li>
+<li>找SQL哪裡生出來的(看下面的code)</li>
+<li>跑rack-mini-profiler</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">module</span> <span class="title">LogQuerySource</span></span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">debug</span><span class="params">(*args, &amp;block)</span></span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">unless</span> <span class="keyword">super</span></span><br><span class="line">        </span><br><span class="line">        backtrace = Rails.backtrace_cleaner.clean caller</span><br><span class="line">        relevant_caller_line = backtrace.detect <span class="keyword">do</span> <span class="params">|caller_line|</span></span><br><span class="line">        !caller_line.<span class="keyword">include</span>?(<span class="string">&#x27;/initializers/&#x27;</span>)</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">if</span> relevant_caller_line</span><br><span class="line">            logger.debug(<span class="string">&quot; -&gt; <span class="subst">#&#123; relevant_caller_line.sub(<span class="string">&quot;<span class="subst">#&#123;</span></span></span></span></span><br><span class="line"><span class="subst"><span class="string"><span class="subst"><span class="string">        <span class="keyword">end</span></span></span></span></span></span><br><span class="line"><span class="subst"><span class="string"><span class="subst"><span class="string">    <span class="keyword">end</span></span></span></span></span></span><br><span class="line"><span class="subst"><span class="string"><span class="subst"><span class="string"><span class="keyword">end</span></span></span></span></span></span><br><span class="line"><span class="subst"><span class="string"><span class="subst"><span class="string"></span></span></span></span></span><br><span class="line"><span class="subst"><span class="string"><span class="subst"><span class="string">ActiveRecord::LogSubscriber.send <span class="symbol">:prepend</span>, LogQuerySource</span></span></span></span></span><br></pre></td></tr></table></figure>
+<p>書上的例子是<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3J1YnlnZW1zL3J1YnlnZW1zLm9yZy9wdWxsLzExODkvZmlsZXM=">這個<i class="fa fa-external-link-alt"></i></span><br>
+partial會對每個collections的東西call find_by!!</p>
+<p>using an ActiveRecord query method like find_by which is called on every element in a collection - is extremely common<br>
+只要用在OOOs中的其中一個就有N+1的風險</p>
+<p>流程是</p>
+<ol>
+<li>Methods on a model trigger SQL queries (by using the ActiveRecord API)</li>
+<li>those methods get called in the view</li>
+<li>they end up being used in a partial or something that gets iterated for every element in a collection,</li>
+<li>N+1</li>
+</ol>
+<p>解法</p>
+<ul>
+<li>Instead of doing using ActiveRecord methods that trigger SQL queries, we’re going to rewrite this method to use regular Arrays and Enumerable methods.</li>
+<li>Do not use ActiveRecord query methods inside models, especially not on a model’s instance methods.
+<ul>
+<li>Use them only in controllers and helpers.</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/01/running-linux-parts/" rel="prev" title="奔跑吧linux內核ch2~ch5摘錄">
+      <i class="fa fa-chevron-left"></i> 奔跑吧linux內核ch2~ch5摘錄
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-658"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#principle"><span class="nav-number">2.</span> <span class="nav-text">principle</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Benford%E2%80%99s-Law"><span class="nav-number">2.1.</span> <span class="nav-text">Benford’s Law</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Zipf%E2%80%99s-law"><span class="nav-number">2.2.</span> <span class="nav-text">Zipf’s law</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pareto%E2%80%99s-law"><span class="nav-number">2.3.</span> <span class="nav-text">Pareto’s law</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#little-law"><span class="nav-number">2.4.</span> <span class="nav-text">little law</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Performance-Workflow"><span class="nav-number">3.</span> <span class="nav-text">The Performance Workflow</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#profile-2"><span class="nav-number">4.</span> <span class="nav-text">profile</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#profile-mode"><span class="nav-number">4.1.</span> <span class="nav-text">profile mode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ruby-Ruby-Prof"><span class="nav-number">4.2.</span> <span class="nav-text">ruby: Ruby-Prof</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ruby-Stackprof"><span class="nav-number">4.3.</span> <span class="nav-text">ruby: Stackprof</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rack-rack-mini-profiler"><span class="nav-number">4.4.</span> <span class="nav-text">rack: rack-mini-profiler</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#memory-profile"><span class="nav-number">4.5.</span> <span class="nav-text">memory profile</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ObjectSpace-and-objspace-so"><span class="nav-number">4.5.1.</span> <span class="nav-text">ObjectSpace and objspace.so</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GC-Profiler"><span class="nav-number">4.5.2.</span> <span class="nav-text">GC::Profiler</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#derailed-benchmarks"><span class="nav-number">4.5.3.</span> <span class="nav-text">derailed_benchmarks</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#memory-profiler"><span class="nav-number">4.5.4.</span> <span class="nav-text">memory_profiler</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#front-end-chrome-timeline"><span class="nav-number">4.6.</span> <span class="nav-text">front-end: chrome timeline</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3rd-party-New-Relic"><span class="nav-number">4.7.</span> <span class="nav-text">3rd-party: New Relic</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#development-production-%E7%92%B0%E5%A2%83%E6%9C%83%E6%9C%89%E5%B7%AE%E7%95%B0%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-number">4.7.1.</span> <span class="nav-text">development &amp; production 環境會有差異的原因</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#New-Relic-profile-in-production-env"><span class="nav-number">4.7.2.</span> <span class="nav-text">New Relic: profile in production env</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#process-time"><span class="nav-number">4.7.3.</span> <span class="nav-text">process time</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Transactions"><span class="nav-number">4.7.4.</span> <span class="nav-text">Transactions</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#database"><span class="nav-number">4.7.5.</span> <span class="nav-text">database</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#External-Services"><span class="nav-number">4.7.6.</span> <span class="nav-text">External Services</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GC-stats-and-Reports"><span class="nav-number">4.7.7.</span> <span class="nav-text">GC stats and Reports</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Browser-Real-user-monitoring-RUM"><span class="nav-number">4.7.8.</span> <span class="nav-text">Browser &#x2F; Real user monitoring (RUM)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Turbolinks-%E2%80%9CHTML-over-the-wire%E2%80%9D"><span class="nav-number">5.</span> <span class="nav-text">Turbolinks &amp; “HTML-over-the-wire”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%9C%E6%96%BC%E5%8F%8D%E6%87%89%E6%99%82%E9%96%93"><span class="nav-number">6.</span> <span class="nav-text">關於反應時間</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#benchmark"><span class="nav-number">7.</span> <span class="nav-text">benchmark</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#performance%E4%B9%8B%E6%96%BC%E4%BC%81%E6%A5%AD"><span class="nav-number">8.</span> <span class="nav-text">performance之於企業</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DB-optimization"><span class="nav-number">9.</span> <span class="nav-text">DB optimization</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Rails-slow"><span class="nav-number">10.</span> <span class="nav-text">Rails slow?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#exception-slow"><span class="nav-number">11.</span> <span class="nav-text">exception slow!!</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#memory-bloat"><span class="nav-number">12.</span> <span class="nav-text">memory bloat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Memory-Leaks"><span class="nav-number">13.</span> <span class="nav-text">Memory Leaks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Memory-Fragmentation"><span class="nav-number">14.</span> <span class="nav-text">Memory Fragmentation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%9C%E6%96%BCapplication-server%E6%9C%AC%E8%BA%AB"><span class="nav-number">15.</span> <span class="nav-text">關於application server本身</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#The-life-of-a-request"><span class="nav-number">15.1.</span> <span class="nav-text">The life of a request</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#server%E5%9C%A8scale%E4%B8%8A%E5%B7%AE%E5%9C%A8"><span class="nav-number">15.2.</span> <span class="nav-text">server在scale上差在?</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9Aserver%E5%8F%83%E6%95%B8"><span class="nav-number">15.2.1.</span> <span class="nav-text">設定server參數</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gc"><span class="nav-number">16.</span> <span class="nav-text">gc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#orm"><span class="nav-number">17.</span> <span class="nav-text">orm</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">zhengcf</p>
+  <div class="site-description" itemprop="description">想到什麼就寫什麼</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">684</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhengcf</span>
+</div>
+  <div class="powered-by">Powered by <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl theme-link" data-url="aHR0cHM6Ly9tdXNlLnRoZW1lLW5leHQub3Jn">NexT.Muse</span>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 1000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://littlebees.github.io/2022/01/the-complete-guide-to-rails-performance-notes/',]
+      });
+      });
+  </script>
+
+</body>
+</html>

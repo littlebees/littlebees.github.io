@@ -31,12 +31,12 @@
 <meta property="og:image" content="https://assets.leetcode.com/uploads/2020/09/01/e1.jpg">
 <meta property="og:image" content="https://assets.leetcode.com/uploads/2020/09/01/e2.jpg">
 <meta property="article:published_time" content="2021-08-01T17:23:13.000Z">
-<meta property="article:modified_time" content="2022-01-30T06:31:02.322Z">
+<meta property="article:modified_time" content="2022-01-30T06:44:22.316Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Breadth-First Search">
 <meta property="article:tag" content="Depth-First Search">
-<meta property="article:tag" content="Topological Sort">
 <meta property="article:tag" content="Graph">
+<meta property="article:tag" content="Topological Sort">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://assets.leetcode.com/uploads/2020/09/01/e1.jpg">
 
@@ -237,7 +237,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
+                <time title="Modified: 2022-01-30 14:44:22" itemprop="dateModified" datetime="2022-01-30T14:44:22+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -268,16 +268,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-223">動機</h2>
+        <h2 id="動機-431">動機</h2>
 <ol>
 <li>第一次看到bfs這麼用</li>
 <li>這樣叫topo sort嗎?</li>
 <li>很漂亮的算法，真的很漂亮</li>
 </ol>
 <span id="more"></span>
-<h2 id="Problem-117">Problem</h2>
+<h2 id="Problem-311">Problem</h2>
 <p>A tree is an undirected graph in which any two vertices are connected by <i>exactly</i> one path. In other words, any connected graph without simple cycles is a tree.</p><p>Given a tree of <code>n</code> nodes labelled from <code>0</code> to <code>n - 1</code>, and an array of <code>n - 1</code> <code>edges</code> where <code>edges[i] = [a<sub>i</sub>, b<sub>i</sub>]</code> indicates that there is an undirected edge between the two nodes <code>a<sub>i</sub></code> and <code>b<sub>i</sub></code> in the tree, you can choose any node of the tree as the root. When you select a node <code>x</code> as the root, the result tree has height <code>h</code>. Among all possible rooted trees, those with minimum height (i.e. <code>min(h)</code>)  are called <strong>minimum height trees</strong> (MHTs).</p><p>Return <em>a list of all <strong>MHTs'</strong> root labels</em>. You can return the answer in <strong>any order</strong>.</p><p>The <strong>height</strong> of a rooted tree is the number of edges on the longest downward path between the root and a leaf.</p><p> </p><p><strong>Example 1:</strong></p><img alt="" src="https://assets.leetcode.com/uploads/2020/09/01/e1.jpg" style="width: 800px; height: 213px;" /><pre><strong>Input:</strong> n = 4, edges = [[1,0],[1,2],[1,3]]<strong>Output:</strong> [1]<strong>Explanation:</strong> As shown, the height of the tree is 1 when the root is the node with label 1 which is the only MHT.</pre><p><strong>Example 2:</strong></p><img alt="" src="https://assets.leetcode.com/uploads/2020/09/01/e2.jpg" style="width: 800px; height: 321px;" /><pre><strong>Input:</strong> n = 6, edges = [[3,0],[3,1],[3,2],[3,4],[5,4]]<strong>Output:</strong> [3,4]</pre><p><strong>Example 3:</strong></p><pre><strong>Input:</strong> n = 1, edges = []<strong>Output:</strong> [0]</pre><p><strong>Example 4:</strong></p><pre><strong>Input:</strong> n = 2, edges = [[0,1]]<strong>Output:</strong> [0,1]</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>1 <= n <= 2 * 10<sup>4</sup></code></li><li><code>edges.length == n - 1</code></li><li><code>0 <= a<sub>i</sub>, b<sub>i</sub> < n</code></li><li><code>a<sub>i</sub> != b<sub>i</sub></code></li><li>All the pairs <code>(a<sub>i</sub>, b<sub>i</sub>)</code> are distinct.</li><li>The given input is <strong>guaranteed</strong> to be a tree and there will be <strong>no repeated</strong> edges.</li></ul>
-<h2 id="Sol-88">Sol</h2>
+<h2 id="Sol-278">Sol</h2>
 <p>觀察會發現，其實我們要找的點都在中點上!!</p>
 <p>所以問題就是怎麼找中點</p>
 <p>不像linked list有起點終點，但我們有leaf</p>
@@ -294,8 +294,8 @@
           <div class="post-tags">
               <a href="/tags/Breadth-First-Search/" rel="tag"># Breadth-First Search</a>
               <a href="/tags/Depth-First-Search/" rel="tag"># Depth-First Search</a>
-              <a href="/tags/Topological-Sort/" rel="tag"># Topological Sort</a>
               <a href="/tags/Graph/" rel="tag"># Graph</a>
+              <a href="/tags/Topological-Sort/" rel="tag"># Topological Sort</a>
           </div>
 
         
@@ -369,7 +369,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-223"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-117"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-88"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-431"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-311"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-278"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -383,7 +383,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">683</span>
+          <span class="site-state-item-count">684</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

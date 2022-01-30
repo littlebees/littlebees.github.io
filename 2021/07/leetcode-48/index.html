@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://assets.leetcode.com/uploads/2020/08/28/mat1.jpg">
 <meta property="og:image" content="https://assets.leetcode.com/uploads/2020/08/28/mat2.jpg">
 <meta property="article:published_time" content="2021-07-20T13:59:10.000Z">
-<meta property="article:modified_time" content="2022-01-30T06:31:02.318Z">
+<meta property="article:modified_time" content="2022-01-30T06:44:22.312Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Array">
 <meta property="article:tag" content="Matrix">
@@ -236,7 +236,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
+                <time title="Modified: 2022-01-30 14:44:22" itemprop="dateModified" datetime="2022-01-30T14:44:22+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -283,7 +283,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-574">動機</h2>
+        <h2 id="動機-335">動機</h2>
 <p>很有因緣的一題</p>
 <p>當初自己有解出來，不過那個index的方式十分可怕，加上自己本來就不喜歡index的題目(很多時候都是考細不細心而已，想法很簡單，但是實作細節很多)<br>
 所以解完就放著了</p>
@@ -298,9 +298,9 @@ debug的輸出與解答的輸出混在一起，十分痛苦</p>
 <p>所以就重新解一次吧，把當時的錯愕了結於此</p>
 <p>同時對於所有rotate的題目都用reverse去做就好，不然很痛苦</p>
 <span id="more"></span>
-<h2 id="Problem-377">Problem</h2>
+<h2 id="Problem-227">Problem</h2>
 <p>You are given an <code>n x n</code> 2D <code>matrix</code> representing an image, rotate the image by <strong>90</strong> degrees (clockwise).</p><p>You have to rotate the image <a href="https://en.wikipedia.org/wiki/In-place_algorithm" target="_blank"><strong>in-place</strong></a>, which means you have to modify the input 2D matrix directly. <strong>DO NOT</strong> allocate another 2D matrix and do the rotation.</p><p> </p><p><strong>Example 1:</strong></p><img alt="" src="https://assets.leetcode.com/uploads/2020/08/28/mat1.jpg" style="width: 642px; height: 242px;" /><pre><strong>Input:</strong> matrix = [[1,2,3],[4,5,6],[7,8,9]]<strong>Output:</strong> [[7,4,1],[8,5,2],[9,6,3]]</pre><p><strong>Example 2:</strong></p><img alt="" src="https://assets.leetcode.com/uploads/2020/08/28/mat2.jpg" style="width: 800px; height: 321px;" /><pre><strong>Input:</strong> matrix = [[5,1,9,11],[2,4,8,10],[13,3,6,7],[15,14,12,16]]<strong>Output:</strong> [[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]</pre><p><strong>Example 3:</strong></p><pre><strong>Input:</strong> matrix = [[1]]<strong>Output:</strong> [[1]]</pre><p><strong>Example 4:</strong></p><pre><strong>Input:</strong> matrix = [[1,2],[3,4]]<strong>Output:</strong> [[3,1],[4,2]]</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>matrix.length == n</code></li><li><code>matrix[i].length == n</code></li><li><code>1 <= n <= 20</code></li><li><code>-1000 <= matrix[i][j] <= 1000</code></li></ul>
-<h2 id="Sol-356">Sol</h2>
+<h2 id="Sol-194">Sol</h2>
 <p>長度帶3，來推推看怎麼設定</p>
 <p>從大的走法到小的走法</p>
 <ol>
@@ -316,7 +316,7 @@ debug的輸出與解答的輸出混在一起，十分痛苦</p>
 </ol>
 <p>四個四個轉，這種座標就只能用推的</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">rotate</span>(<span class="params">self, ms: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]]</span>) -&gt; <span class="literal">None</span>:</span></span><br><span class="line">        n,a,b,prev = <span class="built_in">len</span>(ms),<span class="number">0</span>,<span class="number">0</span>,ms[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">        <span class="comment"># (a,b) is the starting point of each ring</span></span><br><span class="line">        <span class="keyword">while</span> n &gt; <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(n-<span class="number">1</span>):</span><br><span class="line">                <span class="comment"># 0,0 : 0,n-1 : n-1,n-1 : n-1,0</span></span><br><span class="line">                <span class="comment"># 0,1 : 1,n-1 : n-1,n-1-1 : n-1-1, 0</span></span><br><span class="line">                ms[a][b+k], ms[a+k][b+n-<span class="number">1</span>], ms[a+n-<span class="number">1</span>][b+n-<span class="number">1</span>-k], ms[a+n-<span class="number">1</span>-k][b] = ms[a+n-<span class="number">1</span>-k][b], ms[a][b+k], ms[a+k][b+n-<span class="number">1</span>], ms[a+n-<span class="number">1</span>][b+n-<span class="number">1</span>-k]</span><br><span class="line">            a, b = a+<span class="number">1</span>, b+<span class="number">1</span></span><br><span class="line">            n -= <span class="number">2</span></span><br></pre></td></tr></table></figure>
-<h2 id="case-study-6">case study</h2>
+<h2 id="case-study-5">case study</h2>
 <p>用對角線(1,5,9)去swap對面的值，之後每個row做reverse</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1  2  3　　　 　　 1  4  7　　　　　     7  4  1</span><br><span class="line"></span><br><span class="line">4  5  6　　--&gt;　　 2  5  8　　 --&gt;  　  8  5  2　　</span><br><span class="line"></span><br><span class="line">7  8  9 　　　 　　3  6  9　　　　       9  6  3</span><br></pre></td></tr></table></figure>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">rotate</span><span class="params">(vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt;&amp; mx)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;mx.<span class="built_in">size</span>();i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=i+<span class="number">1</span>;j&lt;mx.<span class="built_in">size</span>();j++) &#123;</span><br><span class="line">                <span class="built_in">swap</span>(mx[i][j],mx[j][i]);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">reverse</span>(mx[i].<span class="built_in">begin</span>(),mx[i].<span class="built_in">end</span>());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
@@ -404,7 +404,7 @@ debug的輸出與解答的輸出混在一起，十分痛苦</p>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-574"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-377"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-356"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#case-study-6"><span class="nav-number">4.</span> <span class="nav-text">case study</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-335"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-227"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-194"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#case-study-5"><span class="nav-number">4.</span> <span class="nav-text">case study</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -418,7 +418,7 @@ debug的輸出與解答的輸出混在一起，十分痛苦</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">683</span>
+          <span class="site-state-item-count">684</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

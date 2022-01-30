@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 可以當成188的暖身題">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-01-31T14:03:57.000Z">
-<meta property="article:modified_time" content="2022-01-30T06:31:02.306Z">
+<meta property="article:modified_time" content="2022-01-30T06:44:22.304Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Dynamic Programming">
 <meta property="article:tag" content="Array">
@@ -232,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
+                <time title="Modified: 2022-01-30 14:44:22" itemprop="dateModified" datetime="2022-01-30T14:44:22+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -263,12 +263,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-129">動機</h2>
+        <h2 id="動機-142">動機</h2>
 <p>可以當成188的暖身題</p>
 <span id="more"></span>
-<h2 id="Problem-55">Problem</h2>
+<h2 id="Problem-58">Problem</h2>
 <p>You are given an array <code>prices</code> where <code>prices[i]</code> is the price of a given stock on the <code>i<sup>th</sup></code> day.</p><p>Find the maximum profit you can achieve. You may complete as many transactions as you like (i.e., buy one and sell one share of the stock multiple times) with the following restrictions:</p><ul><li>After you sell your stock, you cannot buy stock on the next day (i.e., cooldown one day).</li></ul><p><strong>Note:</strong> You may not engage in multiple transactions simultaneously (i.e., you must sell the stock before you buy again).</p><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input:</strong> prices = [1,2,3,0,2]<strong>Output:</strong> 3<strong>Explanation:</strong> transactions = [buy, sell, cooldown, buy, sell]</pre><p><strong>Example 2:</strong></p><pre><strong>Input:</strong> prices = [1]<strong>Output:</strong> 0</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>1 <= prices.length <= 5000</code></li><li><code>0 <= prices[i] <= 1000</code></li></ul>
-<h2 id="Sol-36">Sol</h2>
+<h2 id="Sol-37">Sol</h2>
 <p>把buy與sell分開，要算出在買與賣之間的最大收益</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">buy[i] = sell[i-1] - prices[i] | buy[i-1]</span><br><span class="line">sell[i] = buy[i-1] + prices[i] | sell[i-1]</span><br></pre></td></tr></table></figure>
 <p>但這是看前一天的，現在賣完要慢一天才能買，所以改成</p>
@@ -357,7 +357,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-129"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-55"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-36"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-142"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-58"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-37"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -371,7 +371,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">683</span>
+          <span class="site-state-item-count">684</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

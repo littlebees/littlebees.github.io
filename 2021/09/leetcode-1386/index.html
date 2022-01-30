@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://assets.leetcode.com/uploads/2020/02/14/cinema_seats_1.png">
 <meta property="og:image" content="https://assets.leetcode.com/uploads/2020/02/14/cinema_seats_3.png">
 <meta property="article:published_time" content="2021-09-05T15:02:25.000Z">
-<meta property="article:modified_time" content="2022-01-30T06:31:02.326Z">
+<meta property="article:modified_time" content="2022-01-30T06:44:22.320Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Array">
 <meta property="article:tag" content="Bit Manipulation">
@@ -237,7 +237,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
+                <time title="Modified: 2022-01-30 14:44:22" itemprop="dateModified" datetime="2022-01-30T14:44:22+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -264,13 +264,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-309">動機</h2>
+        <h2 id="動機-517">動機</h2>
 <p>十分的哭，<code>1 &lt;= n &lt;= 10^9</code><br>
 會不會太大</p>
 <span id="more"></span>
-<h2 id="Problem-197">Problem</h2>
+<h2 id="Problem-391">Problem</h2>
 <p><img alt="" src="https://assets.leetcode.com/uploads/2020/02/14/cinema_seats_1.png" style="width: 400px; height: 149px;" /></p><p>A cinema has <code>n</code> rows of seats, numbered from 1 to <code>n</code> and there are ten seats in each row, labelled from 1 to 10 as shown in the figure above.</p><p>Given the array <code>reservedSeats</code> containing the numbers of seats already reserved, for example, <code>reservedSeats[i] = [3,8]</code> means the seat located in row <strong>3</strong> and labelled with <b>8</b> is already reserved.</p><p><em>Return the maximum number of four-person groups you can assign on the cinema seats.</em> A four-person group occupies four adjacent seats <strong>in one single row</strong>. Seats across an aisle (such as [3,3] and [3,4]) are not considered to be adjacent, but there is an exceptional case on which an aisle split a four-person group, in that case, the aisle split a four-person group in the middle, which means to have two people on each side.</p><p> </p><p><strong>Example 1:</strong></p><p><img alt="" src="https://assets.leetcode.com/uploads/2020/02/14/cinema_seats_3.png" style="width: 400px; height: 96px;" /></p><pre><strong>Input:</strong> n = 3, reservedSeats = [[1,2],[1,3],[1,8],[2,6],[3,1],[3,10]]<strong>Output:</strong> 4<strong>Explanation:</strong> The figure above shows the optimal allocation for four groups, where seats mark with blue are already reserved and contiguous seats mark with orange are for one group.</pre><p><strong>Example 2:</strong></p><pre><strong>Input:</strong> n = 2, reservedSeats = [[2,1],[1,8],[2,6]]<strong>Output:</strong> 2</pre><p><strong>Example 3:</strong></p><pre><strong>Input:</strong> n = 4, reservedSeats = [[4,3],[1,4],[4,6],[1,7]]<strong>Output:</strong> 4</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>1 <= n <= 10^9</code></li><li><code>1 <= reservedSeats.length <= min(10*n, 10^4)</code></li><li><code>reservedSeats[i].length == 2</code></li><li><code>1 <= reservedSeats[i][0] <= n</code></li><li><code>1 <= reservedSeats[i][1] <= 10</code></li><li>All <code>reservedSeats[i]</code> are distinct.</li></ul>
-<h2 id="Sol-168">Sol</h2>
+<h2 id="Sol-358">Sol</h2>
 <p>因為太大，所以不能把所以資料一次讀進來，不然記憶體會爆</p>
 <p>所以，要一筆一筆的讀，我們只看有劃位的部分，剩下一定是2組</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxNumberOfFamilies</span>(<span class="params">self, n: <span class="built_in">int</span>, reservedSeats: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]]</span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        center = <span class="built_in">int</span>(<span class="string">&#x27;0001111000&#x27;</span>,<span class="number">2</span>)</span><br><span class="line">        left = <span class="built_in">int</span>(<span class="string">&#x27;0111100000&#x27;</span>,<span class="number">2</span>)</span><br><span class="line">        right = <span class="built_in">int</span>(<span class="string">&#x27;0000011110&#x27;</span>,<span class="number">2</span>)</span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">avail4</span>(<span class="params">avail</span>):</span></span><br><span class="line">            isLeft = (avail &amp; left == left)</span><br><span class="line">            isRight = (avail &amp; right == right)</span><br><span class="line">            isCenter = (avail &amp; center == center)</span><br><span class="line">            <span class="keyword">if</span> isLeft <span class="keyword">and</span> isRight:</span><br><span class="line">                <span class="keyword">return</span> <span class="number">2</span></span><br><span class="line">            <span class="keyword">elif</span> isLeft <span class="keyword">or</span> isRight <span class="keyword">or</span> isCenter:</span><br><span class="line">                <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        seats = <span class="built_in">int</span>(<span class="string">&#x27;1111111111&#x27;</span>, <span class="number">2</span>)</span><br><span class="line">        avails = defaultdict(<span class="keyword">lambda</span> : seats)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> s,i <span class="keyword">in</span> reservedSeats:</span><br><span class="line">            avails[s] = avails[s] &amp; ~(<span class="number">1</span> &lt;&lt; (i-<span class="number">1</span>))</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span>*(n-<span class="built_in">len</span>(avails))+<span class="built_in">sum</span>(avail4(avail) <span class="keyword">for</span> avail <span class="keyword">in</span> avails.values())</span><br></pre></td></tr></table></figure>
@@ -359,7 +359,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-309"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-197"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-168"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-517"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-391"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-358"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -373,7 +373,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">683</span>
+          <span class="site-state-item-count">684</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

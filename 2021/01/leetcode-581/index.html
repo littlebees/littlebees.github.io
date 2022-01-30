@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 當初想說只要看到第一個不對的點就可以了，但沒想到的是overlap與根本沒有需要的case…，所以一直出事 [1,2,3,3,3]">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-01-30T16:38:43.000Z">
-<meta property="article:modified_time" content="2022-01-30T06:31:02.306Z">
+<meta property="article:modified_time" content="2022-01-30T06:44:22.304Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Array">
 <meta property="article:tag" content="Stack">
@@ -236,7 +236,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
+                <time title="Modified: 2022-01-30 14:44:22" itemprop="dateModified" datetime="2022-01-30T14:44:22+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -267,13 +267,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-153">動機</h2>
+        <h2 id="動機-166">動機</h2>
 <p>當初想說只要看到第一個不對的點就可以了，但沒想到的是overlap與根本沒有需要的case…，所以一直出事<br>
 <code>[1,2,3,3,3]</code></p>
 <span id="more"></span>
-<h2 id="Problem-79">Problem</h2>
+<h2 id="Problem-82">Problem</h2>
 <p>Given an integer array <code>nums</code>, you need to find one <b>continuous subarray</b> that if you only sort this subarray in ascending order, then the whole array will be sorted in ascending order.</p><p>Return <em>the shortest such subarray and output its length</em>.</p><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input:</strong> nums = [2,6,4,8,10,9,15]<strong>Output:</strong> 5<strong>Explanation:</strong> You need to sort [6, 4, 8, 10, 9] in ascending order to make the whole array sorted in ascending order.</pre><p><strong>Example 2:</strong></p><pre><strong>Input:</strong> nums = [1,2,3,4]<strong>Output:</strong> 0</pre><p><strong>Example 3:</strong></p><pre><strong>Input:</strong> nums = [1]<strong>Output:</strong> 0</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>1 <= nums.length <= 10<sup>4</sup></code></li><li><code>-10<sup>5</sup> <= nums[i] <= 10<sup>5</sup></code></li></ul><p> </p><strong>Follow up:</strong> Can you solve it in <code>O(n)</code> time complexity?
-<h2 id="Sol-55">Sol</h2>
+<h2 id="Sol-56">Sol</h2>
 <ul>
 <li>從左往右找<code>a[i]&gt;a[j]</code>的最小值 (上升)</li>
 <li>從右往左找<code>a[j]&lt;a[i]</code>的最大值 (下降)</li>
@@ -373,7 +373,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-153"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-79"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-55"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#case-study-stack"><span class="nav-number">4.</span> <span class="nav-text">case study: stack</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-166"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-82"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-56"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#case-study-stack"><span class="nav-number">4.</span> <span class="nav-text">case study: stack</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -387,7 +387,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">683</span>
+          <span class="site-state-item-count">684</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

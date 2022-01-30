@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 這題為什麼是hard?">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-07-16T13:24:21.000Z">
-<meta property="article:modified_time" content="2022-01-30T06:31:02.314Z">
+<meta property="article:modified_time" content="2022-01-30T06:44:22.308Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Divide and Conquer">
 <meta property="article:tag" content="Heap (Priority Queue)">
@@ -234,7 +234,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
+                <time title="Modified: 2022-01-30 14:44:22" itemprop="dateModified" datetime="2022-01-30T14:44:22+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -277,12 +277,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-511">動機</h2>
+        <h2 id="動機-272">動機</h2>
 <p>這題為什麼是hard?</p>
 <span id="more"></span>
-<h2 id="Problem-314">Problem</h2>
+<h2 id="Problem-164">Problem</h2>
 <p>You are given an array of <code>k</code> linked-lists <code>lists</code>, each linked-list is sorted in ascending order.</p><p><em>Merge all the linked-lists into one sorted linked-list and return it.</em></p><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input:</strong> lists = [[1,4,5],[1,3,4],[2,6]]<strong>Output:</strong> [1,1,2,3,4,4,5,6]<strong>Explanation:</strong> The linked-lists are:[  1->4->5,  1->3->4,  2->6]merging them into one sorted list:1->1->2->3->4->4->5->6</pre><p><strong>Example 2:</strong></p><pre><strong>Input:</strong> lists = []<strong>Output:</strong> []</pre><p><strong>Example 3:</strong></p><pre><strong>Input:</strong> lists = [[]]<strong>Output:</strong> []</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>k == lists.length</code></li><li><code>0 <= k <= 10^4</code></li><li><code>0 <= lists[i].length <= 500</code></li><li><code>-10^4 <= lists[i][j] <= 10^4</code></li><li><code>lists[i]</code> is sorted in <strong>ascending order</strong>.</li><li>The sum of <code>lists[i].length</code> won't exceed <code>10^4</code>.</li></ul>
-<h2 id="Sol-294">Sol</h2>
+<h2 id="Sol-132">Sol</h2>
 <p>直接硬幹就好，如果不計較速度的話</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">mergeKLists</span>(<span class="params">self, lists: <span class="type">List</span>[ListNode]</span>) -&gt; ListNode:</span></span><br><span class="line">        lists = [x <span class="keyword">for</span> x <span class="keyword">in</span> lists <span class="keyword">if</span> x]</span><br><span class="line">        ret = cur = ListNode()</span><br><span class="line">        <span class="keyword">while</span> lists:</span><br><span class="line">            tmp = <span class="built_in">min</span>(<span class="built_in">enumerate</span>(lists), key=<span class="keyword">lambda</span> x: x[<span class="number">1</span>].val)</span><br><span class="line">            cur.<span class="built_in">next</span> = tmp[<span class="number">1</span>]</span><br><span class="line">            cur = cur.<span class="built_in">next</span></span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> lists[tmp[<span class="number">0</span>]].<span class="built_in">next</span> <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                <span class="keyword">del</span> lists[tmp[<span class="number">0</span>]]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                lists[tmp[<span class="number">0</span>]] = lists[tmp[<span class="number">0</span>]].<span class="built_in">next</span></span><br><span class="line">        <span class="keyword">return</span> ret.<span class="built_in">next</span></span><br></pre></td></tr></table></figure>
     </div>
@@ -370,7 +370,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-511"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-314"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-294"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-272"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-164"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-132"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -384,7 +384,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">683</span>
+          <span class="site-state-item-count">684</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

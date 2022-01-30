@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 就是backtrack">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-07-25T14:11:18.000Z">
-<meta property="article:modified_time" content="2022-01-30T06:31:02.314Z">
+<meta property="article:modified_time" content="2022-01-30T06:44:22.308Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Dynamic Programming">
 <meta property="article:tag" content="String">
@@ -236,7 +236,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
+                <time title="Modified: 2022-01-30 14:44:22" itemprop="dateModified" datetime="2022-01-30T14:44:22+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -267,12 +267,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-472">動機</h2>
+        <h2 id="動機-233">動機</h2>
 <p>就是backtrack</p>
 <span id="more"></span>
-<h2 id="Problem-275">Problem</h2>
+<h2 id="Problem-125">Problem</h2>
 <p>Given a string <code>s</code> and a dictionary of strings <code>wordDict</code>, add spaces in <code>s</code> to construct a sentence where each word is a valid dictionary word. Return all such possible sentences in <strong>any order</strong>.</p><p><strong>Note</strong> that the same word in the dictionary may be reused multiple times in the segmentation.</p><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input:</strong> s = catsanddog, wordDict = [cat,cats,and,sand,dog]<strong>Output:</strong> [cats and dog,cat sand dog]</pre><p><strong>Example 2:</strong></p><pre><strong>Input:</strong> s = pineapplepenapple, wordDict = [apple,pen,applepen,pine,pineapple]<strong>Output:</strong> [pine apple pen apple,pineapple pen apple,pine applepen apple]<strong>Explanation:</strong> Note that you are allowed to reuse a dictionary word.</pre><p><strong>Example 3:</strong></p><pre><strong>Input:</strong> s = catsandog, wordDict = [cats,dog,sand,and,cat]<strong>Output:</strong> []</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>1 <= s.length <= 20</code></li><li><code>1 <= wordDict.length <= 1000</code></li><li><code>1 <= wordDict[i].length <= 10</code></li><li><code>s</code> and <code>wordDict[i]</code> consist of only lowercase English letters.</li><li>All the strings of <code>wordDict</code> are <strong>unique</strong>.</li></ul>
-<h2 id="Sol-257">Sol</h2>
+<h2 id="Sol-95">Sol</h2>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wordBreak</span>(<span class="params">self, s: <span class="built_in">str</span>, wordDict: <span class="type">List</span>[<span class="built_in">str</span>]</span>) -&gt; <span class="type">List</span>[<span class="built_in">str</span>]:</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">bt</span>(<span class="params">s,acc</span>):</span></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> s:</span><br><span class="line">                <span class="keyword">return</span> [acc[<span class="number">1</span>:]] <span class="comment"># remove leading space</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                ret = []</span><br><span class="line">                <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="built_in">len</span>(s)+<span class="number">1</span>):</span><br><span class="line">                    <span class="keyword">if</span> s[:i] <span class="keyword">in</span> wordDict:</span><br><span class="line">                        ret += bt(s[i:], <span class="string">f&quot;<span class="subst">&#123;acc&#125;</span> <span class="subst">&#123;s[:i]&#125;</span>&quot;</span>)</span><br><span class="line">                <span class="keyword">return</span> ret</span><br><span class="line">        <span class="keyword">return</span> bt(s, <span class="string">&quot;&quot;</span>)</span><br></pre></td></tr></table></figure>
     </div>
 
@@ -361,7 +361,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-472"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-275"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-257"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-233"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-125"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-95"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -375,7 +375,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">683</span>
+          <span class="site-state-item-count">684</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

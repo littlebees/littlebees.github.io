@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 python的主場來啦">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-08-01T18:24:45.000Z">
-<meta property="article:modified_time" content="2022-01-30T06:31:02.326Z">
+<meta property="article:modified_time" content="2022-01-30T06:44:22.320Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Array">
 <meta property="article:tag" content="Matrix">
@@ -235,7 +235,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
+                <time title="Modified: 2022-01-30 14:44:22" itemprop="dateModified" datetime="2022-01-30T14:44:22+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -262,12 +262,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-273">動機</h2>
+        <h2 id="動機-481">動機</h2>
 <p>python的主場來啦</p>
 <span id="more"></span>
-<h2 id="Problem-167">Problem</h2>
+<h2 id="Problem-361">Problem</h2>
 <p>You are given an <code>n x n</code> binary matrix <code>grid</code>. You are allowed to change <strong>at most one</strong> <code>0</code> to be <code>1</code>.</p><p>Return <em>the size of the largest <strong>island</strong> in</em> <code>grid</code> <em>after applying this operation</em>.</p><p>An <strong>island</strong> is a 4-directionally connected group of <code>1</code>s.</p><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input:</strong> grid = [[1,0],[0,1]]<strong>Output:</strong> 3<strong>Explanation:</strong> Change one 0 to 1 and connect two 1s, then we get an island with area = 3.</pre><p><strong>Example 2:</strong></p><pre><strong>Input:</strong> grid = [[1,1],[1,0]]<strong>Output:</strong> 4<strong>Explanation: </strong>Change the 0 to 1 and make the island bigger, only one island with area = 4.</pre><p><strong>Example 3:</strong></p><pre><strong>Input:</strong> grid = [[1,1],[1,1]]<strong>Output:</strong> 4<strong>Explanation:</strong> Can't change any 0 to 1, only one island with area = 4.</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>n == grid.length</code></li><li><code>n == grid[i].length</code></li><li><code>1 <= n <= 500</code></li><li><code>grid[i][j]</code> is either <code>0</code> or <code>1</code>.</li></ul>
-<h2 id="Sol-138">Sol</h2>
+<h2 id="Sol-328">Sol</h2>
 <p>用dfs找面積，之後用dfs設定面積</p>
 <p>在設定面積時會碰到邊界，就可以用list去放現在的面積，但下一個遇到list也可以放</p>
 <p>最後就是數list的總和</p>
@@ -358,7 +358,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-273"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-167"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-138"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-481"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-361"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-328"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -372,7 +372,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">683</span>
+          <span class="site-state-item-count">684</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

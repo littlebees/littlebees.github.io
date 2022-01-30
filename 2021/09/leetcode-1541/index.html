@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 先把礙事的處理掉就好!!">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-09-14T08:37:29.000Z">
-<meta property="article:modified_time" content="2022-01-30T06:31:02.326Z">
+<meta property="article:modified_time" content="2022-01-30T06:44:22.320Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="String">
 <meta property="article:tag" content="Stack">
@@ -233,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
+                <time title="Modified: 2022-01-30 14:44:22" itemprop="dateModified" datetime="2022-01-30T14:44:22+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -260,12 +260,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-315">動機</h2>
+        <h2 id="動機-523">動機</h2>
 <p>先把礙事的處理掉就好!!</p>
 <span id="more"></span>
-<h2 id="Problem-203">Problem</h2>
+<h2 id="Problem-397">Problem</h2>
 <p>Given a parentheses string <code>s</code> containing only the characters <code>'('</code> and <code>')'</code>. A parentheses string is <strong>balanced</strong> if:</p><ul><li>Any left parenthesis <code>'('</code> must have a corresponding two consecutive right parenthesis <code>'))'</code>.</li><li>Left parenthesis <code>'('</code> must go before the corresponding two consecutive right parenthesis <code>'))'</code>.</li></ul><p>In other words, we treat <code>'('</code> as openning parenthesis and <code>'))'</code> as closing parenthesis.</p><p>For example, <code>"())"</code>, <code>"())(())))"</code> and <code>"(())())))"</code> are balanced, <code>")()"</code>, <code>"()))"</code> and <code>"(()))"</code> are not balanced.</p><p>You can insert the characters <code>'('</code> and <code>')'</code> at any position of the string to balance it if needed.</p><p>Return <em>the minimum number of insertions</em> needed to make <code>s</code> balanced.</p><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input:</strong> s = "(()))"<strong>Output:</strong> 1<strong>Explanation:</strong> The second '(' has two matching '))', but the first '(' has only ')' matching. We need to to add one more ')' at the end of the string to be "(())))" which is balanced.</pre><p><strong>Example 2:</strong></p><pre><strong>Input:</strong> s = "())"<strong>Output:</strong> 0<strong>Explanation:</strong> The string is already balanced.</pre><p><strong>Example 3:</strong></p><pre><strong>Input:</strong> s = "))())("<strong>Output:</strong> 3<strong>Explanation:</strong> Add '(' to match the first '))', Add '))' to match the last '('.</pre><p><strong>Example 4:</strong></p><pre><strong>Input:</strong> s = "(((((("<strong>Output:</strong> 12<strong>Explanation:</strong> Add 12 ')' to balance the string.</pre><p><strong>Example 5:</strong></p><pre><strong>Input:</strong> s = ")))))))"<strong>Output:</strong> 5<strong>Explanation:</strong> Add 4 '(' at the beginning of the string and one ')' at the end. The string becomes "(((())))))))".</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>1 <= s.length <= 10^5</code></li><li><code>s</code> consists of <code>'('</code> and <code>')'</code> only.</li></ul>
-<h2 id="Sol-174">Sol</h2>
+<h2 id="Sol-364">Sol</h2>
 <p>先把string的<code>))</code>換成一個新字元，剩下就是case by case</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">minInsertions</span>(<span class="params">self, s: <span class="built_in">str</span></span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        s = s.replace(<span class="string">&quot;))&quot;</span>, <span class="string">&quot;x&quot;</span>)</span><br><span class="line">        left , right, half = <span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span></span><br><span class="line">        ret = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> c <span class="keyword">in</span> s:</span><br><span class="line">            <span class="keyword">if</span> c == <span class="string">&quot;(&quot;</span>:</span><br><span class="line">                left += <span class="number">1</span></span><br><span class="line">            <span class="keyword">elif</span> c == <span class="string">&quot;x&quot;</span>:</span><br><span class="line">                <span class="keyword">if</span> left &gt; <span class="number">0</span>:</span><br><span class="line">                    left -= <span class="number">1</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    ret += <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">if</span> left &gt; <span class="number">0</span>:</span><br><span class="line">                    left -= <span class="number">1</span></span><br><span class="line">                    ret += <span class="number">1</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    ret += <span class="number">2</span></span><br><span class="line">        <span class="keyword">return</span> ret+left*<span class="number">2</span>+right+half*<span class="number">2</span></span><br></pre></td></tr></table></figure>
     </div>
@@ -352,7 +352,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-315"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-203"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-174"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-523"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-397"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-364"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -366,7 +366,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">683</span>
+          <span class="site-state-item-count">684</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

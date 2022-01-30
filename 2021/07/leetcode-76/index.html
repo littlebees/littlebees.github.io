@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 現在寫sliding window的風格跟以前完全不一樣">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-07-21T18:51:12.000Z">
-<meta property="article:modified_time" content="2022-01-30T06:31:02.318Z">
+<meta property="article:modified_time" content="2022-01-30T06:44:22.312Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="String">
 <meta property="article:tag" content="Hash Table">
@@ -233,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
+                <time title="Modified: 2022-01-30 14:44:22" itemprop="dateModified" datetime="2022-01-30T14:44:22+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -276,12 +276,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-609">動機</h2>
+        <h2 id="動機-370">動機</h2>
 <p>現在寫sliding window的風格跟以前完全不一樣</p>
 <span id="more"></span>
-<h2 id="Problem-412">Problem</h2>
+<h2 id="Problem-262">Problem</h2>
 <p>Given two strings <code>s</code> and <code>t</code> of lengths <code>m</code> and <code>n</code> respectively, return <em>the <strong>minimum window substring</strong> of </em><code>s</code><em> such that every character in </em><code>t</code><em> (<strong>including duplicates</strong>) is included in the window. If there is no such substring</em><em>, return the empty string </em><code></code><em>.</em></p><p>The testcases will be generated such that the answer is <strong>unique</strong>.</p><p>A <strong>substring</strong> is a contiguous sequence of characters within the string.</p><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input:</strong> s = ADOBECODEBANC, t = ABC<strong>Output:</strong> BANC<strong>Explanation:</strong> The minimum window substring BANC includes 'A', 'B', and 'C' from string t.</pre><p><strong>Example 2:</strong></p><pre><strong>Input:</strong> s = a, t = a<strong>Output:</strong> a<strong>Explanation:</strong> The entire string s is the minimum window.</pre><p><strong>Example 3:</strong></p><pre><strong>Input:</strong> s = a, t = aa<strong>Output:</strong> <strong>Explanation:</strong> Both 'a's from t must be included in the window.Since the largest window of s only has one 'a', return empty string.</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>m == s.length</code></li><li><code>n == t.length</code></li><li><code>1 <= m, n <= 10<sup>5</sup></code></li><li><code>s</code> and <code>t</code> consist of uppercase and lowercase English letters.</li></ul><p> </p><strong>Follow up:</strong> Could you find an algorithm that runs in <code>O(m + n)</code> time?
-<h2 id="Sol-391">Sol</h2>
+<h2 id="Sol-229">Sol</h2>
 <p>先看之前寫的再看別人寫的</p>
 <p>一路長到合法，紀錄，縮一格</p>
 <p>但因為檢查合法的方式是dict比對，所以超慢</p>
@@ -374,7 +374,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-609"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-412"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-391"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-370"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-262"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-229"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -388,7 +388,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">683</span>
+          <span class="site-state-item-count">684</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

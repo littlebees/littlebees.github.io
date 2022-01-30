@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 window中的東西可以亂生!!">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-08-15T07:23:22.000Z">
-<meta property="article:modified_time" content="2022-01-30T06:31:02.322Z">
+<meta property="article:modified_time" content="2022-01-30T06:44:22.316Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="String">
 <meta property="article:tag" content="Sliding Window">
@@ -232,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
+                <time title="Modified: 2022-01-30 14:44:22" itemprop="dateModified" datetime="2022-01-30T14:44:22+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -259,12 +259,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-205">動機</h2>
+        <h2 id="動機-413">動機</h2>
 <p>window中的東西可以亂生!!</p>
 <span id="more"></span>
-<h2 id="Problem-99">Problem</h2>
+<h2 id="Problem-293">Problem</h2>
 <p>You are given a string containing only 4 kinds of characters <code>'Q',</code> <code>'W', 'E'</code> and <code>'R'</code>.</p><p>A string is said to be <strong>balanced</strong><em> </em>if each of its characters appears <code>n/4</code> times where <code>n</code> is the length of the string.</p><p>Return the minimum length of the substring that can be replaced with <strong>any</strong> other string of the same length to make the original string <code>s</code> <strong>balanced</strong>.</p><p>Return 0 if the string is already <strong>balanced</strong>.</p><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input:</strong> s = "QWER"<strong>Output:</strong> 0<strong>Explanation: </strong>s is already balanced.</pre><p><strong>Example 2:</strong></p><pre><strong>Input:</strong> s = "QQWE"<strong>Output:</strong> 1<strong>Explanation: </strong>We need to replace a 'Q' to 'R', so that "RQWE" (or "QRWE") is balanced.</pre><p><strong>Example 3:</strong></p><pre><strong>Input:</strong> s = "QQQW"<strong>Output:</strong> 2<strong>Explanation: </strong>We can replace the first "QQ" to "ER". </pre><p><strong>Example 4:</strong></p><pre><strong>Input:</strong> s = "QQQQ"<strong>Output:</strong> 3<strong>Explanation: </strong>We can replace the last 3 'Q' to make s = "QWER".</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>1 <= s.length <= 10^5</code></li><li><code>s.length</code> is a multiple of <code>4</code></li><li><code>s </code>contains only <code>'Q'</code>, <code>'W'</code>, <code>'E'</code> and <code>'R'</code>.</li></ul>
-<h2 id="Sol-70">Sol</h2>
+<h2 id="Sol-260">Sol</h2>
 <p>window中的東西可以亂生，所以只要外面不超標的話就可以用window把string給平衡掉</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">balancedString</span>(<span class="params">self, s: <span class="built_in">str</span></span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        cnts, base = Counter(s), <span class="built_in">len</span>(s)//<span class="number">4</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">all</span>([cnts[x] == base <span class="keyword">for</span> x <span class="keyword">in</span> <span class="string">&quot;QWER&quot;</span>]):</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        i = <span class="number">0</span></span><br><span class="line">        ret = <span class="built_in">float</span>(<span class="string">&#x27;inf&#x27;</span>)</span><br><span class="line">        <span class="keyword">for</span> j,c <span class="keyword">in</span> <span class="built_in">enumerate</span>(s):</span><br><span class="line">            cnts[c] -= <span class="number">1</span></span><br><span class="line">            <span class="keyword">while</span> i &lt;= j <span class="keyword">and</span> <span class="built_in">all</span>([base &gt;= cnts[x] <span class="keyword">for</span> x <span class="keyword">in</span> <span class="string">&quot;QWER&quot;</span>]): <span class="comment"># string will be balanced</span></span><br><span class="line">                ret = <span class="built_in">min</span>(ret, j-i+<span class="number">1</span>)</span><br><span class="line">                cnts[s[i]] += <span class="number">1</span></span><br><span class="line">                i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> ret </span><br></pre></td></tr></table></figure>
     </div>
@@ -350,7 +350,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-205"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-99"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-70"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-413"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-293"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-260"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -364,7 +364,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">683</span>
+          <span class="site-state-item-count">684</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
