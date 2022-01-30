@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="AEpTGuQAkxnTOlmfF4INDna3S660LxrkyZ4BQzVbRSw">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"littlebees.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="動機 突然想起有k8s，就來看看 越看越像linux主機的抽象化，最後變成近乎linux主機的framework">
+<meta property="og:type" content="article">
+<meta property="og:title" content="k8s筆記">
+<meta property="og:url" content="https://littlebees.github.io/2020/8/k8s-note/index.html">
+<meta property="og:site_name" content="記事本">
+<meta property="og:description" content="動機 突然想起有k8s，就來看看 越看越像linux主機的抽象化，最後變成近乎linux主機的framework">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-08-15T12:41:18.000Z">
+<meta property="article:modified_time" content="2022-01-21T19:14:35.897Z">
+<meta property="article:author" content="zhengcf">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://littlebees.github.io/2020/8/k8s-note/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>k8s筆記 | 記事本</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">記事本</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">寫下來，不然會忘</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2020/8/k8s-note/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhengcf">
+      <meta itemprop="description" content="想到什麼就寫什麼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="記事本">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          k8s筆記
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-08-15 20:41:18" itemprop="dateCreated datePublished" datetime="2020-08-15T20:41:18+08:00">2020-08-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-01-22 03:14:35" itemprop="dateModified" datetime="2022-01-22T03:14:35+08:00">2022-01-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/Tips/" itemprop="url" rel="index"><span itemprop="name">Tips</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="動機">動機</h2>
+<p>突然想起有k8s，就來看看<br>
+越看越像linux主機的抽象化，最後變成近乎linux主機的framework</p>
+<a id="more"></a>
+<h2 id="架構-把主機拆掉再變多">架構: 把主機拆掉再變多</h2>
+<p>一開始主機是<br>
+一台電腦有</p>
+<ol>
+<li>應用程式</li>
+<li>檔案(設定檔)</li>
+<li>處理連線的介面(load balancer或是firewall)</li>
+</ol>
+<h3 id="應用程式-虛擬的主機">應用程式 &amp; 虛擬的主機</h3>
+<p>都是共用同一台實體主機的資源</p>
+<hr>
+<p>但應用程式越來越多會彼此影響<br>
+所以在同一台實體主機中用chroot與network namespace分開應用程式<br>
+但彼此之間要溝通就不能透過 記憶體與filesystem 他們已經被分開了<br>
+所以彼此之間用網路連接在一起<br>
+這就是container或是pod</p>
+<hr>
+<p>如果每個應用程式都是用網路連接在一起，那應用程式還需要限定在同一台實體主機上嗎?<br>
+因此我們可以把實體主機變多，讓應用程式跑在不同的主機上<br>
+這就是cluster</p>
+<p>對於使用者來說這些實體主機都是可以提供服務的，所以cluster也可以說是虛擬的主機</p>
+<p>如果相同的應用程式跑在不同的主機上，都提供一樣的服務，這叫scaling<br>
+如果子任務跑在不同的主機上，來跑出計算結果，這叫parllelism</p>
+<hr>
+<p>有了這麼多實體主機要怎麼分配pod?<br>
+在k8s就是deployment</p>
+<h3 id="處理連線的介面">處理連線的介面</h3>
+<p>原本在同一台主機上，使怎麼區分要把連線導到哪個應用程式?<br>
+用port，像http是80、https是443<br>
+在應用程式用bind就可以綁到指定的port</p>
+<hr>
+<p>但現在每個應用程式都是被分開，所以會需要</p>
+<ol>
+<li>ip(在不同的network namespace)</li>
+<li>port(在第四層網路)</li>
+</ol>
+<p>這個除了用bind外，還要用iptables，也就是firewall去控制ip的封包往那邊走</p>
+<p>但這都還在同一台實體主機上</p>
+<hr>
+<p>如果變成像cluster那樣的虛擬主機要怎麼辦?</p>
+<p>基本上就是用主從式架構<br>
+一個收連線分配到某台cluster下的主機，等資料return到這裡</p>
+<p>這就是master node的由來</p>
+<hr>
+<p>接下去要問的是<br>
+怎麼使用服務?</p>
+<p>現在master node知道服務的ip與port</p>
+<p>所以要讓服務可以被使用，方法有</p>
+<ol>
+<li>port forwarding</li>
+<li>reverse proxy</li>
+</ol>
+<p>port forwarding就是service(type: NodePort)<br>
+reverse proxy就是ClusterIP(ingress可以想成加料過的loadbalancer)</p>
+<p>service的NodePort &amp; LoadBalancer差在?<br>
+port開在哪裡，<br>
+NodePort開在主機上，<br>
+LoadBalancer會先拉一台主機出來再開port</p>
+<p>LoadBalancer可以看成把master node的firewall部份抽出來單獨用</p>
+<p>為什麼service再分配一個ClusterIP?<br>
+為了可以用service的name直接連到Pod，service的name會被放在kube-dns中<br>
+這樣用service的name做nslookup就會拿到ip，就像部屬一台server一樣</p>
+<p>同樣都是讓服務可以被使用，<br>
+比起實體主機，為什麼k8s還多了ingress?<br>
+第一個是現在應用程式都有了自己的ip<br>
+第二個是一般常見的服務都是 network protocol綁定port的，像80,443</p>
+<p>所以ingress可以想像成DNS不過是把path換成ip&amp;port<br>
+DNS是domain name換成ip</p>
+<p>(有注意到嗎，在網站上，path是換成對應的controller，所以ingress的角色其實是與網站上的router相當)</p>
+<p>service不加上selector(不是把流量導到cluster中)的話?<br>
+service就是在實體主機上的bind<br>
+所以也可以把流量導到其他地方去，像</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">my-service</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">      <span class="attr">port:</span> <span class="number">80</span></span><br><span class="line">      <span class="attr">targetPort:</span> <span class="number">9376</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Endpoints</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">my-service</span></span><br><span class="line"><span class="attr">subsets:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">addresses:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">ip:</span> <span class="number">192.0</span><span class="number">.2</span><span class="number">.42</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">port:</span> <span class="number">9376</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p>Namespaces就是不同的cluster，其實就是不同的虛擬主機</p>
+<h2 id="部署服務">部署服務</h2>
+<p>流程是</p>
+<ol>
+<li>deployment生pod</li>
+<li>service把port綁到指定的pod</li>
+<li>ingress把路徑綁到port(service)</li>
+</ol>
+<h3 id="指定某東西">指定某東西</h3>
+<p>如何指定就是用label，像</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1beta2</span> <span class="comment"># for kubectl versions &gt;= 1.9.0 use apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">hello-deployment</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">3</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span> <span class="comment"># here</span></span><br><span class="line">      <span class="attr">app:</span> <span class="string">my-deployment</span></span><br><span class="line">    <span class="attr">matchExpressions:</span></span><br><span class="line">       <span class="bullet">-</span> <span class="string">&#123;key:</span> <span class="string">tier,</span> <span class="attr">operator:</span> <span class="string">In,</span> <span class="attr">values:</span> <span class="string">[cache]&#125;</span></span><br><span class="line">       <span class="bullet">-</span> <span class="string">&#123;key:</span> <span class="string">environment,</span> <span class="attr">operator:</span> <span class="string">NotIn,</span> <span class="attr">values:</span> <span class="string">[dev]&#125;</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span> <span class="comment"># here</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">my-deployment</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">my-pod</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">zxcvbnius/docker-demo:latest</span></span><br><span class="line">        <span class="attr">ports:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">3000</span></span><br></pre></td></tr></table></figure>
+<p>如果是在commandline上要指定的話</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pods -l environment&#x3D;production,tier&#x3D;frontend</span><br><span class="line"></span><br><span class="line">kubectl get pods -l &#39;environment in (production),tier in (frontend)&#39;</span><br><span class="line"></span><br><span class="line">kubectl get pods -l &#39;environment in (production, qa)&#39;</span><br><span class="line"></span><br><span class="line">kubectl get pods -l &#39;environment,environment notin (frontend)&#39;</span><br></pre></td></tr></table></figure>
+<p>另外可以用go-template，來客製顯示的資訊</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@node root]# kubectl get pods --all-namespaces -o go-template --template&#x3D;&#39;&#123;&#123;range .items&#125;&#125;&#123;&#123;.metadata.uid&#125;&#125;</span><br><span class="line">&#123;&#123;end&#125;&#125;&#39;</span><br><span class="line">0313ffff-f1f4-11e7-9cda-40f2e9b98448</span><br><span class="line">ee49bdcd-f1f2-11e7-9cda-40f2e9b98448</span><br><span class="line">f1e0eb80-f1f2-11e7-9cda-40f2e9b98448</span><br><span class="line"></span><br><span class="line">[root@node root]# kubectl get pods --all-namespaces -o go-template --template&#x3D;&#39;&#123;&#123;range .items&#125;&#125;&#123;&#123;printf &quot;|%-20s|%-50s|%-30s|\n&quot; .metadata.namespace .metadata.name .metadata.uid&#125;&#125;&#123;&#123;end&#125;&#125;&#39;</span><br><span class="line">|console             |console-4d2d7eab-1377218307-7lg5v                 |0313ffff-f1f4-11e7-9cda-40f2e9b98448|</span><br><span class="line">|console             |console-4d2d7eab-1377218307-q3bjd                 |ee49bdcd-f1f2-11e7-9cda-40f2e9b98448|</span><br><span class="line">|cxftest             |ipreserve-f15257ec-3788284754-nmp3x               |f1e0eb80-f1f2-11e7-9cda-40f2e9b98448|</span><br></pre></td></tr></table></figure>
+<h3 id="Horizontal-Pod-Autoscaling">Horizontal Pod Autoscaling</h3>
+<p>Deployment控制Pod的數量<br>
+Horizontal Pod Autoscaling控制Deployment的數量</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">autoscaling/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">HorizontalPodAutoscaler</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">helloworld-hpa</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">scaleTargetRef:</span></span><br><span class="line">    <span class="attr">apiVersion:</span> <span class="string">apps/v1beta2</span></span><br><span class="line">    <span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">helloworld-deployment</span></span><br><span class="line">  <span class="attr">minReplicas:</span> <span class="number">2</span></span><br><span class="line">  <span class="attr">maxReplicas:</span> <span class="number">5</span></span><br><span class="line">  <span class="attr">targetCPUUtilizationPercentage:</span> <span class="number">50</span></span><br></pre></td></tr></table></figure>
+<h3 id="DaemonSet">DaemonSet</h3>
+<p>如果每個Node都要跑這個pod，像是monitor或log<br>
+就可以用DaemonSet</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">DaemonSet</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">fluentd-elasticsearch</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">kube-system</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">k8s-app:</span> <span class="string">fluentd-logging</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">fluentd-elasticsearch</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">name:</span> <span class="string">fluentd-elasticsearch</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">tolerations:</span></span><br><span class="line">      <span class="comment"># this toleration is to have the daemonset runnable on master nodes</span></span><br><span class="line">      <span class="comment"># remove it if your masters can't run pods</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">key:</span> <span class="string">node-role.kubernetes.io/master</span></span><br><span class="line">        <span class="attr">effect:</span> <span class="string">NoSchedule</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">fluentd-elasticsearch</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">quay.io/fluentd_elasticsearch/fluentd:v2.5.2</span></span><br><span class="line">        <span class="attr">resources:</span></span><br><span class="line">          <span class="attr">limits:</span></span><br><span class="line">            <span class="attr">memory:</span> <span class="string">200Mi</span></span><br><span class="line">          <span class="attr">requests:</span></span><br><span class="line">            <span class="attr">cpu:</span> <span class="string">100m</span></span><br><span class="line">            <span class="attr">memory:</span> <span class="string">200Mi</span></span><br><span class="line">        <span class="attr">volumeMounts:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">varlog</span></span><br><span class="line">          <span class="attr">mountPath:</span> <span class="string">/var/log</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">varlibdockercontainers</span></span><br><span class="line">          <span class="attr">mountPath:</span> <span class="string">/var/lib/docker/containers</span></span><br><span class="line">          <span class="attr">readOnly:</span> <span class="literal">true</span></span><br><span class="line">      <span class="attr">terminationGracePeriodSeconds:</span> <span class="number">30</span></span><br><span class="line">      <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">varlog</span></span><br><span class="line">        <span class="attr">hostPath:</span></span><br><span class="line">          <span class="attr">path:</span> <span class="string">/var/log</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">varlibdockercontainers</span></span><br><span class="line">        <span class="attr">hostPath:</span></span><br><span class="line">          <span class="attr">path:</span> <span class="string">/var/lib/docker/containers</span></span><br></pre></td></tr></table></figure>
+<h3 id="管理Node">管理Node</h3>
+<p>停用node: <code>kubectl drain {node_name}</code><br>
+啟用node: <code>kubectl uncordon {node_name} </code></p>
+<h2 id="限制資源">限制資源</h2>
+<p>Pod本身可以限制或要求最多或最少需要多少資源</p>
+<p>當然也可以從外部限制</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">List</span></span><br><span class="line"><span class="attr">items:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line">  <span class="attr">kind:</span> <span class="string">ResourceQuota</span></span><br><span class="line">  <span class="attr">metadata:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">pods-high</span></span><br><span class="line">  <span class="attr">spec:</span></span><br><span class="line">    <span class="attr">hard:</span></span><br><span class="line">      <span class="attr">cpu:</span> <span class="string">"1000"</span></span><br><span class="line">      <span class="attr">memory:</span> <span class="string">200Gi</span></span><br><span class="line">      <span class="attr">pods:</span> <span class="string">"10"</span></span><br><span class="line">    <span class="attr">scopeSelector:</span></span><br><span class="line">      <span class="attr">matchExpressions:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">operator :</span> <span class="string">In</span></span><br><span class="line">        <span class="attr">scopeName:</span> <span class="string">PriorityClass</span></span><br><span class="line">        <span class="attr">values:</span> <span class="string">["high"]</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line">  <span class="attr">kind:</span> <span class="string">ResourceQuota</span></span><br><span class="line">  <span class="attr">metadata:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">pods-medium</span></span><br><span class="line">  <span class="attr">spec:</span></span><br><span class="line">    <span class="attr">hard:</span></span><br><span class="line">      <span class="attr">cpu:</span> <span class="string">"10"</span></span><br><span class="line">      <span class="attr">memory:</span> <span class="string">20Gi</span></span><br><span class="line">      <span class="attr">pods:</span> <span class="string">"10"</span></span><br><span class="line">    <span class="attr">scopeSelector:</span></span><br><span class="line">      <span class="attr">matchExpressions:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">operator :</span> <span class="string">In</span></span><br><span class="line">        <span class="attr">scopeName:</span> <span class="string">PriorityClass</span></span><br><span class="line">        <span class="attr">values:</span> <span class="string">["medium"]</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line">  <span class="attr">kind:</span> <span class="string">ResourceQuota</span></span><br><span class="line">  <span class="attr">metadata:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">pods-low</span></span><br><span class="line">  <span class="attr">spec:</span></span><br><span class="line">    <span class="attr">hard:</span></span><br><span class="line">      <span class="attr">cpu:</span> <span class="string">"5"</span></span><br><span class="line">      <span class="attr">memory:</span> <span class="string">10Gi</span></span><br><span class="line">      <span class="attr">pods:</span> <span class="string">"10"</span></span><br><span class="line">    <span class="attr">scopeSelector:</span></span><br><span class="line">      <span class="attr">matchExpressions:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">operator :</span> <span class="string">In</span></span><br><span class="line">        <span class="attr">scopeName:</span> <span class="string">PriorityClass</span></span><br><span class="line">	<span class="attr">values:</span> <span class="string">["low"]</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">high-priority</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">high-priority</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">ubuntu</span></span><br><span class="line">    <span class="attr">command:</span> <span class="string">["/bin/sh"]</span></span><br><span class="line">    <span class="attr">args:</span> <span class="string">["-c",</span> <span class="string">"while true; do echo hello; sleep 10;done"</span><span class="string">]</span></span><br><span class="line">    <span class="attr">resources:</span></span><br><span class="line">      <span class="attr">requests:</span></span><br><span class="line">        <span class="attr">memory:</span> <span class="string">"10Gi"</span></span><br><span class="line">        <span class="attr">cpu:</span> <span class="string">"500m"</span></span><br><span class="line">      <span class="attr">limits:</span></span><br><span class="line">        <span class="attr">memory:</span> <span class="string">"10Gi"</span></span><br><span class="line">        <span class="attr">cpu:</span> <span class="string">"500m"</span></span><br><span class="line">  <span class="attr">priorityClassName:</span> <span class="string">high</span></span><br></pre></td></tr></table></figure>
+<p>除了pod的限制，也能限制namespace</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ResourceQuota</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">compute-resources</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">hard:</span></span><br><span class="line">    <span class="attr">requests.cpu:</span> <span class="string">"1"</span></span><br><span class="line">    <span class="attr">requests.memory:</span> <span class="string">1Gi</span></span><br><span class="line">    <span class="attr">limits.cpu:</span> <span class="string">"2"</span></span><br><span class="line">    <span class="attr">limits.memory:</span> <span class="string">2Gi</span></span><br><span class="line">    <span class="attr">requests.nvidia.com/gpu:</span> <span class="number">4</span></span><br><span class="line"></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ResourceQuota</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">object-counts</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">hard:</span></span><br><span class="line">    <span class="attr">configmaps:</span> <span class="string">"10"</span></span><br><span class="line">    <span class="attr">persistentvolumeclaims:</span> <span class="string">"4"</span></span><br><span class="line">    <span class="attr">pods:</span> <span class="string">"4"</span></span><br><span class="line">    <span class="attr">replicationcontrollers:</span> <span class="string">"20"</span></span><br><span class="line">    <span class="attr">secrets:</span> <span class="string">"10"</span></span><br><span class="line">    <span class="attr">services:</span> <span class="string">"10"</span></span><br><span class="line">    <span class="attr">services.loadbalancers:</span> <span class="string">"2"</span></span><br></pre></td></tr></table></figure>
+<h2 id="角色控制">角色控制</h2>
+<p>Role是指定在一個namespace下可以操作的資源<br>
+ClusterRole是在任何namespace下都可以操作的資源</p>
+<p>資源是在不同的apigroup下</p>
+<p>用rolebinding把Role與user或group或service account綁在一起</p>
+<h2 id="儲存">儲存</h2>
+<p>在 使用檔案 之前我們需要 filesystem<br>
+在 使用filesystem 之前我們需要 做partition<br>
+在 做partition 之前我們需要 硬碟</p>
+<p>filesystem 就是 volumne<br>
+做partition 就是 PersistentVolumeClaim<br>
+虛擬的硬碟(有特別的屬性) 就是 Storage Class<br>
+實體的硬碟 就是 Persistent Volume (docker的volumne)</p>
+<p>這裡就轉貼一些別人的範例</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">kind:</span> <span class="string">StorageClass</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">storage.k8s.io/v1</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">standard</span></span><br><span class="line"><span class="attr">provisioner:</span> <span class="string">kubernetes.io/aws-ebs</span></span><br><span class="line"><span class="attr">parameters:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">gp2</span></span><br><span class="line">  <span class="attr">zone:</span> <span class="string">us-west-2</span></span><br><span class="line"><span class="attr">reclaimPolicy:</span> <span class="string">Delete</span> <span class="comment"># [Delete | Retain]</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">myclaim</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">accessModes:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">ReadWriteOnce</span> <span class="comment"># [ReadWriteOnce | ReadOnlyMany | ReadWriteMany]</span></span><br><span class="line">  <span class="attr">resources:</span></span><br><span class="line">    <span class="attr">requests:</span></span><br><span class="line">      <span class="attr">storage:</span> <span class="string">8Gi</span></span><br><span class="line">  <span class="attr">storageClassName:</span> <span class="string">standard</span> <span class="comment"># Ref</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">apiserver</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">apiserver</span></span><br><span class="line">    <span class="attr">tier:</span> <span class="string">backend</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">my-pod</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">zxcvbnius/docker-demo</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">3000</span></span><br><span class="line">    <span class="attr">volumeMounts:</span> <span class="comment"># \/ 看下面的volumes</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">my-pvc</span></span><br><span class="line">      <span class="attr">mountPath:</span> <span class="string">"/tmp"</span></span><br><span class="line">  <span class="attr">volumes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">my-pvc</span></span><br><span class="line">    <span class="attr">persistentVolumeClaim:</span></span><br><span class="line">      <span class="attr">claimName:</span> <span class="string">myclaim</span> <span class="comment"># Ref</span></span><br></pre></td></tr></table></figure>
+<p>Persistent Volume的例子<br>
+(注意到在這裡PVC沒有指定storageClassName，PVC直接從PV拿)</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">PersistentVolume</span>    <span class="string">&lt;===</span> <span class="string">指定物件種類為</span> <span class="string">PV</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">pv001</span>		      <span class="string">&lt;===</span> <span class="string">PV</span> <span class="string">名稱</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">capacity:</span></span><br><span class="line">    <span class="attr">storage:</span> <span class="string">2Gi</span>          <span class="string">&lt;===</span> <span class="string">指定大小</span></span><br><span class="line">  <span class="attr">accessModes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">ReadWriteOnce</span>         <span class="string">&lt;===</span> <span class="string">指定存取模式</span></span><br><span class="line">  <span class="attr">hostPath:</span>               <span class="string">&lt;===</span> <span class="string">綁定在</span> <span class="string">host</span> <span class="string">的</span> <span class="string">/tmp</span> <span class="string">目錄</span></span><br><span class="line">    <span class="attr">path:</span> <span class="string">/tmp</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span>         <span class="string">&lt;===</span> <span class="string">使用一個</span> <span class="string">Pod</span> <span class="string">並試著掛載</span> <span class="string">Volume</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">pvc-nginx</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">nginx</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">80</span></span><br><span class="line">    <span class="attr">volumeMounts:</span>       <span class="string">&lt;===</span> <span class="string">將名為</span> <span class="string">volume-pv</span> <span class="string">的</span> <span class="string">Volume</span> <span class="string">掛載到</span> <span class="string">/usr/share/nginx/html</span> <span class="string">目錄底下</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">volume-pv</span></span><br><span class="line">        <span class="attr">mountPath:</span> <span class="string">/usr/share/nginx/html</span></span><br><span class="line">  <span class="attr">volumes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">volume-pv</span>   <span class="string">&lt;===</span> <span class="string">宣告一個名為</span> <span class="string">volume-pv</span> <span class="string">的</span> <span class="string">Volume</span> <span class="string">物件</span></span><br><span class="line">    <span class="attr">persistentVolumeClaim:</span>   <span class="string">&lt;===</span> <span class="string">綁定名為</span> <span class="string">pv-claim</span> <span class="string">的</span> <span class="string">PVC</span> <span class="string">物件</span></span><br><span class="line">      <span class="attr">claimName:</span> <span class="string">pv-claim</span></span><br><span class="line"></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">PersistentVolumeClaim</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">pv-claim</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">accessModes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">ReadWriteOnce</span></span><br><span class="line">  <span class="attr">resources:</span></span><br><span class="line">    <span class="attr">requests:</span></span><br><span class="line">      <span class="attr">storage:</span> <span class="string">1Gi</span>   <span class="string">&lt;===</span> <span class="string">要求</span> <span class="string">1G</span> <span class="string">容量</span></span><br></pre></td></tr></table></figure>
+<p>filesystem只能從硬碟開始嗎?<br>
+沒有現成的嗎?</p>
+<p>有，</p>
+<ol>
+<li>實體主機的檔案 (emptyDir, hostPath)</li>
+<li>NFS</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">apiserver</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">apiserver</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">zxcvbnius/docker-demo</span></span><br><span class="line">    <span class="attr">volumeMounts:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">mountPath:</span> <span class="string">/tmp</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">tmp-volume</span></span><br><span class="line">    <span class="attr">imagePullPolicy:</span> <span class="string">Always</span></span><br><span class="line">  <span class="attr">volumes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">tmp-volume</span></span><br><span class="line">    <span class="attr">hostPath:</span></span><br><span class="line">      <span class="attr">path:</span> <span class="string">/tmp</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nfs-volumes</span></span><br><span class="line">    <span class="attr">nfs:</span></span><br><span class="line">     <span class="attr">server:</span> <span class="string">&#123;YOUR_NFS_SERVER_URL&#125;</span></span><br><span class="line">     <span class="attr">path:</span> <span class="string">/</span></span><br><span class="line">      <span class="attr">type:</span> <span class="string">Directory</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">cache-volume</span></span><br><span class="line">    <span class="attr">emptyDir:</span> <span class="string">&#123;&#125;</span></span><br></pre></td></tr></table></figure>
+<p>從剛剛的資料來源來看可分成</p>
+<ol>
+<li>網路: NFS、Storage Class&amp;PersistentVolumeClaim</li>
+<li>實體主機: emptyDir、hostPath</li>
+</ol>
+<p>哪虛擬主機有沒有自己的檔案(資料)?<br>
+有，ConfigMap 與 Secret</p>
+<p>不過因為secret是放秘密的資料<br>
+所以也會透過env var傳</p>
+<p>要注意到ConfigMap 與 Secret都是hash table，<br>
+也就是用key去取值</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">apiserver</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">webserver</span></span><br><span class="line">    <span class="attr">tier:</span> <span class="string">backend</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nodejs-app</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">zxcvbnius/docker-demo</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">3000</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">nginx:1.13</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">80</span></span><br><span class="line">    <span class="attr">volumeMounts:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx-conf-volume</span></span><br><span class="line">      <span class="attr">mountPath:</span> <span class="string">/etc/nginx/conf.d</span></span><br><span class="line">    <span class="attr">env:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">SECRET_USERNAME</span></span><br><span class="line">      <span class="attr">valueFrom:</span></span><br><span class="line">        <span class="attr">secretKeyRef:</span></span><br><span class="line">          <span class="attr">name:</span> <span class="string">demo-secret-from-yaml</span></span><br><span class="line">          <span class="attr">key:</span> <span class="string">username</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">SECRET_PASSWORD</span></span><br><span class="line">      <span class="attr">valueFrom:</span></span><br><span class="line">        <span class="attr">secretKeyRef:</span></span><br><span class="line">          <span class="attr">name:</span> <span class="string">demo-secret-from-yaml</span></span><br><span class="line">          <span class="attr">key:</span> <span class="string">password</span></span><br><span class="line">  <span class="attr">volumes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx-conf-volume</span></span><br><span class="line">    <span class="attr">configMap:</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">nginx-conf</span></span><br><span class="line">      <span class="attr">items:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">key:</span> <span class="string">my-nginx.conf</span></span><br><span class="line">	<span class="attr">path:</span> <span class="string">my-nginx.conf</span></span><br><span class="line">   <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">secret-volume</span></span><br><span class="line">     <span class="attr">secret:</span></span><br><span class="line">      <span class="attr">secretName:</span> <span class="string">demo-secret-from-yaml</span></span><br></pre></td></tr></table></figure>
+<h2 id="只想跑某個指令">只想跑某個指令</h2>
+<h3 id="只跑一次-Job">只跑一次: Job</h3>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">batch/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Job</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">pi</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">pi</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">perl</span></span><br><span class="line">        <span class="attr">command:</span> <span class="string">["perl",</span>  <span class="string">"-Mbignum=bpi"</span><span class="string">,</span> <span class="string">"-wle"</span><span class="string">,</span> <span class="string">"print bpi(2000)"</span><span class="string">]</span></span><br><span class="line">      <span class="attr">restartPolicy:</span> <span class="string">Never</span></span><br><span class="line">  <span class="attr">backoffLimit:</span> <span class="number">4</span></span><br></pre></td></tr></table></figure>
+<p>也可以平行跑，見官方文件</p>
+<h3 id="反覆-CronJob">反覆: CronJob</h3>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">batch/v1beta1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">CronJob</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">hello</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">schedule:</span> <span class="string">"*/1 * * * *"</span></span><br><span class="line">  <span class="attr">jobTemplate:</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">template:</span></span><br><span class="line">        <span class="attr">spec:</span></span><br><span class="line">          <span class="attr">containers:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">hello</span></span><br><span class="line">            <span class="attr">image:</span> <span class="string">apline</span></span><br><span class="line">            <span class="attr">args:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">/bin/sh</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">-c</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">echo</span> <span class="string">"Hi, current time is $(date)"</span></span><br><span class="line">	  <span class="attr">restartPolicy:</span> <span class="string">OnFailure</span></span><br></pre></td></tr></table></figure>
+<h2 id="Ref">Ref</h2>
+<p><span class="exturl" data-url="aHR0cHM6Ly9rdWJlcm5ldGVzLmlvL2RvY3MvY29uY2VwdHMvd29ya2xvYWRzL2NvbnRyb2xsZXJzL2pvYi8=">Job<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cDovL2RvY2tvbmUuaW8vYXJ0aWNsZS80ODg0">NodePort&amp;Loadbalancer<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly9rdWJlcm5ldGVzLmlvLw==">官網<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly9pdGhlbHAuaXRob21lLmNvbS50dy91c2Vycy8yMDEwMzc1My9pcm9ubWFuLzE1OTA=">30天鐵人賽<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly93d3cuY25ibG9ncy5jb20veHV4aW5rdW4vcC84MzA0ODU0Lmh0bWw=">go-template<i class="fa fa-external-link-alt"></i></span></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/8/dockerfile-best-practice-survey/" rel="prev" title="dockerfile的最佳實踐整理">
+      <i class="fa fa-chevron-left"></i> dockerfile的最佳實踐整理
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/8/tips-when-hacking-kernel/" rel="next" title="改kernel的注意事項">
+      改kernel的注意事項 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#架構-把主機拆掉再變多"><span class="nav-number">2.</span> <span class="nav-text">架構: 把主機拆掉再變多</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#應用程式-虛擬的主機"><span class="nav-number">2.1.</span> <span class="nav-text">應用程式 &amp; 虛擬的主機</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#處理連線的介面"><span class="nav-number">2.2.</span> <span class="nav-text">處理連線的介面</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署服務"><span class="nav-number">3.</span> <span class="nav-text">部署服務</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#指定某東西"><span class="nav-number">3.1.</span> <span class="nav-text">指定某東西</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Horizontal-Pod-Autoscaling"><span class="nav-number">3.2.</span> <span class="nav-text">Horizontal Pod Autoscaling</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DaemonSet"><span class="nav-number">3.3.</span> <span class="nav-text">DaemonSet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#管理Node"><span class="nav-number">3.4.</span> <span class="nav-text">管理Node</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#限制資源"><span class="nav-number">4.</span> <span class="nav-text">限制資源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#角色控制"><span class="nav-number">5.</span> <span class="nav-text">角色控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#儲存"><span class="nav-number">6.</span> <span class="nav-text">儲存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#只想跑某個指令"><span class="nav-number">7.</span> <span class="nav-text">只想跑某個指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#只跑一次-Job"><span class="nav-number">7.1.</span> <span class="nav-text">只跑一次: Job</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#反覆-CronJob"><span class="nav-number">7.2.</span> <span class="nav-text">反覆: CronJob</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">8.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">zhengcf</p>
+  <div class="site-description" itemprop="description">想到什麼就寫什麼</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">683</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhengcf</span>
+</div>
+  <div class="powered-by">Powered by <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl theme-link" data-url="aHR0cHM6Ly9tdXNlLnRoZW1lLW5leHQub3Jn">NexT.Muse</span>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 1000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://littlebees.github.io/2020/8/k8s-note/',]
+      });
+      });
+  </script>
+
+</body>
+</html>

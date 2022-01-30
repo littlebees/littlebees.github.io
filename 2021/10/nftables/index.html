@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="AEpTGuQAkxnTOlmfF4INDna3S660LxrkyZ4BQzVbRSw">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"littlebees.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="動機 記錄用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nftables">
+<meta property="og:url" content="https://littlebees.github.io/2021/10/nftables/index.html">
+<meta property="og:site_name" content="記事本">
+<meta property="og:description" content="動機 記錄用">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://cryptsus.com/blog/nftables-tcpip-model.jpg">
+<meta property="article:published_time" content="2021-10-22T13:41:30.000Z">
+<meta property="article:modified_time" content="2022-01-22T02:47:47.505Z">
+<meta property="article:author" content="zhengcf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cryptsus.com/blog/nftables-tcpip-model.jpg">
+
+<link rel="canonical" href="https://littlebees.github.io/2021/10/nftables/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>nftables | 記事本</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">記事本</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">寫下來，不然會忘</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2021/10/nftables/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhengcf">
+      <meta itemprop="description" content="想到什麼就寫什麼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="記事本">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          nftables
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-10-22 21:41:30" itemprop="dateCreated datePublished" datetime="2021-10-22T21:41:30+08:00">2021-10-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-01-22 10:47:47" itemprop="dateModified" datetime="2022-01-22T10:47:47+08:00">2022-01-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Network/" itemprop="url" rel="index"><span itemprop="name">Network</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Network/Tips/" itemprop="url" rel="index"><span itemprop="name">Tips</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="動機">動機</h2>
+<p>記錄用</p>
+<a id="more"></a>
+<h2 id="基本概念">基本概念</h2>
+<p><img src="https://cryptsus.com/blog/nftables-tcpip-model.jpg" alt=""></p>
+<p>table: chain與各式data structrue的收納庫，定義旗下的chain收什麼類型的封包(family)</p>
+<ul>
+<li>family
+<ul>
+<li>ip: ipv4</li>
+<li>ip6: ipv6</li>
+<li>arp: arp</li>
+<li>bridge: 在linux bridge的pkt</li>
+<li>inet = ip + ip6</li>
+<li>netdev: interface的pkt<br>
+chain: 就有一堆rule，由type與hook決定這個chain在哪發揮作用</li>
+</ul>
+</li>
+<li>type: 說明這個chain處理哪個方面的工作
+<ul>
+<li>filter: 就是filter
+<ul>
+<li>arp, bridge, ip, ip6, inet, netdev</li>
+</ul>
+</li>
+<li>route: Mark packets
+<ul>
+<li>ip, ip6, inet</li>
+</ul>
+</li>
+<li>nat: Perform Network Address Translation
+<ul>
+<li>ip, ip6, inet</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>hook: 裡面的rule會掛在netfilter的那個hook上
+<ul>
+<li>ip, ip6, inet: prerouting, input, forward, output, postrouting</li>
+<li>arp: input, output</li>
+<li>netdev: ingress (這個是例外，這不在原本的netfilter)</li>
+<li>bridge: prerouting, input, forward, output, postrouting (這個是例外，這不在原本的netfilter)</li>
+</ul>
+</li>
+</ul>
+<p>nftable一個做得好的是把chain與hook分開了<br>
+所有XXtables都是照netfilter去掛hook做packet過濾，但是之前都是會事先綁好，導致真的不好懂，也不知道為什麼要這麼做</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly93aWtpLm5mdGFibGVzLm9yZy93aWtpLW5mdGFibGVzL2luZGV4LnBocC9OZXRmaWx0ZXJfaG9va3M=">netfilter hooks<i class="fa fa-external-link-alt"></i></span></p>
+<h2 id="基本操作">基本操作</h2>
+<ul>
+<li>全清掉: <code>nft flush ruleset</code></li>
+<li>刪table: <code>nft delete table ip mytable</code></li>
+<li>列所有table: <code>nft list tables</code></li>
+<li>列table裡面有的東西: <code>nft list table ip mytable -n -a</code>
+<ul>
+<li><code>-n -a</code>: 是為了show handle，就是iptables的rule位置(index)</li>
+</ul>
+</li>
+<li>插rule: <code>nft insert rule mytable mychain position 8 ip daddr 127.0.0.8 drop</code>
+<ul>
+<li>insert before handle 8</li>
+</ul>
+</li>
+<li>塞rule到第一個: <code>nft insert rule mytable mychain ip daddr 127.0.0.8 drop</code></li>
+<li>刪rule: <code>nft delete rule mytable mychain handle 8</code></li>
+</ul>
+<h3 id="特別注意">特別注意!!</h3>
+<ul>
+<li>現在nft的錯誤訊息做的十分不好，不論什麼錯都是找不到對應的檔案的err msg，所以要
+<ul>
+<li>一條一條的下</li>
+<li>family都要打出來</li>
+</ul>
+</li>
+</ul>
+<h2 id="加規則">加規則</h2>
+<ul>
+<li>nft verb
+<ul>
+<li>family table
+<ul>
+<li>chain …</li>
+</ul>
+</li>
+<li>family table chain
+<ul>
+<li>conditions
+<ul>
+<li>ip saddr ip …</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>下面是同一個rule的兩種下法</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nft add table ip mytable</span><br><span class="line">nft add chain ip mytable mychain &#123; <span class="built_in">type</span> filter hook output priority 0 \; policy accept \; &#125;</span><br><span class="line">nft add rule ip mytable mychain ip saddr 192.168.12.23 tcp dport 1234 drop</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">define myaddr &#x3D; &quot;192.168.12.23&quot;</span><br><span class="line">table ip mytable &#123;</span><br><span class="line">    chain mychain &#123;</span><br><span class="line">        type filter hook output priority 0;</span><br><span class="line">        policy accept;</span><br><span class="line"></span><br><span class="line">        ip saddr $myaddr tcp dport 1234 drop</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>只有type要加分號，其他都不用</p>
+<p>剩下還有很多condition可以下，可以去參考<span class="exturl" data-url="aHR0cHM6Ly93aWtpLm5mdGFibGVzLm9yZy93aWtpLW5mdGFibGVzL2luZGV4LnBocC9RdWlja19yZWZlcmVuY2UtbmZ0YWJsZXNfaW5fMTBfbWludXRlcw==">Quick reference-nftables in 10 minutes<i class="fa fa-external-link-alt"></i></span></p>
+<p>接著介紹其他有點程式語言的功能</p>
+<h2 id="data-structrue">data structrue</h2>
+<h3 id="symbol-var">symbol var</h3>
+<p>就是macro展開</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">define myaddr &#x3D; 192.168.12.23</span><br><span class="line"></span><br><span class="line">table ip mytable &#123;</span><br><span class="line">    chain chain2 &#123;</span><br><span class="line">        type filter hook output priority 0;</span><br><span class="line">        policy accept;</span><br><span class="line"></span><br><span class="line">        ip saddr $myaddr tcp dport 1234 drop</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="set">set</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nft add set ip mytable myset &#123; type ipv4_addr \; &#125;</span><br><span class="line">nft add element ip mytable myset &#123; 192.168.1.4, 192.168.1.5 &#125;</span><br><span class="line">nft add rule ip mytable mychain ip saddr @myset</span><br></pre></td></tr></table></figure>
+<h4 id="attributes">attributes</h4>
+<h5 id="type-typeof">type &amp; typeof</h5>
+<p>ipv4_addr: IPv4 address<br>
+ipv6_addr: IPv6 address.<br>
+ether_addr: Ethernet address.<br>
+inet_proto: Inet protocol type.<br>
+inet_service: Internet service (read tcp port for example)<br>
+mark: Mark type.<br>
+ifname: Network interface name (eth0, eth1…)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">table inet mytable &#123;</span><br><span class="line">	<span class="built_in">set</span> s1 &#123;</span><br><span class="line">		typeof osf name</span><br><span class="line">		elements = &#123; <span class="string">"Linux"</span> &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">set</span> s2 &#123;</span><br><span class="line">		typeof vlan id</span><br><span class="line">		elements = &#123; 2, 3, 103 &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">set</span> s3 &#123;</span><br><span class="line">		typeof ip daddr</span><br><span class="line">		elements = &#123; 1.1.1.1 &#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="flags">flags</h5>
+<p>constant - set content may not change while bound<br>
+interval - set contains intervals<br>
+timeout - elements can be added with a timeout</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nft add set ip mytable myset &#123; type ipv4_addr \; flags constant, interval \; &#125;</span><br></pre></td></tr></table></figure>
+<h6 id="meter">meter</h6>
+<p>dynamic - make a meter!!</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nft add set my_filter_table my_ssh_meter &#123; type ipv4_addr\; flags dynamic \;&#125;</span><br><span class="line">nft add rule my_filter_table my_input_chain tcp dport 22 ct state new add @my_ssh_meter &#123; ip saddr limit rate 10&#x2F;second &#125; accept</span><br></pre></td></tr></table></figure>
+<h5 id="etc">etc</h5>
+<p>size: mits the maximum number of elements of the set<br>
+policy: set selection policy<br>
+* performance (default)<br>
+* memory<br>
+elements: initialize the set with some elements in it</p>
+<p><code>nft add set ip filter daddrs {type ipv4_addr \; flags timeout \; elements={192.168.1.1 timeout 10s, 192.168.1.2 timeout 30s} \;}</code></p>
+<h3 id="map">map</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nft add map ip mytable porttoip  &#123; type inet_service: ipv4_addr\; &#125;</span><br><span class="line">nft add element ip mytable porttoip &#123; 80 : 192.168.1.100, 8888 : 192.168.1.101 &#125;</span><br><span class="line">nft add rule ip mytable postrouting snat to tcp dport map @porttoip</span><br></pre></td></tr></table></figure>
+<h4 id="Verdict-Maps">Verdict Maps</h4>
+<p>value是action</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">table ip filter &#123;</span><br><span class="line">    chain input &#123;</span><br><span class="line">                type filter hook input priority 0;</span><br><span class="line">                ip protocol vmap &#123; udp : jump udp-chain, tcp : jump tcp-chain, icmp : jump icmp-chain&#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    chain tcp-chain &#123;</span><br><span class="line">                counter packets 4 bytes 520</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    chain udp-chain &#123;</span><br><span class="line">                counter packets 4 bytes 678</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    chain icmp-chain &#123;</span><br><span class="line">                counter packets 4 bytes 336</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nft add map filter mydict &#123; type ipv4_addr : verdict\; &#125;</span><br><span class="line">nft add element filter mydict &#123; 192.168.0.10 : drop, 192.168.0.11 : accept &#125;</span><br><span class="line">nft add rule filter input ip saddr vmap @mydict</span><br></pre></td></tr></table></figure>
+<h3 id="Concatenations-tuple">Concatenations (tuple)</h3>
+<p>把value或是條件用<code>.</code>連起來</p>
+<p><code>nft add rule ip mytable mychain ip saddr . ip daddr . ip protocol { 1.1.1.1 . 2.2.2.2 . tcp, 1.1.1.1 . 3.3.3.3 . udp} counter accept</code></p>
+<h3 id="其他有用的資料結構">其他有用的資料結構</h3>
+<p>flow table: 可以跳過linux stack的table，做offload<br>
+Conntrack helpers: 依據Conntrack去控制rule</p>
+<h2 id="Ref">Ref</h2>
+<p><span class="exturl" data-url="aHR0cHM6Ly93aWtpLm5mdGFibGVzLm9yZy93aWtpLW5mdGFibGVzL2luZGV4LnBocC9NYWluX1BhZ2U=">nftables Main page<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly9jcnlwdHN1cy5jb20vYmxvZy9zZXR0aW5nLXVwLW5mdGFibGVzLWZpcmV3YWxsLmh0bWw=">Setting up nftables Firewall<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly93aWtpLm5mdGFibGVzLm9yZy93aWtpLW5mdGFibGVzL2luZGV4LnBocC9RdWlja19yZWZlcmVuY2UtbmZ0YWJsZXNfaW5fMTBfbWludXRlcw==">Quick reference-nftables in 10 minutes<i class="fa fa-external-link-alt"></i></span></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/10/macro-cond-compile/" rel="prev" title="macro與條件式編譯">
+      <i class="fa fa-chevron-left"></i> macro與條件式編譯
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/10/wsl2-xwindow/" rel="next" title="在wsl2用Xwindow的程式">
+      在wsl2用Xwindow的程式 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本概念"><span class="nav-number">2.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本操作"><span class="nav-number">3.</span> <span class="nav-text">基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#特別注意"><span class="nav-number">3.1.</span> <span class="nav-text">特別注意!!</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加規則"><span class="nav-number">4.</span> <span class="nav-text">加規則</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#data-structrue"><span class="nav-number">5.</span> <span class="nav-text">data structrue</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#symbol-var"><span class="nav-number">5.1.</span> <span class="nav-text">symbol var</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#set"><span class="nav-number">5.2.</span> <span class="nav-text">set</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#attributes"><span class="nav-number">5.2.1.</span> <span class="nav-text">attributes</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#type-typeof"><span class="nav-number">5.2.1.1.</span> <span class="nav-text">type &amp; typeof</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#flags"><span class="nav-number">5.2.1.2.</span> <span class="nav-text">flags</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#meter"><span class="nav-number">5.2.1.2.1.</span> <span class="nav-text">meter</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#etc"><span class="nav-number">5.2.1.3.</span> <span class="nav-text">etc</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#map"><span class="nav-number">5.3.</span> <span class="nav-text">map</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Verdict-Maps"><span class="nav-number">5.3.1.</span> <span class="nav-text">Verdict Maps</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Concatenations-tuple"><span class="nav-number">5.4.</span> <span class="nav-text">Concatenations (tuple)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他有用的資料結構"><span class="nav-number">5.5.</span> <span class="nav-text">其他有用的資料結構</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">6.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">zhengcf</p>
+  <div class="site-description" itemprop="description">想到什麼就寫什麼</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">683</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhengcf</span>
+</div>
+  <div class="powered-by">Powered by <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl theme-link" data-url="aHR0cHM6Ly9tdXNlLnRoZW1lLW5leHQub3Jn">NexT.Muse</span>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 1000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://littlebees.github.io/2021/10/nftables/',]
+      });
+      });
+  </script>
+
+</body>
+</html>

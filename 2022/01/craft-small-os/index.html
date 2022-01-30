@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="AEpTGuQAkxnTOlmfF4INDna3S660LxrkyZ4BQzVbRSw">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"littlebees.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="動機 這篇主要在看怎麼從最一開始到一個可以打字的kernel的過程 重點不是裡面的code，而是過程 因為真正讓人痛苦的東西其實是在os提供的各種抽象設施，也是progammer要在意的點">
+<meta property="og:type" content="article">
+<meta property="og:title" content="電腦從0開始">
+<meta property="og:url" content="https://littlebees.github.io/2022/01/craft-small-os/index.html">
+<meta property="og:site_name" content="記事本">
+<meta property="og:description" content="動機 這篇主要在看怎麼從最一開始到一個可以打字的kernel的過程 重點不是裡面的code，而是過程 因為真正讓人痛苦的東西其實是在os提供的各種抽象設施，也是progammer要在意的點">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2022-01-18T03:44:22.000Z">
+<meta property="article:modified_time" content="2022-01-22T02:37:55.445Z">
+<meta property="article:author" content="zhengcf">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://littlebees.github.io/2022/01/craft-small-os/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>電腦從0開始 | 記事本</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">記事本</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">寫下來，不然會忘</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2022/01/craft-small-os/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhengcf">
+      <meta itemprop="description" content="想到什麼就寫什麼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="記事本">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          電腦從0開始
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-01-18 11:44:22" itemprop="dateCreated datePublished" datetime="2022-01-18T11:44:22+08:00">2022-01-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-01-22 10:37:55" itemprop="dateModified" datetime="2022-01-22T10:37:55+08:00">2022-01-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/System/" itemprop="url" rel="index"><span itemprop="name">System</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Small-project/" itemprop="url" rel="index"><span itemprop="name">Small project</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/System/OS/" itemprop="url" rel="index"><span itemprop="name">OS</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="動機">動機</h2>
+<p>這篇主要在看怎麼從最一開始到一個可以打字的kernel的過程<br>
+重點不是裡面的code，而是過程</p>
+<p>因為真正讓人痛苦的東西其實是在os提供的各種抽象設施，也是progammer要在意的點</p>
+<a id="more"></a>
+<h2 id="開始之前">開始之前</h2>
+<p>可以直接看下面的說明，如果想跑跑看可以照下面的步驟</p>
+<ol>
+<li>裝docker(不想重編toolchain), nasm, build-essential, gdb, qemu-x86</li>
+<li>clone <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2xpdHRsZWJlZXMvY2FyZnQtb3M=">這個<i class="fa fa-external-link-alt"></i></span></li>
+<li>checkout到想看的commit去跑</li>
+</ol>
+<h2 id="從硬碟出發-bootloader">從硬碟出發: bootloader</h2>
+<h3 id="bootloader">bootloader</h3>
+<p>boot sector是bios第一個讀的sector，sector大小是512 bytes<br>
+bootloader會放在這裡</p>
+<p>bootloaer的程式會被bios放在mem的0x7c00</p>
+<p>bios會去找aa55，以這個為終點</p>
+<p>所以bootloader的咒語是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[org 0x7c00] ; 在做c的星號時直接加0x7c00</span><br><span class="line">; command ...</span><br><span class="line">; $ :: 現在位置</span><br><span class="line">; $$ :: 前一個指令的位置</span><br><span class="line">times 510-($-$$) db 0 </span><br><span class="line">dw 0xaa55</span><br></pre></td></tr></table></figure>
+<p>aa55佔2 bytes，之後就是用0填滿<br>
+$是現在的位置，$$是前一個指令的位置</p>
+<h3 id="ia32-programming">ia32 programming</h3>
+<p>assembler: 讀code，算位置，噴binary(或是elf)</p>
+<h4 id="byte-word-double-word-dword">byte, word, double word(dword)</h4>
+<p>byte: 8bits<br>
+word: 2bytes<br>
+dword: 4bytes</p>
+<p>之後要用ia32去生</p>
+<p>byte: <code>db</code><br>
+word: <code>dw</code><br>
+dword: <code>dd</code></p>
+<h5 id="nasm的output長什麼樣子">nasm的output長什麼樣子</h5>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">db 0x0</span><br><span class="line">db 0xb5</span><br><span class="line">dw 0x0</span><br><span class="line">dw 0xc5</span><br><span class="line">dd 0x0</span><br><span class="line">dw 0xd5</span><br></pre></td></tr></table></figure>
+<p>output</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">00000000: 00b5 0000 c500 0000 0000 d500            ............</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">db 0xb5</span><br><span class="line">db 0x0</span><br><span class="line">dw 0xc5</span><br><span class="line">db 0x0</span><br><span class="line">dd 0xd5</span><br><span class="line">db 0x0</span><br></pre></td></tr></table></figure>
+<p>output</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">00000000: b500 c500 00d5 0000 0000                 ..........</span><br></pre></td></tr></table></figure>
+<p>byte: 兩格<br>
+word: 四格<br>
+dword: 八格</p>
+<p>一格大小是0.5byte (hex, 4bits)</p>
+<h4 id="mode">mode</h4>
+<h5 id="16bits-real-mode">16bits real mode</h5>
+<ul>
+<li>定址範圍是1MB</li>
+<li>可以用bios的handler去操作裝置</li>
+<li>只要知道mem的addr就可以改</li>
+</ul>
+<h5 id="32bits-protected-mode">32bits protected mode</h5>
+<ul>
+<li>定址範圍是4GB</li>
+<li>沒有bios的handler可以用…
+<ul>
+<li>所以要自己寫driver</li>
+</ul>
+</li>
+<li>有GDT可以控制權限</li>
+</ul>
+<h4 id="memory-address">memory address</h4>
+<h5 id="16bits-real-mode-segmentation">16bits real mode: segmentation</h5>
+<p>Physical Address = Segment * 16 + Offset<br>
+就是左移1格</p>
+<p>ds是data segmentation的base reg</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">mov ah, 0x0e ; tty</span><br><span class="line"></span><br><span class="line">mov bx, 0x7c0 ; 移1格</span><br><span class="line">mov ds, bx</span><br><span class="line">; WARNING: from now on all memory references will be offset by &#39;ds&#39; implicitly</span><br><span class="line">mov al, [the_secret]</span><br><span class="line">int 0x10</span><br><span class="line"></span><br><span class="line">mov al, [es:the_secret]</span><br><span class="line">int 0x10 ; doesn&#39;t look right... isn&#39;t &#39;es&#39; currently 0x000?</span><br><span class="line"></span><br><span class="line">mov bx, 0x7c0</span><br><span class="line">mov es, bx</span><br><span class="line">mov al, [es:the_secret]</span><br><span class="line">int 0x10</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">jmp $</span><br><span class="line"></span><br><span class="line">the_secret:</span><br><span class="line">    db &quot;X&quot;</span><br><span class="line"></span><br><span class="line">times 510 - ($-$$) db 0</span><br><span class="line">dw 0xaa55</span><br></pre></td></tr></table></figure>
+<h5 id="32bits-protected-mode-GDT">32bits protected mode: GDT</h5>
+<p>GDT就是區分mem的表，除了標長度、起點還可以設定權限(ring1~3就是這裡來的)</p>
+<p>GDT最少要有兩個segment，包含start!!</p>
+<p>但設定的樣子十分反人類</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">gdt_start: ; don&#39;t remove the labels, they&#39;re needed to compute sizes and jumps</span><br><span class="line">    ; the GDT starts with a null 8-byte</span><br><span class="line">    dd 0x0 ; 4 byte</span><br><span class="line">    dd 0x0 ; 4 byte</span><br><span class="line"></span><br><span class="line">; GDT for code segment. base &#x3D; 0x00000000, length &#x3D; 0xfffff</span><br><span class="line">; for flags, refer to os-dev.pdf document, page 36</span><br><span class="line">gdt_code: </span><br><span class="line">    dw 0xffff    ; segment length, bits 0-15</span><br><span class="line">    dw 0x0       ; segment base, bits 0-15</span><br><span class="line">    db 0x0       ; segment base, bits 16-23</span><br><span class="line">    db 10011010b ; flags (8 bits)</span><br><span class="line">    db 11001111b ; flags (4 bits) + segment length, bits 16-19</span><br><span class="line">    db 0x0       ; segment base, bits 24-31</span><br><span class="line"></span><br><span class="line">; GDT for data segment. base and length identical to code segment</span><br><span class="line">; some flags changed, again, refer to os-dev.pdf</span><br><span class="line">gdt_data:</span><br><span class="line">    dw 0xffff</span><br><span class="line">    dw 0x0</span><br><span class="line">    db 0x0</span><br><span class="line">    db 10010010b</span><br><span class="line">    db 11001111b</span><br><span class="line">    db 0x0</span><br><span class="line"></span><br><span class="line">gdt_end:</span><br><span class="line"></span><br><span class="line">; GDT descriptor</span><br><span class="line">gdt_descriptor:</span><br><span class="line">    dw gdt_end - gdt_start - 1 ; size (16 bit), always one less of its true size</span><br><span class="line">    dd gdt_start ; address (32 bit)</span><br><span class="line"></span><br><span class="line">; define some constants for later use</span><br><span class="line">CODE_SEG equ gdt_code - gdt_start</span><br><span class="line">DATA_SEG equ gdt_data - gdt_start</span><br></pre></td></tr></table></figure>
+<p>詳細的flag可以看<span class="exturl" data-url="aHR0cDovL2ZyYW5rdWVmaS5ibG9nc3BvdC5jb20vMjAxNi8wNS9nZHQtZ2xvYmFsLWRlc2NyaXB0b3ItdGFibGUuaHRtbA==">這裡<i class="fa fa-external-link-alt"></i></span></p>
+<p>之後就可以load他</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lgdt [gdt_descriptor]</span><br></pre></td></tr></table></figure>
+<h3 id="bootloader的工作">bootloader的工作</h3>
+<h4 id="載入kernel">載入kernel</h4>
+<p>Q: 為什麼不在32bits保護模式載入kernel?<br>
+A: 現在還可以讓bios幫我們load，只要打中斷就好</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9zdGFuaXNsYXZzLm9yZy9oZWxwcGMvaW50XzEzLTIuaHRtbA==">INT 13,2 - Read Disk Sectors<i class="fa fa-external-link-alt"></i></span></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">KERNEL_OFFSET equ 0x1000</span><br><span class="line"></span><br><span class="line">disk_load:</span><br><span class="line">    pusha</span><br><span class="line">    ; reading from disk requires setting specific values in all registers</span><br><span class="line">    ; so we will overwrite our input parameters from &#39;dx&#39;. Let&#39;s save it</span><br><span class="line">    ; to the stack for later use.</span><br><span class="line">    push dx</span><br><span class="line"></span><br><span class="line">    mov ah, 0x02 ; ah &lt;- int 0x13 function. 0x02 &#x3D; &#39;read&#39;</span><br><span class="line">    mov al, dh   ; al &lt;- number of sectors to read (0x01 .. 0x80)</span><br><span class="line">    mov cl, 0x02 ; cl &lt;- sector (0x01 .. 0x11)</span><br><span class="line">                 ; 0x01 is our boot sector, 0x02 is the first &#39;available&#39; sector</span><br><span class="line">    mov ch, 0x00 ; ch &lt;- cylinder (0x0 .. 0x3FF, upper 2 bits in &#39;cl&#39;)</span><br><span class="line">    ; dl &lt;- drive number. Our caller sets it as a parameter and gets it from BIOS</span><br><span class="line">    ; (0 &#x3D; floppy, 1 &#x3D; floppy2, 0x80 &#x3D; hdd, 0x81 &#x3D; hdd2)</span><br><span class="line">    mov dh, 0x00 ; dh &lt;- head number (0x0 .. 0xF)</span><br><span class="line"></span><br><span class="line">    ; [es:bx] &lt;- pointer to buffer where the data will be stored</span><br><span class="line">    ; caller sets it up for us, and it is actually the standard location for int 13h</span><br><span class="line">    int 0x13      ; BIOS interrupt</span><br><span class="line">    jc disk_error ; if error (stored in the carry bit)</span><br><span class="line"></span><br><span class="line">    pop dx</span><br><span class="line">    cmp al, dh    ; BIOS also sets &#39;al&#39; to the # of sectors read. Compare it.</span><br><span class="line">    jne sectors_error</span><br><span class="line">    popa</span><br><span class="line">    ret</span><br><span class="line"></span><br><span class="line">disk_error:</span><br><span class="line">    mov bx, DISK_ERROR</span><br><span class="line">    call print_16</span><br><span class="line">    call print_nl_16</span><br><span class="line">    jmp disk_loop</span><br><span class="line"></span><br><span class="line">sectors_error:</span><br><span class="line">    mov bx, SECTORS_ERROR</span><br><span class="line">    call print_16</span><br><span class="line"></span><br><span class="line">disk_loop:</span><br><span class="line">    jmp $</span><br><span class="line"></span><br><span class="line">DISK_ERROR: db &quot;Disk read error&quot;, 0</span><br><span class="line">SECTORS_ERROR: db &quot;Incorrect number of sectors read&quot;, 0 </span><br><span class="line"></span><br><span class="line">[bits 16]</span><br><span class="line">load_kernel:</span><br><span class="line">    mov bx, MSG_LOAD_KERNEL</span><br><span class="line">    call print_16</span><br><span class="line">    call print_nl_16</span><br><span class="line"></span><br><span class="line">    mov bx, KERNEL_OFFSET ; Read from disk and store in 0x1000</span><br><span class="line">    mov dh, 2</span><br><span class="line">    mov dl, [BOOT_DRIVE]</span><br><span class="line">    call disk_load</span><br><span class="line">    ret</span><br><span class="line"></span><br><span class="line">[bits 32]</span><br><span class="line">start_kernel:</span><br><span class="line">    call KERNEL_OFFSET</span><br><span class="line">    jmp $</span><br><span class="line"></span><br><span class="line">MSG_LOAD_KERNEL db &quot;Loading kernel into memory&quot;, 0</span><br></pre></td></tr></table></figure>
+<h4 id="切32bit保護模式">切32bit保護模式</h4>
+<p>載入kernel後，就是切保護模式與設定pagetable<br>
+剩下就可以寫c了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">[bits 16]</span><br><span class="line">switch_to_pm:</span><br><span class="line">    cli ; 1. disable interrupts</span><br><span class="line">    lgdt [gdt_descriptor]</span><br><span class="line">    mov eax, cr0</span><br><span class="line">    or eax, 0x1 ; 3. set 32-bit mode bit in cr0</span><br><span class="line">    mov cr0, eax</span><br><span class="line">    jmp CODE_SEG:init_pm ; 4. far jump by using a different segment</span><br><span class="line"></span><br><span class="line">[bits 32]</span><br><span class="line">init_pm: ; we are now using 32-bit instructions</span><br><span class="line">    mov ax, DATA_SEG ; 5. update the segment registers</span><br><span class="line">    mov ds, ax</span><br><span class="line">    mov ss, ax</span><br><span class="line">    mov es, ax</span><br><span class="line">    mov fs, ax</span><br><span class="line">    mov gs, ax</span><br><span class="line"></span><br><span class="line">    mov ebp, 0x90000 ; 6. update the stack right at the top of the free space</span><br><span class="line">    mov esp, ebp</span><br><span class="line"></span><br><span class="line">    call BEGIN_PM ; 7. Call a well-known label with useful code</span><br><span class="line"></span><br><span class="line">[bits 32]</span><br><span class="line">BEGIN_PM: ; after the switch we will get here</span><br><span class="line">    mov ebx, MSG_PROT_MODE</span><br><span class="line">    call print_32 ; Note that this will be written at the top left corner</span><br><span class="line">    call start_kernel</span><br><span class="line">    jmp $</span><br><span class="line"></span><br><span class="line">BOOT_DRIVE db 0 ; It is a good idea to store it in memory because &#39;dl&#39; may get overwritten</span><br><span class="line">MSG_REAL_MODE db &quot;Started in 16-bit real mode&quot;, 0</span><br><span class="line">MSG_PROT_MODE db &quot;Loaded 32-bit protected mode&quot;, 0</span><br></pre></td></tr></table></figure>
+<h3 id="怎麼把bootloader與kernel合在一起">怎麼把bootloader與kernel合在一起?</h3>
+<p>兩個都是binary，直接接起來<br>
+接起來的就是一個硬碟</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat boot.bin kernel.bin &gt; os-image.bin</span><br></pre></td></tr></table></figure>
+<p>因為沒有要控制資料擺放位子(memory layout)，所以這裡就直接接起來<br>
+但之後看xv6會看到linker的部分，去調整kernel裡面怎麼放東西</p>
+<h2 id="在記憶體了-kernel">在記憶體了: kernel</h2>
+<h3 id="kernel如何操作裝置">kernel如何操作裝置?</h3>
+<p>操作裝置的方式有兩種</p>
+<ol>
+<li>透過port</li>
+<li>透過mapped的memory</li>
+</ol>
+<h4 id="video-driver">video driver</h4>
+<h5 id="透過port去讀cursor的訊息">透過port去讀cursor的訊息</h5>
+<p>先port in需要什麼參數，之後port out去讀</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">char</span> <span class="title">port_byte_in</span> <span class="params">(<span class="keyword">unsigned</span> short port)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> result;</span><br><span class="line">    <span class="comment">/* Inline assembler syntax</span></span><br><span class="line"><span class="comment">     * !! Notice how the source and destination registers are switched from NASM !!</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * '"=a" (result)'; set '=' the C variable '(result)' to the value of register e'a'x</span></span><br><span class="line"><span class="comment">     * '"d" (port)': map the C variable '(port)' into e'd'x register</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * Inputs and outputs are separated by colons</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    __asm__(<span class="string">"in %%dx, %%al"</span> : <span class="string">"=a"</span> (result) : <span class="string">"d"</span> (port));</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">port_byte_out</span> <span class="params">(<span class="keyword">unsigned</span> short port, <span class="keyword">unsigned</span> <span class="keyword">char</span> data)</span> </span>&#123;</span><br><span class="line">    <span class="comment">/* Notice how here both registers are mapped to C variables and</span></span><br><span class="line"><span class="comment">     * nothing is returned, thus, no equals '=' in the asm syntax </span></span><br><span class="line"><span class="comment">     * However we see a comma since there are two variables in the input area</span></span><br><span class="line"><span class="comment">     * and none in the 'return' area</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    __asm__(<span class="string">"out %%al, %%dx"</span> : : <span class="string">"a"</span> (data), <span class="string">"d"</span> (port));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> short <span class="title">port_word_in</span> <span class="params">(<span class="keyword">unsigned</span> short port)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">unsigned</span> short result;</span><br><span class="line">    __asm__(<span class="string">"in %%dx, %%ax"</span> : <span class="string">"=a"</span> (result) : <span class="string">"d"</span> (port));</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">port_word_out</span> <span class="params">(<span class="keyword">unsigned</span> short port, <span class="keyword">unsigned</span> short data)</span> </span>&#123;</span><br><span class="line">    __asm__(<span class="string">"out %%ax, %%dx"</span> : : <span class="string">"a"</span> (data), <span class="string">"d"</span> (port));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">get_cursor_offset</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">/* Use the VGA ports to get the current cursor position</span></span><br><span class="line"><span class="comment">     * 1. Ask for high byte of the cursor offset (data 14)</span></span><br><span class="line"><span class="comment">     * 2. Ask for low byte (data 15)</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    port_byte_out(REG_SCREEN_CTRL, <span class="number">14</span>);</span><br><span class="line">    <span class="keyword">int</span> offset = port_byte_in(REG_SCREEN_DATA) &lt;&lt; <span class="number">8</span>; <span class="comment">/* High byte: &lt;&lt; 8 */</span></span><br><span class="line">    port_byte_out(REG_SCREEN_CTRL, <span class="number">15</span>);</span><br><span class="line">    offset += port_byte_in(REG_SCREEN_DATA);</span><br><span class="line">    <span class="keyword">return</span> offset * <span class="number">2</span>; <span class="comment">/* Position * size of character cell */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="透過video-memory去印文字">透過video memory去印文字</h5>
+<p>video memory是一格pixel對到兩個記憶體<br>
+第一個是文字<br>
+第二個是顏色</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">print_char</span><span class="params">(<span class="keyword">char</span> c, <span class="keyword">int</span> col, <span class="keyword">int</span> row, <span class="keyword">char</span> attr)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> *vidmem = (<span class="keyword">unsigned</span> <span class="keyword">char</span>*) VIDEO_ADDRESS;</span><br><span class="line">    <span class="keyword">if</span> (!attr) attr = WHITE_ON_BLACK;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Error control: print a red 'E' if the coords aren't right */</span></span><br><span class="line">    <span class="keyword">if</span> (col &gt;= MAX_COLS || row &gt;= MAX_ROWS) &#123;</span><br><span class="line">        vidmem[<span class="number">2</span>*(MAX_COLS)*(MAX_ROWS)<span class="number">-2</span>] = <span class="string">'E'</span>; <span class="comment">// HERE</span></span><br><span class="line">        vidmem[<span class="number">2</span>*(MAX_COLS)*(MAX_ROWS)<span class="number">-1</span>] = RED_ON_WHITE; <span class="comment">// HERE</span></span><br><span class="line">        <span class="keyword">return</span> get_offset(col, row);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> offset;</span><br><span class="line">    <span class="keyword">if</span> (col &gt;= <span class="number">0</span> &amp;&amp; row &gt;= <span class="number">0</span>) offset = get_offset(col, row);</span><br><span class="line">    <span class="keyword">else</span> offset = get_cursor_offset();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (c == <span class="string">'\n'</span>) &#123;</span><br><span class="line">        row = get_offset_row(offset);</span><br><span class="line">        offset = get_offset(<span class="number">0</span>, row+<span class="number">1</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        vidmem[offset] = c; <span class="comment">// HERE</span></span><br><span class="line">        vidmem[offset+<span class="number">1</span>] = attr; <span class="comment">// HERE</span></span><br><span class="line">        offset += <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    set_cursor_offset(offset);</span><br><span class="line">    <span class="keyword">return</span> offset;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="kernel如何與cpu互動">kernel如何與cpu互動?</h3>
+<ol>
+<li>kernel -&gt; cpu: 指令</li>
+<li>cpu &lt;-&gt; kernel: 中斷</li>
+</ol>
+<p>中斷有分</p>
+<ol>
+<li>例外</li>
+<li>裝置</li>
+</ol>
+<p>但兩個其實差不多</p>
+<h4 id="例外">例外</h4>
+<ol>
+<li>宣告表(callback)</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">global isr0</span><br><span class="line">global isr1</span><br><span class="line">global isr2</span><br><span class="line"></span><br><span class="line">isr0:</span><br><span class="line">    cli</span><br><span class="line">    push byte 0</span><br><span class="line">    push byte 0</span><br><span class="line">    jmp isr_common_stub</span><br><span class="line"></span><br><span class="line">; 1: Debug Exception</span><br><span class="line">isr1:</span><br><span class="line">    cli</span><br><span class="line">    push byte 0</span><br><span class="line">    push byte 1</span><br><span class="line">    jmp isr_common_stub</span><br><span class="line"></span><br><span class="line">; 2: Non Maskable Interrupt Exception</span><br><span class="line">isr2:</span><br><span class="line">    cli</span><br><span class="line">    push byte 0</span><br><span class="line">    push byte 2</span><br><span class="line">    jmp isr_common_stub</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>設定handler</li>
+</ol>
+<p>也就是做ctx switch(把register存下來，之後寫回去)，之後call handler</p>
+<p>Q: register存在哪?<br>
+A: 目前的stack上 (之後xv6會是在自己的process上)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">isr_common_stub:</span><br><span class="line">    ; 1. Save CPU state</span><br><span class="line">	pusha ; Pushes edi,esi,ebp,esp,ebx,edx,ecx,eax</span><br><span class="line">	mov ax, ds ; Lower 16-bits of eax &#x3D; ds.</span><br><span class="line">	push eax ; save the data segment descriptor</span><br><span class="line">	mov ax, 0x10  ; kernel data segment descriptor</span><br><span class="line">	mov ds, ax</span><br><span class="line">	mov es, ax</span><br><span class="line">	mov fs, ax</span><br><span class="line">	mov gs, ax</span><br><span class="line">	</span><br><span class="line">    ; 2. Call C handler</span><br><span class="line">	call isr_handler</span><br><span class="line">	</span><br><span class="line">    ; 3. Restore state</span><br><span class="line">	pop eax </span><br><span class="line">	mov ds, ax</span><br><span class="line">	mov es, ax</span><br><span class="line">	mov fs, ax</span><br><span class="line">	mov gs, ax</span><br><span class="line">	popa</span><br><span class="line">	add esp, 8 ; Cleans up the pushed error code and pushed ISR number</span><br><span class="line">	sti</span><br><span class="line">	iret ; pops 5 things at once: CS, EIP, EFLAGS, SS, and ESP</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>轉到function</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">isr_handler</span><span class="params">(<span class="keyword">registers_t</span> r)</span> </span>&#123;</span><br><span class="line">    kprint(<span class="string">"received interrupt: "</span>);</span><br><span class="line">    <span class="keyword">char</span> s[<span class="number">3</span>];</span><br><span class="line">    int_to_ascii(r.int_no, s);</span><br><span class="line">    kprint(s);</span><br><span class="line">    kprint(<span class="string">"\n"</span>);</span><br><span class="line">    kprint(exception_messages[r.int_no]);</span><br><span class="line">    kprint(<span class="string">"\n"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="裝置">裝置</h4>
+<p>裝置的irq其實差不多 (所以xv6是兩個一起處理的)</p>
+<p>這裡看個鍵盤的例子，鍵盤就是透過port讀打了什麼之後轉成char，印出來</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BACKSPACE 0x0E</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ENTER 0x1C</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">char</span> key_buffer[<span class="number">256</span>];</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SC_MAX 57</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">char</span> *sc_name[] = &#123; <span class="string">"ERROR"</span>, <span class="string">"Esc"</span>, <span class="string">"1"</span>, <span class="string">"2"</span>, <span class="string">"3"</span>, <span class="string">"4"</span>, <span class="string">"5"</span>, <span class="string">"6"</span>, </span><br><span class="line">    <span class="string">"7"</span>, <span class="string">"8"</span>, <span class="string">"9"</span>, <span class="string">"0"</span>, <span class="string">"-"</span>, <span class="string">"="</span>, <span class="string">"Backspace"</span>, <span class="string">"Tab"</span>, <span class="string">"Q"</span>, <span class="string">"W"</span>, <span class="string">"E"</span>, </span><br><span class="line">        <span class="string">"R"</span>, <span class="string">"T"</span>, <span class="string">"Y"</span>, <span class="string">"U"</span>, <span class="string">"I"</span>, <span class="string">"O"</span>, <span class="string">"P"</span>, <span class="string">"["</span>, <span class="string">"]"</span>, <span class="string">"Enter"</span>, <span class="string">"Lctrl"</span>, </span><br><span class="line">        <span class="string">"A"</span>, <span class="string">"S"</span>, <span class="string">"D"</span>, <span class="string">"F"</span>, <span class="string">"G"</span>, <span class="string">"H"</span>, <span class="string">"J"</span>, <span class="string">"K"</span>, <span class="string">"L"</span>, <span class="string">";"</span>, <span class="string">"'"</span>, <span class="string">"`"</span>, </span><br><span class="line">        <span class="string">"LShift"</span>, <span class="string">"\\"</span>, <span class="string">"Z"</span>, <span class="string">"X"</span>, <span class="string">"C"</span>, <span class="string">"V"</span>, <span class="string">"B"</span>, <span class="string">"N"</span>, <span class="string">"M"</span>, <span class="string">","</span>, <span class="string">"."</span>, </span><br><span class="line">        <span class="string">"/"</span>, <span class="string">"RShift"</span>, <span class="string">"Keypad *"</span>, <span class="string">"LAlt"</span>, <span class="string">"Spacebar"</span>&#125;;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">char</span> sc_ascii[] = &#123; <span class="string">'?'</span>, <span class="string">'?'</span>, <span class="string">'1'</span>, <span class="string">'2'</span>, <span class="string">'3'</span>, <span class="string">'4'</span>, <span class="string">'5'</span>, <span class="string">'6'</span>,     </span><br><span class="line">    <span class="string">'7'</span>, <span class="string">'8'</span>, <span class="string">'9'</span>, <span class="string">'0'</span>, <span class="string">'-'</span>, <span class="string">'='</span>, <span class="string">'?'</span>, <span class="string">'?'</span>, <span class="string">'Q'</span>, <span class="string">'W'</span>, <span class="string">'E'</span>, <span class="string">'R'</span>, <span class="string">'T'</span>, <span class="string">'Y'</span>, </span><br><span class="line">        <span class="string">'U'</span>, <span class="string">'I'</span>, <span class="string">'O'</span>, <span class="string">'P'</span>, <span class="string">'['</span>, <span class="string">']'</span>, <span class="string">'?'</span>, <span class="string">'?'</span>, <span class="string">'A'</span>, <span class="string">'S'</span>, <span class="string">'D'</span>, <span class="string">'F'</span>, <span class="string">'G'</span>, </span><br><span class="line">        <span class="string">'H'</span>, <span class="string">'J'</span>, <span class="string">'K'</span>, <span class="string">'L'</span>, <span class="string">';'</span>, <span class="string">'\''</span>, <span class="string">'`'</span>, <span class="string">'?'</span>, <span class="string">'\\'</span>, <span class="string">'Z'</span>, <span class="string">'X'</span>, <span class="string">'C'</span>, <span class="string">'V'</span>, </span><br><span class="line">        <span class="string">'B'</span>, <span class="string">'N'</span>, <span class="string">'M'</span>, <span class="string">','</span>, <span class="string">'.'</span>, <span class="string">'/'</span>, <span class="string">'?'</span>, <span class="string">'?'</span>, <span class="string">'?'</span>, <span class="string">' '</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">keyboard_callback</span><span class="params">(<span class="keyword">registers_t</span> regs)</span> </span>&#123;</span><br><span class="line">    <span class="comment">/* The PIC leaves us the scancode in port 0x60 */</span></span><br><span class="line">    <span class="keyword">uint8_t</span> scancode = port_byte_in(<span class="number">0x60</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (scancode &gt; SC_MAX) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">if</span> (scancode == BACKSPACE) &#123;</span><br><span class="line">        backspace(key_buffer);</span><br><span class="line">        kprint_backspace();</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (scancode == ENTER) &#123;</span><br><span class="line">        kprint(<span class="string">"\n"</span>);</span><br><span class="line">        user_input(key_buffer); <span class="comment">/* kernel-controlled function */</span></span><br><span class="line">        key_buffer[<span class="number">0</span>] = <span class="string">'\0'</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">char</span> letter = sc_ascii[(<span class="keyword">int</span>)scancode];</span><br><span class="line">        <span class="comment">/* Remember that kprint only accepts char[] */</span></span><br><span class="line">        <span class="keyword">char</span> str[<span class="number">2</span>] = &#123;letter, <span class="string">'\0'</span>&#125;;</span><br><span class="line">        append(key_buffer, letter);</span><br><span class="line">        kprint(str);</span><br><span class="line">    &#125;</span><br><span class="line">    UNUSED(regs);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init_keyboard</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   register_interrupt_handler(IRQ1, keyboard_callback); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="之後哩">之後哩</h2>
+<p>到此已經可以</p>
+<ul>
+<li>開機</li>
+<li>打字</li>
+<li>print</li>
+</ul>
+<p>可以當成整台電腦只有我們這一個process，就是整台電腦<br>
+(所以可以反過來看，只要有process就是有了一台電腦的幻覺)</p>
+<p>但如果要讓多個process一起用時?<br>
+或是應該問，我們還缺什麼?</p>
+<ul>
+<li>process
+<ul>
+<li>mem management</li>
+<li>concurrent</li>
+</ul>
+</li>
+<li>user/kernel mode</li>
+<li>filesystem</li>
+</ul>
+<p>之後到xv6一邊看實作，一邊做lab</p>
+<h2 id="Ref">Ref</h2>
+<p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2NmZW5vbGxvc2Evb3MtdHV0b3JpYWw=">os-tutorial<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cDovL3d3dy5jcy51bWQuZWR1L35tZWVzaC9jbXNjMzExL2xpbmtzL2hhbmRvdXRzL2lhMzIucGRm">Overview of IA-32 assembly programming<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly9zdGFja292ZXJmbG93LmNvbS9xdWVzdGlvbnMvMTAxNjg3NDMvd2hpY2gtdmFyaWFibGUtc2l6ZS10by11c2UtZGItZHctZGQtd2l0aC14ODYtYXNzZW1ibHk=">Which variable size to use (db, dw, dd) with x86 assembly?<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cDovL3d3dy5jcy52aXJnaW5pYS5lZHUvfmV2YW5zL2NzMjE2L2d1aWRlcy94ODYuaHRtbA==">x86 Assembly Guide<i class="fa fa-external-link-alt"></i></span></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/01/database-system/" rel="prev" title="database system">
+      <i class="fa fa-chevron-left"></i> database system
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/01/xv6-labs/" rel="next" title="xv6 labs">
+      xv6 labs <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#開始之前"><span class="nav-number">2.</span> <span class="nav-text">開始之前</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#從硬碟出發-bootloader"><span class="nav-number">3.</span> <span class="nav-text">從硬碟出發: bootloader</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#bootloader"><span class="nav-number">3.1.</span> <span class="nav-text">bootloader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ia32-programming"><span class="nav-number">3.2.</span> <span class="nav-text">ia32 programming</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#byte-word-double-word-dword"><span class="nav-number">3.2.1.</span> <span class="nav-text">byte, word, double word(dword)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#nasm的output長什麼樣子"><span class="nav-number">3.2.1.1.</span> <span class="nav-text">nasm的output長什麼樣子</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mode"><span class="nav-number">3.2.2.</span> <span class="nav-text">mode</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#16bits-real-mode"><span class="nav-number">3.2.2.1.</span> <span class="nav-text">16bits real mode</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#32bits-protected-mode"><span class="nav-number">3.2.2.2.</span> <span class="nav-text">32bits protected mode</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#memory-address"><span class="nav-number">3.2.3.</span> <span class="nav-text">memory address</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#16bits-real-mode-segmentation"><span class="nav-number">3.2.3.1.</span> <span class="nav-text">16bits real mode: segmentation</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#32bits-protected-mode-GDT"><span class="nav-number">3.2.3.2.</span> <span class="nav-text">32bits protected mode: GDT</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bootloader的工作"><span class="nav-number">3.3.</span> <span class="nav-text">bootloader的工作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#載入kernel"><span class="nav-number">3.3.1.</span> <span class="nav-text">載入kernel</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#切32bit保護模式"><span class="nav-number">3.3.2.</span> <span class="nav-text">切32bit保護模式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#怎麼把bootloader與kernel合在一起"><span class="nav-number">3.4.</span> <span class="nav-text">怎麼把bootloader與kernel合在一起?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在記憶體了-kernel"><span class="nav-number">4.</span> <span class="nav-text">在記憶體了: kernel</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#kernel如何操作裝置"><span class="nav-number">4.1.</span> <span class="nav-text">kernel如何操作裝置?</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#video-driver"><span class="nav-number">4.1.1.</span> <span class="nav-text">video driver</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#透過port去讀cursor的訊息"><span class="nav-number">4.1.1.1.</span> <span class="nav-text">透過port去讀cursor的訊息</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#透過video-memory去印文字"><span class="nav-number">4.1.1.2.</span> <span class="nav-text">透過video memory去印文字</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kernel如何與cpu互動"><span class="nav-number">4.2.</span> <span class="nav-text">kernel如何與cpu互動?</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#例外"><span class="nav-number">4.2.1.</span> <span class="nav-text">例外</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#裝置"><span class="nav-number">4.2.2.</span> <span class="nav-text">裝置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#之後哩"><span class="nav-number">5.</span> <span class="nav-text">之後哩</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">6.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">zhengcf</p>
+  <div class="site-description" itemprop="description">想到什麼就寫什麼</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">683</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhengcf</span>
+</div>
+  <div class="powered-by">Powered by <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl theme-link" data-url="aHR0cHM6Ly9tdXNlLnRoZW1lLW5leHQub3Jn">NexT.Muse</span>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 1000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://littlebees.github.io/2022/01/craft-small-os/',]
+      });
+      });
+  </script>
+
+</body>
+</html>

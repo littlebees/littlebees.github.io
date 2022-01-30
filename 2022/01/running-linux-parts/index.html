@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="AEpTGuQAkxnTOlmfF4INDna3S660LxrkyZ4BQzVbRSw">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"littlebees.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="動機 當初看這本是想補完一些linux kernel的設計實做，但最後發現除了第一章之外，都是code加直譯code的中文… 這樣與自己trace有什麼區別!? code只是設計的其中一種體現 書的重點應該是介紹設計，再加上一些比較特別或是重要的code 所以後面就改成挑經典概念(不同於xv6)的解釋 ch4是說lock的實做，所以挑RCU來說 ch5是說中斷的，可以參考linux kernel">
+<meta property="og:type" content="article">
+<meta property="og:title" content="奔跑吧linux內核ch2~ch5摘錄">
+<meta property="og:url" content="https://littlebees.github.io/2022/01/running-linux-parts/index.html">
+<meta property="og:site_name" content="記事本">
+<meta property="og:description" content="動機 當初看這本是想補完一些linux kernel的設計實做，但最後發現除了第一章之外，都是code加直譯code的中文… 這樣與自己trace有什麼區別!? code只是設計的其中一種體現 書的重點應該是介紹設計，再加上一些比較特別或是重要的code 所以後面就改成挑經典概念(不同於xv6)的解釋 ch4是說lock的實做，所以挑RCU來說 ch5是說中斷的，可以參考linux kernel">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://camo.githubusercontent.com/ad7815ed073cfaf75a2bc165fc8cb657831adaab26acc20e9868ed297636415d/68747470733a2f2f7261772e6769746875622e636f6d2f676f647370656564313938392f62756464795f616c6c6f6361746f722f6d61737465722f62756464795f73797374656d312e706e67">
+<meta property="og:image" content="https://i.imgur.com/KHVkfij.png">
+<meta property="og:image" content="https://i.imgur.com/sMlWbHe.png">
+<meta property="og:image" content="https://pic1.xuehuaimg.com/proxy/csdn/https://pic1.xuehuaimg.com/proxy/csdn/http://hi.csdn.net/attachment/201011/16/0_1289911974qZfW.gif">
+<meta property="og:image" content="https://i.imgur.com/CTVqMbc.png">
+<meta property="og:image" content="https://i.imgur.com/4EDpjQ1.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1771657/202003/1771657-20200314235145194-204116226.png">
+<meta property="article:published_time" content="2022-01-30T06:08:36.000Z">
+<meta property="article:modified_time" content="2022-01-30T06:08:36.956Z">
+<meta property="article:author" content="zhengcf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://camo.githubusercontent.com/ad7815ed073cfaf75a2bc165fc8cb657831adaab26acc20e9868ed297636415d/68747470733a2f2f7261772e6769746875622e636f6d2f676f647370656564313938392f62756464795f616c6c6f6361746f722f6d61737465722f62756464795f73797374656d312e706e67">
+
+<link rel="canonical" href="https://littlebees.github.io/2022/01/running-linux-parts/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>奔跑吧linux內核ch2~ch5摘錄 | 記事本</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">記事本</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">寫下來，不然會忘</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2022/01/running-linux-parts/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhengcf">
+      <meta itemprop="description" content="想到什麼就寫什麼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="記事本">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          奔跑吧linux內核ch2~ch5摘錄
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-01-30 14:08:36" itemprop="dateCreated datePublished" datetime="2022-01-30T14:08:36+08:00">2022-01-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/Reading/" itemprop="url" rel="index"><span itemprop="name">Reading</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/FAQ/" itemprop="url" rel="index"><span itemprop="name">FAQ</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="動機">動機</h2>
+<p>當初看這本是想補完一些linux kernel的設計實做，但最後發現除了第一章之外，都是code加直譯code的中文…</p>
+<p>這樣與自己trace有什麼區別!?</p>
+<p>code只是設計的其中一種體現<br>
+書的重點應該是介紹設計，再加上一些比較特別或是重要的code</p>
+<p>所以後面就改成挑經典概念(不同於xv6)的解釋</p>
+<p>ch4是說lock的實做，所以挑RCU來說<br>
+ch5是說中斷的，可以參考linux kernel development與xv6的pdf<br>
+ch6是怎麼debug像ftrace與debugfs、systemtap、kasan、kmemleak、CONFIG_DEBUG_LOOKDEP</p>
+<a id="more"></a>
+<h2 id="page-buddy">page: buddy</h2>
+<p>原本在xv6是直接從freelist拿一個page，但這樣一直alloc與free，會讓連續的page變少</p>
+<p>所以buddy就是先設定好一定大小的page，組成block，之後就是從對應的長度取</p>
+<p>如果差一點點，就是把剩下的丟到對應的長度，例</p>
+<p>3 pages從$2^2$拿一塊，剩下1page放到$2^0$</p>
+<p><img src="https://camo.githubusercontent.com/ad7815ed073cfaf75a2bc165fc8cb657831adaab26acc20e9868ed297636415d/68747470733a2f2f7261772e6769746875622e636f6d2f676f647370656564313938392f62756464795f616c6c6f6361746f722f6d61737465722f62756464795f73797374656d312e706e67" alt=""></p>
+<h2 id="object-slab">object: slab</h2>
+<p>一次拿一個page真的很大，很多時候只要放struct而已，所以有了slab</p>
+<p>給定struct大小，之後裡面切成3個list，剩下就與freelist很像，但是單位是struct大小</p>
+<ul>
+<li>full: page被占滿</li>
+<li>partial: 有空的、有被用的</li>
+<li>free: 都空的</li>
+</ul>
+<p><img src="https://i.imgur.com/KHVkfij.png" alt=""></p>
+<p>想知道slab的訊息可以參考<span class="exturl" data-url="aHR0cHM6Ly9maXZlemguZ2l0aHViLmlvLzIwMTcvMDYvMjUvTGludXgtc2xhYi1pbmZvLw==">這裡<i class="fa fa-external-link-alt"></i></span></p>
+<h2 id="rmap">rmap</h2>
+<p>我們有mmap，把va對到pa<br>
+rmap就是讓pa知道有多少va對到他，這樣就能從pa做unmap了</p>
+<p>kswapd就會用到rmap，另外在memory compact做memory migrate(把page移到另一個process)也會用到rmap</p>
+<h2 id="gc-kswapd">gc: kswapd</h2>
+<p>kswapd就是負責回收page(像是slab的page)的kernel process</p>
+<p>基本上觸發條件與gc差不多</p>
+<ol>
+<li>週期性</li>
+<li>當碰到zone(linux描述mem的資料結構)的low watermark</li>
+</ol>
+<h3 id="為什麼我們要free">為什麼我們要free?</h3>
+<p>因為kernel沒有辦法確認這mem還有沒有人要用到。</p>
+<p>ptr其實就是整數，但kernel不知道這塊mem是不是有人指到。</p>
+<p>這樣就乾脆讓user自己管理就好。<br>
+但是現在大部分語言都會把object抽象出來，這樣就能利用object本身的struct紀錄使用情況，來做gc</p>
+<h2 id="memory-compact">memory compact</h2>
+<p>buddy可以降低fragmentation的衝擊，但最後一定會有，所以還是要處理</p>
+<p>所以才有memory compact，基本上就是一邊找可以移動的page，一邊找空的page，之後migrate</p>
+<p><img src="https://i.imgur.com/sMlWbHe.png" alt=""></p>
+<p>詳細可以看<span class="exturl" data-url="aHR0cHM6Ly96aHVhbmxhbi56aGlodS5jb20vcC84MTk4Mzk3Mw==">這邊<i class="fa fa-external-link-alt"></i></span></p>
+<h2 id="kernel-same-page">kernel same page</h2>
+<p>把page當成key，做比對，之後遇到一樣的page就能共用</p>
+<p>像是開了許多linux vm這樣應該有一些page的內容會是一樣的<br>
+<img src="https://pic1.xuehuaimg.com/proxy/csdn/https://pic1.xuehuaimg.com/proxy/csdn/http://hi.csdn.net/attachment/201011/16/0_1289911974qZfW.gif" alt=""></p>
+<h2 id="OOM">OOM</h2>
+<p>malloc是申請(commit)，說有這一塊可以用(看xv6 lazy allocation與cow)</p>
+<p>但通常user不會剛好把申請全部用完，這樣其實很浪費</p>
+<p>所以linux認可某種程度上的overcommit<br>
+可以用<code>/proc/sys/vm/overcommit_memory</code>調overcommit的行為</p>
+<p>如果真的pa都沒了，連kernel的free都給完了，oom killer就會出現，找一個proc下手</p>
+<p>可以透過<code>/proc/&lt;pid&gt;/oom_score</code>調oom分數，讓killer盡量不會對某些proc下手</p>
+<h2 id="RCU">RCU</h2>
+<p>RCU就是不用lock做出來的的rwlock</p>
+<p>RCU可以當成一個ptr的buffer</p>
+<p>updater做好修改後，synchronize_rcu會等其他reader讀完<br>
+之後就會把新的ptr丟出去，最後把舊的回收掉</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo_read</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    rcu_read_lock();</span><br><span class="line">    foo *fp = global_foo;</span><br><span class="line">    <span class="keyword">if</span> (fp)</span><br><span class="line">        do_something(fp-&gt;a, fp-&gt;b, fp-&gt;c);</span><br><span class="line">    rcu_read_unlock();</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo_update</span><span class="params">(foo *new_fp)</span> </span>&#123;</span><br><span class="line">    spin_lock(&amp;foo_mutex);</span><br><span class="line">    foo *old_fp = global_foo;</span><br><span class="line">    global_foo = new_fp;</span><br><span class="line">    spin_unlock(&amp;foo_mutex);</span><br><span class="line">    synchronize_rcu();</span><br><span class="line">    kfree(old_fp);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/CTVqMbc.png" alt=""><br>
+<img src="https://i.imgur.com/4EDpjQ1.png" alt=""></p>
+<h2 id="cfs-schedule">cfs schedule</h2>
+<p>把每個proc當成有一個cpu，所以假設每個proc都完美的同時跑的話，每個proc的執行時間應該一樣長</p>
+<p>cfs就是多一個vruntime去模擬每個proc的執行時間，每次挑都挑最少vruntime的</p>
+<p>如果要sort又要支援找出最小，heap<br>
+而剛好linux實作rbtree可以用</p>
+<p>算vruntime也很簡單$exec_delta*(wieght/total_wieght)$<br>
+實際上的執行時間乘上proc比重的比值，只是kernel中最好不用除法所以要改成用乘的</p>
+<p><img src="https://img2020.cnblogs.com/blog/1771657/202003/1771657-20200314235145194-204116226.png" alt=""></p>
+<h2 id="Ref">Ref</h2>
+<p><span class="exturl" data-url="aHR0cHM6Ly9oYWNrbWQuaW8vQHN5c3Byb2cvbGludXgtbWVtb3J5">Linux 核心設計: 記憶體管理<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly96aHVhbmxhbi56aGlodS5jb20vcC8zNjE0MDAxNw==">Linux内核内存管理算法Buddy和Slab<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3pxel96cXovYXJ0aWNsZS9kZXRhaWxzLzgwMzMzNjA3">linux 的swap、swappiness及kswapd原理<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly93d3cuY25ibG9ncy5jb20vTG95ZW5XYW5nL3AvMTIxNjQ2ODMuaHRtbA==">【原创】（十五）Linux内存管理之RMAP<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3J1bl9mb3JfYmVsaWVmL2FydGljbGUvZGV0YWlscy84MzQ0NjM0NA==">Linux OOM killer机制介绍<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly9oYWNrbWQuaW8vQHN5c3Byb2cvbGludXgtcmN1">Linux 核心設計: RCU 同步機制<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly93d3cuY25ibG9ncy5jb20vTG95ZW5XYW5nL3AvMTI0OTUzMTkuaHRtbA==">【原创】（五）Linux进程调度-CFS调度器<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cDovL2xpbnV4cGVyZi5jb20vP3A9MTAy">理解LINUX的MEMORY OVERCOMMIT<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly9sZWFybmluZy1rZXJuZWwucmVhZHRoZWRvY3MuaW8vZW4vbGF0ZXN0L21lbS1tYW5hZ2VtZW50Lmh0bWwjbGludXgtb29t">内存管理<i class="fa fa-external-link-alt"></i></span></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/01/css-ctx/" rel="prev" title="css的context">
+      <i class="fa fa-chevron-left"></i> css的context
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#page-buddy"><span class="nav-number">2.</span> <span class="nav-text">page: buddy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#object-slab"><span class="nav-number">3.</span> <span class="nav-text">object: slab</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rmap"><span class="nav-number">4.</span> <span class="nav-text">rmap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gc-kswapd"><span class="nav-number">5.</span> <span class="nav-text">gc: kswapd</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#為什麼我們要free"><span class="nav-number">5.1.</span> <span class="nav-text">為什麼我們要free?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#memory-compact"><span class="nav-number">6.</span> <span class="nav-text">memory compact</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kernel-same-page"><span class="nav-number">7.</span> <span class="nav-text">kernel same page</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OOM"><span class="nav-number">8.</span> <span class="nav-text">OOM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RCU"><span class="nav-number">9.</span> <span class="nav-text">RCU</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cfs-schedule"><span class="nav-number">10.</span> <span class="nav-text">cfs schedule</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">11.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">zhengcf</p>
+  <div class="site-description" itemprop="description">想到什麼就寫什麼</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">683</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhengcf</span>
+</div>
+  <div class="powered-by">Powered by <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl theme-link" data-url="aHR0cHM6Ly9tdXNlLnRoZW1lLW5leHQub3Jn">NexT.Muse</span>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 1000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://littlebees.github.io/2022/01/running-linux-parts/',]
+      });
+      });
+  </script>
+
+</body>
+</html>

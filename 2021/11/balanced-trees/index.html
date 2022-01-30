@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="AEpTGuQAkxnTOlmfF4INDna3S660LxrkyZ4BQzVbRSw">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"littlebees.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="動機 補完以前的記憶，下面會介紹  經典款: red-black tree  但在面試或是競賽馬上code出來應該有點難，所以通常用下面兩種   rotation base: splay tree merge&#x2F;split base: treap">
+<meta property="og:type" content="article">
+<meta property="og:title" content="各種平衡樹">
+<meta property="og:url" content="https://littlebees.github.io/2021/11/balanced-trees/index.html">
+<meta property="og:site_name" content="記事本">
+<meta property="og:description" content="動機 補完以前的記憶，下面會介紹  經典款: red-black tree  但在面試或是競賽馬上code出來應該有點難，所以通常用下面兩種   rotation base: splay tree merge&#x2F;split base: treap">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://pic1.zhimg.com/v2-cb9e8a9f60f4065144c52a9be72234dc_r.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/v2-de40532609af882c6358ea09bd5ecc22_r.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/v2-c990cd7c23620c85ff9805ee56f4a201_r.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/v2-e2325b649e5faac6ba3c888787a10caa_r.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/v2-fb3bb75b2e6f353e44528b43609efee5_r.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/v2-ccf3fea6c6cbb80c2b904235c5fbbcbd_r.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/v2-f826dea8b4f0e345be66d464ecaf5164_r.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/v2-957fb3741696f17f26f3181d8d57f157_r.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-fcb10adc72ba0130efeafb4300221458_720w.jpg">
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/f/fd/Zigzig.gif">
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/6/6f/Zigzag.gif">
+<meta property="article:published_time" content="2021-11-17T13:51:31.000Z">
+<meta property="article:modified_time" content="2022-01-22T10:58:43.255Z">
+<meta property="article:author" content="zhengcf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic1.zhimg.com/v2-cb9e8a9f60f4065144c52a9be72234dc_r.jpg">
+
+<link rel="canonical" href="https://littlebees.github.io/2021/11/balanced-trees/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>各種平衡樹 | 記事本</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">記事本</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">寫下來，不然會忘</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2021/11/balanced-trees/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhengcf">
+      <meta itemprop="description" content="想到什麼就寫什麼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="記事本">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          各種平衡樹
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-11-17 21:51:31" itemprop="dateCreated datePublished" datetime="2021-11-17T21:51:31+08:00">2021-11-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-01-22 18:58:43" itemprop="dateModified" datetime="2022-01-22T18:58:43+08:00">2022-01-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/Classic/" itemprop="url" rel="index"><span itemprop="name">Classic</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="動機">動機</h2>
+<p>補完以前的記憶，下面會介紹</p>
+<ul>
+<li>經典款: red-black tree
+<ul>
+<li>但在面試或是競賽馬上code出來應該有點難，所以通常用下面兩種</li>
+</ul>
+</li>
+<li>rotation base: splay tree</li>
+<li>merge/split base: treap</li>
+</ul>
+<a id="more"></a>
+<h2 id="red-black-tree">red-black tree</h2>
+<p>只要符合下面兩個限制的tree就是red-black tree</p>
+<ol>
+<li>紅的不會和紅的接在一起</li>
+</ol>
+<ul>
+<li>雙紅矛盾</li>
+</ul>
+<ol start="2">
+<li>從根到任意leaf的路徑長度都一樣長</li>
+</ol>
+<ul>
+<li>黑高矛盾 (不等高)</li>
+</ul>
+<h3 id="insert-雙紅矛盾">insert (雙紅矛盾)</h3>
+<p>insert如何不破壞兩個條件?</p>
+<p>黑高矛盾: 每次都插入紅的<br>
+雙紅矛盾:</p>
+<ol>
+<li>插入點是root，child有紅</li>
+</ol>
+<ul>
+<li>把root換成黑</li>
+</ul>
+<ol start="2">
+<li>插入點是child (parent是黑的，並假設插在左邊)</li>
+<li>左的child是紅的: 直接右旋</li>
+<li>右的child是紅的: 左旋再右旋</li>
+</ol>
+<p>插右邊的case?<br>
+這是對稱的，所以不列了</p>
+<p>可以注意到，第2個case的所有case的結果都會是</p>
+<ol>
+<li>根是紅的</li>
+<li>像這種<code>/\</code>形狀</li>
+</ol>
+<p><img src="https://pic1.zhimg.com/v2-cb9e8a9f60f4065144c52a9be72234dc_r.jpg" alt=""><br>
+<img src="https://pic3.zhimg.com/v2-de40532609af882c6358ea09bd5ecc22_r.jpg" alt=""><br>
+<img src="https://pic2.zhimg.com/v2-c990cd7c23620c85ff9805ee56f4a201_r.jpg" alt=""><br>
+<img src="https://pic3.zhimg.com/v2-e2325b649e5faac6ba3c888787a10caa_r.jpg" alt=""></p>
+<p>剛剛提到左旋與右旋，來完成再平衡，但是haskell可以直接build資料，所以…</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">blacken</span> <span class="type">Nil</span> = <span class="type">Nil</span></span><br><span class="line"><span class="title">blacken</span> (<span class="type">Node</span> _ value left right) = <span class="type">Node</span> <span class="type">Black</span> value left right</span><br><span class="line"></span><br><span class="line"><span class="title">insert</span> x root = blacken $ insert' root</span><br><span class="line">  <span class="keyword">where</span> insert' <span class="type">Nil</span> = <span class="type">Node</span> <span class="type">Red</span> x <span class="type">Nil</span> <span class="type">Nil</span></span><br><span class="line">        insert' root@(<span class="type">Node</span> color y left right) </span><br><span class="line">            | x &lt; y = balance color y (insert' left) right</span><br><span class="line">            | x &gt; y = balance color y left (insert' right)</span><br><span class="line">            | otherwise = root</span><br><span class="line"></span><br><span class="line"><span class="comment">-- left-right</span></span><br><span class="line"><span class="title">balance</span> <span class="type">Black</span> z (<span class="type">Node</span> <span class="type">Red</span> x a (<span class="type">Node</span> <span class="type">Red</span> y b c)) d = <span class="type">Node</span> <span class="type">Red</span> y (<span class="type">Node</span> <span class="type">Black</span> x a b) (<span class="type">Node</span> <span class="type">Black</span> z c d)</span><br><span class="line"><span class="comment">-- left-left</span></span><br><span class="line"><span class="title">balance</span> <span class="type">Black</span> z (<span class="type">Node</span> <span class="type">Red</span> y (<span class="type">Node</span> <span class="type">Red</span> x a b) c) d = <span class="type">Node</span> <span class="type">Red</span> y (<span class="type">Node</span> <span class="type">Black</span> x a b) (<span class="type">Node</span> <span class="type">Black</span> z c d)</span><br><span class="line"><span class="comment">-- right-left</span></span><br><span class="line"><span class="title">balance</span> <span class="type">Black</span> x a (<span class="type">Node</span> <span class="type">Red</span> y b (<span class="type">Node</span> <span class="type">Red</span> z c d)) = <span class="type">Node</span> <span class="type">Red</span> y (<span class="type">Node</span> <span class="type">Black</span> x a b) (<span class="type">Node</span> <span class="type">Black</span> z c d)</span><br><span class="line"><span class="comment">-- right-right</span></span><br><span class="line"><span class="title">balance</span> <span class="type">Black</span> x a (<span class="type">Node</span> <span class="type">Red</span> z (<span class="type">Node</span> <span class="type">Red</span> y b c) d) = <span class="type">Node</span> <span class="type">Red</span> y (<span class="type">Node</span> <span class="type">Black</span> x a b) (<span class="type">Node</span> <span class="type">Black</span> z c d)</span><br><span class="line"><span class="title">balance</span> color value left right = <span class="type">Node</span> color value left right</span><br></pre></td></tr></table></figure>
+<h3 id="delete-黑高矛盾">delete (黑高矛盾)</h3>
+<p>delete就是BST的delete</p>
+<ol>
+<li>在leaf: 換成nil</li>
+<li>只有一個child: 把唯一個child拉上去</li>
+<li>兩個child: 右child最小的換上來，再把它刪掉</li>
+</ol>
+<p>所以現在重點是換下去的那個點怎麼刪</p>
+<p>刪的是</p>
+<ul>
+<li>紅的: 沒事</li>
+<li>黑的: 數量可能不對 (黑高矛盾)</li>
+</ul>
+<p>(把紅的看成收束下面的兩個child成一條長度，因為兩邊的長度一樣)<br>
+(紅的可以輕易變成黑的，但黑的不行直接變成紅的)<br>
+要刪的是黑的，所以可以從parent與neighbor的顏色生出4種case</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>root: red</th>
+<th>root: black</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>neighbor: red</td>
+<td>impossible</td>
+<td>左旋，原本的parent變紅</td>
+</tr>
+<tr>
+<td>neighbor: black</td>
+<td>原本的parent變黑，neighbor變紅</td>
+<td>neighbor變紅</td>
+</tr>
+</tbody>
+</table>
+<p><img src="https://pic2.zhimg.com/v2-fb3bb75b2e6f353e44528b43609efee5_r.jpg" alt=""><br>
+<img src="https://pic2.zhimg.com/v2-ccf3fea6c6cbb80c2b904235c5fbbcbd_r.jpg" alt=""><br>
+<img src="https://pic1.zhimg.com/v2-f826dea8b4f0e345be66d464ecaf5164_r.jpg" alt=""></p>
+<p>neighbor變紅，不會觸發雙紅矛盾?<br>
+有可能，如果兩個child都是黑的就沒事，其中一個是紅的就要處理了</p>
+<p>只有右邊是紅、兩個紅: 左旋 (把長度補回去)，把紅的標成黑<br>
+<img src="https://pic4.zhimg.com/v2-957fb3741696f17f26f3181d8d57f157_r.jpg" alt=""><br>
+只有左邊是紅: 先左旋，轉成一條就可以用前面的方法了<br>
+<img src="https://pic1.zhimg.com/80/v2-fcb10adc72ba0130efeafb4300221458_720w.jpg" alt=""></p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">isBlack</span> (<span class="type">Node</span> <span class="type">Red</span> _ _ _) = <span class="type">False</span></span><br><span class="line"><span class="title">isBlack</span> _ = <span class="type">True</span></span><br><span class="line"></span><br><span class="line"><span class="title">balL</span> color y (left, <span class="type">True</span>) right = (<span class="type">Node</span> color y left right, <span class="type">True</span>)</span><br><span class="line"><span class="title">balL</span> color y (left, <span class="type">False</span>) right = balL' color y left right</span><br><span class="line"></span><br><span class="line"><span class="title">balL'</span> color1 p n (<span class="type">Node</span> color2 s sl sr)</span><br><span class="line">    <span class="comment">-- neighbor: red, root: black </span></span><br><span class="line">    | color2 == <span class="type">Red</span> = balL <span class="type">Black</span> s (balL' <span class="type">Red</span> p n sl) sr</span><br><span class="line">    <span class="comment">-- neighbor: black, root: black OR red</span></span><br><span class="line">    | isBlack sl &amp;&amp; isBlack sr = (<span class="type">Node</span> <span class="type">Black</span> p n (<span class="type">Node</span> <span class="type">Red</span> s sl sr), color1 == <span class="type">Red</span>)</span><br><span class="line">    <span class="comment">-- 只有右邊是紅、兩個紅</span></span><br><span class="line">    | not (isBlack sr) = (<span class="type">Node</span> color1 s (<span class="type">Node</span> <span class="type">Black</span> p n sl) (blacken sr), <span class="type">True</span>)</span><br><span class="line">    <span class="comment">-- 只有左邊是紅</span></span><br><span class="line">    | otherwise = <span class="keyword">let</span> (<span class="type">Node</span> <span class="type">Red</span> x sll slr) = sl <span class="keyword">in</span> balL' color1 p n (<span class="type">Node</span> <span class="type">Black</span> x sll (<span class="type">Node</span> <span class="type">Red</span> s slr sr))</span><br></pre></td></tr></table></figure>
+<p>把剩下的列完</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">findMin</span> (<span class="type">Node</span> _ x <span class="type">Nil</span> _) = x</span><br><span class="line"><span class="title">findMin</span> (<span class="type">Node</span> _ _ left _) = findMin left</span><br><span class="line"></span><br><span class="line"><span class="title">balR</span> color y left (right, <span class="type">True</span>) = (<span class="type">Node</span> color y left right, <span class="type">True</span>)</span><br><span class="line"><span class="title">balR</span> color y left (right, <span class="type">False</span>) = balR' color y left right</span><br><span class="line"></span><br><span class="line"><span class="title">balR'</span> color1 p (<span class="type">Node</span> color2 s sl sr) n</span><br><span class="line">    | color2 == <span class="type">Red</span> = balR <span class="type">Black</span> s sl (balR' <span class="type">Red</span> p sr n)</span><br><span class="line">    | isBlack sl &amp;&amp; isBlack sr = (<span class="type">Node</span> <span class="type">Black</span> p (<span class="type">Node</span> <span class="type">Red</span> s sl sr) n, color1 == <span class="type">Red</span>)</span><br><span class="line">    | not (isBlack sl) = (<span class="type">Node</span> color1 s (blacken sl) (<span class="type">Node</span> <span class="type">Black</span> p sr n), <span class="type">True</span>)</span><br><span class="line">    | otherwise = <span class="keyword">let</span> (<span class="type">Node</span> <span class="type">Red</span> x srl srr) = sr <span class="keyword">in</span> balR' color1 p (<span class="type">Node</span> <span class="type">Black</span> x (<span class="type">Node</span> <span class="type">Red</span> s sl srl) srr) n</span><br><span class="line"></span><br><span class="line"><span class="title">delete</span> x t = fst $ delete' x t</span><br><span class="line">  <span class="keyword">where</span> delete' x <span class="type">Nil</span> = (<span class="type">Nil</span>, <span class="type">True</span>)</span><br><span class="line">        delete' x root@(<span class="type">Node</span> color y left right)</span><br><span class="line">            | x &lt; y = balL color y (delete' x left) right</span><br><span class="line">            | x &gt; y = balR color y left (delete' x right)</span><br><span class="line">            | otherwise = deleteRoot root</span><br><span class="line">        deleteRoot (<span class="type">Node</span> color _ <span class="type">Nil</span> <span class="type">Nil</span>) = (<span class="type">Nil</span>, color == <span class="type">Red</span>)</span><br><span class="line">        deleteRoot (<span class="type">Node</span> _ _ left <span class="type">Nil</span>) = (blacken left, <span class="type">True</span>)</span><br><span class="line">        deleteRoot (<span class="type">Node</span> _ _ <span class="type">Nil</span> right) = (blacken right, <span class="type">True</span>)</span><br><span class="line">        deleteRoot (<span class="type">Node</span> color _ left right) = <span class="keyword">let</span> m = findMin right <span class="keyword">in</span> balR color m left (delete' m right)</span><br></pre></td></tr></table></figure>
+<p><span class="exturl" data-url="aHR0cHM6Ly96aHVhbmxhbi56aGlodS5jb20vcC83NzYxNjEwMw==">Ref<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3F1ZXN0aW9uLzM0MDg3OTk1NS9hbnN3ZXIvNzkyNzU0MDQy">有人能讲清楚《Algorithms》中左倾红黑树（LLRB）删除操作的每一行代码吗？<i class="fa fa-external-link-alt"></i></span></p>
+<h2 id="splay-tree">splay tree</h2>
+<p>利用特別的旋轉(splay)，把最近存取的點轉到root，達成所有操作均攤log n</p>
+<p>如果只有父節點，也就是父節點是root，就直接rotate<br>
+但如果有祖父節點時要做下面兩個case的旋轉</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/f/fd/Zigzig.gif" alt=""><br>
+<img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Zigzag.gif" alt=""></p>
+<p>TODO: 為什麼這個rotate這麼特別，如果說只是轉上去，其實不用管祖父節點</p>
+<p>P.S.: C++的rotate很複雜，因為一次只能assign一次，所以狀態一直變，但是利用平行賦值就好很多</p>
+<p>每次改node，都要確認被改過的node的left, right, parent都是對的!!</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span>:</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, key:int = <span class="number">0</span>, parent = None, left = None, right = None)</span>:</span></span><br><span class="line">    self.key, self.parent, self.left, self.right = key, paretn, left, right</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">left_rotate</span><span class="params">(self)</span>:</span></span><br><span class="line">    oldroot, newroot = self, self.left</span><br><span class="line"></span><br><span class="line">    newroot.parent, oldroot.parent = oldroot.parent, newroot</span><br><span class="line">    newroot.right, oldroot.left = oldroot, newroot.right</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> newroot.left:</span><br><span class="line">      newroot.left.parent = oldroot</span><br><span class="line">    <span class="keyword">if</span> newroot.parent:</span><br><span class="line">      <span class="keyword">if</span> newroot.parent.left <span class="keyword">is</span> oldroot:</span><br><span class="line">        newroot.parent.left = newroot</span><br><span class="line">      <span class="keyword">else</span>:</span><br><span class="line">        newroot.parent.right = newroot</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">right_rotate</span><span class="params">(self)</span>:</span></span><br><span class="line">    oldroot, newroot = self, self.right</span><br><span class="line"></span><br><span class="line">    newroot.parent, oldroot.parent = oldroot.parent, newroot</span><br><span class="line">    newroot.left, oldroot.right = oldroot, newroot.right</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> newroot.right:</span><br><span class="line">      newroot.right.parent = oldroot</span><br><span class="line">    <span class="keyword">if</span> newroot.parent:</span><br><span class="line">      <span class="keyword">if</span> newroot.parent.left <span class="keyword">is</span> oldroot:</span><br><span class="line">        newroot.parent.left = newroot</span><br><span class="line">      <span class="keyword">else</span>:</span><br><span class="line">        newroot.parent.right = newroot</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">is_left</span><span class="params">(self, other)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> self.left <span class="keyword">is</span> other</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">splay</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="keyword">while</span> self.parent:</span><br><span class="line">      parent, grand_parent = self.parent, self.parent.parent</span><br><span class="line">      <span class="keyword">if</span> grand_parent:</span><br><span class="line">        <span class="keyword">if</span> grand_parent.is_left(self.parent):</span><br><span class="line">          <span class="keyword">if</span> left_child:</span><br><span class="line">            grand_parent.left_rotation()</span><br><span class="line">            parent.left_rotation()</span><br><span class="line">          <span class="keyword">else</span>:</span><br><span class="line">            parent.right_rotation()</span><br><span class="line">            grand_parent.left_rotation()</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">          <span class="keyword">if</span> <span class="keyword">not</span> left_child: <span class="comment"># is right child</span></span><br><span class="line">            grand_parent.right_rotation()</span><br><span class="line">            parent.right_rotation()</span><br><span class="line">          <span class="keyword">else</span>:</span><br><span class="line">            parent.left_rotation()</span><br><span class="line">            grand_parent.right_rotation()</span><br><span class="line">      <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment"># zig</span></span><br><span class="line">        <span class="keyword">if</span> parent.left <span class="keyword">is</span> self:</span><br><span class="line">          parent.left_rotate()</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">          parent.right_rotate()</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">find</span><span class="params">(self, key: int)</span> -&gt; Node:</span></span><br><span class="line">    ret = <span class="literal">None</span></span><br><span class="line">    <span class="keyword">if</span> self.key == key:</span><br><span class="line">      ret = self</span><br><span class="line">    <span class="keyword">elif</span> self.right <span class="keyword">and</span> self.key &lt; key:</span><br><span class="line">      ret = self.right.find(key)</span><br><span class="line">    <span class="keyword">elif</span> self.left <span class="keyword">and</span> self.key &gt; key:</span><br><span class="line">      ret = self.left.find(key)</span><br><span class="line">    <span class="keyword">return</span> ret</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">find_min</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> self.left.find_min() <span class="keyword">if</span> self.left <span class="keyword">else</span> self.key</span><br></pre></td></tr></table></figure>
+<p>insert與BST差不多，但是最後要splay!!</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">insert</span><span class="params">(root: Node, key: int)</span>:</span></span><br><span class="line">  <span class="comment">## WTF</span></span><br><span class="line">  prev: Node, now: Node = <span class="literal">None</span>, root</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> now:</span><br><span class="line">      prev, now = now, now.right <span class="keyword">if</span> now.key &lt; key <span class="keyword">else</span> now.left</span><br><span class="line">  </span><br><span class="line">  now = Node(key, prev)</span><br><span class="line">  <span class="keyword">if</span> prev.key &lt; now.key:</span><br><span class="line">      prev.right = now</span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">      prev.left = now</span><br><span class="line">  </span><br><span class="line">  now.splay()</span><br></pre></td></tr></table></figure>
+<p>基本就是BST的remove，但要先把target splay，再做BST的remove</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">remove</span><span class="params">(root, key)</span>:</span></span><br><span class="line">    <span class="comment">## WTF</span></span><br><span class="line">    target: Node = root.find(key)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">take_place</span><span class="params">(a, b)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> b:</span><br><span class="line">          b.parent = a.parent</span><br><span class="line">        <span class="keyword">if</span> a.parent:</span><br><span class="line">          <span class="keyword">if</span> a.parent.left <span class="keyword">is</span> a:</span><br><span class="line">            a.parent.left = b</span><br><span class="line">          <span class="keyword">else</span>:</span><br><span class="line">            a.parent.right = b</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> target:</span><br><span class="line">        target.splay()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> target.left:</span><br><span class="line">            take_place(target, target.right)</span><br><span class="line">        <span class="keyword">elif</span> <span class="keyword">not</span> target.right:</span><br><span class="line">            take_place(target, target.left)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            miniumum = target.right.find_min()</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> miniumum.parent <span class="keyword">is</span> <span class="keyword">not</span> target:</span><br><span class="line">                take_place(miniumum, miniumum.right)</span><br><span class="line">                miniumum.right = target.right</span><br><span class="line">                miniumum.right.parent = miniumum</span><br><span class="line">            take_place(target, miniumum)</span><br><span class="line">            miniumum.left = target.left</span><br><span class="line">        <span class="keyword">del</span> target</span><br></pre></td></tr></table></figure>
+<p><span class="exturl" data-url="aHR0cHM6Ly9lbi53aWtpcGVkaWEub3JnL3dpa2kvU3BsYXlfdHJlZQ==">Ref<i class="fa fa-external-link-alt"></i></span></p>
+<h2 id="treap">treap</h2>
+<p>每個點都有</p>
+<ul>
+<li>key: BST的val</li>
+<li>pri: heap的比較數字<br>
+所以叫tree + heap = treap</li>
+</ul>
+<p>在維持heap的前提下(意思是heap先滿足)，滿足BST的需求</p>
+<p>同時treap有以下性質</p>
+<ol>
+<li>給定 n 個節點的 key、pri 的大小關係，那麼這棵 treap 的形狀唯一。</li>
+<li>給定 n 個節點的 key，在 n 個節點的 pri 都隨機的前提下（也就是 treap 的形狀隨<br>
+機），任一個選定的節點的期望深度為 O(log n)。</li>
+</ol>
+<p>所以根據第2點，我們pri要是random</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span>:</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, key: int = <span class="number">0</span>, left = None, right = None)</span>:</span></span><br><span class="line">    self.left, self.right = left, right</span><br><span class="line">    self.key, self.pri = key, random()</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">inspect</span><span class="params">(self)</span> -&gt; [int]:</span></span><br><span class="line">    ret = [self.key]</span><br><span class="line">    ret += self.left.inspect() <span class="keyword">if</span> self.left <span class="keyword">else</span> []</span><br><span class="line">    ret += self.right.inspect() <span class="keyword">if</span> self.right <span class="keyword">else</span> []</span><br><span class="line">    <span class="keyword">return</span> ret</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">size</span><span class="params">(self)</span> -&gt; int:</span></span><br><span class="line">    ret = <span class="number">1</span></span><br><span class="line">    ret += self.left.size() <span class="keyword">if</span> self.left <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">    ret += self.right.size() <span class="keyword">if</span> self.right <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">return</span> ret</span><br></pre></td></tr></table></figure>
+<p>有rotate的寫法，但很複雜，同時有merge/split的寫法，好寫很多，所以做merge/split</p>
+<p>split: 把一顆樹根据數字分成左右兩顆treap</p>
+<ul>
+<li>root key比較小就跟左邊、比較大就跟右邊，剩下的(另一側)拿去遞迴，繼續割<br>
+merge: 依據pri與key合併兩棵treap</li>
+<li>同時限制左邊的treap的所有key都小於右邊的treap
+<ul>
+<li>只要是合併split後的treap就可以滿足這個限制</li>
+<li>merge/split互為反函數</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">split</span><span class="params">(root: Node, key: int)</span> -&gt; [Node, Node]:</span></span><br><span class="line">  <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">    <span class="keyword">return</span> [<span class="literal">None</span>, <span class="literal">None</span>]</span><br><span class="line">  <span class="keyword">elif</span> root.key &lt;= key:</span><br><span class="line">    <span class="comment"># 保留 root.left</span></span><br><span class="line">    <span class="comment"># 繼續分 root.right，之後接上新的treap</span></span><br><span class="line">    l, r = split(root.right, key)</span><br><span class="line">    root.right = l</span><br><span class="line">    <span class="keyword">return</span> [root, r]</span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">    l, r = split(root.left, key)</span><br><span class="line">    root.left = r</span><br><span class="line">    <span class="keyword">return</span> [l, root]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">merge</span><span class="params">(l: Node, r: Node)</span> -&gt; Node:</span></span><br><span class="line">  <span class="keyword">if</span> <span class="keyword">not</span> l <span class="keyword">or</span> <span class="keyword">not</span> r:</span><br><span class="line">    <span class="keyword">return</span> l <span class="keyword">or</span> r</span><br><span class="line">  <span class="keyword">elif</span> l.pri &gt; r.pri:</span><br><span class="line">    l.right = merge(l.right, r)</span><br><span class="line">    <span class="keyword">return</span> l <span class="comment"># 讓pri大的當root</span></span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">    r.left = merge(l, r.left)</span><br><span class="line">    <span class="keyword">return</span> r <span class="comment"># 讓pri大的當root</span></span><br></pre></td></tr></table></figure>
+<p>insert:</p>
+<ul>
+<li>基本上就是BST insert，但是還有pri!!</li>
+<li>所以可以先看pri，如果比較大就插這裡 (用split生左右tree!!)</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">insert</span><span class="params">(root: Node, target: Node)</span>:</span></span><br><span class="line">  <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">    <span class="keyword">return</span> target</span><br><span class="line">  <span class="keyword">elif</span> target.pri &gt; root.pri:</span><br><span class="line">    target.left, target.right = split(root, target.key)</span><br><span class="line">    <span class="keyword">return</span> target</span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">    <span class="comment"># usual BST insert</span></span><br><span class="line">    <span class="keyword">if</span> root.key &lt;= target.key:</span><br><span class="line">      <span class="keyword">return</span> insert(root.right, target)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">      <span class="keyword">return</span> insert(root.left, target)</span><br></pre></td></tr></table></figure>
+<p>remove:</p>
+<ul>
+<li>遠比BST的remove簡單!!</li>
+<li>遇到要刪的，直接merge原有的左右tree!!</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">remove</span><span class="params">(root: Node, key: int)</span> -&gt; Node:</span></span><br><span class="line">  <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">  <span class="keyword">elif</span> root.key == key:</span><br><span class="line">    <span class="keyword">return</span> merge(root.left, root.right)</span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">if</span> root.key &lt;= key:</span><br><span class="line">       root.right = remove(root.right, key)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">      root.left = remove(root.left, key)</span><br><span class="line">    <span class="keyword">return</span> root</span><br></pre></td></tr></table></figure>
+<p>這個是set的union，作法就是用最大pri的treap作主軸，一直split右邊的treap，之後就是繼續unite被split出來的treap</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">unite</span><span class="params">(l: Node, r: Node)</span> -&gt; Node:</span></span><br><span class="line">  <span class="keyword">if</span> <span class="keyword">not</span> l <span class="keyword">or</span> <span class="keyword">not</span> r:</span><br><span class="line">    <span class="keyword">return</span> l <span class="keyword">or</span> r</span><br><span class="line">  <span class="keyword">elif</span> l.pri &lt; r.pri:</span><br><span class="line">    <span class="keyword">return</span> unite(r, l)</span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">    r_left, r_right = split(r, l.key)</span><br><span class="line">    l.left = unite(l.left, r_left)</span><br><span class="line">    l.right = unite(l.right, r_right)</span><br><span class="line">    <span class="keyword">return</span> l</span><br></pre></td></tr></table></figure>
+<p><span class="exturl" data-url="aHR0cHM6Ly9jcC1hbGdvcml0aG1zLmNvbS9kYXRhX3N0cnVjdHVyZXMvdHJlYXAuaHRtbA==">Ref<i class="fa fa-external-link-alt"></i></span></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/11/rails-relationships/" rel="prev" title="rails的關聯">
+      <i class="fa fa-chevron-left"></i> rails的關聯
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/11/Sqrt-Decomposition/" rel="next" title="分塊思想">
+      分塊思想 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#red-black-tree"><span class="nav-number">2.</span> <span class="nav-text">red-black tree</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#insert-雙紅矛盾"><span class="nav-number">2.1.</span> <span class="nav-text">insert (雙紅矛盾)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#delete-黑高矛盾"><span class="nav-number">2.2.</span> <span class="nav-text">delete (黑高矛盾)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#splay-tree"><span class="nav-number">3.</span> <span class="nav-text">splay tree</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#treap"><span class="nav-number">4.</span> <span class="nav-text">treap</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">zhengcf</p>
+  <div class="site-description" itemprop="description">想到什麼就寫什麼</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">683</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhengcf</span>
+</div>
+  <div class="powered-by">Powered by <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl theme-link" data-url="aHR0cHM6Ly9tdXNlLnRoZW1lLW5leHQub3Jn">NexT.Muse</span>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 1000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://littlebees.github.io/2021/11/balanced-trees/',]
+      });
+      });
+  </script>
+
+</body>
+</html>

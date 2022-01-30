@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="AEpTGuQAkxnTOlmfF4INDna3S660LxrkyZ4BQzVbRSw">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"littlebees.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="動機 leetcode 上解 sql，潮 同時熟悉sql怎麼用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="leetcode上的sql題">
+<meta property="og:url" content="https://littlebees.github.io/2020/7/leetcode-sql/index.html">
+<meta property="og:site_name" content="記事本">
+<meta property="og:description" content="動機 leetcode 上解 sql，潮 同時熟悉sql怎麼用">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-07-26T12:54:48.000Z">
+<meta property="article:modified_time" content="2022-01-22T10:54:02.285Z">
+<meta property="article:author" content="zhengcf">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://littlebees.github.io/2020/7/leetcode-sql/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>leetcode上的sql題 | 記事本</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">記事本</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">寫下來，不然會忘</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2020/7/leetcode-sql/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhengcf">
+      <meta itemprop="description" content="想到什麼就寫什麼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="記事本">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          leetcode上的sql題
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-07-26 20:54:48" itemprop="dateCreated datePublished" datetime="2020-07-26T20:54:48+08:00">2020-07-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-01-22 18:54:02" itemprop="dateModified" datetime="2022-01-22T18:54:02+08:00">2022-01-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/Leetcode/" itemprop="url" rel="index"><span itemprop="name">Leetcode</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/Leetcode/SQL/" itemprop="url" rel="index"><span itemprop="name">SQL</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="動機">動機</h2>
+<p>leetcode 上解 sql，潮</p>
+<p>同時熟悉sql怎麼用</p>
+<a id="more"></a>
+<h2 id="一些常用的工具">一些常用的工具</h2>
+<h3 id="CTE-Common-Table-Expression">CTE (Common Table Expression)</h3>
+<p>就是把subquery抽到前面去</p>
+<p>但比起subquery，cte的table可以reference to self<br>
+可以遞迴！！</p>
+<h3 id="window-function">window function</h3>
+<p>可以把table的部分資料割出來做計數與排名</p>
+<p>常用的是<br>
+rank與dense_rank</p>
+<p>兩個的差別是在重複的資料出現時<br>
+rank不會列在同一名<br>
+dense_rank會列在同一名</p>
+<h2 id="手法">手法</h2>
+<h3 id="消除重複">消除重複</h3>
+<ol>
+<li>group by</li>
+<li>window function</li>
+<li>distinct</li>
+</ol>
+<h3 id="列舉">列舉</h3>
+<ol>
+<li>self join</li>
+</ol>
+<h3 id="void">void</h3>
+<ol>
+<li>empty table =&gt; 所有條件式沒一個符合</li>
+<li>null =&gt; left join 時沒有相對應的值</li>
+</ol>
+<h4 id="把empty-table轉成null">把empty table轉成null</h4>
+<ol>
+<li>case + exists</li>
+<li>max(<any column>)</li>
+</ol>
+<h2 id="題目">題目</h2>
+<p>沒有鎖的一共19題</p>
+<h3 id="175-Combine-Two-Tables">175. Combine Two Tables</h3>
+<p>left join</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> a.FirstName, a.LastName, b.City, b.State</span><br><span class="line"><span class="keyword">from</span> Person a</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span> Address b</span><br><span class="line"><span class="keyword">on</span> a.PersonId = b.PersonId;</span><br></pre></td></tr></table></figure>
+<h3 id="176-Second-Highest-Salary">176. Second Highest Salary</h3>
+<p>用rank對每一區排序找出第二名<br>
+但是題目有要求如果為空要是null<br>
+但如果where找不到東西的話，整個表是空的！！</p>
+<p>所以還要在所以還要再包一層max，如果沒東西就會自動轉成null！！</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">max</span>(a.Salary) SecondHighestSalary  </span><br><span class="line"><span class="keyword">from</span> (<span class="keyword">select</span> Salary <span class="keyword">from</span> (<span class="keyword">select</span> <span class="keyword">id</span>, Salary, <span class="keyword">rank</span> () <span class="keyword">OVER</span> (<span class="keyword">ORDER</span> <span class="keyword">BY</span> Salary <span class="keyword">desc</span>) rk <span class="keyword">from</span> Employee) b <span class="keyword">where</span> rk = <span class="number">2</span>) a;</span><br></pre></td></tr></table></figure>
+<h3 id="177-Nth-Highest-Salary">177. Nth Highest Salary</h3>
+<p>上一題的延續，但是排名是要可以重複的<br>
+所以要改成dense_rank</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">FUNCTION</span> getNthHighestSalary(N <span class="built_in">INT</span>) <span class="keyword">RETURNS</span> <span class="built_in">INT</span></span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line">  <span class="keyword">RETURN</span> (</span><br><span class="line">      <span class="comment"># Write your MySQL query statement below.</span></span><br><span class="line">      <span class="keyword">select</span> <span class="keyword">max</span>(a.Salary) </span><br><span class="line">      <span class="keyword">from</span> (<span class="keyword">select</span> Salary <span class="keyword">from</span> (<span class="keyword">select</span> <span class="keyword">id</span>, Salary, <span class="keyword">dense_rank</span> () <span class="keyword">OVER</span> (<span class="keyword">ORDER</span> <span class="keyword">BY</span> Salary <span class="keyword">desc</span>) rk <span class="keyword">from</span> Employee) b <span class="keyword">where</span> rk = N) a</span><br><span class="line">  );</span><br><span class="line"><span class="keyword">END</span></span><br></pre></td></tr></table></figure>
+<h3 id="178-Rank-Scores">178. Rank Scores</h3>
+<p>都寫著rank了<br>
+就是用rank<br>
+不過因為是要重複排名所以要用dense_rank</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> score, <span class="keyword">dense_rank</span> () <span class="keyword">over</span> (<span class="keyword">order</span> <span class="keyword">by</span> score <span class="keyword">desc</span>) <span class="string">`Rank`</span></span><br><span class="line"><span class="keyword">from</span> Scores;</span><br></pre></td></tr></table></figure>
+<h3 id="180-Consecutive-Numbers">180. Consecutive Numbers</h3>
+<p>這裡點出sql的programming想法</p>
+<p>用組合出所有需要的資料在同一個row<br>
+再用條件篩掉<br>
+再從中產生新的資料，丟到新的table<br>
+反覆放資料到table讓下一個table使用</p>
+<p>這裡的條件是 兩個row的</p>
+<ol>
+<li>數字</li>
+<li>id<br>
+要一樣</li>
+</ol>
+<p>但我們需要至少三個row同時成立<br>
+所以就join兩次這樣就有三個row了</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">distinct</span> a.Num ConsecutiveNums</span><br><span class="line"><span class="keyword">from</span> <span class="keyword">Logs</span> a</span><br><span class="line"><span class="keyword">join</span> <span class="keyword">Logs</span> b</span><br><span class="line"><span class="keyword">on</span> a.Num = b.Num <span class="keyword">and</span> a.Id = b.Id+<span class="number">1</span></span><br><span class="line"><span class="keyword">join</span> <span class="keyword">Logs</span> c</span><br><span class="line"><span class="keyword">on</span> a.Num = c.Num <span class="keyword">and</span> a.Id = c.Id+<span class="number">2</span></span><br></pre></td></tr></table></figure>
+<h3 id="181-Employees-Earning-More-Than-Their-Managers">181. Employees Earning More Than Their Managers</h3>
+<p>就是join</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> A.Name Employee</span><br><span class="line"><span class="keyword">from</span> Employee A</span><br><span class="line"><span class="keyword">join</span> Employee B</span><br><span class="line"><span class="keyword">on</span> A.ManagerId = B.Id</span><br><span class="line"><span class="keyword">where</span> A.Salary &gt; B.Salary</span><br></pre></td></tr></table></figure>
+<h3 id="182-Duplicate-Emails">182. Duplicate Emails</h3>
+<p>group by可以把同樣的column的集合在一起<br>
+再看集合在一起的row有多少個</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> Email</span><br><span class="line"><span class="keyword">from</span> Person</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> Email</span><br><span class="line"><span class="keyword">having</span> <span class="keyword">count</span>(Email) &gt; <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h3 id="183-Customers-Who-Never-Order">183. Customers Who Never Order</h3>
+<p>left join才會有null!!</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">name</span> Customers</span><br><span class="line"><span class="keyword">from</span> Customers</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span> Orders</span><br><span class="line"><span class="keyword">on</span> Orders.CustomerId = Customers.id</span><br><span class="line"><span class="keyword">where</span> CustomerId <span class="keyword">is</span> <span class="literal">null</span></span><br></pre></td></tr></table></figure>
+<h3 id="184-Department-Highest-Salary">184. Department Highest Salary</h3>
+<p>先生出有rk的表<br>
+再挑出rk是1的</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> a <span class="keyword">as</span> (</span><br><span class="line">    <span class="keyword">select</span> <span class="keyword">Id</span>, <span class="keyword">Name</span>, Salary, DepartmentId, <span class="keyword">dense_rank</span> () <span class="keyword">over</span> (<span class="keyword">partition</span> <span class="keyword">by</span> DepartmentId <span class="keyword">order</span> <span class="keyword">by</span> Salary <span class="keyword">desc</span>) rk</span><br><span class="line">    <span class="keyword">from</span> Employee</span><br><span class="line">)</span><br><span class="line"><span class="keyword">select</span> B.Name Department, A.Name Employee, A.Salary</span><br><span class="line"><span class="keyword">from</span> A</span><br><span class="line"><span class="keyword">join</span> Department B</span><br><span class="line"><span class="keyword">on</span> B.Id = A.DepartmentId</span><br><span class="line"><span class="keyword">where</span> A.rk = <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h3 id="185-Department-Top-Three-Salaries">185. Department Top Three Salaries</h3>
+<p>與前一題差不多<br>
+但我寫了兩個版本</p>
+<h4 id="ver-1">ver.1</h4>
+<p>用or去組出來</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> a <span class="keyword">as</span> (</span><br><span class="line">    <span class="keyword">select</span> *, <span class="keyword">dense_rank</span> () <span class="keyword">over</span> (<span class="keyword">partition</span> <span class="keyword">by</span> DepartmentId <span class="keyword">order</span> <span class="keyword">by</span> Salary <span class="keyword">desc</span>) rk</span><br><span class="line">    <span class="keyword">from</span> Employee </span><br><span class="line">)</span><br><span class="line"><span class="keyword">select</span> b.Name Department , a.Name Employee, a.Salary</span><br><span class="line"><span class="keyword">from</span> a</span><br><span class="line"><span class="keyword">join</span> Department b <span class="keyword">on</span> b.Id = a.DepartmentId</span><br><span class="line"><span class="keyword">where</span> a.rk =<span class="number">1</span> <span class="keyword">or</span> a.rk = <span class="number">2</span> <span class="keyword">or</span> a.rk = <span class="number">3</span></span><br></pre></td></tr></table></figure>
+<h4 id="ver-2">ver.2</h4>
+<p>小於3</p>
+<p>理所當然的，這個效能比較好</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> a <span class="keyword">as</span> (</span><br><span class="line">    <span class="keyword">select</span> *, <span class="keyword">dense_rank</span> () <span class="keyword">over</span> (<span class="keyword">partition</span> <span class="keyword">by</span> DepartmentId <span class="keyword">order</span> <span class="keyword">by</span> Salary <span class="keyword">desc</span>) rk</span><br><span class="line">    <span class="keyword">from</span> Employee </span><br><span class="line">)</span><br><span class="line"><span class="keyword">select</span> b.Name Department , a.Name Employee, a.Salary</span><br><span class="line"><span class="keyword">from</span> a</span><br><span class="line"><span class="keyword">join</span> Department b <span class="keyword">on</span> b.Id = a.DepartmentId</span><br><span class="line"><span class="keyword">where</span> a.rk &lt;= <span class="number">3</span></span><br></pre></td></tr></table></figure>
+<h3 id="196-Delete-Duplicate-Emails">196. Delete Duplicate Emails</h3>
+<p>用rank來結合同樣的email同時標上rank<br>
+之後把rk大於1的delete就好了</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> A <span class="keyword">as</span> (<span class="keyword">select</span> <span class="keyword">Id</span>, ROW_NUMBER() <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> Email <span class="keyword">order</span> <span class="keyword">by</span> <span class="keyword">Id</span>) <span class="keyword">AS</span> rk <span class="keyword">from</span> Person)</span><br><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> Person</span><br><span class="line"><span class="keyword">where</span> <span class="keyword">Id</span> = <span class="keyword">Any</span>(<span class="keyword">select</span> <span class="keyword">Id</span> <span class="keyword">from</span> A <span class="keyword">where</span> A.rk &gt; <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="197-Rising-Temperature">197. Rising Temperature</h3>
+<p>與180很像</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> A.Id</span><br><span class="line"><span class="keyword">from</span> Weather A</span><br><span class="line"><span class="keyword">join</span> Weather B</span><br><span class="line"><span class="keyword">on</span> B.RecordDate = <span class="keyword">subdate</span>(A.RecordDate,<span class="number">1</span>)</span><br><span class="line"><span class="keyword">where</span> A.Temperature &gt; B.Temperature</span><br></pre></td></tr></table></figure>
+<h3 id="262-Trips-and-Users">262. Trips and Users</h3>
+<ol>
+<li>把沒有ban的與在期限內的row找出來</li>
+<li>分別算 同一天的總交易數 與 同一天的完成交易數</li>
+<li>算比率，處理當天沒有任何完成交易的狀態</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> ts <span class="keyword">as</span> (</span><br><span class="line">    <span class="keyword">select</span> Trips.Status, Trips.Request_at</span><br><span class="line">    <span class="keyword">from</span> Trips</span><br><span class="line">    <span class="keyword">join</span> <span class="keyword">Users</span> a <span class="keyword">on</span> Trips.Client_Id = a.Users_Id</span><br><span class="line">    <span class="keyword">join</span> <span class="keyword">Users</span> b <span class="keyword">on</span> Trips.Driver_Id = b.Users_Id</span><br><span class="line">    <span class="keyword">where</span> a.Banned = <span class="string">'No'</span> <span class="keyword">and</span> b.Banned = <span class="string">'No'</span> <span class="keyword">and</span> Trips.Request_at <span class="keyword">BETWEEN</span> <span class="string">'2013-10-01'</span> <span class="keyword">AND</span> <span class="string">'2013-10-03'</span></span><br><span class="line">),</span><br><span class="line">a <span class="keyword">as</span> (</span><br><span class="line">    <span class="keyword">select</span> *, <span class="keyword">count</span>(*) cnt</span><br><span class="line">    <span class="keyword">from</span> ts</span><br><span class="line">    <span class="keyword">group</span> <span class="keyword">by</span> <span class="keyword">Status</span>, Request_at</span><br><span class="line">),</span><br><span class="line">base <span class="keyword">as</span> (</span><br><span class="line">    <span class="keyword">select</span> <span class="keyword">sum</span>(cnt) cnt, Request_at</span><br><span class="line">    <span class="keyword">from</span> a</span><br><span class="line">    <span class="keyword">group</span> <span class="keyword">by</span> Request_at</span><br><span class="line">),</span><br><span class="line">comp <span class="keyword">as</span> (</span><br><span class="line">    <span class="keyword">select</span> *</span><br><span class="line">    <span class="keyword">from</span> a</span><br><span class="line">    <span class="keyword">where</span> <span class="keyword">Status</span> = <span class="string">'completed'</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">select</span> base.Request_at <span class="keyword">Day</span>, <span class="keyword">IF</span>(comp.cnt <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">null</span>, <span class="keyword">cast</span>(<span class="number">1.0</span>- (comp.cnt/base.cnt) <span class="keyword">as</span> <span class="built_in">decimal</span>(<span class="number">10</span>,<span class="number">2</span>)), <span class="number">1.00</span>) <span class="string">`Cancellation Rate`</span></span><br><span class="line"><span class="keyword">from</span> base</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span> comp</span><br><span class="line"><span class="keyword">on</span> base.Request_at = comp.Request_at</span><br></pre></td></tr></table></figure>
+<h3 id="595-Big-Countries">595. Big Countries</h3>
+<p>複習基本sql用</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">name</span>, population ,area <span class="keyword">from</span> World <span class="keyword">where</span> area &gt; <span class="number">3000000</span> <span class="keyword">or</span> population &gt; <span class="number">25000000</span></span><br></pre></td></tr></table></figure>
+<h3 id="596-Classes-More-Than-5-Students">596. Classes More Than 5 Students</h3>
+<p>先用student與class group在一起<br>
+排除同一個學生在同一個class有兩個以上的學生</p>
+<p>在group class找出題目要的東西</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> a <span class="keyword">as</span> (<span class="keyword">select</span> *</span><br><span class="line"><span class="keyword">from</span> courses</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> student, <span class="keyword">class</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">class</span></span><br><span class="line"><span class="keyword">from</span> a</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> <span class="keyword">class</span></span><br><span class="line"><span class="keyword">having</span> <span class="keyword">count</span>(*) &gt;= <span class="number">5</span></span><br></pre></td></tr></table></figure>
+<h3 id="601-Human-Traffic-of-Stadium">601. Human Traffic of Stadium</h3>
+<p>與180很像但是這次要table中符合條件的row<br>
+所以如果用與180同樣的做法還要多一個步驟是<br>
+把join完的row拆回去原本的row</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> a <span class="keyword">as</span> (</span><br><span class="line">    <span class="keyword">select</span> *</span><br><span class="line">    <span class="keyword">from</span> stadium</span><br><span class="line">    <span class="keyword">where</span> people &gt;= <span class="number">100</span></span><br><span class="line">),</span><br><span class="line">b <span class="keyword">as</span> (</span><br><span class="line">    <span class="keyword">select</span> x.id id1, x.visit_date visit_date1, x.people people1,</span><br><span class="line">           y.id id2, y.visit_date visit_date2, y.people people2,</span><br><span class="line">           z.id id3, z.visit_date visit_date3, z.people people3</span><br><span class="line">    <span class="keyword">from</span> a x</span><br><span class="line">    <span class="keyword">join</span> a y <span class="keyword">on</span> x.id = y.id+<span class="number">1</span></span><br><span class="line">    <span class="keyword">join</span> a z <span class="keyword">on</span> y.id = z.id+<span class="number">1</span></span><br><span class="line">),</span><br><span class="line">c <span class="keyword">as</span> (</span><br><span class="line">    <span class="keyword">select</span> id1 <span class="keyword">id</span>, visit_date1 visit_date, people1 people</span><br><span class="line">    <span class="keyword">from</span> b</span><br><span class="line">    <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> id2, visit_date2, people2</span><br><span class="line">    <span class="keyword">from</span> b</span><br><span class="line">    <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> id3, visit_date3, people3</span><br><span class="line">    <span class="keyword">from</span> b</span><br><span class="line">)</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">distinct</span> *</span><br><span class="line"><span class="keyword">from</span> c</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> <span class="keyword">id</span></span><br></pre></td></tr></table></figure>
+<h3 id="620-Not-Boring-Movies">620. Not Boring Movies</h3>
+<p>複習基本sql</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span>, movie, description , rating <span class="keyword">from</span> cinema <span class="keyword">where</span> <span class="keyword">id</span> % <span class="number">2</span> = <span class="number">1</span> <span class="keyword">and</span> description != <span class="string">'boring'</span> <span class="keyword">order</span> <span class="keyword">by</span> rating <span class="keyword">desc</span></span><br></pre></td></tr></table></figure>
+<h3 id="626-Exchange-Seats">626. Exchange Seats</h3>
+<p>這題應該是所有sql題中讓我最愉悅的一題</p>
+<h4 id="ver-1-2">ver.1</h4>
+<p>把奇數的id加一再把偶數的id減1<br>
+但這樣有問題如果row總數是奇數的話最後一筆會出事<br>
+所以要特別處理！！</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> a <span class="keyword">as</span> (</span><br><span class="line">    <span class="keyword">select</span> <span class="keyword">id</span>+<span class="number">1</span> <span class="keyword">id</span>, student</span><br><span class="line">    <span class="keyword">from</span> seat</span><br><span class="line">    <span class="keyword">where</span> <span class="keyword">id</span>%<span class="number">2</span> = <span class="number">1</span></span><br><span class="line">    <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> <span class="keyword">id</span><span class="number">-1</span>, student</span><br><span class="line">    <span class="keyword">from</span> seat</span><br><span class="line">    <span class="keyword">where</span> <span class="keyword">id</span>%<span class="number">2</span> = <span class="number">0</span></span><br><span class="line">), b <span class="keyword">as</span> (</span><br><span class="line">    <span class="keyword">select</span> *</span><br><span class="line">    <span class="keyword">from</span> a</span><br><span class="line">    <span class="keyword">where</span> <span class="keyword">id</span> = <span class="number">1</span></span><br><span class="line">    <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> x.id, x.student</span><br><span class="line">    <span class="keyword">from</span> a x, a y</span><br><span class="line">    <span class="keyword">where</span> x.id = y.id+<span class="number">1</span> </span><br><span class="line">    <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">    <span class="keyword">select</span> (<span class="keyword">select</span> <span class="keyword">count</span>(<span class="keyword">id</span>) <span class="keyword">from</span> a), a.student</span><br><span class="line">    <span class="keyword">from</span> a</span><br><span class="line">    <span class="keyword">where</span> <span class="keyword">id</span> = (<span class="keyword">case</span> <span class="keyword">when</span> ((<span class="keyword">select</span> <span class="keyword">count</span>(<span class="keyword">id</span>) <span class="keyword">from</span> a) % <span class="number">2</span>) = <span class="number">1</span> <span class="keyword">then</span> (<span class="keyword">select</span> <span class="keyword">max</span>(<span class="keyword">id</span>) <span class="keyword">from</span> a) <span class="keyword">else</span> <span class="number">0</span> <span class="keyword">end</span>)</span><br><span class="line">)</span><br><span class="line"><span class="keyword">select</span> *</span><br><span class="line"><span class="keyword">from</span> b</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> <span class="keyword">id</span></span><br></pre></td></tr></table></figure>
+<h4 id="ver-2-2">ver.2</h4>
+<p>ver1把奇數的id與偶數的id分成兩個table<br>
+再用union all接起來</p>
+<p>但其實只要針對id做case就好了…</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> a <span class="keyword">as</span> (</span><br><span class="line">    <span class="keyword">select</span> <span class="keyword">count</span>(*) total</span><br><span class="line">    <span class="keyword">from</span> seat</span><br><span class="line">)</span><br><span class="line"><span class="keyword">select</span> (<span class="keyword">case</span></span><br><span class="line">        <span class="keyword">when</span> ((seat.id%<span class="number">2</span>)=<span class="number">1</span>) <span class="keyword">and</span> seat.id != a.total <span class="keyword">then</span> seat.id+<span class="number">1</span></span><br><span class="line">        <span class="keyword">when</span> ((seat.id%<span class="number">2</span>)=<span class="number">1</span>) <span class="keyword">and</span> seat.id = a.total <span class="keyword">then</span> seat.id</span><br><span class="line">        <span class="keyword">else</span> seat.id<span class="number">-1</span></span><br><span class="line">        <span class="keyword">end</span>) <span class="keyword">id</span>,</span><br><span class="line">    seat.student</span><br><span class="line"><span class="keyword">from</span> seat, a</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> <span class="keyword">id</span></span><br></pre></td></tr></table></figure>
+<h3 id="627-Swap-Salary">627. Swap Salary</h3>
+<p>延續626的想法針對想要的欄位做case<br>
+這裡對sex做case就可以了</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> salary</span><br><span class="line"><span class="keyword">set</span> sex = (<span class="keyword">case</span> sex <span class="keyword">when</span> <span class="string">'m'</span> <span class="keyword">then</span> <span class="string">'f'</span> <span class="keyword">else</span> <span class="string">'m'</span> <span class="keyword">end</span>)</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/7/design-pattern-note/" rel="prev" title="design pattern隨便筆記">
+      <i class="fa fa-chevron-left"></i> design pattern隨便筆記
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/7/Seven-Concurrency-Models-in-Seven-Weeks-note/" rel="next" title="Seven-Concurrency-Models-in-Seven-Weeks 部分筆記">
+      Seven-Concurrency-Models-in-Seven-Weeks 部分筆記 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些常用的工具"><span class="nav-number">2.</span> <span class="nav-text">一些常用的工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CTE-Common-Table-Expression"><span class="nav-number">2.1.</span> <span class="nav-text">CTE (Common Table Expression)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#window-function"><span class="nav-number">2.2.</span> <span class="nav-text">window function</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#手法"><span class="nav-number">3.</span> <span class="nav-text">手法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#消除重複"><span class="nav-number">3.1.</span> <span class="nav-text">消除重複</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列舉"><span class="nav-number">3.2.</span> <span class="nav-text">列舉</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#void"><span class="nav-number">3.3.</span> <span class="nav-text">void</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#把empty-table轉成null"><span class="nav-number">3.3.1.</span> <span class="nav-text">把empty table轉成null</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#題目"><span class="nav-number">4.</span> <span class="nav-text">題目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#175-Combine-Two-Tables"><span class="nav-number">4.1.</span> <span class="nav-text">175. Combine Two Tables</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#176-Second-Highest-Salary"><span class="nav-number">4.2.</span> <span class="nav-text">176. Second Highest Salary</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#177-Nth-Highest-Salary"><span class="nav-number">4.3.</span> <span class="nav-text">177. Nth Highest Salary</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#178-Rank-Scores"><span class="nav-number">4.4.</span> <span class="nav-text">178. Rank Scores</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#180-Consecutive-Numbers"><span class="nav-number">4.5.</span> <span class="nav-text">180. Consecutive Numbers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#181-Employees-Earning-More-Than-Their-Managers"><span class="nav-number">4.6.</span> <span class="nav-text">181. Employees Earning More Than Their Managers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#182-Duplicate-Emails"><span class="nav-number">4.7.</span> <span class="nav-text">182. Duplicate Emails</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#183-Customers-Who-Never-Order"><span class="nav-number">4.8.</span> <span class="nav-text">183. Customers Who Never Order</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#184-Department-Highest-Salary"><span class="nav-number">4.9.</span> <span class="nav-text">184. Department Highest Salary</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#185-Department-Top-Three-Salaries"><span class="nav-number">4.10.</span> <span class="nav-text">185. Department Top Three Salaries</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ver-1"><span class="nav-number">4.10.1.</span> <span class="nav-text">ver.1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ver-2"><span class="nav-number">4.10.2.</span> <span class="nav-text">ver.2</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#196-Delete-Duplicate-Emails"><span class="nav-number">4.11.</span> <span class="nav-text">196. Delete Duplicate Emails</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#197-Rising-Temperature"><span class="nav-number">4.12.</span> <span class="nav-text">197. Rising Temperature</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#262-Trips-and-Users"><span class="nav-number">4.13.</span> <span class="nav-text">262. Trips and Users</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#595-Big-Countries"><span class="nav-number">4.14.</span> <span class="nav-text">595. Big Countries</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#596-Classes-More-Than-5-Students"><span class="nav-number">4.15.</span> <span class="nav-text">596. Classes More Than 5 Students</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#601-Human-Traffic-of-Stadium"><span class="nav-number">4.16.</span> <span class="nav-text">601. Human Traffic of Stadium</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#620-Not-Boring-Movies"><span class="nav-number">4.17.</span> <span class="nav-text">620. Not Boring Movies</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#626-Exchange-Seats"><span class="nav-number">4.18.</span> <span class="nav-text">626. Exchange Seats</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ver-1-2"><span class="nav-number">4.18.1.</span> <span class="nav-text">ver.1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ver-2-2"><span class="nav-number">4.18.2.</span> <span class="nav-text">ver.2</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#627-Swap-Salary"><span class="nav-number">4.19.</span> <span class="nav-text">627. Swap Salary</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">zhengcf</p>
+  <div class="site-description" itemprop="description">想到什麼就寫什麼</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">683</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhengcf</span>
+</div>
+  <div class="powered-by">Powered by <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl theme-link" data-url="aHR0cHM6Ly9tdXNlLnRoZW1lLW5leHQub3Jn">NexT.Muse</span>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 1000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://littlebees.github.io/2020/7/leetcode-sql/',]
+      });
+      });
+  </script>
+
+</body>
+</html>

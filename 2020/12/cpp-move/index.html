@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="AEpTGuQAkxnTOlmfF4INDna3S660LxrkyZ4BQzVbRSw">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"littlebees.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="動機 寫寫std::move的筆記">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cpp的std::move">
+<meta property="og:url" content="https://littlebees.github.io/2020/12/cpp-move/index.html">
+<meta property="og:site_name" content="記事本">
+<meta property="og:description" content="動機 寫寫std::move的筆記">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-12-26T04:53:07.000Z">
+<meta property="article:modified_time" content="2022-01-21T19:33:20.247Z">
+<meta property="article:author" content="zhengcf">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://littlebees.github.io/2020/12/cpp-move/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>cpp的std::move | 記事本</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">記事本</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">寫下來，不然會忘</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2020/12/cpp-move/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhengcf">
+      <meta itemprop="description" content="想到什麼就寫什麼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="記事本">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          cpp的std::move
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-12-26 12:53:07" itemprop="dateCreated datePublished" datetime="2020-12-26T12:53:07+08:00">2020-12-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-01-22 03:33:20" itemprop="dateModified" datetime="2022-01-22T03:33:20+08:00">2022-01-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/FAQ/" itemprop="url" rel="index"><span itemprop="name">FAQ</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="動機">動機</h2>
+<p>寫寫std::move的筆記</p>
+<a id="more"></a>
+<h2 id="value-type-reference-type">value type &amp; reference type</h2>
+<ul>
+<li>value type: 每個變數持有的都是獨立的資料</li>
+<li>reference type: 每個變數持有的都是地址</li>
+</ul>
+<p>所以如果使用者想感受到value type就要看到，</p>
+<blockquote>
+<p>對變數修改時其他變數看的到</p>
+</blockquote>
+<h2 id="pointer-in-C-reference-in-CPP">pointer in C &amp; reference in CPP</h2>
+<p>cpp 預設的傳值是pass-by-value，所以會copy的是資料，而(Java, Python…)大部分的PL傳的都是reference</p>
+<p>就因為cpp的這件事，變成他與c一樣都要把指標丟來丟去，而cpp不想寫星號(悲劇的開始)，所以加了pass-by-reference</p>
+<p>回到c來看，會有指標的是變數(已經被賦值的)，只能從變數取指標(如果要直接指定記憶體位置，c是做得到啦，但這邊不談這個)</p>
+<p>但如果是像</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> *a = <span class="number">1</span>+<span class="number">2</span>;</span><br><span class="line"><span class="keyword">int</span> &amp;b = <span class="number">1</span>+<span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+<p>就會出事，因為資料沒有被變數接住，就不能被指定到指標與參考，這十分不方便</p>
+<p>例子</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> &amp;a, <span class="keyword">int</span> &amp;b)</span></span></span><br><span class="line">  return a+b;</span><br><span class="line">&#125;</span><br><span class="line">add(<span class="number">1</span>+<span class="number">2</span>,<span class="number">1</span>+<span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+<p>遇到這種，就要先把資料assign到變數後才能用</p>
+<h2 id="std-move">std::move</h2>
+<p>所以cpp這次怎麼曲線救國?</p>
+<p>再多一個傳值的選項，說</p>
+<blockquote>
+<p>我之後就用不到了，可以把我搬空(rvalue, xvalue)<br>
+?<br>
+而std::move就是把一個變數轉成說可以搬空我這樣</p>
+</blockquote>
+<p>整體std::move大概像</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static_cast</span>&lt;<span class="keyword">typename</span> <span class="built_in">std</span>::remove_reference&lt;T&gt;::type&amp;&amp;&gt;(t)</span><br></pre></td></tr></table></figure>
+<h2 id="搬空">搬空?</h2>
+<p>見下面的例子</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">string</span> &#123;</span></span><br><span class="line">    <span class="keyword">char</span>* data</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="built_in">string</span> (<span class="keyword">const</span> <span class="keyword">char</span>* p) &#123;</span><br><span class="line">    <span class="keyword">size_t</span> size = <span class="built_in">std</span>::<span class="built_in">strlen</span>(p) + <span class="number">1</span>;</span><br><span class="line">    data = <span class="keyword">new</span> <span class="keyword">char</span>[size];</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">memcpy</span>(data, p, size);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">string</span> (<span class="built_in">string</span>&amp;&amp; rhs) &#123;</span><br><span class="line">    data = rhs.data;</span><br><span class="line">    rhs.data = <span class="literal">nullptr</span>; <span class="comment">// 搬空</span></span><br><span class="line">  &#125;</span><br><span class="line">  ~<span class="built_in">string</span>() &#123;</span><br><span class="line">      <span class="keyword">delete</span>[] data;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="頭好昏，在c好好的，怎麼到cpp就變這麼複雜了">頭好昏，在c好好的，怎麼到cpp就變這麼複雜了</h2>
+<ol>
+<li>(想要) cpp想讓複製物件，變成如同複製指標一樣 (躲掉多的deep copy，但是又不想多一個變數去接)</li>
+<li>(但是) cpp的語法讓複製資料與複製指標看起來一樣</li>
+<li>(所以) 要多一個語法以及傳值作法，處理看起來一樣的傳值</li>
+<li>(結果) 我們多了 <code>&amp;&amp;</code> 與 move</li>
+</ol>
+<p>因為cpp的語法讓複製資料與複製指標看起來一樣，但卻又在使用上把指標與資料區分開來</p>
+<p>在其他語言不論物件或是整數的賦值都是起來一樣，但是cpp遇到reference會把一般資料的賦值混在一起，</p>
+<p>就變成要再多一個case處理原本的複製資料，最後得到的就是現在的這些東西，還有更複雜的value category</p>
+<h2 id="Ref">Ref</h2>
+<p><span class="exturl" data-url="aHR0cHM6Ly93d3cueWlud2FuZy5vcmcvYmxvZy1jbi8yMDE2LzA2LzA4L2phdmEtdmFsdWUtdHlwZQ==">Java 有值类型吗？<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly9zdGFja292ZXJmbG93LmNvbS9xdWVzdGlvbnMvMzQxMzQ3MC93aGF0LWlzLXN0ZG1vdmUtYW5kLXdoZW4tc2hvdWxkLWl0LWJlLXVzZWQ=">What is std::move(), and when should it be used?<i class="fa fa-external-link-alt"></i></span></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/12/mss/" rel="prev" title="Maximum Subarray Sum">
+      <i class="fa fa-chevron-left"></i> Maximum Subarray Sum
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/12/web-component/" rel="next" title="web component">
+      web component <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#value-type-reference-type"><span class="nav-number">2.</span> <span class="nav-text">value type &amp; reference type</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pointer-in-C-reference-in-CPP"><span class="nav-number">3.</span> <span class="nav-text">pointer in C &amp; reference in CPP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#std-move"><span class="nav-number">4.</span> <span class="nav-text">std::move</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搬空"><span class="nav-number">5.</span> <span class="nav-text">搬空?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#頭好昏，在c好好的，怎麼到cpp就變這麼複雜了"><span class="nav-number">6.</span> <span class="nav-text">頭好昏，在c好好的，怎麼到cpp就變這麼複雜了</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">7.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">zhengcf</p>
+  <div class="site-description" itemprop="description">想到什麼就寫什麼</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">683</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhengcf</span>
+</div>
+  <div class="powered-by">Powered by <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl theme-link" data-url="aHR0cHM6Ly9tdXNlLnRoZW1lLW5leHQub3Jn">NexT.Muse</span>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 1000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://littlebees.github.io/2020/12/cpp-move/',]
+      });
+      });
+  </script>
+
+</body>
+</html>

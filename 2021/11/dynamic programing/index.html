@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="AEpTGuQAkxnTOlmfF4INDna3S660LxrkyZ4BQzVbRSw">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"littlebees.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="動機 寫個dp的總結，個人不喜歡課本上的什麼最佳子結構什麼的，所以不會有那種名詞 只要懂遞迴就可以做dp了 對了，遞迴的函式預設有@cache，做記憶法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dynamic programming">
+<meta property="og:url" content="https://littlebees.github.io/2021/11/dynamic%20programing/index.html">
+<meta property="og:site_name" content="記事本">
+<meta property="og:description" content="動機 寫個dp的總結，個人不喜歡課本上的什麼最佳子結構什麼的，所以不會有那種名詞 只要懂遞迴就可以做dp了 對了，遞迴的函式預設有@cache，做記憶法">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/Z69f3Dq.png">
+<meta property="og:image" content="https://i.imgur.com/xaCytTo.png">
+<meta property="og:image" content="https://i.imgur.com/WN4Rm2n.png">
+<meta property="article:published_time" content="2021-11-21T09:20:35.000Z">
+<meta property="article:modified_time" content="2022-01-22T10:59:17.535Z">
+<meta property="article:author" content="zhengcf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/Z69f3Dq.png">
+
+<link rel="canonical" href="https://littlebees.github.io/2021/11/dynamic%20programing/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>Dynamic programming | 記事本</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">記事本</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">寫下來，不然會忘</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2021/11/dynamic%20programing/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhengcf">
+      <meta itemprop="description" content="想到什麼就寫什麼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="記事本">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Dynamic programming
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-11-21 17:20:35" itemprop="dateCreated datePublished" datetime="2021-11-21T17:20:35+08:00">2021-11-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-01-22 18:59:17" itemprop="dateModified" datetime="2022-01-22T18:59:17+08:00">2022-01-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/Tips/" itemprop="url" rel="index"><span itemprop="name">Tips</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="動機">動機</h2>
+<p>寫個dp的總結，個人不喜歡課本上的什麼最佳子結構什麼的，所以不會有那種名詞<br>
+只要懂遞迴就可以做dp了</p>
+<p>對了，遞迴的函式預設有<code>@cache</code>，做記憶法</p>
+<a id="more"></a>
+<h2 id="DP概述">DP概述</h2>
+<p>Dynamic programming = planning over time</p>
+<p>這裡的time要理解成順序，我們是在每個時間點上做決策，所以通常會需要資料有sort過或是本身有一定的順序</p>
+<p>這些順序就是其他講解DP的資料會看提到的階段</p>
+<h3 id="DP-與-backtracking">DP 與 backtracking</h3>
+<p>Weighted interval scheduling: 每個job有weight挑job不重疊，並讓wieght最大</p>
+<p>假設有job都已開始時間排序好，同時有一個函數(prev)可以給出前一個離最近的job</p>
+<p>那就可以給出一個dp，就是看要不要這份job<br>
+f(i)表示選到i時的最大wieght總和</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@cache</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(i)</span>:</span></span><br><span class="line">  <span class="keyword">if</span> i == <span class="number">0</span>:</span><br><span class="line">    <span class="keyword">return</span> jobs[i]</span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">return</span> max(f(i<span class="number">-1</span>), jobs[i]+f(prev[i]))</span><br></pre></td></tr></table></figure>
+<p>subset: 求subset<br>
+每一個都可以選或不選</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">subset</span><span class="params">(arr)</span>:</span></span><br><span class="line">  <span class="keyword">if</span> <span class="keyword">not</span> arr:</span><br><span class="line">    <span class="keyword">return</span> [[]]</span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">    sub = subset(arr[<span class="number">1</span>:])</span><br><span class="line">    <span class="keyword">return</span> sub+[s + [arr[<span class="number">0</span>]] <span class="keyword">for</span> s <span class="keyword">in</span> sub]</span><br></pre></td></tr></table></figure>
+<p>可以看出dp與backtracking都是選與不選!!<br>
+那兩者差在哪裡?</p>
+<p>backtrack需要之前的<em>所有</em>資料<br>
+dp可以利用有結合律函數(min, max, sum…)把之前的所有資料用一筆代表</p>
+<h3 id="不只一種DP">不只一種DP</h3>
+<p>Weighted interval scheduling也可以這樣看</p>
+<p>定義f(i,time)為在選第i樣工作，從time之前都有空</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(i, time)</span>:</span></span><br><span class="line">  <span class="keyword">if</span> i == <span class="number">0</span>:</span><br><span class="line">    <span class="keyword">return</span> jobs[i]</span><br><span class="line">  <span class="keyword">elif</span> end[i] &gt; time:</span><br><span class="line">    <span class="keyword">return</span> f(i<span class="number">-1</span>)</span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">return</span> max(f(i<span class="number">-1</span>, time), jobs[i]+f(i<span class="number">-1</span>, start[i]))</span><br></pre></td></tr></table></figure>
+<p>dp其實主要牽涉到怎麼設定狀態，像是把時間放進來，就會變成不同的dp<br>
+但前面利用前處理，讓找下一個job的速度上去，進而減少一個維度(參數)</p>
+<h3 id="DP-與-greedy">DP 與 greedy</h3>
+<blockquote>
+<p>Greedy 不行就 DP</p>
+</blockquote>
+<p>當 Greedy 不對就代表<br>
+「這個問題不能只由這個子問題轉移」<br>
+換句話說，Greedy 就是可以證明只有一個轉移來源的 DP</p>
+<p>可以順便看<em>列舉為什麼慢?</em><br>
+因為除了現在確定的參數外，還要繼續往後看才能確定答案</p>
+<p>貪心就是只看當下，就ok了<br>
+DP是除了現在還要加上以前的資料</p>
+<h4 id="證明greedy">證明greedy</h4>
+<p>因為貪心就是只看當下，所以會需要證明這做法是對的</p>
+<ul>
+<li>反證法：如果交換方案中任意兩個元素/相鄰的兩個元素後，答案不會變得更好，那麼可以推定目前的解已經是最優解了。</li>
+<li>歸納法：先算得出邊界情況（例如 ）的最優解 ，然後再證明：對於每個 ， 都可以由  推導出結果。</li>
+</ul>
+<p>常見題型</p>
+<ul>
+<li>「我們將 XXX 按照某某順序排序，然後按某種順序（例如從小到大）選擇。」。
+<ul>
+<li>離線，先處理後選擇</li>
+</ul>
+</li>
+<li>「我們每次都取 XXX 中最大/小的東西，並更新 XXX。」
+<ul>
+<li>（有時「XXX 中最大/小的東西」可以優化，比如用優先隊列維護）</li>
+<li>在線，邊處理邊選擇<br>
+解法</li>
+</ul>
+</li>
+<li>排序解法
+<ul>
+<li>用排序法常見的情況是輸入一個包含幾個（一般一到兩個）權值的數組，通過排序然後遍歷模擬計算的方法求出最優值。</li>
+</ul>
+</li>
+<li>後悔解法
+<ul>
+<li>思路是無論當前的選項是否最優都接受，然後進行比較，如果選擇之後不是最優了，則反悔，捨棄掉這個選項；否則，正式接受。如此往復。</li>
+</ul>
+</li>
+</ul>
+<h3 id="DP-與-DAG">DP 與 DAG</h3>
+<p>DP的狀態可以看成graph上的點</p>
+<p>同時這個graph不會有環，所以是DAG</p>
+<p>這樣DP其實就是求DAG的最長/短距離</p>
+<h3 id="recursion-iteration">recursion &amp; iteration</h3>
+<p>iteration其實是recursion的特例</p>
+<p>iteration，是直接從base case直接往上做，對應到bottom-up</p>
+<p>recursion與iteration差在recursion要記憶當初誰call的context(用stack)<br>
+之後從頭往下，到底(base case)就照著stack往回走，這就是top-down</p>
+<p>如果遞迴call的當下沒有其他要做的事，其實這個遞迴就是iteration</p>
+<p>有context: <code>sum(arr[1:])</code>處理完還要與<code>arr[0]</code>的相加</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sum</span><span class="params">(arr)</span>:</span></span><br><span class="line">  <span class="keyword">if</span> <span class="keyword">not</span> arr:</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">return</span> arr[<span class="number">0</span>]+sum(arr[<span class="number">1</span>:])</span><br></pre></td></tr></table></figure>
+<p>沒context: <code>sum(arr[1:],acc+arr[0])</code>做完就沒有其他事了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sum</span><span class="params">(arr,acc=<span class="number">0</span>)</span>:</span></span><br><span class="line">  <span class="keyword">if</span> <span class="keyword">not</span> arr:</span><br><span class="line">    <span class="keyword">return</span> acc</span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">return</span> sum(arr[<span class="number">1</span>:],acc+arr[<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
+<p>所以上面那個版本其實就是iteration，不過需要tail-recursion elimiation優化才有iteration的實際效能</p>
+<h3 id="top-down-bottom-up">top-down &amp; bottom-up</h3>
+<p><img src="https://i.imgur.com/Z69f3Dq.png" alt=""></p>
+<h3 id="top-down-bottom-up-不等價">top-down &amp; bottom-up 不等價</h3>
+<h4 id="Leetcode-718">Leetcode 718</h4>
+<p>如果用top-down，因為要追蹤每個range的長度，所以變成n^3<br>
+但是用bottom-up，長度自然是對的，所以變成n^2</p>
+<h4 id="Leetcode-546">Leetcode 546</h4>
+<p>只能用top-down去做，因為很難確定base case與怎麼從base case長上去<br>
+反倒是top-down的分解，就很好做</p>
+<h2 id="技巧">技巧</h2>
+<h3 id="狀態壓縮">狀態壓縮</h3>
+<p>其實就是把應該用set或array表示的狀態用bitmask表示</p>
+<p>因為是bitmask，所以是整數，是整數就能dp</p>
+<h3 id="刷表法">刷表法</h3>
+<p><img src="https://i.imgur.com/xaCytTo.png" alt=""><br>
+<img src="https://i.imgur.com/WN4Rm2n.png" alt=""></p>
+<p>省mem，locality變好</p>
+<h3 id="DP優化-TODO，我不會，這個只會出現在競程">DP優化 (TODO，我不會，這個只會出現在競程)</h3>
+<p>太可怕了，就把資料列一列就好<br>
+<span class="exturl" data-url="aHR0cHM6Ly90aW9qLmNrLnRwLmVkdS50dy91cGxvYWRzL2F0dGFjaG1lbnQvNS8yNy81LnBkZg==">分治、DP 進階<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly90aW9qLmNrLnRwLmVkdS50dy91cGxvYWRzL2F0dGFjaG1lbnQvNS81MS8xMC5wZGY=">Aliens 優化<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly9zbGlkZXMuY29tL2p1c3RpbmxhaTIwMDMvZHAtZHA=">進階DP，DP優化<i class="fa fa-external-link-alt"></i></span></p>
+<h3 id="寫的小技巧">寫的小技巧</h3>
+<ul>
+<li>產生新值時固定寫法
+<ul>
+<li>有的是<code>f[n + x] = combine(f[n], ....)</code></li>
+<li>有的是<code>f[n] = combine(f[n - x], ....)</code></li>
+<li>最好固定寫法，個人是喜歡
+<ul>
+<li><code>f[n] = combine(f[n - x], ....)</code></li>
+<li>因為dp一定是由小的更新大的</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>bottom-up或是改寫時可以畫圖輔助
+<ul>
+<li>狀態怎麼到起點 (參數怎麼變化)</li>
+<li>在table上是取什麼點 (方向)</li>
+</ul>
+</li>
+<li>從終點開始思考怎麼到起點 (top-down開始做)
+<ul>
+<li>除非bottom-up很明顯，或是top-down在這題是個悲劇</li>
+</ul>
+</li>
+</ul>
+<h2 id="設計方式">設計方式</h2>
+<p>dp就是由參數(遞迴的模型的組合)、對應的動作構成、定義回傳值，只能在求最佳化問題(有結合律的函數)使用</p>
+<h3 id="遞迴的模型">遞迴的模型</h3>
+<ul>
+<li>線性 (1D)
+<ul>
+<li><code>f(i) = combine(f(j) for j in range(i))</code></li>
+</ul>
+</li>
+<li>區間 (2D)
+<ul>
+<li>列舉中點
+<ul>
+<li><code>f(i,j) = combine(combine2(f(i,k), f(k,j)) for k in range(i,j))</code></li>
+</ul>
+</li>
+<li>控制左右
+<ul>
+<li><code>f(i,j) = combine(f(i-1,j), f(i,j-1))</code></li>
+</ul>
+</li>
+<li>分塊
+<ul>
+<li><code>f(i,j) = combine(f(i,a), f(a,b), f(b,j)) for (a,b) in ...</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>點 (2D)
+<ul>
+<li>上、左、左上
+<ul>
+<li><code>f(i,j) = combine(f(i-1,j), f(i,j-1), f(i-1,j-1))</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>樹
+<ul>
+<li>子樹
+<ul>
+<li><code>f(root) = combine(f(child) for child in root.children)</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>set(狀態壓縮)
+<ul>
+<li><code>f(state) = combine(f(next(state)))</code></li>
+</ul>
+</li>
+</ul>
+<p>上面是可能的遞迴方式，除了遞迴外，還有其他需要的訊息，像是座標、成本等等</p>
+<p>需要遞迴的，加上其他需要的訊息，就是dp的狀態</p>
+<h3 id="動作">動作</h3>
+<p>這就是看題目了，像是edit distance就有delete、replace、insert<br>
+動作會影響到</p>
+<ul>
+<li>子問題怎麼組合</li>
+<li>參數怎麼變化</li>
+<li>有什麼參數</li>
+</ul>
+<h3 id="定義回傳值-成本">定義回傳值 (成本)</h3>
+<p>dp回來的值一定是可以與其他dp組合在一起的值，像</p>
+<ul>
+<li>最大最小</li>
+<li>總和</li>
+<li>長度</li>
+<li>…</li>
+</ul>
+<p>通常我們會知道怎麼算最終答案的成本，但是dp時會需要計算當下狀態成本的方式，也就是需要把<em>成本計算分散到每一層</em><br>
+這個吃狀態怎麼設計 以及 觀察<br>
+範例可以看Optimal binary search trees的depth怎麼處理的</p>
+<h3 id="多看看其他人怎麼做">多看看其他人怎麼做</h3>
+<p>設計dp有的時候要自己加維度，就如同前面看到的dp不只一種，端看設計與實作</p>
+<p>所以其實寫dp最重要的是觀察與想像，所以多做題</p>
+<h2 id="特別的DP">特別的DP</h2>
+<h3 id="背包">背包</h3>
+<p>01背包:</p>
+<p>選到i，剩下space個空間</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(i,space)</span>:</span></span><br><span class="line">  <span class="keyword">if</span> space &lt; <span class="number">0</span>:</span><br><span class="line">    <span class="keyword">return</span> float(<span class="string">'-inf'</span>)</span><br><span class="line">  <span class="keyword">elif</span> i &lt; <span class="number">0</span>:</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">return</span> max(f(i<span class="number">-1</span>,space), price[i]+f(i<span class="number">-1</span>, space-cost[i])) <span class="comment"># !!</span></span><br></pre></td></tr></table></figure>
+<p>無限背包:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(i,space)</span>:</span></span><br><span class="line">  <span class="keyword">if</span> space &lt; <span class="number">0</span>:</span><br><span class="line">    <span class="keyword">return</span> float(<span class="string">'-inf'</span>)</span><br><span class="line">  <span class="keyword">elif</span> i &lt; <span class="number">0</span>:</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">return</span> max(f(i<span class="number">-1</span>,space), price[i]+f(i, space-cost[i])) <span class="comment"># !!</span></span><br></pre></td></tr></table></figure>
+<h4 id="滾動-從頭或從尾">滾動 &amp; 從頭或從尾</h4>
+<p>注意到i都是只有i-1，所以可以用滾動，但要改寫成bottom-up</p>
+<p>01背包:</p>
+<p>這裡與原本top-down的差不多，從i往前推</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dp = [<span class="number">0</span>] * W</span><br><span class="line"><span class="keyword">for</span> p,w <span class="keyword">in</span> items:</span><br><span class="line">  <span class="keyword">for</span> nowW <span class="keyword">in</span> reversed(range(w, W+<span class="number">1</span>)):</span><br><span class="line">    dp[nowW] = max(dp[nowW], p+dp[nowW-w])</span><br></pre></td></tr></table></figure>
+<p>無限背包:</p>
+<p>這裡就與top-down完全不同了!!</p>
+<p>top-down還是，從i往前推，但是可以在i停留，達成無限的效果<br>
+bottom-up為了要無限，所以必須每個合法的空間都要加一次，同時還要包含前面的影響</p>
+<p>dp一定是小的先算好，所以一定從前面取，而現在我們想取的值是已經改變過的值，所以要從最小的空間開始往上推</p>
+<p>01背包是不想取到已經改變過的值，所以要從最大的空間往下推</p>
+<p>這裡也彰顯了從頭與從尾的不同!!</p>
+<p>能不能拿到已經改變過的值?</p>
+<ul>
+<li>從頭: 能</li>
+<li>從尾: 不能</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dp = [<span class="number">0</span>] * W</span><br><span class="line"><span class="keyword">for</span> p,w <span class="keyword">in</span> items:</span><br><span class="line">  <span class="keyword">for</span> nowW <span class="keyword">in</span> range(w, W+<span class="number">1</span>):</span><br><span class="line">    dp[nowW] = max(dp[nowW], p+dp[nowW-w])</span><br></pre></td></tr></table></figure>
+<h3 id="有環的DP">有環的DP</h3>
+<ol>
+<li>做離散化，每個點做一次</li>
+<li>把環的長度變成兩倍</li>
+</ol>
+<h3 id="mutual-recursion">mutual recursion</h3>
+<p>Leetcode 188</p>
+<p>最多賣k次，買完才能賣，求最大收益</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sell[i][k] &#x3D; 第i天，剩k次，做賣的最大收益</span><br><span class="line">buy[i][k] &#x3D; 第i天，剩k次，做買的最大收益</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sell</span><span class="params">(i,k)</span>:</span></span><br><span class="line">  <span class="keyword">if</span> k &lt;= <span class="number">0</span> <span class="keyword">or</span> i &lt; <span class="number">0</span>:</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">return</span> max(sell(i<span class="number">-1</span>,k), price[i]+buy(i<span class="number">-1</span>,k<span class="number">-1</span>))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">buy</span><span class="params">(i,k)</span>:</span></span><br><span class="line">  <span class="keyword">if</span> k &lt;= <span class="number">0</span> <span class="keyword">or</span> i &lt; <span class="number">0</span>:</span><br><span class="line">    <span class="keyword">return</span> float(<span class="string">'-inf'</span>)</span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">return</span> max(buy(i<span class="number">-1</span>,k), -price[i]+sell(i<span class="number">-1</span>,k<span class="number">-1</span>))</span><br></pre></td></tr></table></figure>
+<p>為什麼要兩個?<br>
+buy有自己的收益，sell也有自己的收益<br>
+彼此又互相組成對方的收益</p>
+<h2 id="範例">範例</h2>
+<p>來自演算法課本的dp範例</p>
+<p>Algorithm Design(AD): 真的難，但有點東西<br>
+Introduction to Algorithm(CLRS): 厚到不能墊泡麵與當枕頭<br>
+Algorithms(DPV): 很薄，很精闢<br>
+The Algorithm Design Manual(TADM): 就是課本，但可以根據問題屬性去查對應的解法</p>
+<h3 id="edit-distance">edit distance</h3>
+<ul>
+<li>replace: (i-1,j-1)</li>
+<li>delete: (i,j-1)</li>
+<li>insert: (i-1,j)
+<ul>
+<li>insert多一個字，又馬上比對，所以與delete相反</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(s1,s2)</span>:</span></span><br><span class="line">  <span class="keyword">if</span> <span class="keyword">not</span> s1 <span class="keyword">and</span> <span class="keyword">not</span> s2:</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">  <span class="keyword">elif</span> s1[<span class="number">0</span>] == s2[<span class="number">0</span>]:</span><br><span class="line">    <span class="keyword">return</span> f(s1[<span class="number">1</span>:], s2[<span class="number">1</span>:])</span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>+min(f(s1[<span class="number">1</span>:], s2[<span class="number">1</span>:]), f(s1, s2[<span class="number">1</span>:]), f(s1[<span class="number">1</span>:], s2))</span><br></pre></td></tr></table></figure>
+<h3 id="Longest-common-subsequence-Longest-increasing-subsequence">Longest common subsequence &amp; Longest increasing subsequence</h3>
+<p><a href="/2020/12/lis/">Longest Increasing Subsequence</a></p>
+<h3 id="Maximum-Subarray-Sum-AD">Maximum Subarray Sum (AD)</h3>
+<p><a href="/2020/12/mss/">Maximum Subarray Sum</a></p>
+<h3 id="Traveling-Salesman-Problem">Traveling Salesman Problem</h3>
+<p>給定一系列城市和每對城市之間的距離，求訪問每一座城市一次並回到起始城市的最短迴路</p>
+<p>cities是還可以去的點，<code>1011</code>，還有2, 1, 0可以去<br>
+i是目前的位置</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(cities, i)</span>:</span></span><br><span class="line">  <span class="keyword">if</span> cities == <span class="number">0</span>:</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">return</span> min([f(cities ^ (<span class="number">1</span> &lt;&lt; i), j) + weight[i][j] <span class="keyword">for</span> j <span class="keyword">in</span> edges[i] <span class="keyword">if</span> (<span class="number">1</span> &lt;&lt; j) &amp; cities) != <span class="number">0</span>], float(<span class="string">'inf'</span>))</span><br></pre></td></tr></table></figure>
+<h3 id="Hamiltonian-Path">Hamiltonian Path</h3>
+<p>有沒有一條每一點剛好經過一次的路線，起點和終點可以不相同</p>
+<p>N是有幾個地點(<code>len(graph.V())</code>)</p>
+<p>remains是還可以去的點，<code>1011</code>，還有2, 1, 0可以去<br>
+i是目前的位置</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(remains, i)</span>:</span></span><br><span class="line">  <span class="keyword">if</span> remains == <span class="number">0</span>:</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">return</span> any(f(remains ^ (<span class="number">1</span> &lt;&lt; i), j) <span class="keyword">for</span> j <span class="keyword">in</span> edges[i] <span class="keyword">if</span> (<span class="number">1</span> &lt;&lt; j) &amp; remains) != <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="Shortest-paths-DPV">Shortest paths (DPV)</h3>
+<p>path本身就是一段接一段的，也就是說它本身就是遞迴</p>
+<p>可以回去，所謂的relaxtion，其實就是在原有的基礎上衍伸一段可以到的edge<br>
+這就是list!!</p>
+<p>如果求最短，就是min，是具有結合律的函數，可以dp</p>
+<p>所以可以列舉起、終點、中間點，一直更新最短長度</p>
+<h3 id="Rod-cutting-CLRS">Rod cutting (CLRS)</h3>
+<p>給一條木頭，與長度對應到的價格，求最大收益</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(size)</span>:</span></span><br><span class="line">  <span class="keyword">if</span> size == <span class="number">0</span>:</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">return</span> max(f(size-sub)+price <span class="keyword">for</span> sub,price <span class="keyword">in</span> size2price.items() <span class="keyword">if</span> size-sub &gt;= <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="Matrix-chain-multiplication-CLRS-DPV">Matrix-chain multiplication (CLRS, DPV)</h3>
+<p>有一排matrix要乘，求計算成本最小</p>
+<p>成本: <code>(a X b) * (b X c) = (a X c)</code> 的 成本是 b</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(i,j)</span>:</span></span><br><span class="line">  <span class="keyword">if</span> j-i &lt;= <span class="number">1</span>: <span class="comment"># 不會有一個matrix相乘</span></span><br><span class="line">    <span class="keyword">return</span> float(<span class="string">'inf'</span>)</span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">return</span> min(f(i,k)+f(k+<span class="number">1</span>,j)+cost(k,k+<span class="number">1</span>) <span class="keyword">for</span> k <span class="keyword">in</span> range(i+<span class="number">1</span>, j<span class="number">-1</span>))</span><br></pre></td></tr></table></figure>
+<h3 id="Optimal-binary-search-trees-CLRS">Optimal binary search trees (CLRS)</h3>
+<p>給key與出現的頻率，組成一個搜尋成本最小的BST</p>
+<p>成本: <code>sum(freq[i]*depth)</code></p>
+<p>一個是tree，所以要分左右<br>
+一個是範圍，所以有i,j</p>
+<p>再來是計算成本，所以先把depth傳進去</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(i,j,dep)</span>:</span></span><br><span class="line">  <span class="keyword">if</span> j-i == <span class="number">0</span>:</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">return</span> min(f(i,k,dep+<span class="number">1</span>)+f(k+<span class="number">1</span>,j,dep+<span class="number">1</span>)+freq[key[k]] * dep <span class="keyword">for</span> k <span class="keyword">in</span> range(i,j<span class="number">-1</span>))</span><br></pre></td></tr></table></figure>
+<p>有沒有辦法把depth消滅掉?<br>
+看成橫的<br>
+先看tree</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">      i</span><br><span class="line">   i-1 i+1</span><br><span class="line">i-2        i+2</span><br></pre></td></tr></table></figure>
+<p>再看當時遞迴的範圍</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">              [i-2~i+2]</span><br><span class="line">     [i-2~i-1]         [i+1~i+2]</span><br><span class="line">[i-2]                           [i+2]</span><br></pre></td></tr></table></figure>
+<p>以i+2來說，由上往下看被加了3次，只看遞迴時的範圍，會發現剛好都i+2出現了3次<br>
+所以可以把depth去掉，變成每一次就把整個遞迴範圍的freq加總就好</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(i,j)</span>:</span></span><br><span class="line">  <span class="keyword">if</span> j-i == <span class="number">0</span>:</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">return</span> min(f(i,k)+f(k+<span class="number">1</span>,j)+sum(freq[i:j]) <span class="keyword">for</span> k <span class="keyword">in</span> range(i,j<span class="number">-1</span>))</span><br></pre></td></tr></table></figure>
+<h3 id="Minimum-Length-Triangulation-TADM">Minimum Length Triangulation (TADM)</h3>
+<p>有一堆點，構成一個多邊形，把多邊形切成三角形，讓成本最小</p>
+<p>成本: 所有三角形邊長的總和</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dist</span><span class="params">(p1, p2)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> sqrt((p1[<span class="number">0</span>] - p2[<span class="number">0</span>])*(p1[<span class="number">0</span>] - p2[<span class="number">0</span>]) + (p1[<span class="number">1</span>] - p2[<span class="number">1</span>])*(p1[<span class="number">1</span>] - p2[<span class="number">1</span>]))</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cost</span><span class="params">(points, i, j, k)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> dist(points[i], points[j]) + dist(points[j], points[k]) + dist(points[k], points[i])</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(i,j)</span>:</span></span><br><span class="line">  <span class="keyword">if</span> j-i &lt;= <span class="number">2</span>:</span><br><span class="line">    <span class="keyword">return</span> float(<span class="string">'inf'</span>)</span><br><span class="line">  <span class="keyword">elif</span> j-i == <span class="number">3</span>:</span><br><span class="line">    <span class="keyword">return</span> cost(i,i+<span class="number">1</span>,j)</span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">return</span> min(f(i,k) + cost(i,k,j) + f(k,j) <span class="keyword">for</span> k <span class="keyword">in</span> range(i,j))</span><br></pre></td></tr></table></figure>
+<h3 id="Independent-sets-in-trees-DPV">Independent sets in trees (DPV)</h3>
+<p>Independent set就是裡面的點沒有edge互連，求最多點的set</p>
+<p>就是選了root就不能選children，但可以加上grand-children</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f(root) &#x3D; max(sum(f(children)), 1+sum(grand-children))</span><br></pre></td></tr></table></figure>
+<h3 id="Maximum-Rectangle-Problem-AD">Maximum Rectangle Problem (AD)</h3>
+<p>給個matrix，求從中框出的長方形的內部數字總和</p>
+<p>先做row的prefix sum<br>
+再根據前面的prefix sum，做每個column的prefix sum</p>
+<p>之後就是用排容: <code>f(i,j,n,m) = area(i,j) - area(i-n,j) - area(i,j-m) + area(i-n, j-m)</code></p>
+<h3 id="Segmented-least-squares-AD">Segmented least squares (AD)</h3>
+<p>有一堆點，要用最少的線去fit這些點</p>
+<p>定義回傳值: cost</p>
+<p>定義cost: 每個點的e + 常數*幾根線</p>
+<p>用到Optimal binary search trees把depth分散到每一層去做的技巧</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">error</span><span class="params">(i,j)</span>:</span></span><br><span class="line">  <span class="comment"># Check 6. DYNAMIC PROGRAMMING I page 30</span></span><br><span class="line">  <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(i)</span>:</span></span><br><span class="line">  <span class="keyword">if</span> i == <span class="number">0</span>:</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">return</span> min(error(k,i) + 常數 + f(k<span class="number">-1</span>) <span class="keyword">for</span> k <span class="keyword">in</span> range(i))</span><br></pre></td></tr></table></figure>
+<h3 id="Find-the-longest-path-in-a-matrix-with-given-constraints"><span class="exturl" data-url="aHR0cHM6Ly93d3cuZ2Vla3Nmb3JnZWVrcy5vcmcvZmluZC10aGUtbG9uZ2VzdC1wYXRoLWluLWEtbWF0cml4LXdpdGgtZ2l2ZW4tY29uc3RyYWludHMv">Find the longest path in a matrix with given constraints<i class="fa fa-external-link-alt"></i></span></h3>
+<p>這裡要注意的是沒有去重的東西，所以開始dfs時要從終點開始走</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">path</span><span class="params">(i,j)</span>:</span></span><br><span class="line">    ret = float(<span class="string">'-inf'</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="number">0</span> &lt;= i &lt; n <span class="keyword">and</span> <span class="number">0</span> &lt;= j &lt; m:</span><br><span class="line">        <span class="keyword">if</span> (i,j) == (n<span class="number">-1</span>,m<span class="number">-1</span>):</span><br><span class="line">            ret = <span class="number">0</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            dirs = [(i<span class="number">-1</span>,j),(i,j<span class="number">-1</span>),(i+<span class="number">1</span>,j),(i,j+<span class="number">1</span>)]</span><br><span class="line">            ret = max(ret, *[path(x,y) <span class="keyword">for</span> (x,y) <span class="keyword">in</span> dirs])</span><br><span class="line">    <span class="keyword">return</span> ret</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> reversed(range(n)):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> reversed(range(m)):</span><br><span class="line">        path(i,j)</span><br></pre></td></tr></table></figure>
+<h3 id="Assembly-Line-Scheduling"><span class="exturl" data-url="aHR0cHM6Ly93d3cuZ2Vla3Nmb3JnZWVrcy5vcmcvYXNzZW1ibHktbGluZS1zY2hlZHVsaW5nLWRwLTM0Lw==">Assembly Line Scheduling<i class="fa fa-external-link-alt"></i></span></h3>
+<p>dag最長路徑</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># t :: time to switch another line</span></span><br><span class="line"><span class="comment"># a :: time of each station</span></span><br><span class="line"><span class="comment"># e :: cost on starting line</span></span><br><span class="line"><span class="comment"># x :: cost on goal</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(i,j)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> j == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> e[i] + a[i][j]</span><br><span class="line">    ret = min(f(i,j<span class="number">-1</span>), t[int(<span class="keyword">not</span> i)][j<span class="number">-1</span>]+f(int(<span class="keyword">not</span> i), j<span class="number">-1</span>))</span><br><span class="line">    <span class="keyword">if</span> j == len(t[<span class="number">0</span>]): <span class="comment"># at goal</span></span><br><span class="line">        ret += x[i]</span><br><span class="line">    <span class="keyword">return</span> ret</span><br></pre></td></tr></table></figure>
+<h3 id="Optimal-Strategy-for-a-Game"><span class="exturl" data-url="aHR0cHM6Ly93d3cuZ2Vla3Nmb3JnZWVrcy5vcmcvb3B0aW1hbC1zdHJhdGVneS1mb3ItYS1nYW1lLWRwLTMxLw==">Optimal Strategy for a Game<i class="fa fa-external-link-alt"></i></span></h3>
+<p>一開始先用一個me表示對面在做決策<br>
+有點像買股票的那一提</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(i,j,me)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> i&gt;j:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">elif</span> i==j:</span><br><span class="line">        <span class="keyword">return</span> arr[i] <span class="keyword">if</span> me <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">if</span> me:</span><br><span class="line">            <span class="comment"># ????</span></span><br><span class="line">            <span class="keyword">return</span> max(arr[i]+f(i+<span class="number">1</span>,j,<span class="keyword">not</span> me), arr[j]+f(i,j<span class="number">-1</span>,<span class="keyword">not</span> me))</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="comment"># ????</span></span><br></pre></td></tr></table></figure>
+<p>Q: 看別人的分數幹嘛<br>
+A: 雖然說我們的結果與他們有關，但是他的分數與我們無關</p>
+<p>下面的也是類似的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">x</span><span class="params">(i,j)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> i&gt;j:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">elif</span> i == j:</span><br><span class="line">        <span class="keyword">return</span> arr[i]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> max(arr[i]-y(i+<span class="number">1</span>,j), arr[j]-y(i,j<span class="number">-1</span>))</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">y</span><span class="params">(i,j)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> i&gt;j:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">elif</span> i == j:</span><br><span class="line">        <span class="keyword">return</span> arr[i]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> max(arr[i]-x(i+<span class="number">1</span>,j), arr[j]-x(i,j<span class="number">-1</span>))</span><br></pre></td></tr></table></figure>
+<p>選下一輪能選的時候分數最少的case (關注要建構的目標)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(i,j)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> i&gt;j:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">elif</span> i == j:</span><br><span class="line">        <span class="keyword">return</span> arr[i]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> max(arr[i]+min(f(i+<span class="number">2</span>, j), f(i+<span class="number">1</span>,j<span class="number">-1</span>)), arr[j]+min(f(i,j<span class="number">-2</span>), f(i+<span class="number">1</span>,j<span class="number">-1</span>)))</span><br></pre></td></tr></table></figure>
+<h3 id="Partition-problem"><span class="exturl" data-url="aHR0cHM6Ly93d3cuZ2Vla3Nmb3JnZWVrcy5vcmcvcGFydGl0aW9uLXByb2JsZW0tZHAtMTgv">Partition problem<i class="fa fa-external-link-alt"></i></span></h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(i,cnt)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> i == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> arr[i] == cnt</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> f(i<span class="number">-1</span>,cnt-arr[i]) <span class="keyword">or</span> f(i<span class="number">-1</span>,cnt)</span><br><span class="line"><span class="keyword">return</span> f(len(arr)<span class="number">-1</span>, sum(arr)//<span class="number">2</span>) <span class="keyword">if</span> sum(arr) % <span class="number">2</span> == <span class="number">0</span> <span class="keyword">else</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+<h3 id="Partition-a-set-into-two-subsets-such-that-the-difference-of-subset-sums-is-minimum"><span class="exturl" data-url="aHR0cHM6Ly93d3cuZ2Vla3Nmb3JnZWVrcy5vcmcvcGFydGl0aW9uLWEtc2V0LWludG8tdHdvLXN1YnNldHMtc3VjaC10aGF0LXRoZS1kaWZmZXJlbmNlLW9mLXN1YnNldC1zdW1zLWlzLW1pbmltdW0v">Partition a set into two subsets such that the difference of subset sums is minimum<i class="fa fa-external-link-alt"></i></span></h3>
+<p>這個會變成backtrack</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(i, cnt)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> i == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> abs((sum(arr) - cnt) - cnt)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> min(f(i - <span class="number">1</span>, cnt+arr[i - <span class="number">1</span>]), f(i - <span class="number">1</span>, cnt))</span><br></pre></td></tr></table></figure>
+<p>原因是f想直接算差值，但是差值一定要等到最後，把所有路都走過<br>
+可以對其中一個維度做離散化</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(i, cnt)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> i == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> cnt == <span class="number">0</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> f(i<span class="number">-1</span>, cnt) <span class="keyword">or</span> f(i<span class="number">-1</span>,cnt-arr[i])</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> n <span class="keyword">in</span> reversed(range(sum(arr)//<span class="number">2</span>)):</span><br><span class="line">    <span class="keyword">if</span> f(len(arr)<span class="number">-1</span>, n):</span><br><span class="line">        print(sum(arr)<span class="number">-2</span>*n)</span><br></pre></td></tr></table></figure>
+<h2 id="題外話-functional-DP">題外話: functional DP</h2>
+<p><span class="exturl" data-url="aHR0cHM6Ly96aHVhbmxhbi56aGlodS5jb20vcC8xMDQyMzgxMjA=">函数式的动态规划<i class="fa fa-external-link-alt"></i></span></p>
+<h2 id="Ref">Ref</h2>
+<p><span class="exturl" data-url="aHR0cHM6Ly9zbGlkZXMuY29tL2ZodmlydXMvZ3JlZWR5LWRxLWRw">Greedy &amp; DQ &amp; DP<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly9tcC53ZWl4aW4ucXEuY29tL3M/X19iaXo9TXpnMk5qVTFNekl4Tmc9PSZhbXA7bWlkPTIyNDc0ODM4NDYmYW1wO2lkeD0xJmFtcDtzbj03NjkxMTIxZjM1OTY4YjU1YjI0NzQ2ODFkMTZlYmIyNCZhbXA7Y2hrc209Y2U0ODVkMjlmOTNmZDQzZmU4Yjg2NDVjNWI2YTc3ZTJmYmFiODZiZTM5NWUxNmQ4N2JhNmUxNDcwYzNhZmEwNjVkZjc3MTJlN2UzZSZhbXA7dG9rZW49MTYyNjA2Mzc4NiZhbXA7bGFuZz16aF9DTiNyZA==">夜深人静写算法（二）- 动态规划入门<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly93d3cuY3MucHJpbmNldG9uLmVkdS9+d2F5bmUva2xlaW5iZXJnLXRhcmRvcy9wZGYvMDZEeW5hbWljUHJvZ3JhbW1pbmdJLnBkZg==">6. DYNAMIC PROGRAMMING I<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly9vaS13aWtpLm9yZy9kcC9rbmFwc2Fjay8=">背包 DP<i class="fa fa-external-link-alt"></i></span></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/11/advanced-graph/" rel="prev" title="神奇的圖論技巧(進階圖論)">
+      <i class="fa fa-chevron-left"></i> 神奇的圖論技巧(進階圖論)
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/11/algorithm-concepts/" rel="next" title="演算法會用到的概念">
+      演算法會用到的概念 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DP概述"><span class="nav-number">2.</span> <span class="nav-text">DP概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DP-與-backtracking"><span class="nav-number">2.1.</span> <span class="nav-text">DP 與 backtracking</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不只一種DP"><span class="nav-number">2.2.</span> <span class="nav-text">不只一種DP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DP-與-greedy"><span class="nav-number">2.3.</span> <span class="nav-text">DP 與 greedy</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#證明greedy"><span class="nav-number">2.3.1.</span> <span class="nav-text">證明greedy</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DP-與-DAG"><span class="nav-number">2.4.</span> <span class="nav-text">DP 與 DAG</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#recursion-iteration"><span class="nav-number">2.5.</span> <span class="nav-text">recursion &amp; iteration</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#top-down-bottom-up"><span class="nav-number">2.6.</span> <span class="nav-text">top-down &amp; bottom-up</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#top-down-bottom-up-不等價"><span class="nav-number">2.7.</span> <span class="nav-text">top-down &amp; bottom-up 不等價</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Leetcode-718"><span class="nav-number">2.7.1.</span> <span class="nav-text">Leetcode 718</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Leetcode-546"><span class="nav-number">2.7.2.</span> <span class="nav-text">Leetcode 546</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#技巧"><span class="nav-number">3.</span> <span class="nav-text">技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#狀態壓縮"><span class="nav-number">3.1.</span> <span class="nav-text">狀態壓縮</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#刷表法"><span class="nav-number">3.2.</span> <span class="nav-text">刷表法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DP優化-TODO，我不會，這個只會出現在競程"><span class="nav-number">3.3.</span> <span class="nav-text">DP優化 (TODO，我不會，這個只會出現在競程)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#寫的小技巧"><span class="nav-number">3.4.</span> <span class="nav-text">寫的小技巧</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#設計方式"><span class="nav-number">4.</span> <span class="nav-text">設計方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#遞迴的模型"><span class="nav-number">4.1.</span> <span class="nav-text">遞迴的模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#動作"><span class="nav-number">4.2.</span> <span class="nav-text">動作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定義回傳值-成本"><span class="nav-number">4.3.</span> <span class="nav-text">定義回傳值 (成本)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多看看其他人怎麼做"><span class="nav-number">4.4.</span> <span class="nav-text">多看看其他人怎麼做</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特別的DP"><span class="nav-number">5.</span> <span class="nav-text">特別的DP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#背包"><span class="nav-number">5.1.</span> <span class="nav-text">背包</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#滾動-從頭或從尾"><span class="nav-number">5.1.1.</span> <span class="nav-text">滾動 &amp; 從頭或從尾</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有環的DP"><span class="nav-number">5.2.</span> <span class="nav-text">有環的DP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mutual-recursion"><span class="nav-number">5.3.</span> <span class="nav-text">mutual recursion</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#範例"><span class="nav-number">6.</span> <span class="nav-text">範例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#edit-distance"><span class="nav-number">6.1.</span> <span class="nav-text">edit distance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Longest-common-subsequence-Longest-increasing-subsequence"><span class="nav-number">6.2.</span> <span class="nav-text">Longest common subsequence &amp; Longest increasing subsequence</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Maximum-Subarray-Sum-AD"><span class="nav-number">6.3.</span> <span class="nav-text">Maximum Subarray Sum (AD)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Traveling-Salesman-Problem"><span class="nav-number">6.4.</span> <span class="nav-text">Traveling Salesman Problem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hamiltonian-Path"><span class="nav-number">6.5.</span> <span class="nav-text">Hamiltonian Path</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Shortest-paths-DPV"><span class="nav-number">6.6.</span> <span class="nav-text">Shortest paths (DPV)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Rod-cutting-CLRS"><span class="nav-number">6.7.</span> <span class="nav-text">Rod cutting (CLRS)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Matrix-chain-multiplication-CLRS-DPV"><span class="nav-number">6.8.</span> <span class="nav-text">Matrix-chain multiplication (CLRS, DPV)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Optimal-binary-search-trees-CLRS"><span class="nav-number">6.9.</span> <span class="nav-text">Optimal binary search trees (CLRS)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Minimum-Length-Triangulation-TADM"><span class="nav-number">6.10.</span> <span class="nav-text">Minimum Length Triangulation (TADM)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Independent-sets-in-trees-DPV"><span class="nav-number">6.11.</span> <span class="nav-text">Independent sets in trees (DPV)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Maximum-Rectangle-Problem-AD"><span class="nav-number">6.12.</span> <span class="nav-text">Maximum Rectangle Problem (AD)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Segmented-least-squares-AD"><span class="nav-number">6.13.</span> <span class="nav-text">Segmented least squares (AD)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Find-the-longest-path-in-a-matrix-with-given-constraints"><span class="nav-number">6.14.</span> <span class="nav-text">Find the longest path in a matrix with given constraints</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Assembly-Line-Scheduling"><span class="nav-number">6.15.</span> <span class="nav-text">Assembly Line Scheduling</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Optimal-Strategy-for-a-Game"><span class="nav-number">6.16.</span> <span class="nav-text">Optimal Strategy for a Game</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Partition-problem"><span class="nav-number">6.17.</span> <span class="nav-text">Partition problem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Partition-a-set-into-two-subsets-such-that-the-difference-of-subset-sums-is-minimum"><span class="nav-number">6.18.</span> <span class="nav-text">Partition a set into two subsets such that the difference of subset sums is minimum</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#題外話-functional-DP"><span class="nav-number">7.</span> <span class="nav-text">題外話: functional DP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">8.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">zhengcf</p>
+  <div class="site-description" itemprop="description">想到什麼就寫什麼</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">683</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhengcf</span>
+</div>
+  <div class="powered-by">Powered by <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl theme-link" data-url="aHR0cHM6Ly9tdXNlLnRoZW1lLW5leHQub3Jn">NexT.Muse</span>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 1000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://littlebees.github.io/2021/11/dynamic%20programing/',]
+      });
+      });
+  </script>
+
+</body>
+</html>

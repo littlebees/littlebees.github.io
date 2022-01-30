@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="AEpTGuQAkxnTOlmfF4INDna3S660LxrkyZ4BQzVbRSw">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"littlebees.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="動機 受不了只能一直放printf與printk來猜到底哪裡錯的日子，所以來看看systemtap 發現他真的很強!!">
+<meta property="og:type" content="article">
+<meta property="og:title" content="systemtap使用筆記">
+<meta property="og:url" content="https://littlebees.github.io/2021/06/systemtap-tutorial/index.html">
+<meta property="og:site_name" content="記事本">
+<meta property="og:description" content="動機 受不了只能一直放printf與printk來猜到底哪裡錯的日子，所以來看看systemtap 發現他真的很強!!">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-06-29T19:48:53.000Z">
+<meta property="article:modified_time" content="2022-01-22T01:40:06.445Z">
+<meta property="article:author" content="zhengcf">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://littlebees.github.io/2021/06/systemtap-tutorial/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>systemtap使用筆記 | 記事本</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">記事本</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">寫下來，不然會忘</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2021/06/systemtap-tutorial/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhengcf">
+      <meta itemprop="description" content="想到什麼就寫什麼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="記事本">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          systemtap使用筆記
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-06-30 03:48:53" itemprop="dateCreated datePublished" datetime="2021-06-30T03:48:53+08:00">2021-06-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-01-22 09:40:06" itemprop="dateModified" datetime="2022-01-22T09:40:06+08:00">2022-01-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/System/" itemprop="url" rel="index"><span itemprop="name">System</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/System/Performance/" itemprop="url" rel="index"><span itemprop="name">Performance</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="動機">動機</h2>
+<p>受不了只能一直放printf與printk來猜到底哪裡錯的日子，所以來看看systemtap<br>
+發現他真的很強!!</p>
+<a id="more"></a>
+<h2 id="systemtap">systemtap</h2>
+<ul>
+<li>
+<p>probe</p>
+<ul>
+<li>script -&gt; C -&gt; kernel module</li>
+<li>基本就是<code>probe &lt;event&gt; { &lt;handler&gt; }</code></li>
+<li>event: <code>what-to-traced-type.suffix1.suffix2....</code>
+<ul>
+<li>起點與終點
+<ul>
+<li>begin</li>
+<li>end</li>
+<li>error</li>
+</ul>
+</li>
+<li>同步
+<ul>
+<li>kernel &amp; module(mpat) &amp; process(pmat) &amp; syscall
+<ul>
+<li>mpat: 放lib的名字，支援<code>*</code>,<code>[]</code>,<code>?</code>等wildcard</li>
+<li>pmat: <code>pid | &quot;path-to-proc&quot;</code></li>
+<li>process還可以
+<ul>
+<li>thread: 看生出來的thread
+<ul>
+<li>begin</li>
+<li>end</li>
+</ul>
+</li>
+<li>接下面的function, statement</li>
+</ul>
+</li>
+<li>syscall的用法: <code>syscall(num)</code> 或 <code>syscall.name</code> 或 <code>syscall.*</code></li>
+<li>syscall提供4個變數: <code>argstr</code>, <code>name</code>, <code>retvat</code>, <code>retstr</code>
+<ul>
+<li>function(pat) : 函數
+<ul>
+<li>pat: <code>function-name[@source-path[{:line-number|:first-line-last-line|+relative-line-number}]] | *</code></li>
+<li>exported</li>
+<li>callee</li>
+<li>callees</li>
+</ul>
+</li>
+<li>statement(pat) : 其中的code
+<ul>
+<li>nearest</li>
+</ul>
+</li>
+<li>可以指定觸發的時機
+<ul>
+<li>call</li>
+<li>return</li>
+<li>inline</li>
+<li>省略就是 call+inline</li>
+</ul>
+</li>
+<li>在handler中可以看source code中的變數(context(target) variable)
+<ul>
+<li><code>$var</code></li>
+<li><code>@var(“varname@src/file.c”)</code>
+<ul>
+<li>這個能access到extern或是不在scope中的變數</li>
+</ul>
+</li>
+<li>deref
+<ul>
+<li><code>$var-&gt;a</code></li>
+<li><code>$var[0]</code></li>
+</ul>
+</li>
+<li>check cxt var exists
+<ul>
+<li><code>@defined(expr)</code></li>
+</ul>
+</li>
+<li>pretty-print
+<ul>
+<li><code>$$var</code></li>
+</ul>
+</li>
+<li>print struct
+<ul>
+<li><code>$var$</code></li>
+<li>nested: <code>$var$$</code></li>
+</ul>
+</li>
+<li>cast (如果struct在不同地方)
+<ul>
+<li><code>@cast(tv, “timeval”, “&lt;sys/time.h&gt;”)-&gt;tvsec</code></li>
+<li><code>tmp = &amp;@cast(tv, “timeval”, “&lt;sys/time.h&gt;”)[0]; tmp-&gt;tvsec</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>沒有DWARF(debug訊息)
+<ul>
+<li>kprobe
+<ul>
+<li>module(mpat)</li>
+<li>funtion &amp; statement</li>
+<li>function與module不能用wildcard</li>
+</ul>
+</li>
+<li>nd_syscall</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>異步
+<ul>
+<li>timer
+<ul>
+<li>ms</li>
+<li>jiffies</li>
+<li>profile
+<ul>
+<li>週期性的在每顆cpu上發作</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>略過
+<ul>
+<li>procfs: 在systemtap的<code>/proc/systemtap/mod-name/</code>中創檔案</li>
+<li>java: 能看java</li>
+<li>input: 能吃stdin</li>
+<li>netfilter: 看netfilter</li>
+<li>perf: 看perf event</li>
+<li>python: 看python</li>
+<li>還有硬體追蹤的功能，去<code>man stapprobes</code>看看吧</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>handler
+<ul>
+<li>function:
+<ul>
+<li>buildin
+<ul>
+<li>tid, pid</li>
+<li>execname: 現在跑的proc name</li>
+<li>cpu: cpuid</li>
+<li>gettimeofday_s</li>
+<li>pp: probe目前的位置(配合pat有wildcard時可以印code檔名與行數與函數名)</li>
+<li>ppfunc: 被probe的func name</li>
+<li>print_backtrace: kernel stack</li>
+<li>print_ubacktrace: userspace stack</li>
+<li>thread_indent: 會根據stack深度噴indent</li>
+<li>exit</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9zb3VyY2V3YXJlLm9yZy9zeXN0ZW10YXAvdGFwc2V0cy8=">所有builtin<i class="fa fa-external-link-alt"></i></span></li>
+</ul>
+</li>
+<li>自訂
+<ul>
+<li><code>function func_name(var, ...) {}</code></li>
+</ul>
+</li>
+<li>embedded c
+<ul>
+<li><code>function func_name(var:type, ...):type %{ ... %}</code></li>
+<li>如果要取systemtap的變數要
+<ul>
+<li>參數: <code>STAP_ARG_varname</code></li>
+<li>全域: <code>STAP_GLOBAL_GET_varname()</code>
+<ul>
+<li>怎麼set
+<ul>
+<li>一般: <code>STAP_GLOBAL_SET_varname(val)</code></li>
+<li>array: <code>STAP_GLOBAL_SET_varname(key1,...,val)</code></li>
+</ul>
+</li>
+<li>c的code要加
+<ul>
+<li><code> /* pragma:read:varname */ /* pragma:write:varname */</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>return時要注意，使用特別語法
+<ul>
+<li><code>STAP_RETURN(expr)</code></li>
+<li><code>STAP_RETVALUE = expr</code></li>
+</ul>
+</li>
+<li>目前看到的type
+<ul>
+<li>數字: long</li>
+<li>字串: string</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>controll structrue
+<ul>
+<li><code>if (expr) ... else ...</code></li>
+<li><code>while (expr) ...</code></li>
+<li><code>for (A;B;C) ...</code></li>
+<li>comment: <code>#</code>, <code>//</code>, <code>/**/</code></li>
+<li>str concan: strA . strB</li>
+<li>var
+<ul>
+<li>type: numder, string</li>
+<li><code>var = expr</code></li>
+<li>scope: block, global
+<ul>
+<li>global will be auto lock&amp;unlock</li>
+<li>global: <code>global &lt;name&gt;</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>data structrue
+<ul>
+<li>array: 其實是hash，只能global
+<ul>
+<li><code>foreach (VALUE = [KEY1, KEY2, …] in ARRAY) STMT</code></li>
+<li><code>delete array[KEY1, KEY2, …]</code></li>
+<li><code>if ([KEY1, KEY2, …] in array) ...</code></li>
+</ul>
+</li>
+<li>aggregate: 這是<code>set&lt;int&gt;</code>，只能用systemtap提供的函數來操作
+<ul>
+<li>append: <code>a &lt;&lt;&lt; &lt;number&gt;</code></li>
+<li><code>@avg(a) @count(a) @hist_linear @hist_log</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>example: <code>probe kernel.function(&quot;*@net/socket.c&quot;) { }</code>
+<ul>
+<li><code>man stapex</code></li>
+</ul>
+</li>
+<li>systemtap’s module: tapset
+<ul>
+<li>與CSS一樣，後面會override前面</li>
+</ul>
+</li>
+<li>Probe point aliases
+<ul>
+<li>probe的wrapper，或是叫decorator，用python的話來說</li>
+<li><code>probe name.suffix = probe, probe.... { .. }</code></li>
+<li>後面就是把<code>name.suffix</code>當成一般的probe，但會先跑handler他handler的東西</li>
+</ul>
+</li>
+<li>stap 參數
+<ul>
+<li>-l PROBE: List matching probes.</li>
+<li>-L PROBE: List matching probes and local variables.
+<ul>
+<li>據說可以用這個追函數的實際地點(像用wildcard會把所有相關的列出來)</li>
+<li>但我在我ubuntuVM上都出不來啊</li>
+<li>還有ubuntu 20.04上的systemtap不能從apt裝，動不了</li>
+</ul>
+</li>
+<li>-g: guru mode(如果要用embed c的話)</li>
+</ul>
+</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9zb3VyY2V3YXJlLm9yZy9zeXN0ZW10YXAvbWFuL2luZGV4Lmh0bWw=">all man<i class="fa fa-external-link-alt"></i></span></li>
+</ul>
+<h2 id="Ref">Ref</h2>
+<p><span class="exturl" data-url="aHR0cHM6Ly9zb3VyY2V3YXJlLm9yZy9zeXN0ZW10YXAvdHV0b3JpYWwucGRm">短短的tutorial 讚<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly9uYW54aWFvLm1lL2NhdGVnb3J5LyVlNiU4YSU4MCVlNiU5YyVhZi9zeXN0ZW10YXAtJWU3JWFjJTk0JWU4JWFlJWIwLw==">其他大大的筆記<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dhbmd6dXhpL2NhdGVnb3J5XzI2NDc4NzMuaHRtbA==">systemtap的使用技巧 感覺值得深入去看<i class="fa fa-external-link-alt"></i></span></p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/06/grep-tips/" rel="prev" title="grep常用整理">
+      <i class="fa fa-chevron-left"></i> grep常用整理
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/06/flamegraph-tutorial/" rel="next" title="flamegraph筆記">
+      flamegraph筆記 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#systemtap"><span class="nav-number">2.</span> <span class="nav-text">systemtap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">3.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">zhengcf</p>
+  <div class="site-description" itemprop="description">想到什麼就寫什麼</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">683</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhengcf</span>
+</div>
+  <div class="powered-by">Powered by <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl theme-link" data-url="aHR0cHM6Ly9tdXNlLnRoZW1lLW5leHQub3Jn">NexT.Muse</span>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 1000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://littlebees.github.io/2021/06/systemtap-tutorial/',]
+      });
+      });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="AEpTGuQAkxnTOlmfF4INDna3S660LxrkyZ4BQzVbRSw">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"littlebees.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="ch0: 執行環境 想用wsl來跑sml的話，poly&#x2F;ml是不錯的選項 ch1: 定義type 12datatype num &#x3D; ZERO | ONE_MORE of numdatatype ‘a Slist &#x3D; NIL of ‘a | SCONS of ‘a Slist ch2: 寫function 123456789101112datatype Abc &#x3D; A | B of Abc | C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Little MLer 筆記">
+<meta property="og:url" content="https://littlebees.github.io/2020/5/the-little-mler-note/index.html">
+<meta property="og:site_name" content="記事本">
+<meta property="og:description" content="ch0: 執行環境 想用wsl來跑sml的話，poly&#x2F;ml是不錯的選項 ch1: 定義type 12datatype num &#x3D; ZERO | ONE_MORE of numdatatype ‘a Slist &#x3D; NIL of ‘a | SCONS of ‘a Slist ch2: 寫function 123456789101112datatype Abc &#x3D; A | B of Abc | C">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-05-24T15:07:10.000Z">
+<meta property="article:modified_time" content="2022-01-22T11:01:06.375Z">
+<meta property="article:author" content="zhengcf">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://littlebees.github.io/2020/5/the-little-mler-note/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>The Little MLer 筆記 | 記事本</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">記事本</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">寫下來，不然會忘</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2020/5/the-little-mler-note/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhengcf">
+      <meta itemprop="description" content="想到什麼就寫什麼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="記事本">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          The Little MLer 筆記
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-05-24 23:07:10" itemprop="dateCreated datePublished" datetime="2020-05-24T23:07:10+08:00">2020-05-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-01-22 19:01:06" itemprop="dateModified" datetime="2022-01-22T19:01:06+08:00">2022-01-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PLT/" itemprop="url" rel="index"><span itemprop="name">PLT</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PLT/Reading/" itemprop="url" rel="index"><span itemprop="name">Reading</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="ch0-執行環境">ch0: 執行環境</h2>
+<p>想用wsl來跑sml的話，poly/ml是不錯的選項</p>
+<h2 id="ch1-定義type">ch1: 定義type</h2>
+<figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">datatype</span> num = <span class="type">ZERO</span> | <span class="type">ONE_MORE</span> <span class="keyword">of</span> num</span><br><span class="line"><span class="keyword">datatype</span> ‘a <span class="type">Slist</span> = <span class="type">NIL</span> <span class="keyword">of</span> ‘a | <span class="type">SCONS</span> <span class="keyword">of</span> ‘a <span class="type">Slist</span></span><br></pre></td></tr></table></figure>
+<h2 id="ch2-寫function">ch2: 寫function</h2>
+<figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">datatype</span> <span class="type">Abc</span> = <span class="type">A</span> | <span class="type">B</span> <span class="keyword">of</span> <span class="type">Abc</span> | <span class="type">C</span> <span class="keyword">of</span> <span class="type">Abc</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">fun</span> only_B(<span class="type">A</span>) = <span class="literal">true</span></span><br><span class="line">    | only_B(<span class="type">B</span>(x)) = only_B(x)</span><br><span class="line">    | only_B(<span class="type">C</span>(x)) = <span class="literal">false</span></span><br><span class="line">(only_B : <span class="type">Abc</span> -&gt; <span class="built_in">bool</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">datatype</span> ‘a <span class="type">Xyz</span> = <span class="type">X</span> <span class="keyword">of</span> ‘a | <span class="type">Y</span> <span class="keyword">of</span> ‘a <span class="type">Xyz</span> | <span class="type">Z</span> <span class="keyword">of</span> ‘a <span class="type">Xyz</span></span><br><span class="line"><span class="keyword">fun</span> is_xy(<span class="type">X</span>(x)) = <span class="literal">true</span></span><br><span class="line">    | is_xy(<span class="type">Y</span>(x)) = is_xy(x)</span><br><span class="line">    | is_xy(<span class="type">Z</span>(x)) = <span class="literal">false</span></span><br><span class="line">(is_xy : ‘a <span class="type">Xyz</span> -&gt; <span class="built_in">bool</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="ch3-在list上遞迴">ch3: 在list上遞迴</h2>
+<figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fun</span> rem_B(<span class="type">A</span>) = <span class="type">A</span></span><br><span class="line">    | rem_B(<span class="type">B</span>(x)) = rem_B(x)</span><br><span class="line">    | rem_B(<span class="type">C</span>(x)) = <span class="type">C</span>(rem_B(x))</span><br><span class="line"><span class="keyword">fun</span> <span class="type">C_in_fron_of_B</span>(<span class="type">A</span>) = <span class="type">A</span></span><br><span class="line">    | <span class="type">C_in_fron_of_B</span>(<span class="type">B</span>(x)) = <span class="type">C</span>(<span class="type">B</span>(<span class="type">C_in_fron_of_B</span>(x)))</span><br><span class="line">    | <span class="type">C_in_fron_of_B</span>(<span class="type">C</span>(x)) = <span class="type">C</span>(<span class="type">C_in_fron_of_B</span>(x))</span><br><span class="line"></span><br><span class="line"><span class="keyword">fun</span> subst_B_C(x) = rem_B(<span class="type">C_in_fron_of_B</span>(x))</span><br><span class="line"><span class="comment">(* OR *)</span></span><br><span class="line"><span class="keyword">fun</span> subst_B_C(<span class="type">A</span>) = <span class="type">A</span></span><br><span class="line">    | subst_B_C(<span class="type">B</span>(x)) = <span class="type">C</span>(subst_B_C(x))</span><br><span class="line">    | subst_B_C(<span class="type">C</span>(x)) = <span class="type">C</span>(subst_B_C(x))</span><br><span class="line"><span class="comment">(* 都是走訪同一list故可以用同一種走訪，把兩個式子結合起來(map fusion) *)</span></span><br></pre></td></tr></table></figure>
+<h2 id="ch4-tuple-多參數function">ch4: tuple &amp; 多參數function</h2>
+<figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">(<span class="type">A</span>,<span class="type">X</span>,<span class="type">A</span>) :: (<span class="type">Abc</span> * <span class="type">Xyz</span> * <span class="type">Abc</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">datatype</span> <span class="type">Abc</span> = <span class="type">A</span> | <span class="type">B</span> | <span class="type">C</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">fun</span> add_a(<span class="type">A</span>) = (<span class="type">A</span>,<span class="type">A</span>)</span><br><span class="line">    | add_a(<span class="type">B</span>) = (<span class="type">B</span>,<span class="type">A</span>)</span><br><span class="line">    | add_a = (<span class="type">C</span>,<span class="type">A</span>)</span><br><span class="line">(add_a : <span class="type">Abc</span> -&gt; (<span class="type">Abc</span> * <span class="type">Abc</span>))</span><br></pre></td></tr></table></figure>
+<p>可以利用type variable來打少一點字</p>
+<figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fun</span> add_a(x) = (x * <span class="type">A</span>)</span><br><span class="line">(add_a : ‘a -&gt; (‘a * <span class="type">Abc</span>))</span><br></pre></td></tr></table></figure>
+<p>這個比較抽象，但是比較詳細的(照著datatype產生的fun)可以找出更多可能的錯誤</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fun has_a(a:Xyz, A, b:Xyz) &#x3D; true</span><br><span class="line">    | has_a(a:Xyz, b, b:Xyz)) &#x3D; false</span><br><span class="line">(has_a : (Xyz * Abc * Xyz) -&gt; bool)</span><br></pre></td></tr></table></figure>
+<h2 id="ch5-type的參數可以不只一個">ch5: type的參數可以不只一個</h2>
+<h3 id="type的參數可以不只一個">type的參數可以不只一個</h3>
+<figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">datatype</span> ‘a <span class="type">De</span> = <span class="type">D</span> | <span class="type">E</span> <span class="keyword">of</span> (‘a * (‘a <span class="type">De</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">datatype</span> <span class="type">Abc</span> = <span class="type">A</span> | <span class="type">B</span> | <span class="type">C</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">fun</span> rem_a(<span class="type">D</span>) = <span class="type">D</span></span><br><span class="line">    | rem_a(<span class="type">E</span>(<span class="type">A</span>,x)) = rem_a(x)</span><br><span class="line">    | rem_a(<span class="type">E</span>(<span class="type">B</span>,x)) = <span class="type">E</span>(<span class="type">B</span>,rem_a(x))</span><br><span class="line">    | rem_a(<span class="type">E</span>(<span class="type">C</span>,x)) = <span class="type">E</span>(<span class="type">C</span>,rem_a(x))</span><br><span class="line"></span><br><span class="line"><span class="comment">(* shorter version *)</span></span><br><span class="line"><span class="keyword">fun</span> rem_a(<span class="type">D</span>) = <span class="type">D</span></span><br><span class="line">    | rem_a(<span class="type">E</span>(<span class="type">A</span>,x)) = rem_a(x)</span><br><span class="line">    | rem_a(<span class="type">E</span>(y,x)) = <span class="type">E</span>(y,rem_a(x))</span><br></pre></td></tr></table></figure>
+<h3 id="抽象與組合數">抽象與組合數</h3>
+<p>輸入的維度上升，pattern的數量(組合數)上升</p>
+<figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fun</span> rem(x,<span class="type">D</span>) = <span class="type">D</span></span><br><span class="line">     | rem(<span class="type">A</span>,<span class="type">E</span>(<span class="type">A</span>,y)) = rem(<span class="type">A</span>, y)</span><br><span class="line">     | rem(<span class="type">A</span>,<span class="type">E</span>(x,y)) = <span class="type">E</span>(x,rem(<span class="type">A</span>, y))</span><br><span class="line">     | rem(<span class="type">B</span>,<span class="type">E</span>(<span class="type">A</span>,y)) = rem(<span class="type">B</span>, y)</span><br><span class="line">     | rem(<span class="type">B</span>,<span class="type">E</span>(x,y)) = <span class="type">E</span>(x,rem(<span class="type">B</span>, y))</span><br><span class="line">     | rem(<span class="type">C</span>,<span class="type">E</span>(<span class="type">C</span>,y)) = rem(<span class="type">C</span>, y)</span><br><span class="line">     | rem(<span class="type">C</span>,<span class="type">E</span>(x,y)) = <span class="type">E</span>(x,rem(<span class="type">C</span>, y))</span><br><span class="line">(rem : (<span class="type">Abc</span> * <span class="type">Abc</span> <span class="type">De</span>) -&gt; <span class="type">Abc</span> <span class="type">De</span>)</span><br></pre></td></tr></table></figure>
+<p>把其中一個維度抽出來，像</p>
+<figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fun</span> eq_Abc(<span class="type">A</span>,<span class="type">A</span>) = <span class="literal">true</span></span><br><span class="line">     | eq_Abc(<span class="type">B</span>,<span class="type">B</span>) = <span class="literal">true</span></span><br><span class="line">     | eq_Abc(<span class="type">C</span>,<span class="type">C</span>) = <span class="literal">true</span></span><br><span class="line">     | eq_Abc(x,y) = <span class="literal">false</span></span><br><span class="line"><span class="keyword">fun</span> rem(x,<span class="type">D</span>)         = <span class="type">D</span></span><br><span class="line">     | rem(x,<span class="type">E</span>(y,z)) = <span class="keyword">if</span> eq_Abc(x,y)</span><br><span class="line">                       <span class="keyword">then</span> rem(x,z)</span><br><span class="line">                       <span class="keyword">else</span> <span class="type">E</span>(y,rem(x,z))</span><br></pre></td></tr></table></figure>
+<h2 id="ch6-樹形遞迴">ch6: 樹形遞迴</h2>
+<figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">datatype</span> tree = <span class="type">E</span> | <span class="type">L</span> <span class="keyword">of</span> <span class="type">Abc</span> * tree | <span class="type">S</span> <span class="keyword">of</span> tree * tree</span><br><span class="line"><span class="keyword">datatype</span> ‘a tree = <span class="type">E</span> | <span class="type">F</span> <span class="keyword">of</span> ‘a * ‘a tree | <span class="type">S</span> <span class="keyword">of</span> ‘a tree * ‘a tree</span><br><span class="line"></span><br><span class="line"><span class="keyword">fun</span> occur_Abc(a,<span class="type">E</span>) = <span class="number">0</span></span><br><span class="line">    | occur_Abc(a,<span class="type">L</span>(b,x)) = <span class="keyword">if</span> eq_Abc(a,b) <span class="keyword">then</span> <span class="number">1</span>+occur_Abc(a,x) <span class="keyword">else</span> occur_Abc(a,x)</span><br><span class="line">    | occur_Abc(a,<span class="type">S</span>(x,y)) = occur_Abc(a,x) + occur_Abc(a,y)</span><br></pre></td></tr></table></figure>
+<h3 id="sexp-slist">sexp &amp; slist</h3>
+<figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">datatype</span> ‘a <span class="type">SList</span> = <span class="type">NIL</span> | <span class="type">SCONS</span> <span class="keyword">of</span> ‘a <span class="type">Sexp</span> * ‘a <span class="type">SList</span></span><br><span class="line"><span class="keyword">and</span></span><br><span class="line">	       ‘a <span class="type">Sexp</span> = <span class="type">ATOM</span> <span class="keyword">of</span> ‘a | <span class="type">SLIST</span> <span class="keyword">of</span> ‘a <span class="type">SList</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fun</span> occur_Abc_SL(a,<span class="type">Nil</span>) = <span class="number">0</span></span><br><span class="line">    | occur_Abc_SL(a,<span class="type">SCons</span>(x,y)) = occur_abc_SE(a,x) + occur_abc_SL(a,y)</span><br><span class="line">    <span class="keyword">and</span></span><br><span class="line"><span class="keyword">fun</span> occur_Abc_SE(a,<span class="type">Atom</span>(b)) = <span class="keyword">if</span> eq_Abc(a,b) <span class="keyword">then</span> <span class="number">1</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">    | occur_Abc_SE(a,<span class="type">Slist</span>(x)) = occur_Abc_SL(a,x)</span><br></pre></td></tr></table></figure>
+<p>先展開<code>occur_Abc_SE</code></p>
+<figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fun</span> occur_Abc_SL(a,<span class="type">Nil</span>) = <span class="number">0</span></span><br><span class="line">    | occur_Abc_SL(a,<span class="type">SCons</span>(<span class="type">Atom</span>(x),y)) = <span class="keyword">if</span> eq_Abc(a,b) <span class="keyword">then</span> <span class="number">1</span> + occur_abc_SL(a,y) <span class="keyword">else</span> <span class="number">0</span> + occur_abc_SL(a,y)</span><br><span class="line">    | occur_Abc_SL(a,<span class="type">SCons</span>(<span class="type">Slist</span>(x),y)) = occur_abc_SL(a,x) + occur_abc_SL(a,y)</span><br></pre></td></tr></table></figure>
+<p>其實<code>SCons</code>的部分都長的很像，做 抽象與合併 !!</p>
+<figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fun</span> eq_Abc_atom(a,<span class="type">Atom</span>(b)) = eq_Abc(a,b)</span><br><span class="line">    | eq_Abc_atom(a,<span class="type">Slist</span>(b)) = <span class="literal">false</span></span><br><span class="line"><span class="keyword">fun</span> occur_Abc_SL(a,<span class="type">Nil</span>) = <span class="number">0</span></span><br><span class="line">    | occur_Abc_SL(a,<span class="type">SCons</span>(x,y)) = <span class="keyword">if</span> eq_Abc_atom(a,x) <span class="keyword">then</span> <span class="number">1</span>+occur_abc_SL(a,y) <span class="keyword">else</span> occur_Abc_SE(a,x) + occur_abc_SL(a,y) </span><br><span class="line">    <span class="keyword">and</span></span><br><span class="line"><span class="keyword">fun</span> occur_Abc_SE(a,<span class="type">Atom</span>(b)) = <span class="number">0</span></span><br><span class="line">    | occur_Abc_SE(a,<span class="type">Slist</span>(x)) = occur_Abc_SL(a,x)</span><br></pre></td></tr></table></figure>
+<h2 id="ch7-first-order-function-stream">ch7: first-order function &amp; stream</h2>
+<h3 id="first-order-function-type-inference">first-order function &amp; type inference</h3>
+<figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fun</span> true_mk(x) = <span class="literal">true</span></span><br><span class="line">(true_mk : ‘a -&gt; <span class="built_in">bool</span>)</span><br><span class="line"><span class="keyword">datatype</span> <span class="type">B_or_I</span> = <span class="type">HOT</span> <span class="keyword">of</span> <span class="built_in">bool</span> | <span class="type">COLD</span> <span class="keyword">of</span> <span class="built_in">int</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">fun</span> help(f)</span><br><span class="line">     = <span class="type">Hot</span>(true_mk(</span><br><span class="line">	<span class="keyword">if</span> true_mk(__)</span><br><span class="line">	<span class="keyword">then</span> f</span><br><span class="line">	<span class="keyword">else</span> true_mk))</span><br><span class="line">(help : ? -&gt; <span class="type">B_or_I</span>)</span><br></pre></td></tr></table></figure>
+<p>f的type是什麼?<br>
+then part與else part的type要一樣，故f的type是’a -&gt; bool</p>
+<h3 id="stream">stream</h3>
+<figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">datatype</span> chain = <span class="type">LINK</span> <span class="keyword">of</span> (<span class="built_in">int</span> * (<span class="built_in">int</span> -&gt; chain))</span><br></pre></td></tr></table></figure>
+<p>這裡是把function包上datatype，這樣可以把遞迴藏起來，因為是datatype的關係，在使用時一定要先打開來，才可以做下一個動作。</p>
+<figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fun</span> ints(n) = <span class="type">LINK</span>(n+<span class="number">1</span>, ints)</span><br><span class="line"><span class="keyword">fun</span> skips(n) = <span class="type">LINK</span>(n+<span class="number">2</span>, skips)</span><br><span class="line"><span class="keyword">fun</span> some_ints(n) = <span class="keyword">if</span> is_mod_5_or_7(n+<span class="number">1</span>) <span class="keyword">then</span> <span class="type">LINK</span>(n+<span class="number">1</span>, some_ints) <span class="keyword">else</span> some_ints(n+<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p>上面是產生stream的起點，接著要get stream的值</p>
+<figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fun</span> chain_item(n,<span class="type">Link</span>(x,f)) = <span class="keyword">if</span> eq_1(n) <span class="keyword">then</span> x <span class="keyword">else</span> chain_item(n-<span class="number">1</span>,f(n))</span><br></pre></td></tr></table></figure>
+<p>如果有個is_prime</p>
+<figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fun</span> primes(n) = <span class="keyword">if</span> is_prime(n+<span class="number">1</span>) <span class="keyword">then</span> <span class="type">LINK</span>(n+<span class="number">1</span>, primes) <span class="keyword">else</span> primes(n+<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p>fib 是一定要的</p>
+<figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fun</span> fibs(n)(m) = <span class="type">LINK</span>(n+m, fibs(m))</span><br><span class="line">(fibs : <span class="built_in">int</span> -&gt; (<span class="built_in">int</span> -&gt; chain))</span><br><span class="line"><span class="keyword">fun</span> fibs_1(m) = <span class="type">LINK</span>(<span class="number">1</span> + m, fibs(m)) ( == fibs(<span class="number">1</span>))</span><br></pre></td></tr></table></figure>
+<h2 id="ch8-curried">ch8: curried</h2>
+<figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fun</span> in_range_c(s,l)(x) = <span class="keyword">if</span> less_then(s,x) <span class="keyword">then</span> less_than(x,l) <span class="keyword">else</span> <span class="literal">false</span></span><br><span class="line">(in_range_c : (<span class="built_in">int</span> * <span class="built_in">int</span>) -&gt; (<span class="built_in">int</span> -&gt; <span class="built_in">bool</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fun</span> combine(<span class="type">Nil</span>,<span class="type">Nil</span>) = <span class="type">Nil</span></span><br><span class="line">    | combine(<span class="type">Nil</span>,<span class="type">Cons</span>(a,x)) = <span class="type">Cons</span>(a,x)</span><br><span class="line">    | combine(<span class="type">Cons</span>(a,x),<span class="type">Nil</span>) = <span class="type">Cons</span>(a,x)</span><br><span class="line">    | combine(<span class="type">Cons</span>(a,x)),<span class="type">Cons</span>(b,y)) = <span class="type">Cons</span>(a,combine(x,<span class="type">Cons</span>(b,y))</span><br><span class="line"></span><br><span class="line"><span class="keyword">fun</span> combine(<span class="type">Nil</span>,y) = y</span><br><span class="line">    | combine(<span class="type">Cons</span>(a,x)),y) = <span class="type">Cons</span>(a,combine(x,y))</span><br></pre></td></tr></table></figure>
+<p>第一種寫法把所有組合列出來<br>
+而第二種是只處理一個維度，剩下遞迴</p>
+<p>而curried後</p>
+<figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fun</span> combine_c(<span class="type">Nil</span>)(y) = y</span><br><span class="line">    | combine_c(<span class="type">Cons</span>(a,x))(y) = <span class="type">Cons</span>(a,combine_c(x)(y))</span><br></pre></td></tr></table></figure>
+<p>可以想像成</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">combine_c(Cons(1,Cons(2,Nil))) &#x3D;&gt; \y -&gt; Cons(1,combine_c(Cons(2,Nil))(y))</span><br></pre></td></tr></table></figure>
+<p>所以curried的另一種寫法</p>
+<figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fun</span> combine_s(<span class="type">Nil</span>) = <span class="keyword">fn</span> l2 =&gt; l2</span><br><span class="line">    | combine_s(<span class="type">Cons</span>(a,x)) = <span class="keyword">fn</span> l2 =&gt; <span class="type">Cons</span>(a, combine_s(x)(l2))</span><br></pre></td></tr></table></figure>
+<h2 id="ch9-exception">ch9: exception</h2>
+<figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">datatype</span> box = <span class="type">Bacon</span> | lx <span class="keyword">of</span> <span class="type">Int</span></span><br><span class="line"><span class="keyword">exception</span> <span class="type">No_bacon</span> <span class="keyword">of</span> <span class="built_in">int</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">fun</span> where_is(<span class="type">Nil</span>) = <span class="keyword">raise</span> <span class="type">No_bacon</span>(<span class="number">0</span>)</span><br><span class="line">    | where_is(<span class="type">Cons</span>(a,x)) = <span class="keyword">if</span> is_bacon(a) <span class="keyword">then</span> <span class="number">1</span> <span class="keyword">else</span> <span class="number">1</span>+where_is(x)</span><br><span class="line"></span><br><span class="line"><span class="comment">(* where_is(..) handle No_bacon(n) =&gt; n *)</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">exception</span> <span class="type">Out_of_range</span></span><br><span class="line"><span class="keyword">fun</span> list_item(n,<span class="type">Nil</span>) = <span class="keyword">raise</span> <span class="type">Out_of_range</span></span><br><span class="line">    | list_item(n,<span class="type">Cons</span>(b,rest)) = <span class="keyword">if</span> eq_int(n,<span class="number">1</span>) <span class="keyword">then</span> b <span class="keyword">else</span> list_item(n-<span class="number">1</span>,rest)</span><br><span class="line"></span><br><span class="line"><span class="keyword">fun</span> find(n, boxes)</span><br><span class="line">    = (check(n,boxes,list_item(n,boxes)) <span class="keyword">handle</span> <span class="type">Out_of_range</span> =&gt; find(n div <span class="number">2</span>, boxes))</span><br><span class="line"><span class="keyword">and</span></span><br><span class="line">      check(n,boxes,<span class="type">Bacon</span>) = n</span><br><span class="line">    | check(n,boxes,lx(i)) = find(i,boxes)</span><br><span class="line"><span class="keyword">fun</span> path(n, boxes)</span><br><span class="line">    = <span class="type">Cons</span>(n,(check(n,boxes,list_item(n,boxes)) <span class="keyword">handle</span> <span class="type">Out_of_range</span> =&gt; path(n div <span class="number">2</span>, boxes)))</span><br><span class="line"><span class="keyword">and</span></span><br><span class="line">      check(n,boxes,<span class="type">Bacon</span>) = n</span><br><span class="line">    | check(n,boxes,lx(i)) = path(i,boxes)</span><br></pre></td></tr></table></figure>
+<p>這裡的重點是 [X… (A… handle _ =&gt; B)]，當excepption發生時被接住時，此時會變成[X… B]。</p>
+<h2 id="ch10-module-system-in-ML">ch10: module system in ML</h2>
+<figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">(* interface *)</span></span><br><span class="line"><span class="keyword">signature</span> <span class="type">N</span> = </span><br><span class="line"><span class="keyword">sig</span></span><br><span class="line">    <span class="keyword">type</span> number</span><br><span class="line">    <span class="keyword">exception</span> <span class="type">Too_small</span></span><br><span class="line">    <span class="keyword">val</span> succ : number -&gt; number</span><br><span class="line">    <span class="keyword">val</span> pred : number -&gt; number</span><br><span class="line">    <span class="keyword">val</span> is_zero : number -&gt; <span class="built_in">bool</span></span><br><span class="line"><span class="keyword">end</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">(* class *)</span></span><br><span class="line"><span class="keyword">functor</span> <span class="type">NumberAsNum</span><span class="literal">()</span> <span class="comment">(* 傳入functor需要的參數(structure)與一些constraint(對內的type暴露) *)</span></span><br><span class="line">    :&gt; <span class="comment">(* implements *)</span></span><br><span class="line">    <span class="type">N</span></span><br><span class="line">=</span><br><span class="line">    <span class="keyword">struct</span> (private <span class="keyword">and</span> implement signatrue)</span><br><span class="line">    <span class="keyword">datatype</span> num = <span class="type">Zero</span> | <span class="type">One_more_than</span> <span class="keyword">of</span> num</span><br><span class="line">    <span class="keyword">type</span> number = num</span><br><span class="line">    <span class="keyword">exception</span> <span class="type">Too_small</span></span><br><span class="line">    <span class="keyword">fun</span> succ(n) = <span class="type">One_more_than</span>(n)</span><br><span class="line">    <span class="keyword">fun</span> pred(<span class="type">Zero</span>) = <span class="keyword">raise</span> <span class="type">Too_small</span> | pred(<span class="type">One_more_than</span>(n)) = n</span><br><span class="line">    <span class="keyword">fun</span> is_zero(<span class="type">Zero</span>) = <span class="literal">true</span> | is_zero(foo) = <span class="literal">false</span>;</span><br><span class="line"> <span class="keyword">end</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">(* object *)</span></span><br><span class="line"><span class="keyword">structure</span> <span class="type">NumStruct</span> = <span class="type">NumberAsNum</span><span class="literal">()</span>;</span><br></pre></td></tr></table></figure>
+<p>另一個plus</p>
+<figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">signature</span> <span class="type">P</span> =</span><br><span class="line"><span class="keyword">sig</span></span><br><span class="line">    <span class="keyword">type</span> number</span><br><span class="line">    <span class="keyword">val</span> plus : number*number -&gt; number</span><br><span class="line"><span class="keyword">end</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">functor</span> <span class="type">PON</span>(<span class="keyword">structure</span> a_N : <span class="type">N</span>)</span><br><span class="line">    :&gt;</span><br><span class="line">    <span class="type">P</span></span><br><span class="line">=</span><br><span class="line"><span class="keyword">struct</span></span><br><span class="line">    <span class="keyword">type</span> number = a_N.number</span><br><span class="line">    <span class="keyword">fun</span> plus(n,m) = <span class="keyword">if</span> a_N.is_zero(n) <span class="keyword">then</span> m <span class="keyword">else</span> a_N.succ(plus(a_N.pred(n),m))</span><br><span class="line"><span class="keyword">end</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">structure</span> <span class="type">NumArith</span> = <span class="type">PON</span>(<span class="keyword">structure</span> a_N = <span class="type">NumStruct</span>);</span><br></pre></td></tr></table></figure>
+<p>哪兩個可以一起用嗎?</p>
+<figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">NumArith</span>.plus(<span class="type">Zero</span>, <span class="type">One_more_than</span>(<span class="type">Zero</span>));</span><br></pre></td></tr></table></figure>
+<p>我們不知道NumArith的number是什麼!!</p>
+<p>要處理這個問題有三個方法</p>
+<ol>
+<li>加入box與unbox的function</li>
+</ol>
+<figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">signature</span> <span class="type">N_C_R</span> =</span><br><span class="line"><span class="keyword">sig</span></span><br><span class="line">    <span class="keyword">type</span> number</span><br><span class="line">    <span class="keyword">exception</span> <span class="type">Too_small</span></span><br><span class="line">    <span class="keyword">val</span> conceal : <span class="built_in">int</span> -&gt; number</span><br><span class="line">    <span class="keyword">val</span> succ : number -&gt; number</span><br><span class="line">    <span class="keyword">val</span> pred : number -&gt; number</span><br><span class="line">    <span class="keyword">val</span> is_zero : number -&gt; <span class="built_in">bool</span></span><br><span class="line">    <span class="keyword">val</span> reveal : number -&gt; <span class="built_in">int</span></span><br><span class="line"><span class="keyword">end</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">(* NumStruct.reveal( NumArith.plus( NumStruct.conceal(1), NumStruct.conceal(2))); *)</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>用where把type暴露出來</li>
+</ol>
+<figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">functor</span> <span class="type">PON</span>(<span class="keyword">structure</span> a_N : <span class="type">N</span>)</span><br><span class="line">:&gt;</span><br><span class="line"><span class="type">P</span> <span class="keyword">where</span> <span class="keyword">type</span> number = a_N.number</span><br><span class="line">=</span><br><span class="line"><span class="keyword">struct</span></span><br><span class="line">    <span class="keyword">type</span> number = a_N.number</span><br><span class="line">    <span class="keyword">fun</span> plus(n,m) = <span class="keyword">if</span> a_N.is_zero(n) <span class="keyword">then</span> m <span class="keyword">else</span> a_N.succ(plus(a_N.pred(n),m))</span><br><span class="line"><span class="keyword">end</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">functor</span> <span class="type">NumberAsInt2</span><span class="literal">()</span></span><br><span class="line">:&gt;</span><br><span class="line"><span class="type">N</span> <span class="keyword">where</span> <span class="keyword">type</span> number = <span class="built_in">int</span> <span class="comment">(* 這邊的int是refer到外面的env，不會碰到struct .. end 中的東西，*)</span></span><br><span class="line">=</span><br><span class="line"><span class="keyword">struct</span></span><br><span class="line">    <span class="keyword">type</span> number = <span class="built_in">int</span></span><br><span class="line">    <span class="keyword">exception</span> <span class="type">Too_small</span></span><br><span class="line">    <span class="keyword">fun</span> succ(n) = n + <span class="number">1</span> <span class="keyword">fun</span> pred(n) = <span class="keyword">if</span> n=<span class="number">0</span> <span class="keyword">then</span> <span class="keyword">raise</span> <span class="type">Too_small</span> <span class="keyword">else</span> n-<span class="number">1</span></span><br><span class="line">    <span class="keyword">fun</span> is_zero(n) = n=<span class="number">0</span></span><br><span class="line"><span class="keyword">end</span>;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>sharing type標出兩個type要一樣</li>
+</ol>
+<figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">signature</span> <span class="type">J</span> =</span><br><span class="line"><span class="keyword">sig</span></span><br><span class="line">    <span class="keyword">val</span> new_plus : <span class="built_in">int</span>*<span class="built_in">int</span> -&gt; <span class="built_in">int</span></span><br><span class="line"><span class="keyword">end</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">functor</span> <span class="type">NP</span>(<span class="keyword">structure</span> a_N : <span class="type">N_C_R</span></span><br><span class="line">           <span class="keyword">structure</span> a_P : <span class="type">P</span></span><br><span class="line">           <span class="keyword">sharing</span> <span class="keyword">type</span> a_N.number = a_P.number)</span><br><span class="line">    :&gt;</span><br><span class="line">    <span class="type">J</span></span><br><span class="line">=</span><br><span class="line"><span class="keyword">struct</span></span><br><span class="line">    <span class="keyword">fun</span> new_plus(x,y) = a_N.reveal( a_P.plus( a_N.conceal(x), a_N.conceal(y)))</span><br><span class="line"><span class="keyword">end</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">structure</span> <span class="type">NPStruct</span> = <span class="type">NP</span>(<span class="keyword">structure</span> a_N = <span class="type">NumberAsNum</span><span class="literal">()</span></span><br><span class="line">    <span class="keyword">structure</span> a_P = <span class="type">PON</span>(<span class="keyword">structure</span> a_N = a_N));</span><br></pre></td></tr></table></figure>
+<h3 id="小總結">小總結</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">functor &lt;&lt;name&gt;&gt;(args with some relations(A.b is equal to B.c, 這也是為什麼fuctor的參數要named的理由)) </span><br><span class="line">    :&gt;</span><br><span class="line">    &lt;&lt;sig(return type) with some relations(this type is same as ...)&gt;&gt;</span><br><span class="line">&#x3D;</span><br><span class="line">struct</span><br><span class="line">    code</span><br><span class="line">end;</span><br></pre></td></tr></table></figure>
+<h2 id="Y-in-ML">Y in ML</h2>
+<p>Y的重點是有一個(g g)這是無限遞迴的，所以要中斷他。<br>
+在第七章的stream(chain)中就利用datatype來打斷無限遞迴，所以這裡也要用相同的技巧。<br>
+與chain不同的是，我們的函數的參數是自己，所以不用像chain要多一格來存apply到函數的參數。<br>
+所以只要存自己就夠了</p>
+<figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">datatype</span> <span class="symbol">'a</span> <span class="type">T</span> = <span class="type">INTO</span> <span class="keyword">of</span> <span class="symbol">'a</span> <span class="type">T</span> -&gt; <span class="symbol">'a</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">fun</span> <span class="type">Y</span>(f)= <span class="type">H</span>(f)(<span class="type">INTO</span>(<span class="type">H</span>(f)))</span><br><span class="line"><span class="keyword">and</span> <span class="type">H</span>(f)(a) = f(<span class="type">G</span>(a))</span><br><span class="line"><span class="keyword">and</span> <span class="type">G</span>(<span class="type">INTO</span>(a))(x) = a(<span class="type">INTO</span>(a))(x);</span><br><span class="line"></span><br><span class="line"><span class="keyword">fun</span> mk_fact(fact)(n)</span><br><span class="line">    = <span class="keyword">if</span> n=<span class="number">0</span></span><br><span class="line">        <span class="keyword">then</span> <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span> n*fact(n-<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/5/little-typer-8-16/" rel="prev" title="little typer 後篇(8~16) 整理與筆記">
+      <i class="fa fa-chevron-left"></i> little typer 後篇(8~16) 整理與筆記
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/6/vscode-cpp-style/" rel="next" title="設定vscode的c++ format">
+      設定vscode的c++ format <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ch0-執行環境"><span class="nav-number">1.</span> <span class="nav-text">ch0: 執行環境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ch1-定義type"><span class="nav-number">2.</span> <span class="nav-text">ch1: 定義type</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ch2-寫function"><span class="nav-number">3.</span> <span class="nav-text">ch2: 寫function</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ch3-在list上遞迴"><span class="nav-number">4.</span> <span class="nav-text">ch3: 在list上遞迴</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ch4-tuple-多參數function"><span class="nav-number">5.</span> <span class="nav-text">ch4: tuple &amp; 多參數function</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ch5-type的參數可以不只一個"><span class="nav-number">6.</span> <span class="nav-text">ch5: type的參數可以不只一個</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#type的參數可以不只一個"><span class="nav-number">6.1.</span> <span class="nav-text">type的參數可以不只一個</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#抽象與組合數"><span class="nav-number">6.2.</span> <span class="nav-text">抽象與組合數</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ch6-樹形遞迴"><span class="nav-number">7.</span> <span class="nav-text">ch6: 樹形遞迴</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#sexp-slist"><span class="nav-number">7.1.</span> <span class="nav-text">sexp &amp; slist</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ch7-first-order-function-stream"><span class="nav-number">8.</span> <span class="nav-text">ch7: first-order function &amp; stream</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#first-order-function-type-inference"><span class="nav-number">8.1.</span> <span class="nav-text">first-order function &amp; type inference</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stream"><span class="nav-number">8.2.</span> <span class="nav-text">stream</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ch8-curried"><span class="nav-number">9.</span> <span class="nav-text">ch8: curried</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ch9-exception"><span class="nav-number">10.</span> <span class="nav-text">ch9: exception</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ch10-module-system-in-ML"><span class="nav-number">11.</span> <span class="nav-text">ch10: module system in ML</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#小總結"><span class="nav-number">11.1.</span> <span class="nav-text">小總結</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Y-in-ML"><span class="nav-number">12.</span> <span class="nav-text">Y in ML</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">zhengcf</p>
+  <div class="site-description" itemprop="description">想到什麼就寫什麼</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">683</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhengcf</span>
+</div>
+  <div class="powered-by">Powered by <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl theme-link" data-url="aHR0cHM6Ly9tdXNlLnRoZW1lLW5leHQub3Jn">NexT.Muse</span>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 1000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://littlebees.github.io/2020/5/the-little-mler-note/',]
+      });
+      });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="AEpTGuQAkxnTOlmfF4INDna3S660LxrkyZ4BQzVbRSw">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"littlebees.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="動機 就是把windows與ubuntu的安裝整合在一起 (都是uefi)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用docker compose建一個ipxe的server">
+<meta property="og:url" content="https://littlebees.github.io/2021/10/ipxe-and-winpe/index.html">
+<meta property="og:site_name" content="記事本">
+<meta property="og:description" content="動機 就是把windows與ubuntu的安裝整合在一起 (都是uefi)">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-10-30T14:25:42.000Z">
+<meta property="article:modified_time" content="2022-01-22T08:51:59.764Z">
+<meta property="article:author" content="zhengcf">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://littlebees.github.io/2021/10/ipxe-and-winpe/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>用docker compose建一個ipxe的server | 記事本</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">記事本</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">寫下來，不然會忘</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2021/10/ipxe-and-winpe/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhengcf">
+      <meta itemprop="description" content="想到什麼就寫什麼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="記事本">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          用docker compose建一個ipxe的server
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-10-30 22:25:42" itemprop="dateCreated datePublished" datetime="2021-10-30T22:25:42+08:00">2021-10-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-01-22 16:51:59" itemprop="dateModified" datetime="2022-01-22T16:51:59+08:00">2022-01-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Small-project/" itemprop="url" rel="index"><span itemprop="name">Small project</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/Tips/" itemprop="url" rel="index"><span itemprop="name">Tips</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="動機">動機</h2>
+<p>就是把windows與ubuntu的安裝整合在一起 (都是uefi)</p>
+<a id="more"></a>
+<h2 id="Sol">Sol</h2>
+<h3 id="整體結構">整體結構</h3>
+<ul>
+<li>dhcp回dhcp-boot，讓client拉ipxe的執行檔</li>
+<li>ipxe透過tftp拉真正的menu，ipxe在透過http拉需要的東西
+<ul>
+<li>general: kernel要知道怎麼透過網路去找安裝程式，所以下面就有兩種方式
+<ul>
+<li>一個shell給你作事 (winpe)</li>
+<li>有魔改的kernel，裡面放url (netboot)，或是透過kernel args傳nfs</li>
+</ul>
+</li>
+<li>windows:
+<ul>
+<li>透過wimboot引導winpe</li>
+<li>winpe再連到自己host windows iso的地方</li>
+</ul>
+</li>
+<li>ubuntu:
+<ul>
+<li>就是load kernel與initrd</li>
+<li>之後裡面魔改後kernel與initrd會去ubuntu拉ubuntu iso
+<ul>
+<li>也因為魔改過(應該是initrd)，所以有自動回答文件
+<ul>
+<li>可以看<span class="exturl" data-url="aHR0cHM6Ly9naWFuYXJiLml0L2Jsb2cvZmlyc3Qtam91cm5leXMtd2l0aC1uZXRib290LWlweGU=">這裡<i class="fa fa-external-link-alt"></i></span></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="網路">網路</h3>
+<p>這次是把 dhcp, tftp, web, router整合在同一台，只用一個網孔，因為我的respi2只有一個孔。</p>
+<p>所以整個網路就是電腦一個孔要吃兩個網路，有兩個方式</p>
+<ol>
+<li>ip alias, vlan: 應該可以用，但我沒試</li>
+<li>從現有的net分幾個ip給dhcp發: 這裡用這個方法</li>
+</ol>
+<ul>
+<li>假設dhcp的假子網路: <code>192.168.81.20</code>~<code>192.168.81.25</code></li>
+</ul>
+<p>要處理snat，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iptables -P FORWARD ACCEPT</span><br><span class="line">iptables -t nat -A POSTROUTING -m iprange --src-range 192.168.81.20-192.168.81.25 -j MASQUERADE</span><br></pre></td></tr></table></figure>
+<h3 id="dhcpd">dhcpd</h3>
+<p>dhcpd.conf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">ddns-update-style none;</span><br><span class="line">ignore client-updates;</span><br><span class="line">  </span><br><span class="line">allow booting;</span><br><span class="line">allow bootp;</span><br><span class="line">  </span><br><span class="line">subnet 192.168.81.0 netmask 255.255.255.0 &#123;</span><br><span class="line">        range 192.168.81.20 192.168.81.25;</span><br><span class="line">        option broadcast-address 192.168.81.2;</span><br><span class="line">        option subnet-mask 255.255.255.0;</span><br><span class="line">        option domain-name-servers 8.8.8.8;</span><br><span class="line">  </span><br><span class="line">          class &quot;pxeclients&quot; &#123;</span><br><span class="line">                  match if substring (option vendor-class-identifier, 0, 9) &#x3D; &quot;PXEClient&quot;;</span><br><span class="line">                  next-server 192.168.81.160;</span><br><span class="line">                  filename &quot;ipxe.efi&quot;;</span><br><span class="line">          &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="tftpd">tftpd</h3>
+<p>tftpd.remap<br>
+都是因為window的斜線是反的!!</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rg \\ &#x2F;</span><br></pre></td></tr></table></figure>
+<h3 id="nginx">nginx</h3>
+<p>/etc/nginx/nginx.conf<br>
+裡面的user要改成root，不然沒辦法掛在mnt</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">user  root;</span><br><span class="line">worker_processes  auto;</span><br><span class="line"></span><br><span class="line">error_log  &#x2F;var&#x2F;log&#x2F;nginx&#x2F;error.log notice;</span><br><span class="line">pid        &#x2F;var&#x2F;run&#x2F;nginx.pid;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       &#x2F;etc&#x2F;nginx&#x2F;mime.types;</span><br><span class="line">    default_type  application&#x2F;octet-stream;</span><br><span class="line"></span><br><span class="line">    log_format  main  &#39;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#39;</span><br><span class="line">                      &#39;$status $body_bytes_sent &quot;$http_referer&quot; &#39;</span><br><span class="line">                      &#39;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#39;;</span><br><span class="line"></span><br><span class="line">    access_log  &#x2F;var&#x2F;log&#x2F;nginx&#x2F;access.log  main;</span><br><span class="line"></span><br><span class="line">    sendfile        on;</span><br><span class="line">    #tcp_nopush     on;</span><br><span class="line"></span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line"></span><br><span class="line">    #gzip  on;</span><br><span class="line"></span><br><span class="line">    include &#x2F;etc&#x2F;nginx&#x2F;conf.d&#x2F;*.conf;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>/etc/conf.d/default.conf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen 80 default_server;</span><br><span class="line">        listen [::]:80 default_server;</span><br><span class="line"></span><br><span class="line">        root &#x2F;var&#x2F;www&#x2F;html;</span><br><span class="line"></span><br><span class="line">        index index.html index.htm index.nginx-debian.html;</span><br><span class="line"></span><br><span class="line">        server_name _;</span><br><span class="line"></span><br><span class="line">        location &#x2F; &#123;</span><br><span class="line">                autoindex on;</span><br><span class="line">                autoindex_exact_size off;</span><br><span class="line">                autoindex_format html;</span><br><span class="line">                autoindex_localtime on;</span><br><span class="line">                root &#x2F;mnt&#x2F;;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="ipxe">ipxe</h3>
+<p>clone code</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install -y git gcc make liblzma-dev</span><br><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;ipxe&#x2F;ipxe.git</span><br><span class="line">cd ipxe&#x2F;src</span><br></pre></td></tr></table></figure>
+<p>embed.ipxe</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#!ipxe</span><br><span class="line"></span><br><span class="line">dhcp</span><br><span class="line">chain tftp:&#x2F;&#x2F;$&#123;next-server&#125;&#x2F;main.ipxe || shell</span><br></pre></td></tr></table></figure>
+<p>編ipxe</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make bin-x86_64-linux&#x2F;ipxe.pxe EMBED&#x3D;embed.ipxe</span><br></pre></td></tr></table></figure>
+<p>main.ipxe</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">#!ipxe</span><br><span class="line"># dhcp</span><br><span class="line"></span><br><span class="line">set http-root           http:&#x2F;&#x2F;$&#123;next-server&#125;</span><br><span class="line"></span><br><span class="line"># Some menu defaults</span><br><span class="line">set menu-timeout 5000</span><br><span class="line">set submenu-timeout $&#123;menu-timeout&#125;</span><br><span class="line">set menu-default ubuntu1804_inst</span><br><span class="line"></span><br><span class="line">:start</span><br><span class="line">menu iPXE boot menu</span><br><span class="line">item --gap --                   ---------------------------- Installers ----------------------------------</span><br><span class="line">item --key u    ubuntu_inst         Install Ubuntu</span><br><span class="line">item --key e    windows10_uefi_inst          Install Windows 10</span><br><span class="line">item --gap --                   ------------------------- Advanced options -------------------------------</span><br><span class="line">item            shell                   Drop to iPXE shell</span><br><span class="line">item            reboot                  Reboot</span><br><span class="line">item</span><br><span class="line">item --key x    exit                    Exit iPXE and continue BIOS boot</span><br><span class="line">choose --timeout $&#123;menu-timeout&#125; --default $&#123;menu-default&#125; selected || goto cancel</span><br><span class="line">set menu-timeout 0</span><br><span class="line">goto $&#123;selected&#125;</span><br><span class="line"></span><br><span class="line">:cancel</span><br><span class="line">echo You cancelled the menu, dropping you to a shell</span><br><span class="line"></span><br><span class="line">:shell</span><br><span class="line">echo Type &#39;exit&#39; to get the back to the menu</span><br><span class="line">shell</span><br><span class="line">set menu-timeout 0</span><br><span class="line">set submenu-timeout 0</span><br><span class="line">goto start</span><br><span class="line"></span><br><span class="line">:reboot</span><br><span class="line">reboot</span><br><span class="line"></span><br><span class="line">:exit</span><br><span class="line">exit</span><br><span class="line"></span><br><span class="line">:windows10_uefi_inst</span><br><span class="line">kernel $&#123;http-root&#125;&#x2F;windows&#x2F;wimboot</span><br><span class="line">initrd $&#123;http-root&#125;&#x2F;windows&#x2F;BCD         BCD</span><br><span class="line">initrd $&#123;http-root&#125;&#x2F;windows&#x2F;boot.sdi    boot.sdi</span><br><span class="line">initrd $&#123;http-root&#125;&#x2F;windows&#x2F;boot.wim boot.wim</span><br><span class="line">boot</span><br><span class="line"></span><br><span class="line">:ubuntu_inst</span><br><span class="line">kernel $&#123;http-root&#125;&#x2F;ubuntu&#x2F;linux initrd&#x3D;initrd.gz</span><br><span class="line">initrd $&#123;http-root&#125;&#x2F;ubuntu&#x2F;initrd.gz</span><br><span class="line">boot</span><br></pre></td></tr></table></figure>
+<h3 id="資料夾結構">資料夾結構</h3>
+<ul>
+<li>/
+<ul>
+<li>files
+<ul>
+<li>web
+<ul>
+<li>windows
+<ul>
+<li>boot.wim: winpe的kernel</li>
+<li>wimboot: ipxe用來load winpe的魔法</li>
+<li>boot.sdi: winpe的ramdisk</li>
+<li>BCD: windows的bootloader</li>
+</ul>
+</li>
+<li>ubuntu
+<ul>
+<li>linux: ubuntu的netboot kernel
+<ul>
+<li><span class="exturl" data-url="aHR0cDovL3R3LmFyY2hpdmUudWJ1bnR1LmNvbS91YnVudHUvZGlzdHMvZm9jYWwtdXBkYXRlcy9tYWluL2luc3RhbGxlci1hbWQ2NC9jdXJyZW50L2xlZ2FjeS1pbWFnZXMvbmV0Ym9vdC91YnVudHUtaW5zdGFsbGVyL2FtZDY0L2xpbnV4">download now<i class="fa fa-external-link-alt"></i></span></li>
+</ul>
+</li>
+<li>initrd.gz: ubuntu的netboot initramfs
+<ul>
+<li><span class="exturl" data-url="aHR0cDovL3R3LmFyY2hpdmUudWJ1bnR1LmNvbS91YnVudHUvZGlzdHMvZm9jYWwtdXBkYXRlcy9tYWluL2luc3RhbGxlci1hbWQ2NC9jdXJyZW50L2xlZ2FjeS1pbWFnZXMvbmV0Ym9vdC91YnVudHUtaW5zdGFsbGVyL2FtZDY0L2luaXRyZC5neg==">download now<i class="fa fa-external-link-alt"></i></span></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>tftpd
+<ul>
+<li>main.ipxe</li>
+<li>ipxe.efi</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>confs
+<ul>
+<li>tftpd
+<ul>
+<li>tftpd.remap</li>
+</ul>
+</li>
+<li>nginx
+<ul>
+<li>nginx.conf</li>
+<li>default.conf</li>
+</ul>
+</li>
+<li>dhcpd
+<ul>
+<li>dhcpd.conf</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="docker-compose">docker compose</h3>
+<p>docker的server一般要知道要開什麼port，但如果懶就用<code>--net host</code>，在compose就用<code>network_mode: host</code></p>
+<p>附上常用的docker指令</p>
+<ul>
+<li>創container (d是detach, v是volume)
+<ul>
+<li><code>docker run -d --name &lt;container name&gt; --net host -v &lt;host path&gt;:&lt;container path&gt; &lt;image name&gt;</code></li>
+</ul>
+</li>
+<li>debug需要 (f就是tail的f)
+<ul>
+<li><code>docker logs -f &lt;container name&gt;</code></li>
+<li><code>docker-compose logs -f</code></li>
+</ul>
+</li>
+<li>連進去確認container狀況
+<ul>
+<li><code>docker exec -it &lt;container name&gt; /bin/sh</code></li>
+</ul>
+</li>
+<li>直接關掉與刪掉container (f是force)
+<ul>
+<li><code>docker rm -f &lt;container name&gt;</code></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">dhcpd:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">networkboot/dhcpd</span></span><br><span class="line">    <span class="attr">network_mode:</span> <span class="string">host</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/confs/dhcpd:/data</span></span><br><span class="line">  <span class="attr">tftpd:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">3x3cut0r/tftpd-hpa</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">"69:69/udp"</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/files/tftpd:/tftpboot</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/confs/tftpd/tftpd.remap:/mapfile</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="attr">MAPFILE:</span> <span class="string">/mapfile</span></span><br><span class="line">  <span class="attr">nginx:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">nginx:alpine</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">"80:80"</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/confs/nginx/nginx.conf:/etc/nginx/nginx.conf</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/confs/nginx/default.conf:/etc/nginx/conf.d/default.conf</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/files/web:/mnt</span></span><br></pre></td></tr></table></figure>
+<h2 id="坑">坑</h2>
+<h3 id="不要用dnsmasq">不要用dnsmasq</h3>
+<p>雖然說dhcp, tftp都有，但是不知道為什麼在winpe的uefi開機時都會出事</p>
+<p>dhcp好像有錯，同時tftp不能remap，所以只能用別款</p>
+<h3 id="不要用virtualbox實驗">不要用virtualbox實驗</h3>
+<p>virtualbox的nat網路不是真正的nat，要自己創nat網路…<br>
+雖說原本的nat支援pxe，但實際上無法用自己網路來構成pxe開機，只能算是模擬</p>
+<h3 id="每次都重建一台vm">每次都重建一台vm</h3>
+<p>有遇到winpe一直卡在wpeinit的事，但是自從每次都重建要被裝os的vm來實驗後就沒遇過了</p>
+<h3 id="直接用iscsi掛iso去boot不work">直接用iscsi掛iso去boot不work</h3>
+<p>因為轉到iscis之後，雖然是iso的執行環境，<br>
+但iso還要從iso載入其他檔案，會因為不知道iscsi的target在哪，就直接出事。</p>
+<h2 id="Ref">Ref</h2>
+<p><span class="exturl" data-url="aHR0cHM6Ly91bml4LnN0YWNrZXhjaGFuZ2UuY29tL3F1ZXN0aW9ucy8yOTk5OS93aHktYXJlLW15LXR3by12aXJ0dWFsLW1hY2hpbmVzLWdldHRpbmctdGhlLXNhbWUtaXAtYWRkcmVzcw==">why-are-my-two-virtual-machines-getting-the-same-ip-address<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L29ubHlzdW5ueWJveS9hcnRpY2xlL2RldGFpbHMvNzUyNzA1MzM=">解决Nginx出现403 forbidden<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly9zdGFja292ZXJmbG93LmNvbS9xdWVzdGlvbnMvMjI4MzI4MzEvaXMtaXQtcG9zc2libGUtdG8taGF2ZS1hLXJvb3QtcGF0aC1jb250YWluaW5nLXNwYWNlcy1pbi1teS1uZ2lueC1jb25m">is-it-possible-to-have-a-root-path-containing-spaces-in-my-nginx-conf<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly9naXN0LmdpdGh1Yi5jb20vcmlra2EwdzAvNTA4OTViODJjYmVjOGEzYTFlOGM3NzA3NDc5ODI0YzE=">build ipxe<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly9ibG9nLm9wZW40ai5jb20vMjAxOS8wNS8zMC9pcHhlLWJ1aWxkLWVtYmVkZGVkLXNjcmlwdC8=">iPXE编译增加功能与自定义脚本<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly9ibG9nLm15bm9lZS5jb20vYXJjaGl2ZXMvMTc2Lw==">折腾网络启动（2）iPXE 篇<i class="fa fa-external-link-alt"></i></span></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/10/http-protocol/" rel="prev" title="http-protocol">
+      <i class="fa fa-chevron-left"></i> http-protocol
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/10/systemd/" rel="next" title="systemd">
+      systemd <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol"><span class="nav-number">2.</span> <span class="nav-text">Sol</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#整體結構"><span class="nav-number">2.1.</span> <span class="nav-text">整體結構</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#網路"><span class="nav-number">2.2.</span> <span class="nav-text">網路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dhcpd"><span class="nav-number">2.3.</span> <span class="nav-text">dhcpd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tftpd"><span class="nav-number">2.4.</span> <span class="nav-text">tftpd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nginx"><span class="nav-number">2.5.</span> <span class="nav-text">nginx</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ipxe"><span class="nav-number">2.6.</span> <span class="nav-text">ipxe</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#資料夾結構"><span class="nav-number">2.7.</span> <span class="nav-text">資料夾結構</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-compose"><span class="nav-number">2.8.</span> <span class="nav-text">docker compose</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#坑"><span class="nav-number">3.</span> <span class="nav-text">坑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#不要用dnsmasq"><span class="nav-number">3.1.</span> <span class="nav-text">不要用dnsmasq</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不要用virtualbox實驗"><span class="nav-number">3.2.</span> <span class="nav-text">不要用virtualbox實驗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#每次都重建一台vm"><span class="nav-number">3.3.</span> <span class="nav-text">每次都重建一台vm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#直接用iscsi掛iso去boot不work"><span class="nav-number">3.4.</span> <span class="nav-text">直接用iscsi掛iso去boot不work</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">4.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">zhengcf</p>
+  <div class="site-description" itemprop="description">想到什麼就寫什麼</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">683</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhengcf</span>
+</div>
+  <div class="powered-by">Powered by <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl theme-link" data-url="aHR0cHM6Ly9tdXNlLnRoZW1lLW5leHQub3Jn">NexT.Muse</span>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 1000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://littlebees.github.io/2021/10/ipxe-and-winpe/',]
+      });
+      });
+  </script>
+
+</body>
+</html>

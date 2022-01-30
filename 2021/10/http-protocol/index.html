@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="AEpTGuQAkxnTOlmfF4INDna3S660LxrkyZ4BQzVbRSw">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"littlebees.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="動機 記錄用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="http-protocol">
+<meta property="og:url" content="https://littlebees.github.io/2021/10/http-protocol/index.html">
+<meta property="og:site_name" content="記事本">
+<meta property="og:description" content="動機 記錄用">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://mdn.mozillademos.org/files/13777/HTTPCachtType.png">
+<meta property="og:image" content="https://i.imgur.com/tMIE84K.png">
+<meta property="og:image" content="https://imgopt.infoq.com/fit-in/1200x2400/filters:quality(80)/filters:no_upscale()/articles/websocket-and-http2-coexist/en/resources/21.jpg">
+<meta property="article:published_time" content="2021-10-27T15:09:18.000Z">
+<meta property="article:modified_time" content="2022-01-22T08:54:43.984Z">
+<meta property="article:author" content="zhengcf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mdn.mozillademos.org/files/13777/HTTPCachtType.png">
+
+<link rel="canonical" href="https://littlebees.github.io/2021/10/http-protocol/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>http-protocol | 記事本</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">記事本</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">寫下來，不然會忘</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2021/10/http-protocol/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhengcf">
+      <meta itemprop="description" content="想到什麼就寫什麼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="記事本">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          http-protocol
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-10-27 23:09:18" itemprop="dateCreated datePublished" datetime="2021-10-27T23:09:18+08:00">2021-10-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-01-22 16:54:43" itemprop="dateModified" datetime="2022-01-22T16:54:43+08:00">2022-01-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Rails/" itemprop="url" rel="index"><span itemprop="name">Rails</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Rails/FAQ/" itemprop="url" rel="index"><span itemprop="name">FAQ</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="動機">動機</h2>
+<p>記錄用</p>
+<a id="more"></a>
+<h2 id="http-1-0">http 1.0</h2>
+<p>一個http req對到一個tcp socket。<br>
+以每個檔案為單位，去開http request，所有網頁有關的檔案都會各自開一個http。<br>
+等拿到一個檔案再開下一個http request。</p>
+<h2 id="header">header</h2>
+<ul>
+<li>內容 協商,類型,編碼
+<ul>
+<li>名詞</li>
+<li>request
+<ul>
+<li>Accept
+<ul>
+<li>資料的類型，要看MIME
+<ul>
+<li>像 <code>application/json</code>, <code>*/*</code></li>
+</ul>
+</li>
+<li>權重: <code>application/xml;q=0.9,application/json, text/*;q=0.8</code>
+<ul>
+<li><code>application/json</code>最高(1)，<code>application/xml</code>次高(0.9)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Accept-Charset
+<ul>
+<li>就是charset，像utf8</li>
+</ul>
+</li>
+<li>Accept-Encoding
+<ul>
+<li>怎麼壓縮資料</li>
+</ul>
+</li>
+<li>Accept-Language
+<ul>
+<li>就是語言</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>response
+<ul>
+<li>Content-Type
+<ul>
+<li>對到Accept &amp; Accept-Charset
+<ul>
+<li><code>application/x-www-form-urlencoded; charset=utf-8</code>
+<ul>
+<li>這是form表單</li>
+<li>payload會像<code>name=tom&amp;password=9487</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Content-Encoding
+<ul>
+<li>對到Accept-Encoding</li>
+</ul>
+</li>
+<li>Content-Language
+<ul>
+<li>對到Accept-Language</li>
+</ul>
+</li>
+<li>Content-Location
+<ul>
+<li>資料的實際位置</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>cache
+<ul>
+<li>Cache-Control
+<ul>
+<li>no-store: 每次都重拿</li>
+<li>no-cache: 每次都發req驗證</li>
+<li>max-age: <code>max-age=10</code>，十秒後才會發req</li>
+<li>stale-while-revalidate: 先拿原本的cache，同時在背景向伺服器發送請求</li>
+<li>public &amp; private:
+<ul>
+<li><img src="https://mdn.mozillademos.org/files/13777/HTTPCachtType.png" alt=""></li>
+</ul>
+</li>
+<li><img src="https://i.imgur.com/tMIE84K.png" alt=""></li>
+</ul>
+</li>
+<li>Last-Modified &amp; Etag
+<ul>
+<li>都是cache的stamp
+<ul>
+<li>一個是 時間</li>
+<li>一個是 hash(md5)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>If-Modified-Since &amp; If-None-Match
+<ul>
+<li>就是驗證時把stamp丟給server看的</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Referer &amp; Refresh
+<ul>
+<li>request
+<ul>
+<li>Referer: 上一個網址</li>
+</ul>
+</li>
+<li>response
+<ul>
+<li>Refresh: 重新導向跳轉 (5秒後跳到w3)
+<ul>
+<li><code>Refresh: 5; url=http://www.w3.org</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>同源
+<ul>
+<li>request
+<ul>
+<li>Origin: 我的domain是</li>
+<li>Access-Control-Request-Origin: 向server發問這個origin會不會過同源
+<ul>
+<li>後面的Origin還可以換成 Methods, Headers</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>response
+<ul>
+<li>Access-Control-Allow-Origin: 能吃的domian
+<ul>
+<li>後面的Origin還可以換成 Methods, Headers</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="http-1-1">http 1.1</h2>
+<p>http1會開很多tcp socket，tcp socket也是要$，所以有了keep-alive</p>
+<h3 id="keep-alive">keep-alive</h3>
+<p>在header放，<code>Connection: Keep-Alive</code>，表示這個socket傳完不用關掉<br>
+只要server也有一樣的response，就是使用keep-alive</p>
+<p>但只限制在該網頁，所以現在http1.1是以每個網頁為單位，只要不同tab就是新的tcp socket</p>
+<h3 id="pipeline">pipeline</h3>
+<p>現在有keep-alive，但還是只能等拿到一個檔案再開下一個http request。<br>
+所以有pipeline，可以先給多個http request，但是</p>
+<ul>
+<li>server還是一個一個回且照順序 (head-of-line blocking)</li>
+<li>只能用於GET, HEAD之類，Idempotent的verb</li>
+</ul>
+<h2 id="websocket">websocket</h2>
+<p>有了keep-alive，但server沒辦法主動推資料給client</p>
+<p>如果client要更新資料只能自己做poll，雖說有數個技術，但就只是差在poll後會保留多久這個用來查詢更新的socket</p>
+<p>所以有了websocket，與http同樣用80,443 port，但是包自己的pkt header，就可以把資料切小(frame)，讓接收端重組資料(少了flow-control、congestion-control的tcp)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"> 0                   1                   2                   3</span><br><span class="line"> 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1</span><br><span class="line">+-+-+-+-+-------+-+-------------+-------------------------------+</span><br><span class="line">|F|R|R|R| opcode|M| Payload len |    Extended payload length    |</span><br><span class="line">|I|S|S|S|  (4)  |A|     (7)     |             (16&#x2F;64)           |</span><br><span class="line">|N|V|V|V|       |S|             |   (if payload len&#x3D;&#x3D;126&#x2F;127)   |</span><br><span class="line">| |1|2|3|       |K|             |                               |</span><br><span class="line">+-+-+-+-+-------+-+-------------+ - - - - - - - - - - - - - - - +</span><br><span class="line">|     Extended payload length continued, if payload len &#x3D;&#x3D; 127  |</span><br><span class="line">+ - - - - - - - - - - - - - - - +-------------------------------+</span><br><span class="line">|                               |Masking-key, if MASK set to 1  |</span><br><span class="line">+-------------------------------+-------------------------------+</span><br><span class="line">| Masking-key (continued)       |          Payload Data         |</span><br><span class="line">+-------------------------------- - - - - - - - - - - - - - - - +</span><br><span class="line">:                     Payload Data continued ...                :</span><br><span class="line">+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +</span><br><span class="line">|                     Payload Data continued ...                |</span><br></pre></td></tr></table></figure>
+<p>使用方法是</p>
+<ol>
+<li>先發http req，但裡面放
+<ul>
+<li><code>Upgrade: websocket</code></li>
+<li><code>Connection: Upgrade</code></li>
+</ul>
+</li>
+<li>如果ok，server的res也會有一樣的東西，之後就是websocket了</li>
+</ol>
+<h2 id="Server-sent-events-sse">Server-sent events(sse)</h2>
+<p>但是這是新protocol，有沒有方法在http上做改進?<br>
+Server-sent events就是在傳回資料時，標這是streaming，讓client不要關連線。</p>
+<p>這樣能完成server push，但是只有單向!!</p>
+<p>用法是</p>
+<ol>
+<li>放下面的header</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Content-Type: text&#x2F;event-stream</span><br><span class="line">Cache-Control: no-cache</span><br><span class="line">Connection: keep-alive</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>開始丟資料 (資料有另外的格式，但這裡跳過)</li>
+</ol>
+<h2 id="http2">http2</h2>
+<p>一次大改版，可以想成在tcp與http1.1之間引入一層轉換層，來達成下面4點</p>
+<ol>
+<li>都用binary
+<ul>
+<li>http原本都是text</li>
+<li>websocket可以是text也可以是binary</li>
+</ul>
+</li>
+<li>會壓縮header</li>
+<li>所有東西都分割成frame傳輸，
+<ul>
+<li>multiplexing: 不用等前面的檔案傳好!! 直接傳各自組合</li>
+<li>Prioritization: 可以列優先序</li>
+</ul>
+</li>
+<li>server push
+<ul>
+<li>server可以把資料先推到client的cache</li>
+<li>websocket與sse都是與應用程式溝通，這裡是cache!!</li>
+</ul>
+</li>
+</ol>
+<p><img src="https://imgopt.infoq.com/fit-in/1200x2400/filters:quality(80)/filters:no_upscale()/articles/websocket-and-http2-coexist/en/resources/21.jpg" alt=""></p>
+<p>websocket是重新設計自己的protocol，使用http的port<br>
+http2是使用http的header與語意，但是改變資料的表現方式與處理方式</p>
+<p>websocket是新protocol，http2是改進的http</p>
+<p>http2與websocket都可以在同一條路上同時傳輸(full-deplex)!!<br>
+但http2的方向主要是client-&gt;server之後server-&gt;server，server push沒有真正的雙向，websocket才是真正的雙向</p>
+<h2 id="Ref">Ref</h2>
+<p><span class="exturl" data-url="aHR0cHM6Ly9lbi53aWtpcGVkaWEub3JnL3dpa2kvSFRUUF9wZXJzaXN0ZW50X2Nvbm5lY3Rpb24=">HTTP persistent connection<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly9zdGFja292ZXJmbG93LmNvbS9xdWVzdGlvbnMvMzQ0Nzg5Njcvd2hhdC1pcy10aGUtZGlmZmVyZW5jZS1iZXR3ZWVuLWh0dHAtMS0xLXBpcGVsaW5pbmctYW5kLWh0dHAtMi1tdWx0aXBsZXhpbmc=">What is the difference between HTTP/1.1 pipelining and HTTP/2 multiplexing?<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly9ub3RmYWxzZS5uZXQvNDEvaHR0cC1jb250ZW50LW5lZ290aWF0aW9u">HTTP 內容協商<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly9ub3RmYWxzZS5uZXQvNDAvaHR0cC1yZXByZXNlbnRhdGlvbg==">HTTP 內容類型<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly9wamNoZW5kZXIuZGV2L3dlYmRldi9ub3RlLWh0dHAtY2FjaGUv">HTTP Cache 快取<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly93d3cuY25ibG9ncy5jb20vbnVjY2NoL3AvMTA5NDcyNTYuaHRtbA==">WebSocket协议入门介绍<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly93d3cucnVhbnlpZmVuZy5jb20vYmxvZy8yMDE3LzA1L3NlcnZlci1zZW50X2V2ZW50cy5odG1s">Server-Sent Events 教程<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5MjA3OTQ4L2FydGljbGUvZGV0YWlscy84MDk2OTk2OA==">HTTP／1.0／1.1／2.0的区别以及http和https的区别<i class="fa fa-external-link-alt"></i></span></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/10/how-to-survey/" rel="prev" title="怎麼survey">
+      <i class="fa fa-chevron-left"></i> 怎麼survey
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/10/ipxe-and-winpe/" rel="next" title="用docker compose建一個ipxe的server">
+      用docker compose建一個ipxe的server <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http-1-0"><span class="nav-number">2.</span> <span class="nav-text">http 1.0</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#header"><span class="nav-number">3.</span> <span class="nav-text">header</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http-1-1"><span class="nav-number">4.</span> <span class="nav-text">http 1.1</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#keep-alive"><span class="nav-number">4.1.</span> <span class="nav-text">keep-alive</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pipeline"><span class="nav-number">4.2.</span> <span class="nav-text">pipeline</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#websocket"><span class="nav-number">5.</span> <span class="nav-text">websocket</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Server-sent-events-sse"><span class="nav-number">6.</span> <span class="nav-text">Server-sent events(sse)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http2"><span class="nav-number">7.</span> <span class="nav-text">http2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">8.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">zhengcf</p>
+  <div class="site-description" itemprop="description">想到什麼就寫什麼</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">683</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhengcf</span>
+</div>
+  <div class="powered-by">Powered by <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl theme-link" data-url="aHR0cHM6Ly9tdXNlLnRoZW1lLW5leHQub3Jn">NexT.Muse</span>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 1000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://littlebees.github.io/2021/10/http-protocol/',]
+      });
+      });
+  </script>
+
+</body>
+</html>

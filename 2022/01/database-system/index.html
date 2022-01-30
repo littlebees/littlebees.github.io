@@ -1,0 +1,2114 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="AEpTGuQAkxnTOlmfF4INDna3S660LxrkyZ4BQzVbRSw">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"littlebees.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="動機 我之前學的DB根本就是假的 這是來自nthu的DB課程，有slide但沒有prjects 難道之後要跑CMU 15-445嗎? 不過有一說一，DB越看與xv6的fs真的很像，除了沒有SQL的部分">
+<meta property="og:type" content="article">
+<meta property="og:title" content="database system">
+<meta property="og:url" content="https://littlebees.github.io/2022/01/database-system/index.html">
+<meta property="og:site_name" content="記事本">
+<meta property="og:description" content="動機 我之前學的DB根本就是假的 這是來自nthu的DB課程，有slide但沒有prjects 難道之後要跑CMU 15-445嗎? 不過有一說一，DB越看與xv6的fs真的很像，除了沒有SQL的部分">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/CDg7Nvt.png">
+<meta property="og:image" content="https://i.imgur.com/g47PF4u.png">
+<meta property="og:image" content="https://i.imgur.com/ZTReEKR.png">
+<meta property="og:image" content="https://i.imgur.com/U6opZ8y.png">
+<meta property="og:image" content="https://i.imgur.com/pE53j9J.png">
+<meta property="og:image" content="https://i.imgur.com/XA9qi26.png">
+<meta property="og:image" content="https://i.imgur.com/nluejlo.png">
+<meta property="og:image" content="https://i.imgur.com/4eHta9c.png">
+<meta property="og:image" content="https://i.imgur.com/w5FggKV.png">
+<meta property="og:image" content="https://i.imgur.com/HTDWwkW.png">
+<meta property="og:image" content="https://i.imgur.com/Ss5tf6y.png">
+<meta property="og:image" content="https://i.imgur.com/ON6xWUk.png">
+<meta property="og:image" content="https://i.imgur.com/bvXn98W.png">
+<meta property="og:image" content="https://i.imgur.com/zO8T2iL.png">
+<meta property="og:image" content="https://miro.medium.com/max/583/1*IkJmNJ-pJxSe7Mt_gvHUiw.png">
+<meta property="og:image" content="https://i.imgur.com/sOpIPr7.png">
+<meta property="og:image" content="https://i.imgur.com/WEINwhN.png">
+<meta property="og:image" content="https://i.imgur.com/EkH0aWl.png">
+<meta property="og:image" content="https://i.imgur.com/UyBuBJD.png">
+<meta property="og:image" content="https://i.imgur.com/Fg0vdh2.png">
+<meta property="og:image" content="https://i.imgur.com/HgBAYPv.png">
+<meta property="og:image" content="https://i.imgur.com/hNqR3yN.png">
+<meta property="og:image" content="https://i.imgur.com/36BgK56.png">
+<meta property="og:image" content="https://i.imgur.com/nJh9ETm.png">
+<meta property="og:image" content="https://i.imgur.com/4oj4Gbq.png">
+<meta property="og:image" content="https://i.imgur.com/KmJK7kU.png">
+<meta property="og:image" content="https://i.imgur.com/AOgFaH1.png">
+<meta property="og:image" content="https://i.imgur.com/GYoGsqk.png">
+<meta property="og:image" content="https://i.imgur.com/N5zSMAq.png">
+<meta property="og:image" content="https://i.imgur.com/9ivnTbB.png">
+<meta property="og:image" content="https://i.imgur.com/lyrRQQU.png">
+<meta property="og:image" content="https://i.imgur.com/A3kg4Gv.png">
+<meta property="og:image" content="https://i.imgur.com/AlUqst3.png">
+<meta property="og:image" content="https://i.imgur.com/zOeeblT.png">
+<meta property="og:image" content="https://i.imgur.com/anX7t7g.png">
+<meta property="og:image" content="https://i.imgur.com/TcJAGO3.png">
+<meta property="og:image" content="https://i.imgur.com/j1KeQFa.png">
+<meta property="og:image" content="https://i.imgur.com/klXUHQl.png">
+<meta property="og:image" content="https://i.imgur.com/PVaHTWC.png">
+<meta property="og:image" content="https://i.imgur.com/PdBYAen.png">
+<meta property="og:image" content="https://i.imgur.com/bIdRdwW.png">
+<meta property="og:image" content="https://i.imgur.com/yzzkicp.png">
+<meta property="og:image" content="https://i.imgur.com/wthUnck.png">
+<meta property="og:image" content="https://i.imgur.com/qfIB7z9.png">
+<meta property="og:image" content="https://i.imgur.com/QyeuPMY.png">
+<meta property="og:image" content="https://i.imgur.com/Tum3DS6.png">
+<meta property="og:image" content="https://i.imgur.com/EATTwFV.png">
+<meta property="og:image" content="https://i.imgur.com/J0lc3O9.png">
+<meta property="og:image" content="https://i.imgur.com/wXFU8E6.png">
+<meta property="og:image" content="https://i.imgur.com/vNCySWN.png">
+<meta property="og:image" content="https://i.imgur.com/Bdih5TW.png">
+<meta property="og:image" content="https://i.imgur.com/l79xWNt.png">
+<meta property="og:image" content="https://i.imgur.com/miTtFQh.png">
+<meta property="og:image" content="https://i.imgur.com/7YFSOFT.png">
+<meta property="og:image" content="https://i.imgur.com/jodMuMC.png">
+<meta property="og:image" content="https://i.imgur.com/2bRP2K4.png">
+<meta property="og:image" content="https://i.imgur.com/TfpWg5K.png">
+<meta property="og:image" content="https://i.imgur.com/73yKFdP.png">
+<meta property="og:image" content="https://i.imgur.com/hxVq7dc.png">
+<meta property="og:image" content="https://i.imgur.com/E592ci3.png">
+<meta property="og:image" content="https://i.imgur.com/hAL8cX1.png">
+<meta property="og:image" content="https://i.imgur.com/KACy2im.png">
+<meta property="og:image" content="https://i.imgur.com/ckxSnBV.png">
+<meta property="og:image" content="https://i.imgur.com/0gEMkqy.png">
+<meta property="og:image" content="https://i.imgur.com/DdbNPlg.png">
+<meta property="og:image" content="https://i.imgur.com/8KvaJxa.png">
+<meta property="og:image" content="https://i.imgur.com/Iakgc26.png">
+<meta property="og:image" content="https://i.imgur.com/zVZPzYg.png">
+<meta property="og:image" content="https://i.imgur.com/O4cilIy.png">
+<meta property="og:image" content="https://i.imgur.com/2bkTMSL.png">
+<meta property="og:image" content="https://i.imgur.com/pZ94hQP.png">
+<meta property="article:published_time" content="2022-01-17T08:28:53.000Z">
+<meta property="article:modified_time" content="2022-01-22T02:37:46.705Z">
+<meta property="article:author" content="zhengcf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/CDg7Nvt.png">
+
+<link rel="canonical" href="https://littlebees.github.io/2022/01/database-system/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>database system | 記事本</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">記事本</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">寫下來，不然會忘</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2022/01/database-system/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhengcf">
+      <meta itemprop="description" content="想到什麼就寫什麼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="記事本">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          database system
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-01-17 16:28:53" itemprop="dateCreated datePublished" datetime="2022-01-17T16:28:53+08:00">2022-01-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-01-22 10:37:46" itemprop="dateModified" datetime="2022-01-22T10:37:46+08:00">2022-01-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DB/" itemprop="url" rel="index"><span itemprop="name">DB</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DB/Reading/" itemprop="url" rel="index"><span itemprop="name">Reading</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="動機">動機</h2>
+<p>我之前學的DB根本就是假的<br>
+這是來自nthu的DB課程，有slide但沒有prjects</p>
+<p>難道之後要跑CMU 15-445嗎?<br>
+不過有一說一，DB越看與xv6的fs真的很像，除了沒有SQL的部分</p>
+<a id="more"></a>
+<h2 id="Why-not-file-systems">Why not file systems?</h2>
+<ul>
+<li>query可以組合</li>
+<li>以tx為單位
+<ul>
+<li>ACID!!</li>
+</ul>
+</li>
+<li>有辦法recover
+<ul>
+<li>讓recover的資料一致</li>
+</ul>
+</li>
+</ul>
+<h2 id="query怎麼處理">query怎麼處理?</h2>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> p.id, p.text</span><br><span class="line"><span class="keyword">FROM</span> posts <span class="keyword">AS</span> p, <span class="keyword">users</span> <span class="keyword">AS</span> u</span><br><span class="line"><span class="keyword">WHERE</span> u.id = p.authorId</span><br><span class="line"><span class="keyword">AND</span> u.name=<span class="string">'Bob'</span></span><br><span class="line"><span class="keyword">AND</span> p.text <span class="keyword">ILIKE</span> <span class="string">'%db%'</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="Query-Optimization-plan">Query Optimization: plan</h3>
+<p><img src="https://i.imgur.com/CDg7Nvt.png" alt=""></p>
+<h4 id="EXPLAIN">EXPLAIN</h4>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">EXPLAIN</span> <span class="keyword">ANALYZE</span> <span class="comment">-- show plan tree</span></span><br><span class="line"><span class="keyword">SELECT</span> * </span><br><span class="line"><span class="keyword">FROM</span> <span class="keyword">users</span> </span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">id</span>&lt;<span class="number">5</span> <span class="keyword">AND</span> <span class="keyword">name</span> <span class="keyword">ILIKE</span> <span class="string">'%User%'</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">id</span> <span class="keyword">DESC</span></span><br><span class="line"><span class="keyword">LIMIT</span> <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="filter-zip-select-where-join-select">filter, zip, select (where, join, select)</h3>
+<ol>
+<li>
+<p>FROM posts AS p, users AS u<br>
+<img src="https://i.imgur.com/g47PF4u.png" alt=""></p>
+</li>
+<li>
+<p>WHERE <span class="exturl" data-url="aHR0cDovL3UuaWQ=">u.id<i class="fa fa-external-link-alt"></i></span> = p.authorId AND u.name=‘Bob’ AND p.text ILIKE ‘%db%’<br>
+<img src="https://i.imgur.com/ZTReEKR.png" alt=""></p>
+</li>
+<li>
+<p>SELECT <span class="exturl" data-url="aHR0cDovL3AuaWQ=">p.id<i class="fa fa-external-link-alt"></i></span>, p.text<br>
+<img src="https://i.imgur.com/U6opZ8y.png" alt=""></p>
+</li>
+</ol>
+<h3 id="Handling-“Big”-Data">Handling “Big” Data</h3>
+<p><img src="https://i.imgur.com/pE53j9J.png" alt=""></p>
+<h3 id="when-deleting">when deleting</h3>
+<ul>
+<li>NO ACTION (default): user not deleted, error raised</li>
+<li>CASCADE: user and all referencing posts deleted</li>
+</ul>
+<h3 id="Query-Optimization-index">Query Optimization: index</h3>
+<p><img src="https://i.imgur.com/XA9qi26.png" alt=""></p>
+<ul>
+<li>index
+<ul>
+<li>一個mapping function
+<ul>
+<li>加速 equality 或是 range selections
+<ul>
+<li>equality
+<ul>
+<li>hashing function
+<ul>
+<li>key到一堆有關的值</li>
+<li>其他hash function的issue去看資料結構</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>range selections
+<ul>
+<li>B-Tree
+<ul>
+<li><img src="https://i.imgur.com/nluejlo.png" alt=""></li>
+<li>最後map到一堆有關的值</li>
+<li>每一個node就是放起點的list</li>
+<li>how to lock?
+<ul>
+<li>Lock Crabbing Protocol
+<ul>
+<li><img src="https://i.imgur.com/4eHta9c.png" alt=""></li>
+<li><img src="https://i.imgur.com/w5FggKV.png" alt=""></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Input: field values or ranges
+<ul>
+<li>search key
+<ul>
+<li>Primary index vs. secondary index
+<ul>
+<li>index中有沒有Primary key</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Output: rids (record的id)</li>
+</ul>
+</li>
+<li>因為是根據field建tree或hash，所以如果有改row，就要更新index
+<ul>
+<li>Faster reads at the cost of slower writes</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="inverted-index">inverted index</h4>
+<p><img src="https://i.imgur.com/HTDWwkW.png" alt=""></p>
+<h3 id="concurency">concurency</h3>
+<h4 id="說好的ACID">說好的ACID</h4>
+<ul>
+<li>Atomicity: all or nothing
+<ul>
+<li>通常只有這個</li>
+</ul>
+</li>
+<li>Consistent: db的整體狀態是對的</li>
+<li>Isolation: 這才是我印象中的atomic
+<ul>
+<li>要自己來</li>
+</ul>
+</li>
+<li>Duration: 資料庫內的資料不會因為斷電，系統崩潰而損失資料。</li>
+</ul>
+<p>總的來說，tx根本就是一般function (但會rollback)</p>
+<h4 id="怎麼出事">怎麼出事</h4>
+<ul>
+<li>Dirty Read: 有人讀還沒commit的欄位
+<ul>
+<li>如果之後這個欄位被rollback…</li>
+<li>可能好: 最後有被commited</li>
+<li>不好: 被rollback，之前看的資料就沒效了</li>
+<li><img src="https://i.imgur.com/Ss5tf6y.png" alt=""></li>
+</ul>
+</li>
+<li>Non Repeatable read: (在tx中) 讀<strong>同個row</strong>兩次的結果不一樣 (race condition)
+<ul>
+<li>row為單位的race condition</li>
+<li><img src="https://i.imgur.com/ON6xWUk.png" alt=""></li>
+</ul>
+</li>
+<li>Phantom Read: (在tx中) <strong>同個query</strong>拿到的rows不一樣 (race condition)
+<ul>
+<li>table為單位的race condition (在條件上race condition)</li>
+<li><img src="https://i.imgur.com/bvXn98W.png" alt=""></li>
+</ul>
+</li>
+<li>Serialization Anomaly: 因為tx commit的順序不同導致最後結果inconsistence
+<ul>
+<li>reorder</li>
+</ul>
+</li>
+</ul>
+<h4 id="Isolation">Isolation</h4>
+<ul>
+<li>Read Uncommitted: 沒有任何保證</li>
+<li>Read Committed: 寫完的不會變了 (mem consistency)
+<ul>
+<li>可以用read lock與write lock來保證
+<ul>
+<li>鎖在tx的執行啟動與完成 (mutual exclusion)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Repeatable Read: (就是名字寫的)
+<ul>
+<li>可以用read lock與write lock來保證
+<ul>
+<li>鎖在有用到的所有row</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Serialisable: tx跑起來與serial一樣
+<ul>
+<li>dependency (mem barrier)</li>
+</ul>
+</li>
+</ul>
+<h4 id="工具">工具</h4>
+<ul>
+<li>lock
+<ul>
+<li>Pessimistic (Exclusive): mutex</li>
+<li>Optimistic (Shared): read/write lock 或是 seq lock</li>
+</ul>
+</li>
+<li>snapshot:</li>
+<li>row versioning(MVCC): 就是row的持久化，每一個tx的更新對row來說都是一個版本的更新</li>
+<li>Two Phase Locking:
+<ul>
+<li>先把lock全部拿完，開跑</li>
+<li>到最後再把lock還回去</li>
+<li><img src="https://i.imgur.com/zO8T2iL.png" alt=""></li>
+</ul>
+</li>
+</ul>
+<p><img src="https://miro.medium.com/max/583/1*IkJmNJ-pJxSe7Mt_gvHUiw.png" alt=""><br>
+<img src="https://i.imgur.com/sOpIPr7.png" alt=""></p>
+<h4 id="Ref">Ref</h4>
+<p><span class="exturl" data-url="aHR0cHM6Ly9tZWRpdW0uY29tL2hvdy10aGUtd2ViLXdvcmtzL2hvdy1kb2VzLWEtZGF0YWJhc2Utc2VydmVyLWhhbmRsZS10aG91c2FuZHMtb2YtY29uY3VycmVudC1yZXF1ZXN0cy1kNTQzNTIzMTAxODM=">How does a database server handle thousands of concurrent requests?<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly93d3cuZ29qZWsuaW8vYmxvZy9vbi1jb25jdXJyZW5jeS1jb250cm9sLWluLWRhdGFiYXNlcw==">On Concurrency Control in Databases<i class="fa fa-external-link-alt"></i></span></p>
+<h2 id="DB-Architecture">DB Architecture</h2>
+<p><img src="https://i.imgur.com/WEINwhN.png" alt=""></p>
+<h3 id="Server-and-infrastructures-jdbc-sql-tx-and-utils">Server and infrastructures (jdbc, sql, tx, and utils)</h3>
+<ul>
+<li>Transaction
+<ul>
+<li>Concurrency
+<ul>
+<li>2PC lock protocol
+<ul>
+<li>要用就先拿lock，用完馬上unlock</li>
+</ul>
+</li>
+<li>strict 2PC lock protocol
+<ul>
+<li>一次拿完所有需要的lock，tx完成後unlock</li>
+</ul>
+</li>
+<li>Multiple-Granularity Locks: allows users to set locks on objects that contain other objects
+<ul>
+<li><img src="https://i.imgur.com/EkH0aWl.png" alt=""></li>
+<li><img src="https://i.imgur.com/UyBuBJD.png" alt=""></li>
+<li><img src="https://i.imgur.com/Fg0vdh2.png" alt=""></li>
+<li><img src="https://i.imgur.com/HgBAYPv.png" alt=""></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Recovery
+<ul>
+<li>定義Failure
+<ul>
+<li>Transaction hangs</li>
+<li>System hangs/crashes</li>
+<li>Assumptions
+<ul>
+<li>Contents in nonvolatile storage are not corrupted</li>
+<li>No Byzantine failure (zombies)</li>
+<li>Other types of failure will be dealt with in other ways</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Log
+<ul>
+<li>就是紀錄做過的動作
+<ul>
+<li>紀錄在?
+<ul>
+<li>cache
+<ul>
+<li>failure時可能會消失</li>
+</ul>
+</li>
+<li>log file
+<ul>
+<li>failure後依然存在
+<ul>
+<li>只要有就是真的做過!!</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>動作有?
+<ul>
+<li>操作
+<ul>
+<li>實際上的操作 with tx id
+<ul>
+<li>改值、table等等</li>
+</ul>
+</li>
+<li>mark
+<ul>
+<li>tx 開始、commit</li>
+<li>rollback</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>目的是?
+<ul>
+<li>Recovery: Rollback未完成/已完成的tx
+<ul>
+<li>未完成的tx: 在log file</li>
+</ul>
+</li>
+<li>Rollback: 把tx取消掉
+<ul>
+<li>動作
+<ul>
+<li>從尾開始</li>
+<li>undo對到tx id的item</li>
+<li>直到遇到tx id的start</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Checkpoint
+<ul>
+<li>幫log分界，不然每次都跑整條其實很慢
+<ul>
+<li>Checkpoint之前的commit可以不用管!!</li>
+</ul>
+</li>
+<li>Quiescent Checkpointing
+<ul>
+<li>動作
+<ul>
+<li>關tx</li>
+<li>等現在正在跑的tx好 (可能很久)</li>
+<li>flush all buffer</li>
+<li>把checkpoint寫到log cache，再到log file</li>
+<li>開tx</li>
+</ul>
+</li>
+<li><img src="https://i.imgur.com/hNqR3yN.png" alt=""></li>
+</ul>
+</li>
+<li>Nonquiescent Checkpointing
+<ul>
+<li>動作
+<ul>
+<li>關tx</li>
+<li>在checkpoint的log中記錄現在正在跑的tx的tx id</li>
+<li>flush all buffer</li>
+<li>把checkpoint寫到log cache，再到log file</li>
+<li>開tx</li>
+</ul>
+</li>
+<li><img src="https://i.imgur.com/36BgK56.png" alt=""></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>怎麼Recovery
+<ul>
+<li>Undo-only Recovery
+<ul>
+<li>Log有
+<ul>
+<li>commit
+<ul>
+<li>flush改完的block</li>
+<li>塞commit log到buffer</li>
+<li>塞到log file</li>
+</ul>
+</li>
+<li>rollback
+<ul>
+<li>flush改完的block</li>
+<li>塞commit log到buffer</li>
+<li>塞到log file</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>動作
+<ul>
+<li>從尾到頭，看每個item
+<ul>
+<li>紀錄commit、rollback的tx id
+<ul>
+<li>做完的</li>
+</ul>
+</li>
+<li>實際上的操作
+<ul>
+<li>tx id有看過?
+<ul>
+<li>沒事</li>
+</ul>
+</li>
+<li>沒看過?
+<ul>
+<li>undo</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>UNDO-REDO recovery 1
+<ul>
+<li>Log有
+<ul>
+<li>commit
+<ul>
+<li><s>flush改完的block</s></li>
+<li>塞commit log到buffer</li>
+<li>塞到log file</li>
+</ul>
+</li>
+<li>rollback
+<ul>
+<li>flush改完的block</li>
+<li>塞commit log到buffer</li>
+<li>塞到log file</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>動作
+<ul>
+<li>UNDO (消除uncommit的影響)
+<ul>
+<li>從尾到頭，看每個item
+<ul>
+<li>紀錄commit、rollback的tx id
+<ul>
+<li>做完的</li>
+</ul>
+</li>
+<li>實際上的操作
+<ul>
+<li>tx id有看過?
+<ul>
+<li>沒事</li>
+</ul>
+</li>
+<li>沒看過?
+<ul>
+<li>undo</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>REDO (讓commit保證存在)
+<ul>
+<li>從頭到尾，看每個item
+<ul>
+<li>在commit list的item
+<ul>
+<li>redo</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>動作重複做沒關係嗎?
+<ul>
+<li>都是set value，沒差，反正順序對
+<ul>
+<li>idempotent</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>UNDO-REDO recovery 2
+<ul>
+<li>Log有
+<ul>
+<li>commit
+<ul>
+<li><s>flush改完的block</s></li>
+<li>塞commit log到buffer</li>
+<li>塞到log file</li>
+</ul>
+</li>
+<li>rollback
+<ul>
+<li><s>flush改完的block</s></li>
+<li>塞commit log到buffer</li>
+<li>塞到log file</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>動作
+<ul>
+<li>UNDO (消除uncommit的影響)
+<ul>
+<li>從尾到頭，看每個item
+<ul>
+<li>紀錄commit、<s>rollback</s>的tx id
+<ul>
+<li>做完的</li>
+</ul>
+</li>
+<li>實際上的操作
+<ul>
+<li>tx id有看過?
+<ul>
+<li>沒事</li>
+</ul>
+</li>
+<li>沒看過?
+<ul>
+<li>undo</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>REDO (讓commit保證存在)
+<ul>
+<li>從頭到尾，看每個item
+<ul>
+<li>在commit list的item
+<ul>
+<li>redo</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>動作重複做沒關係嗎?
+<ul>
+<li>都是set value，沒差，反正順序對
+<ul>
+<li>idempotent</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Redo-Only Recovery
+<ul>
+<li>steal
+<ul>
+<li>tx中改過的block可能在commit完成前就被swap出去!!</li>
+</ul>
+</li>
+<li>如果沒有steal
+<ul>
+<li>只要redo就好
+<ul>
+<li>因為會到log file的state與HDD的一定一致</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Repeating history
+<ul>
+<li>Early Lock Release
+<ul>
+<li>meta-structrue的lock會提早釋放 (但block不釋放lock)
+<ul>
+<li>不然要操作其他block時無法concurrent
+<ul>
+<li>變成要等meta-struct</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>變成block與meta的更新會不一致!!
+<ul>
+<li>Logical Operations
+<ul>
+<li>不能根據當時的state做<strong>直接的</strong>undo
+<ul>
+<li>state可能被其他tx變了，雖然block有lock，但meta沒有!!</li>
+<li>這也代表undo不是idempotent
+<ul>
+<li>undo也是屬於一般的動作了
+<ul>
+<li>也要記到log</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Rollback Logical Operations (soft delete)
+<ul>
+<li><img src="https://i.imgur.com/nJh9ETm.png" alt="">
+<ul>
+<li>卡在中間?
+<ul>
+<li>把剩下的直接undo</li>
+</ul>
+</li>
+<li>跑完了?
+<ul>
+<li>先拿要拿的所有lock</li>
+<li>再undo</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Recovery by Repeating History
+<ul>
+<li>REDO (重建現場)
+<ul>
+<li>從最近的checkpoint，開始重作所有動作</li>
+</ul>
+</li>
+<li>UNDO (消去未完成tx的影響)
+<ul>
+<li>看REDO-UNDO recovery</li>
+<li>Logical OPs怎麼處理?
+<ul>
+<li>卡在中間?
+<ul>
+<li>把剩下的直接undo</li>
+</ul>
+</li>
+<li>跑完了?
+<ul>
+<li>skip (soft delete)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>原本現在連undo都要log，所以有另一個名字
+<ul>
+<li>Compensation Logs</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Physiological logging (op reorder你敢信)
+<ul>
+<li>把一些OPs集中成一個Logical Operation
+<ul>
+<li>可以省log大小</li>
+<li>但原本執行上的dependency沒了
+<ul>
+<li>不能直接REDO</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>REDO-UNDO Recovery in Physiological logging
+<ul>
+<li>REDO (重建現場)
+<ul>
+<li>跳過已經redo過的Physiological logging
+<ul>
+<li>how?
+<ul>
+<li>skip, in ARIES algorithm</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>UNDO (消去未完成tx的影響)
+<ul>
+<li>把Physiological logging當成一個op去undo</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Query-engine">Query engine</h3>
+<ul>
+<li>把SQL compile 成 AST (relational algebra)
+<ul>
+<li>relational algebra
+<ul>
+<li><img src="https://i.imgur.com/4oj4Gbq.png" alt=""></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>做plan(選tree的樣子，做cost estimation)
+<ul>
+<li>
+<p>cost estimation</p>
+<ul>
+<li>
+<p>定義cost</p>
+<ul>
+<li>number of block accesses: 掃到多少block <code>B(p)</code>
+<ul>
+<li>有多少record被output: <code>R(p)</code></li>
+<li>在p table中的f field的值域大小: <code>V(p,f)</code></li>
+<li>index的成本: <code>SearchCost(p,f)</code></li>
+<li><img src="https://i.imgur.com/KmJK7kU.png" alt=""></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>跑跑看</p>
+<ul>
+<li><img src="https://i.imgur.com/AOgFaH1.png" alt="">
+<ul>
+<li>R(student)=10000</li>
+<li>B(student)=1000</li>
+<li>B(dept)= 500</li>
+<li>selectivity(s-id=5&amp;major-id=4)=0.01</li>
+</ul>
+</li>
+<li>Left: (1000+10000*500)*10ms = 13.9 hours</li>
+<li>Right: (1000+10000<em>0.01</em>500)*10ms = 8.4 mins</li>
+</ul>
+</li>
+<li>
+<p>estimate this cost</p>
+<ul>
+<li><img src="https://i.imgur.com/GYoGsqk.png" alt=""></li>
+<li>值域很大，不可能1對1的去看
+<ul>
+<li>分區!!</li>
+<li><img src="https://i.imgur.com/N5zSMAq.png" alt="">
+<ul>
+<li>怎麼算、怎麼實作 skip (見 Query Optimization)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Generate trees</p>
+<ul>
+<li>Not finding the best tree
+<ul>
+<li>Avoiding bad trees!!</li>
+</ul>
+</li>
+<li>consider <strong>left-skew</strong> candidate trees only
+<ul>
+<li>在join時，大部分都是走訪右邊</li>
+</ul>
+</li>
+<li><img src="https://i.imgur.com/9ivnTbB.png" alt="">
+<ul>
+<li>Goal <code>↓B(root)</code> reduced to <code>↓R(c1)</code>
+<ul>
+<li>Pushing Select ops down
+<ul>
+<li>越早select越好</li>
+<li><img src="https://i.imgur.com/lyrRQQU.png" alt=""></li>
+</ul>
+</li>
+<li>Greedy Join ordering
+<ul>
+<li><img src="https://i.imgur.com/A3kg4Gv.png" alt=""></li>
+<li>只要確保每次join是最小，最後就是最小 (DP)
+<ul>
+<li>Selinger-Style Optimizer
+<ul>
+<li><img src="https://i.imgur.com/AlUqst3.png" alt=""></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Deterministic Query Planning Algorithm</p>
+<ul>
+<li>
+<p>從from拉table</p>
+</li>
+<li>
+<p>跑where</p>
+</li>
+<li>
+<p>再跑select</p>
+<ul>
+<li>group by, having?
+<ul>
+<li><img src="https://i.imgur.com/zOeeblT.png" alt=""></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>一直return回去</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>用scan去爬每一個node的record
+<ul>
+<li>Pipelined Scanning
+<ul>
+<li>call一次給一筆</li>
+</ul>
+</li>
+<li>Materialized Scanning
+<ul>
+<li>batch處理，放到temp file，一次回傳</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>丟給上一層做下一步處理</li>
+</ul>
+<h3 id="Storage-engine">Storage engine</h3>
+<ul>
+<li>
+<p>怎麼被存的? (實作OS的hdd與mem管理)</p>
+<ul>
+<li>Database: directory</li>
+<li>Table: file</li>
+<li>Record: bytes</li>
+</ul>
+</li>
+<li>
+<p>怎麼與HDD互動? (實作可以跑query的file system)</p>
+<ul>
+<li><img src="https://i.imgur.com/anX7t7g.png" alt=""></li>
+<li><img src="https://i.imgur.com/TcJAGO3.png" alt="">
+<ul>
+<li>BlockId
+<ul>
+<li>Immutable</li>
+<li>Identifies a specific logical block
+<ul>
+<li>A file name + logical block number</li>
+<li><code>BlockId blk = new BlockId(&quot;std.tbl&quot;, 23);</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Page
+<ul>
+<li>Holds the contents of a block
+<ul>
+<li>Backed by an I/O buffer in OS</li>
+</ul>
+</li>
+<li>Not tied to a specific block</li>
+<li>Read/write/append an entire block a time
+<ul>
+<li>Set values are not flushed until write()</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>怎麼增加從disk拉的速度? 兩個方向
+<ul>
+<li>low-level block API
+<ul>
+<li>Pros
+<ul>
+<li>可以直接控制phy層資料的位置</li>
+<li>不用管OS的任何限制</li>
+</ul>
+</li>
+<li>Cons
+<ul>
+<li>實作十份複雜</li>
+<li>沒有portability</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>file system
+<ul>
+<li>Pros
+<ul>
+<li>簡單易用</li>
+</ul>
+</li>
+<li>Cons
+<ul>
+<li>無法控制phy層資料的位置</li>
+<li>無法控制page</li>
+<li>filesystem的實作可能把db的正確性破壞掉
+<ul>
+<li>只能一直flush</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="https://i.imgur.com/j1KeQFa.png" alt=""></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>怎麼與mem互動? (實作block的cache)</p>
+<ul>
+<li><img src="https://i.imgur.com/klXUHQl.png" alt="">
+<ul>
+<li>cache什麼?
+<ul>
+<li>user data (DBs, including catalogs)</li>
+<li>logs (meta-writes)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>No Virtual Memory!!
+<ul>
+<li>bad page replacement algorithms
+<ul>
+<li>OS可能換到不想要的page</li>
+</ul>
+</li>
+<li>uncontrolled delayed writes
+<ul>
+<li>Swapping 無法控制 (should be direct I/O!!)</li>
+<li>需要swap的page資訊(meta data)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Self-Managed Page
+<ul>
+<li>Controlled swapping</li>
+<li>Supports meta-writes</li>
+</ul>
+</li>
+<li>Cache Pages
+<ul>
+<li>Access Pattern
+<ul>
+<li>Random block reads and writes</li>
+<li>Concurrent access to multiple blocks</li>
+<li>Predictable access to certain blocks</li>
+</ul>
+</li>
+<li>how to cache?
+<ul>
+<li>buffer pool: a pool of pages
+<ul>
+<li>Caching multiple blocks</li>
+<li>Implement swapping</li>
+<li>Pool Size
+<ul>
+<li>要夠大 (至少所有正在用到的page都要放到pool)
+<ul>
+<li>不然會Deadlock
+<ul>
+<li>detect deadlock
+<ul>
+<li>看pin有沒有timeout</li>
+</ul>
+</li>
+<li>deal with deadlock
+<ul>
+<li>抓一個犧牲者
+<ul>
+<li>把他的block全部unpin</li>
+<li>之後在慢慢pin回來</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>如果是一個人pin爆了pool?
+<ul>
+<li>只能死亡 (丟例外)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>利用Predictable access block
+<ul>
+<li>Pinning Blocks: 不會被swap出去
+<ul>
+<li>流程
+<ul>
+<li>pin block 在某個page</li>
+<li>read</li>
+<li>完成就unpin block</li>
+</ul>
+</li>
+<li>A block can be pinned multiple times</li>
+</ul>
+</li>
+<li>Pinning Pages:
+<ul>
+<li>Hit
+<ul>
+<li>cache成功</li>
+</ul>
+</li>
+<li>Swapping
+<ul>
+<li>page dirty要swap回去</li>
+<li>很多page? replacement strategies</li>
+</ul>
+</li>
+<li>Waiting
+<ul>
+<li>所有人都pin了，所以要等</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Buffers = page + page的meta data</li>
+</ul>
+</li>
+<li>例子
+<ul>
+<li><img src="https://i.imgur.com/PVaHTWC.png" alt=""></li>
+<li><img src="https://i.imgur.com/PdBYAen.png" alt=""></li>
+<li><img src="https://i.imgur.com/bIdRdwW.png" alt=""></li>
+<li>現在做<code>pin(60); pin(70);</code></li>
+</ul>
+</li>
+<li>Buffer Replacement Strategies
+<ul>
+<li>Naïve
+<ul>
+<li>只要unpin的就好
+<ul>
+<li><img src="https://i.imgur.com/yzzkicp.png" alt=""></li>
+</ul>
+</li>
+<li>hit rate低
+<ul>
+<li>buffers are not evenly utilized</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>FIFO
+<ul>
+<li>挑read in時間最早的
+<ul>
+<li><img src="https://i.imgur.com/wthUnck.png" alt=""></li>
+</ul>
+</li>
+<li>Assumption: the older blocks are less likely to be used in the future
+<ul>
+<li>counter: catalog blocks!!</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>LRU
+<ul>
+<li>找最早unpin的
+<ul>
+<li><img src="https://i.imgur.com/qfIB7z9.png" alt=""></li>
+</ul>
+</li>
+<li>Assumption: blocks that are not used in the near past will unlikely be used in the near future</li>
+</ul>
+</li>
+<li>Clock
+<ul>
+<li>很像Naïve，但是從上次replace的地方開始找
+<ul>
+<li><img src="https://i.imgur.com/QyeuPMY.png" alt=""></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Caching Logs
+<ul>
+<li>Log用在
+<ul>
+<li>ACID的C與I，Write-Ahead-Logging (WAL)
+<ul>
+<li>commit時
+<ul>
+<li>log在tx中做的動作到buffer</li>
+<li>要commit時，先把buffer倒到log file</li>
+<li>倒完再寫一個完成commit(COMMIT log)的log到log file</li>
+</ul>
+</li>
+<li>swap page時
+<ul>
+<li>把buffer flush掉</li>
+</ul>
+</li>
+<li>rollback
+<ul>
+<li>誰要rollback?
+<ul>
+<li>沒有COMMIT log的tx</li>
+</ul>
+</li>
+<li>3 possibilities for each action on disk
+<ul>
+<li>With log and block
+<ul>
+<li>用log去undo，把block改好</li>
+</ul>
+</li>
+<li>With log, but without block
+<ul>
+<li>用log去undo，把block改好</li>
+</ul>
+</li>
+<li>Without log and block
+<ul>
+<li>不用管</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Assumption of WAL
+<ul>
+<li>each block-write either succeeds or fails <strong>entirely</strong> on a disk, despite power failure</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>需要Pool嗎?
+<ul>
+<li>不用
+<ul>
+<li>log是single buffer</li>
+<li>Always appends</li>
+<li>Always sequential backward reads</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>record怎麼存? (linux的fs只有char與block，但現在我們有datatype)</p>
+<ul>
+<li>
+<p>所有record(a table)都要在同一個file?</p>
+<ul>
+<li>Homogeneous
+<ul>
+<li>有利於single-table queries</li>
+</ul>
+</li>
+<li>Heterogeneous
+<ul>
+<li>有利於需要join的queries</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>一筆record(row)的所有部分都要在同一個block?</p>
+<ul>
+<li>Spanned
+<ul>
+<li><img src="https://i.imgur.com/Tum3DS6.png" alt=""></li>
+<li>沒有空間浪費</li>
+<li>record大小不用受制於block大小</li>
+</ul>
+</li>
+<li>Unspanned
+<ul>
+<li><img src="https://i.imgur.com/EATTwFV.png" alt=""></li>
+<li>只要讀一個block就是一筆record</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>所有部分都要緊貼著彼此嗎?</p>
+<ul>
+<li>Row-oriented store
+<ul>
+<li>Row-by-row</li>
+<li><img src="https://i.imgur.com/J0lc3O9.png" alt=""></li>
+</ul>
+</li>
+<li>Column-oriented store
+<ul>
+<li>存成好幾個array</li>
+<li><img src="https://i.imgur.com/wXFU8E6.png" alt=""></li>
+</ul>
+</li>
+<li>Pros &amp; Cons
+<ul>
+<li><img src="https://i.imgur.com/vNCySWN.png" alt=""></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>欄位(datatype)要固定大小嗎?</p>
+<ul>
+<li>Fixed-Length</li>
+<li>Variable-Length
+<ul>
+<li><img src="https://i.imgur.com/Bdih5TW.png" alt=""></li>
+<li><img src="https://i.imgur.com/l79xWNt.png" alt=""></li>
+<li><img src="https://i.imgur.com/miTtFQh.png" alt=""></li>
+<li>內部block怎麼處理
+<ul>
+<li>the record’s length changes
+<ul>
+<li><img src="https://i.imgur.com/7YFSOFT.png" alt=""></li>
+</ul>
+</li>
+<li>delete a record
+<ul>
+<li>soft delete
+<ul>
+<li><img src="https://i.imgur.com/jodMuMC.png" alt=""></li>
+<li>刪掉的空間沒辦法用</li>
+</ul>
+</li>
+<li>把space空出來
+<ul>
+<li><img src="https://i.imgur.com/2bRP2K4.png" alt=""></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>cannot random access a record in a page =&gt; no position information
+<ul>
+<li>page layout
+<ul>
+<li>header放
+<ul>
+<li>record總數</li>
+<li>free space的終點</li>
+<li>指到record的mapping table</li>
+</ul>
+</li>
+<li><img src="https://i.imgur.com/TfpWg5K.png" alt=""></li>
+<li>改大小的話
+<ul>
+<li>要重新找連續的free space</li>
+<li>碎片化
+<ul>
+<li>VACUUM command</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>怎麼管理free space (怎麼知道哪裡有free space)</p>
+<ul>
+<li>Chaining
+<ul>
+<li><img src="https://i.imgur.com/73yKFdP.png" alt=""></li>
+</ul>
+</li>
+<li>Meta-Pages
+<ul>
+<li><img src="https://i.imgur.com/hxVq7dc.png" alt=""></li>
+</ul>
+</li>
+<li>Meta-File
+<ul>
+<li><img src="https://i.imgur.com/E592ci3.png" alt=""></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>每個record的大小? 其他與db有關的訊息放在哪?</p>
+<ul>
+<li>catalog tables
+<ul>
+<li>Table metadata
+<ul>
+<li>table的資訊 (大小、長度…)</li>
+</ul>
+</li>
+<li>View metadata
+<ul>
+<li>view的訊息 (creater,…)</li>
+</ul>
+</li>
+<li>Index metadata
+<ul>
+<li>每個欄位的index</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>in mem
+<ul>
+<li>Statistical metadata
+<ul>
+<li>關於table的統計資訊，可以在plan時使用</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Group-Communication">Group Communication</h2>
+<p><a href="/2022/01/Distributed-computing/">分散式計算</a></p>
+<h2 id="DB-Workloads">DB Workloads</h2>
+<ul>
+<li>Operational workloads
+<ul>
+<li>OLTP (On-line Transaction Processing)</li>
+<li>跑tx多，執行時間短</li>
+</ul>
+</li>
+<li>Analytic workloads
+<ul>
+<li>Online (OLAP) or offline</li>
+<li>資料分析</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://i.imgur.com/hAL8cX1.png" alt=""><br>
+<img src="https://i.imgur.com/KACy2im.png" alt=""></p>
+<h2 id="Cloud-DB">Cloud DB</h2>
+<h3 id="SAE">SAE</h3>
+<ul>
+<li>
+<p>high Scalability</p>
+<ul>
+<li>可水平擴展來拉throughput
+<ul>
+<li>S through partitioning
+<ul>
+<li>Partition your hot tables
+<ul>
+<li><img src="https://i.imgur.com/ckxSnBV.png" alt="">
+<ul>
+<li>horizontally</li>
+<li>vertically</li>
+</ul>
+</li>
+<li>要處理
+<ul>
+<li><img src="https://i.imgur.com/0gEMkqy.png" alt=""></li>
+<li>分散的
+<ul>
+<li>metadata manager</li>
+<li>query processor (record, plan)</li>
+<li>transactions
+<ul>
+<li>Distributed S2PL
+<ul>
+<li>看 分散式那一份筆記 的 怎麼commit那一部分</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>high Availability</p>
+<ul>
+<li>不能死，除了網路、硬體問題外
+<ul>
+<li>A through replication
+<ul>
+<li>Replicate all tables across servers
+<ul>
+<li><img src="https://i.imgur.com/DdbNPlg.png" alt=""></li>
+<li>Replication
+<ul>
+<li>Eager
+<ul>
+<li>在ㄌtx commit之前，每台都要完成
+<ul>
+<li>strong consistency, slow tx</li>
+</ul>
+</li>
+<li><img src="https://i.imgur.com/8KvaJxa.png" alt=""></li>
+</ul>
+</li>
+<li>Lazy
+<ul>
+<li>local先寫，之後再非同步的同步到另一台去
+<ul>
+<li>eventual consistency, fast tx</li>
+</ul>
+</li>
+<li><img src="https://i.imgur.com/Iakgc26.png" alt=""></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Who Writes?
+<ul>
+<li>Master/Slave
+<ul>
+<li>write只有某一台處理</li>
+<li>read由其他台負責</li>
+</ul>
+</li>
+<li>Multi-Master
+<ul>
+<li>write每一台都可以負責</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="https://i.imgur.com/zVZPzYg.png" alt=""></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Elasticity</p>
+<ul>
+<li>能根據machine與workload去動態調整data分布
+<ul>
+<li>Re-Partitioning
+<ul>
+<li>Data chunking
+<ul>
+<li>使用者指定</li>
+<li>系統生成 (consistent hashing)
+<ul>
+<li>Master server for load monitoring</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Migrate
+<ul>
+<li>Migration with Determinism
+<ul>
+<li>做一個空的replica</li>
+<li>在兩個db上跑同一個tx，只拉用到的data (Foreground Pushing)
+<ul>
+<li><img src="https://i.imgur.com/O4cilIy.png" alt=""></li>
+</ul>
+</li>
+<li>剩下就是非同步的推 (Background Pushing)
+<ul>
+<li><img src="https://i.imgur.com/2bkTMSL.png" alt=""></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Migration vs. Crabbing
+<ul>
+<li>Client served by any node running faster</li>
+<li>Migration delay imperceptible</li>
+<li>我同時serve，我同時migrate</li>
+<li><img src="https://i.imgur.com/pZ94hQP.png" alt=""></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="SAE-完整的retional-DB基本上不可能">SAE + 完整的retional DB基本上不可能</h3>
+<ul>
+<li>Workarounds
+<ul>
+<li>No expressive model
+<ul>
+<li>在應用層處理(dirty work)</li>
+</ul>
+</li>
+<li>No flexible queries
+<ul>
+<li>多發幾個query或是繼續在應用層處理(dirty work)</li>
+</ul>
+</li>
+<li>No tx and ACID
+<ul>
+<li>在應用層處理</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Ref-2">Ref</h2>
+<p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL250aHUtZGF0YWxhYi9kYi90cmVlL21hc3Rlci9zbGlkZXM=">nthu-datalab/db<i class="fa fa-external-link-alt"></i></span></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/01/Distributed-computing/" rel="prev" title="Distributed computing">
+      <i class="fa fa-chevron-left"></i> Distributed computing
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/01/craft-small-os/" rel="next" title="電腦從0開始">
+      電腦從0開始 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Why-not-file-systems"><span class="nav-number">2.</span> <span class="nav-text">Why not file systems?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#query怎麼處理"><span class="nav-number">3.</span> <span class="nav-text">query怎麼處理?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Query-Optimization-plan"><span class="nav-number">3.1.</span> <span class="nav-text">Query Optimization: plan</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#EXPLAIN"><span class="nav-number">3.1.1.</span> <span class="nav-text">EXPLAIN</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#filter-zip-select-where-join-select"><span class="nav-number">3.2.</span> <span class="nav-text">filter, zip, select (where, join, select)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Handling-“Big”-Data"><span class="nav-number">3.3.</span> <span class="nav-text">Handling “Big” Data</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#when-deleting"><span class="nav-number">3.4.</span> <span class="nav-text">when deleting</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Query-Optimization-index"><span class="nav-number">3.5.</span> <span class="nav-text">Query Optimization: index</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#inverted-index"><span class="nav-number">3.5.1.</span> <span class="nav-text">inverted index</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#concurency"><span class="nav-number">3.6.</span> <span class="nav-text">concurency</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#說好的ACID"><span class="nav-number">3.6.1.</span> <span class="nav-text">說好的ACID</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#怎麼出事"><span class="nav-number">3.6.2.</span> <span class="nav-text">怎麼出事</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Isolation"><span class="nav-number">3.6.3.</span> <span class="nav-text">Isolation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#工具"><span class="nav-number">3.6.4.</span> <span class="nav-text">工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Ref"><span class="nav-number">3.6.5.</span> <span class="nav-text">Ref</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DB-Architecture"><span class="nav-number">4.</span> <span class="nav-text">DB Architecture</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Server-and-infrastructures-jdbc-sql-tx-and-utils"><span class="nav-number">4.1.</span> <span class="nav-text">Server and infrastructures (jdbc, sql, tx, and utils)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Query-engine"><span class="nav-number">4.2.</span> <span class="nav-text">Query engine</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Storage-engine"><span class="nav-number">4.3.</span> <span class="nav-text">Storage engine</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Group-Communication"><span class="nav-number">5.</span> <span class="nav-text">Group Communication</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DB-Workloads"><span class="nav-number">6.</span> <span class="nav-text">DB Workloads</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cloud-DB"><span class="nav-number">7.</span> <span class="nav-text">Cloud DB</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SAE"><span class="nav-number">7.1.</span> <span class="nav-text">SAE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SAE-完整的retional-DB基本上不可能"><span class="nav-number">7.2.</span> <span class="nav-text">SAE + 完整的retional DB基本上不可能</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-2"><span class="nav-number">8.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">zhengcf</p>
+  <div class="site-description" itemprop="description">想到什麼就寫什麼</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">683</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhengcf</span>
+</div>
+  <div class="powered-by">Powered by <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl theme-link" data-url="aHR0cHM6Ly9tdXNlLnRoZW1lLW5leHQub3Jn">NexT.Muse</span>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 1000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://littlebees.github.io/2022/01/database-system/',]
+      });
+      });
+  </script>
+
+</body>
+</html>

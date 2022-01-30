@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="AEpTGuQAkxnTOlmfF4INDna3S660LxrkyZ4BQzVbRSw">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"littlebees.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="動機 整理一些之前的問題">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C&#x2F;C++的FAQ">
+<meta property="og:url" content="https://littlebees.github.io/2020/12/c-faq/index.html">
+<meta property="og:site_name" content="記事本">
+<meta property="og:description" content="動機 整理一些之前的問題">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-12-19T19:53:12.000Z">
+<meta property="article:modified_time" content="2022-01-21T19:33:02.197Z">
+<meta property="article:author" content="zhengcf">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://littlebees.github.io/2020/12/c-faq/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>C/C++的FAQ | 記事本</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">記事本</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">寫下來，不然會忘</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2020/12/c-faq/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhengcf">
+      <meta itemprop="description" content="想到什麼就寫什麼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="記事本">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          C/C++的FAQ
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-12-20 03:53:12" itemprop="dateCreated datePublished" datetime="2020-12-20T03:53:12+08:00">2020-12-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-01-22 03:33:02" itemprop="dateModified" datetime="2022-01-22T03:33:02+08:00">2022-01-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/FAQ/" itemprop="url" rel="index"><span itemprop="name">FAQ</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="動機">動機</h2>
+<p>整理一些之前的問題</p>
+<a id="more"></a>
+<h2 id="extern-static-global">extern, static, global</h2>
+<p>extern 的意思是<strong>去外面找</strong>，去其他的程式中找在哪<br>
+static 的意思是<strong>只在這個範圍存活&amp;可見</strong>，用這個方式來看file(global)、function、class(only for c++)的static變數，就會很一致了</p>
+<p>下面的三個code就是demo extern的用處</p>
+<p>extern之後，a就可以用了<br>
+但是對於有static的global變數，linker會找不到他</p>
+<p>aaa.cpp</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> b = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> c = <span class="number">1000</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">x</span><span class="params">()</span></span>&#123;a--;&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">y</span><span class="params">()</span></span>&#123;b--;&#125;</span><br></pre></td></tr></table></figure>
+<p>aaa.hpp</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="keyword">int</span> b;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">x</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">y</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+<p>bbb.cpp</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"aaa.hpp"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="comment">//std::cout &lt;&lt; a; error</span></span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; b &lt;&lt; <span class="string">'\n'</span>;</span><br><span class="line">	y();</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"after y: "</span> &lt;&lt; b &lt;&lt; <span class="string">'\n'</span>;</span><br><span class="line">	b--;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"after b--: "</span> &lt;&lt; b &lt;&lt; <span class="string">'\n'</span>;</span><br><span class="line">	<span class="keyword">extern</span> <span class="keyword">int</span> a;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; a;</span><br><span class="line">	x();</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"after a: "</span> &lt;&lt; a &lt;&lt; <span class="string">'\n'</span>;</span><br><span class="line">	a--;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"after a--: "</span> &lt;&lt; a &lt;&lt; <span class="string">'\n'</span>;</span><br><span class="line">  <span class="comment">// extern static int c; // linker fails, cant find c</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="extern-“C”">extern “C”</h3>
+<p>在C++中函數可以overload，所以C++的函數其實編譯出來後名字會被加料，但<br>
+如果要include一些用c寫好的函數就會出事，名字會對不上，所以要用<code>extern &quot;C&quot;</code></p>
+<p>用<code>extern &quot;C&quot;</code>就是說這段不要加料，照C的方式來</p>
+<h4 id="use-C-lib-in-C">use C lib in C++</h4>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* fromc.h */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> <span class="function"><span class="keyword">int</span> <span class="title">get10</span><span class="params">()</span></span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">get10</span><span class="params">()</span></span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* fromc.c */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">get10</span><span class="params">()</span> </span>&#123;<span class="keyword">return</span> <span class="number">10</span>;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// useclib.cpp</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"fromc.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; get10() &lt;&lt; <span class="string">'\n'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="use-C-lib-in-C-2">use C++ lib in C</h4>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// fromcpp.hpp</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">get20_for_C</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// fromcpp.cpp</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">get20</span><span class="params">()</span> </span>&#123;<span class="keyword">return</span> <span class="number">20</span>;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">get20_for_C</span><span class="params">()</span> </span>&#123;<span class="keyword">return</span> get20();&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* usecpplib.c */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"fromcpp.hpp"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, get20_for_C());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="static-為什麼放在-data">static 為什麼放在.data</h3>
+<p>程式在記憶體中會有</p>
+<ol>
+<li>stack&amp;heap<br>
+a. stack: 放local var與函數的call stack<br>
+b. heap: 動態allocate的東西</li>
+<li>bss: uninit的static</li>
+<li>data: 放 全域變數與常數</li>
+<li>text: 程式碼</li>
+</ol>
+<p>data 與 stack&amp;heap 的差別是?</p>
+<p>data的資料只要程式還在跑，就不會消失<br>
+stack&amp;heap的資料隨時都有可能消失</p>
+<p>所以static 為什麼放在.data?<br>
+因為static隨時都要存活，所以不能放在stack&amp;heap，那就只能放在data</p>
+<h2 id="about-C-class">about C++ class</h2>
+<h3 id="friend">friend</h3>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">A</span> &#123;</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">normal_method</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">  <span class="function"><span class="keyword">friend</span> <span class="keyword">void</span> <span class="title">friend_method</span><span class="params">(A&amp; me)</span> </span>&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  A a;</span><br><span class="line">  <span class="comment">//原本的method call</span></span><br><span class="line">  a.normal_method();</span><br><span class="line">  <span class="comment">//不想放前面的method call，當然不一定是只能傳自己，這就是函數可以多個</span></span><br><span class="line">  friend_method(a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="virtual">virtual</h3>
+<p>有標virtual就是會在runtime時依據<em>實際上的</em>type去找method執行，如果沒有就是依據變數的type</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">A</span> &#123;</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">x</span><span class="params">()</span> </span>&#123;<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"x\n"</span>;&#125;</span><br><span class="line"><span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">y</span><span class="params">()</span> </span>&#123;<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"y\n"</span>;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">B</span> :</span> <span class="keyword">public</span> A &#123;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">x</span><span class="params">()</span> </span>&#123;<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"x2\n"</span>;&#125;</span><br><span class="line"><span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">y</span><span class="params">()</span> </span>&#123;<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"y2\n"</span>;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        A* a = <span class="keyword">new</span> B();</span><br><span class="line">        a-&gt;x(); <span class="comment">// x</span></span><br><span class="line">        a-&gt;y(); <span class="comment">// y2</span></span><br><span class="line">        ((B*)a)-&gt;x(); <span class="comment">// x2</span></span><br><span class="line">        <span class="keyword">delete</span> a; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意: <strong>constructor不能是virtual</strong><br>
+constructor本來就是從new時的type建立回去，所以不需要virtual<br>
+另一個說法是new物件時還沒有virtual的table，所以不能是virtual</p>
+<p>但destructor需要，因為如果像上面的code去刪一個parent指標，時沒有virtual，會從parent的destructor去跑，這就尷尬了</p>
+<h3 id="object-slicing">object slicing</h3>
+<p>就是從child轉到parent會讓child的東西不見，這就是slicing<br>
+但是，因為cpp有copy，事情可能會搞砸</p>
+<p>如果從child到parent是用copy的話，就不會根據原本的資料去找attribute與method，同時如果要轉回去也會出事(要記得用dynamic_casr轉啊)</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="keyword">int</span> m_value&#123;&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Base(<span class="keyword">int</span> value) : m_value&#123; value &#125; &#123;&#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keyword">char</span>* <span class="title">getName</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123; <span class="keyword">return</span> <span class="string">"Base"</span>; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getValue</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123; <span class="keyword">return</span> m_value; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Derived</span>:</span> <span class="keyword">public</span> Base</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Derived(<span class="keyword">int</span> value) : Base&#123; value &#125; &#123;&#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keyword">char</span>* <span class="title">getName</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123; <span class="keyword">return</span> <span class="string">"Derived"</span>; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printName</span><span class="params">(<span class="keyword">const</span> Base base)</span> <span class="comment">// note: base passed by value, not reference</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"I am a "</span> &lt;&lt; base.getName() &lt;&lt; <span class="string">'\n'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Derived derived&#123; <span class="number">5</span> &#125;;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"derived is a "</span> &lt;&lt; derived.getName() &lt;&lt; <span class="string">" and has value "</span> &lt;&lt; derived.getValue() &lt;&lt; <span class="string">'\n'</span>;</span><br><span class="line"> </span><br><span class="line">    Base &amp;ref&#123; derived &#125;; <span class="comment">// ok</span></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"ref is a "</span> &lt;&lt; ref.getName() &lt;&lt; <span class="string">" and has value "</span> &lt;&lt; ref.getValue() &lt;&lt; <span class="string">'\n'</span>;</span><br><span class="line"> </span><br><span class="line">    Base *ptr&#123; &amp;derived &#125;; <span class="comment">// ok</span></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"ptr is a "</span> &lt;&lt; ptr-&gt;getName() &lt;&lt; <span class="string">" and has value "</span> &lt;&lt; ptr-&gt;getValue() &lt;&lt; <span class="string">'\n'</span>;</span><br><span class="line"></span><br><span class="line">    Base base&#123; derived &#125;; <span class="comment">// be sliced</span></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"base is a "</span> &lt;&lt; base.getName() &lt;&lt; <span class="string">" and has value "</span> &lt;&lt; base.getValue() &lt;&lt; <span class="string">'\n'</span>;</span><br><span class="line"></span><br><span class="line">    printName(derived); <span class="comment">// be sliced</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="the-rule-of-five">the rule of five</h3>
+<p>如果定義了自己的</p>
+<ol>
+<li>destructor</li>
+<li>copy constructor</li>
+<li>copy assignment</li>
+</ol>
+<p>就要把其他的也一起定義完</p>
+<p>不過因為C++11有move，所以要多兩個</p>
+<ol>
+<li>move constructor</li>
+<li>move assignment</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">rule_of_five</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">char</span>* cstring; <span class="comment">// raw pointer used as a handle to a dynamically-allocated memory block</span></span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">    rule_of_five(<span class="keyword">const</span> <span class="keyword">char</span>* s = <span class="string">""</span>)</span><br><span class="line">    : cstring(<span class="literal">nullptr</span>)</span><br><span class="line">    &#123; </span><br><span class="line">        <span class="keyword">if</span> (s) &#123;</span><br><span class="line">            <span class="built_in">std</span>::<span class="keyword">size_t</span> n = <span class="built_in">std</span>::<span class="built_in">strlen</span>(s) + <span class="number">1</span>;</span><br><span class="line">            cstring = <span class="keyword">new</span> <span class="keyword">char</span>[n];      <span class="comment">// allocate</span></span><br><span class="line">            <span class="built_in">std</span>::<span class="built_in">memcpy</span>(cstring, s, n); <span class="comment">// populate </span></span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    ~rule_of_five()</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">delete</span>[] cstring;  <span class="comment">// deallocate</span></span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    rule_of_five(<span class="keyword">const</span> rule_of_five&amp; other) <span class="comment">// copy constructor</span></span><br><span class="line">    : rule_of_five(other.cstring)</span><br><span class="line">    &#123;&#125;</span><br><span class="line"> </span><br><span class="line">    rule_of_five(rule_of_five&amp;&amp; other) <span class="keyword">noexcept</span> <span class="comment">// move constructor</span></span><br><span class="line">    : cstring(<span class="built_in">std</span>::exchange(other.cstring, <span class="literal">nullptr</span>))</span><br><span class="line">    &#123;&#125;</span><br><span class="line"> </span><br><span class="line">    rule_of_five&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> rule_of_five&amp; other) <span class="comment">// copy assignment</span></span><br><span class="line">    &#123;</span><br><span class="line">         <span class="keyword">return</span> *<span class="keyword">this</span> = rule_of_five(other);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    rule_of_five&amp; <span class="keyword">operator</span>=(rule_of_five&amp;&amp; other) <span class="keyword">noexcept</span> <span class="comment">// move assignment</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">std</span>::swap(cstring, other.cstring);</span><br><span class="line">        <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// alternatively, replace both assignment operators with </span></span><br><span class="line"><span class="comment">//  rule_of_five&amp; operator=(rule_of_five other) noexcept</span></span><br><span class="line"><span class="comment">//  &#123;</span></span><br><span class="line"><span class="comment">//      std::swap(cstring, other.cstring);</span></span><br><span class="line"><span class="comment">//      return *this;</span></span><br><span class="line"><span class="comment">//  &#125;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="OS-related">OS related</h2>
+<h3 id="Edge-Trigger-Level-Trigger">Edge Trigger &amp; Level Trigger</h3>
+<ul>
+<li>Edge Trigger: 狀態變化時產生io事件</li>
+<li>Level Trigger: 滿足條件時產生io事件</li>
+</ul>
+<h3 id="memory">memory</h3>
+<ul>
+<li>memory hierarchy
+<ol>
+<li>register</li>
+<li>cache memory</li>
+<li>main memory</li>
+<li>HDD</li>
+</ol>
+</li>
+<li>Direct Memory Access, DMA
+<ul>
+<li>讓device可以直接操作記憶體，像是device把資料copy到mem去
+<ul>
+<li>會導致cache不一致!! (因為直接改mem，但cache不知道)
+<ul>
+<li>寫入mem時要通知cache做invalidate</li>
+<li>讀cache時，dma已經開始(拿到最新的) 或 dma關閉(不會被改)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>不然cpu就要中斷自己去做</li>
+<li>由cpu啟動dma，剩下的事情就是dma controller的工作</li>
+</ul>
+</li>
+</ul>
+<h3 id="mutex-semaphore">mutex &amp; semaphore</h3>
+<ul>
+<li>mutex
+<ol>
+<li>受益人數: 一人</li>
+<li>誰能改變狀態(上鎖):<br>
+a. 還沒上鎖: 所有人<br>
+b. 上鎖了: 上鎖的人</li>
+<li>使用場域: 保護critical zone</li>
+</ol>
+</li>
+<li>semaphore
+<ol>
+<li>受益人數: 看設定多少</li>
+<li>誰能改變狀態(記數): 誰都ok</li>
+<li>使用場域: 同步時的signal</li>
+</ol>
+</li>
+</ul>
+<h3 id="Big-Endian-Little-Endian">Big Endian &amp; Little Endian</h3>
+<p>資料放進記憶體中的時</p>
+<ul>
+<li>Big-Endian(Network Order): 最高位的位元組會放在最低的記憶體位址上</li>
+<li>Little-Endian: 最高位的位元組放在最高的記憶體位址上</li>
+</ul>
+<p>記憶體的最高在右邊，但資料的最高在左手邊</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">High -&gt; 12345678 &lt;- Low</span><br><span class="line">Low -&gt; a[0], a[1], a[2], a[4] &lt;- High</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdint.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">union</span> &#123;</span><br><span class="line">  <span class="keyword">uint32_t</span> l;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">char</span> c[<span class="number">4</span>];</span><br><span class="line">&#125; EndianTest;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 輸出位元組順序</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printBytes</span><span class="params">(<span class="keyword">uint32_t</span> x)</span> </span>&#123;</span><br><span class="line">  EndianTest et;</span><br><span class="line">  et.l = x;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"0x%02X "</span>, et.c[i]);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">uint32_t</span> x = <span class="number">0x12345678</span>;</span><br><span class="line">  <span class="comment">// big: 12, 34, 56, 78</span></span><br><span class="line">  <span class="comment">// little: 78, 56, 34, 12</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"0x%X 在記憶體中的儲存順序："</span>, x);</span><br><span class="line">  printBytes(x);</span><br><span class="line">  <span class="keyword">uint32_t</span> n = htonl(x);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"0x%X 在網路中的傳輸順序："</span>, x);</span><br><span class="line">  printBytes(n);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="how-to-IPC">how to IPC</h3>
+<ol>
+<li>pipe(named pipe)</li>
+<li>popen</li>
+<li>message queue</li>
+<li>semophore</li>
+<li>signal</li>
+<li>shared memory</li>
+<li>socket</li>
+<li>file</li>
+</ol>
+<h3 id="deadlock-condition">deadlock condition</h3>
+<p>race condition: 輸出依據不受控制的事件出現順序或者出現時機<br>
+Critical section: access共享資源的code<br>
+synchronization: 協調讓thread使用Critical section在時間上一致與統一<br>
+Cache coherence: 快取一致性 (為什麼放這邊?，可以看volatile)</p>
+<ol>
+<li>資源唯一(互斥) =&gt; a node in a graph</li>
+<li>不會被搶(不可搶占) =&gt; node cant be removed</li>
+<li>拿著並等別的資源(占有且等待) =&gt; an edge to other node</li>
+<li>別人也在等我(循環等待) =&gt; cycle</li>
+</ol>
+<h3 id="thread-process">thread &amp; process</h3>
+<ul>
+<li>process: OS的資源分配單位，彼此不影響</li>
+<li>thread: 程式的執行單位，互相影響<br>
+a. a kernel thread to a user thread: linux’s clone(child process, LWP)<br>
+b. a kernel thread to many user threads<br>
+c. many kernel threads to many user threads</li>
+</ul>
+<h3 id="how-to-talk-to-kernel">how to talk to kernel</h3>
+<ol>
+<li>virtual filesystems(e.g. /proc, /sys, configfs, relayfs): kernel &lt;-&gt; user, exchange data</li>
+<li>netlink/UDP socket: kernel &lt;-&gt; user, exchange data</li>
+<li>mmap: kernel &lt;-&gt; user, exchange data</li>
+<li>syscall: user -&gt; kernel, invoke function</li>
+<li>ioctl: kernel &lt;-&gt; user, exchange data</li>
+<li>signal from kernel: kernel -&gt; user, invoke handler</li>
+<li>upcall: kernel -&gt; user, invoke a function</li>
+</ol>
+<p><span class="exturl" data-url="aHR0cHM6Ly93aWtpLnRsZHAub3JnL2tlcm5lbF91c2VyX3NwYWNlX2hvd3Rv">ref<i class="fa fa-external-link-alt"></i></span></p>
+<h2 id="volatile">volatile</h2>
+<p>就是叫compiler每次都乖乖重新拿值，不然可能有神秘的優化把變數消滅掉</p>
+<p>用處</p>
+<ol>
+<li>register</li>
+<li>在multi-thread共用的變數</li>
+<li>一個中斷服務子程序中會訪問到的非自動變量(Non-automatic variables)</li>
+</ol>
+<h3 id="Can-we-use-“const”-and-“volatile”-in-the-same-variable">Can we use “const” and “volatile” in the same variable?</h3>
+<p><code>extern const volatile unsigned int rt_clock;</code><br>
+用在監看reg的值的時候</p>
+<h2 id="malloc、calloc、realloc">malloc、calloc、realloc</h2>
+<ul>
+<li>malloc: 就是allocate</li>
+<li>calloc: allocate + 初始值</li>
+<li>realloc: resize但是不一定從原本的位置開始，所以會copy舊資料到新位置</li>
+</ul>
+<h2 id="pointer-size">pointer size</h2>
+<p>看記憶體是幾位元的</p>
+<ul>
+<li>64: 8 bytes</li>
+<li>32: 4 bytes</li>
+</ul>
+<h2 id="macro">macro</h2>
+<h3 id="一些工具">一些工具</h3>
+<ol>
+<li>concat</li>
+</ol>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> cons(a,b) a##b</span></span><br><span class="line"><span class="comment">// cons(1,2) =&gt; 12</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>可變參數(預設參數)，如果有尾巴的逗號會被吃掉 (C99)</li>
+</ol>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> foo(must, ...) _foo(must, (foo_args)&#123;.a = 8, .b = 3.14, __VA_ARGS__&#125;);</span></span><br><span class="line"><span class="comment">// foo('D', .b = 9, .a = 2);</span></span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>to_string</li>
+</ol>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> STR(s) #s</span></span><br><span class="line"><span class="comment">// STR(123) =&gt; "123"</span></span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>_Generic (C11, 就是泛型)</li>
+</ol>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> foo(a, b)                \</span></span><br><span class="line">    _Generic((a),                \</span><br><span class="line">        <span class="keyword">int</span>: func1,               \</span><br><span class="line">        <span class="keyword">double</span>: _Generic((b),    \</span><br><span class="line">                    <span class="keyword">int</span> : func2,  \</span><br><span class="line">                    <span class="keyword">double</span>: func3 \</span><br><span class="line">                )                \</span><br><span class="line">    )(a, b)</span><br></pre></td></tr></table></figure>
+<h3 id="使用時要注意">使用時要注意</h3>
+<ol>
+<li>用括號</li>
+</ol>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> pow(a) (a) * (a)</span></span><br><span class="line"><span class="comment">// pow(1+2) =&gt; (1+2) * (1+2)</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>如果有temp變數要加大括號，不然會汙染到原本的scope</li>
+</ol>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> swap(a, b) &#123; \</span></span><br><span class="line">    <span class="keyword">int</span> temp = a;    \</span><br><span class="line">    a = b;           \</span><br><span class="line">    b = temp;        \</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>幫數字標上type</li>
+</ol>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NUM (100*123*234UL)</span></span><br><span class="line"><span class="comment">// 注意: 型別要放在數字後面!!</span></span><br><span class="line"><span class="comment">// U for unsigned</span></span><br><span class="line"><span class="comment">// L for long int or long float</span></span><br><span class="line"><span class="comment">// F for float</span></span><br><span class="line"><span class="comment">// default: double or int</span></span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>如果要用macro在另一個macro要多一層讓macro先展開</li>
+</ol>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> A 2</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CONS(a,b) a##b</span></span><br><span class="line"><span class="comment">// CONS(A,A) =&gt; AA</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _CONS(a,b) a##b</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CONS_GOOD _CONS(a,b)</span></span><br><span class="line"><span class="comment">// CONS_GOOD(A,A) =&gt; _CONS(2,2) =&gt; 22</span></span><br></pre></td></tr></table></figure>
+<h3 id="useful-macro-case-study">useful macro &amp; case study</h3>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> debug(fmt, ...) &#123; \</span></span><br><span class="line">    <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"(%s:%d) "</span>fmt<span class="string">"\n"</span>, __FILE__, __LINE__, ##__VA_ARGS__); \</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    debug(<span class="string">"%s %d"</span>, <span class="string">"Shit happen!"</span>, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> hash_hash # ## #</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> mkstr(a) # a</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> in_between(a) mkstr(a)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> join(c, d) in_between(c hash_hash d)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//join(x, y)</span></span><br><span class="line"><span class="comment">//in_between(x hash_hash y)</span></span><br><span class="line"><span class="comment">//in_between(x ## y)</span></span><br><span class="line"><span class="comment">//mkstr(x ## y)</span></span><br></pre></td></tr></table></figure>
+<p>default args: 在函數做設定</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> f(...) def_f((f_args) &#123;__VA_ARGS__&#125;)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">double</span> j;</span><br><span class="line">&#125; f_args;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">real_f</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">double</span> j)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%i %f\n"</span>,i,j);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">def_f</span><span class="params">(f_args args)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = args.i ? args.i : <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">double</span> j = args.j ? args.j : <span class="number">10.5</span>;</span><br><span class="line">    real_f(i,j);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    f(<span class="number">3</span>,<span class="number">8</span>);</span><br><span class="line">    f(.j=<span class="number">100.2</span>, .i=<span class="number">4</span>);</span><br><span class="line">    f(<span class="number">2</span>);</span><br><span class="line">    f(.j=<span class="number">45.3</span>);</span><br><span class="line">    f();</span><br><span class="line">    f(<span class="number">12</span>,);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>default args: 在struct(macro展開時)做設定</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> f(...) def_f((f_args)&#123;.i=10, .j=10.5, __VA_ARGS__&#125;)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">double</span> j;</span><br><span class="line">&#125; f_args;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">real_f</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">double</span> j)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%i %f\n"</span>,i,j);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">def_f</span><span class="params">(f_args x)</span> </span>&#123;</span><br><span class="line">    real_f(x.i,x.j);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//f(3,8);</span></span><br><span class="line">    f(.j=<span class="number">100.2</span>, .i=<span class="number">4</span>);</span><br><span class="line">    <span class="comment">//f(2);</span></span><br><span class="line">    f(.j=<span class="number">45.3</span>);</span><br><span class="line">    f();</span><br><span class="line">    <span class="comment">//f(12,);</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="floating-point">floating point</h2>
+<ol>
+<li>不要直接比較，要變成看相對誤差</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">abs</span>((<span class="number">0.1</span>+<span class="number">0.2</span>)<span class="number">-0.3</span>) &lt; epsilon</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>
+<p>少用float做直接運算，轉成整數</p>
+</li>
+<li>
+<p>使用另外設計的Lib</p>
+</li>
+<li>
+<p>調整算式</p>
+</li>
+</ol>
+<p><span class="exturl" data-url="aHR0cHM6Ly9oYWNrbWQuaW8vQHN5c3Byb2cvYy1mbG9hdGluZy1wb2ludA==">豐富的case<i class="fa fa-external-link-alt"></i></span></p>
+<h2 id="ISR">ISR</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">__interrupt <span class="keyword">double</span> <span class="title">compute_area</span><span class="params">(<span class="keyword">double</span> radius)</span> <span class="comment">// 1. no args (這應該是上半部)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">double</span> area = PI * radius * radius; <span class="comment">// 2. kernel space 用float?!</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"\nArea = %f"</span>， area); <span class="comment">// 3. 在中斷跑IO!?</span></span><br><span class="line">  <span class="keyword">return</span> area; <span class="comment">// 4. irq沒有return，syscall有</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="pitfall">pitfall</h2>
+<h3 id="auto-cast">auto cast</h3>
+<p>有unsigned就會自動變成unsigned</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> a = <span class="number">6</span>;</span><br><span class="line">  <span class="keyword">int</span> b = <span class="number">-20</span>;</span><br><span class="line">  (a+b &gt; <span class="number">6</span>) ? <span class="built_in">puts</span>(<span class="string">"&gt; 6"</span>) : <span class="built_in">puts</span>(<span class="string">"&lt;= 6"</span>); <span class="comment">// &gt; 6</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="type-size">type size</h3>
+<p>只有char確定是1byte!!</p>
+<p>所以下面的code可能會出事，因為<code>unsigned int</code>不一定是4bytes</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> zero = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> compzero = <span class="number">0xFFFF</span>; <span class="comment">/*1's complement of zero */</span></span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>type</th>
+<th>size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>char</td>
+<td>1 byte</td>
+</tr>
+<tr>
+<td>unsigned char</td>
+<td>1 byte</td>
+</tr>
+<tr>
+<td>signed char</td>
+<td>1 byte</td>
+</tr>
+<tr>
+<td>int</td>
+<td>2 or 4 bytes</td>
+</tr>
+<tr>
+<td>unsigned int</td>
+<td>2 or 4 bytes</td>
+</tr>
+<tr>
+<td>short</td>
+<td>2 bytes</td>
+</tr>
+<tr>
+<td>unsigned short</td>
+<td>2 bytes</td>
+</tr>
+<tr>
+<td>long</td>
+<td>8 bytes or (4bytes for 32 bit OS)</td>
+</tr>
+<tr>
+<td>unsigned long</td>
+<td>8 bytes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="p-p">p++ &amp; ++p</h3>
+<p>就算有括號，<code>p++</code>的inc還是後做，<code>++p</code>的inc還是先做</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[<span class="number">5</span>]=&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line"><span class="keyword">int</span> *p=a;</span><br><span class="line">*(p++)+=<span class="number">123</span>;</span><br><span class="line">*(++p)+=<span class="number">123</span>;</span><br><span class="line"><span class="comment">//124 2 126 4 5</span></span><br></pre></td></tr></table></figure>
+<h3 id="typedef">typedef</h3>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> dPS struct s *</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">s</span> * <span class="title">tPS</span>;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">dPS p1,p2; <span class="comment">// =&gt; struct s * p1,p2;</span></span><br><span class="line"></span><br><span class="line">tPS p3,p4;<span class="comment">// =&gt; struct s *p1,*p2;</span></span><br></pre></td></tr></table></figure>
+<h3 id="pointer-array-type">pointer &amp; array type</h3>
+<p>先看array，再看pointer，有括號就先看括號</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[<span class="number">10</span>]; <span class="comment">// An array of 10 integers</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> *a[<span class="number">10</span>]; <span class="comment">// An array of 10 pointers to integers</span></span><br><span class="line"><span class="comment">// int ((*a)[10])</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> (*a)[<span class="number">10</span>]; <span class="comment">// A pointer to an array of 10 integers</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> (*a)(<span class="keyword">int</span>); <span class="comment">// A pointer to a function a that takes an integer argument and returns an integer</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> (*a[<span class="number">10</span>])(<span class="keyword">int</span>); <span class="comment">// An array of 10 pointers to functions that take an integer argument and return an integer</span></span><br></pre></td></tr></table></figure>
+<h3 id="const-pointer">const &amp; pointer</h3>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> <span class="keyword">const</span> *a; <span class="comment">// ptr的內容固定</span></span><br><span class="line"><span class="keyword">int</span> * <span class="keyword">const</span> a; <span class="comment">// 被指到的int固定</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> <span class="keyword">const</span> * a; <span class="comment">// 兩個都固定</span></span><br></pre></td></tr></table></figure>
+<h2 id="計組">計組</h2>
+<h3 id="Pipeline">Pipeline</h3>
+<ol>
+<li>instruction fetch</li>
+<li>instruction decode/fetch register</li>
+<li>instruction execute/ branch or jump</li>
+<li>memory access</li>
+</ol>
+<ul>
+<li>to mem</li>
+</ul>
+<ol start="5">
+<li>write back</li>
+</ol>
+<ul>
+<li>to reg</li>
+</ul>
+<p>因為現在是所有指令共用datapath，所以要pipeline reg讓stage去load需要的資料去完成每個階段的任務</p>
+<h3 id="harzards">harzards</h3>
+<ul>
+<li>Data Hazard
+<ul>
+<li>LoadStore (RAW): 還沒寫完就被讀(拿到舊的值)</li>
+<li>StoreStore (WAW): 前面還沒寫完，後面已經寫進去了</li>
+<li>StoreLoad (WAR): 來沒讀完就被寫(拿到未來的值)</li>
+<li>sol
+<ul>
+<li>compiler 或是 cpu的 stall</li>
+<li>forwarding: 把需要的資訊丟到後面的pipeline reg，讓後面的stage先做事</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Control Hazard
+<ul>
+<li>if 的 bool還沒被算出來!!</li>
+<li>sol
+<ul>
+<li>stall</li>
+<li>分支預測(猜)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Structural hazard
+<ul>
+<li>在pipeline上指令的需要同一個資源</li>
+<li>sol
+<ul>
+<li>stall</li>
+<li>亂序執行</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Network-Programming">Network Programming</h2>
+<h3 id="server">server</h3>
+<ul>
+<li>socket
+<ul>
+<li><code>new socket()</code></li>
+</ul>
+</li>
+<li>bind
+<ul>
+<li>填ip, port</li>
+</ul>
+</li>
+<li>listen
+<ul>
+<li><code>socket.start()</code></li>
+</ul>
+</li>
+<li>accept (可以去看<a href="/2020/5/block-nonblock-sync-async/">block-nonblock-sync-async</a>補一下block與non-block的知識)
+<ul>
+<li>loop -&gt; get socket</li>
+<li>read / write</li>
+<li>close</li>
+</ul>
+</li>
+</ul>
+<h3 id="client">client</h3>
+<ul>
+<li>socket</li>
+<li>connect</li>
+<li>write / read</li>
+<li>close</li>
+</ul>
+<h3 id="傳struct">傳struct</h3>
+<p>不能直接傳，大小頭、padding、type的size不一定會一樣，會可能會轉不回來</p>
+<ol>
+<li>轉成string</li>
+<li>用htonl與ntohl，自己把int轉一轉</li>
+</ol>
+<ul>
+<li>host order to network order long (integer, s是short integer)</li>
+<li>network order to host order long (integer, s是short integer)</li>
+</ul>
+<p>float就要自己設計格式，沒有htonl與ntohl可以用，不然就是去找序列化的lib，像protobuf</p>
+<h3 id="pipe">pipe</h3>
+<ul>
+<li>pipefs</li>
+<li>create a file in pipefs, which is in mem</li>
+<li>return 2 fd, one for writing, another for reading</li>
+</ul>
+<h3 id="how-tcpdump-works">how tcpdump works</h3>
+<ul>
+<li>透過libpcap的api生bpf</li>
+</ul>
+<h2 id="除此之外">除此之外</h2>
+<ul>
+<li><a href="/2021/07/bits-trick">bit trick</a></li>
+<li><a href="/2020/12/cpp-value-category/">lvalue, rvalue</a></li>
+<li><a href="/2020/12/cpp-tmp/">tmp</a></li>
+<li><a href="/2020/12/mss/">Maximum subarray</a></li>
+<li><a href="/2021/07/linked-list-faq">linked list</a></li>
+<li><a href="/2021/07/bst-faq">binary search tree</a></li>
+<li><a href="/2020/12/leetcode-146-460">LRU cache</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/12/cpp-tmp/" rel="prev" title="C++ template meta-programming筆記">
+      <i class="fa fa-chevron-left"></i> C++ template meta-programming筆記
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/12/saddleback-search-algorithm/" rel="next" title="saddleback search algorithm">
+      saddleback search algorithm <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#extern-static-global"><span class="nav-number">2.</span> <span class="nav-text">extern, static, global</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#extern-“C”"><span class="nav-number">2.1.</span> <span class="nav-text">extern “C”</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#use-C-lib-in-C"><span class="nav-number">2.1.1.</span> <span class="nav-text">use C lib in C++</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#use-C-lib-in-C-2"><span class="nav-number">2.1.2.</span> <span class="nav-text">use C++ lib in C</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#static-為什麼放在-data"><span class="nav-number">2.2.</span> <span class="nav-text">static 為什麼放在.data</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#about-C-class"><span class="nav-number">3.</span> <span class="nav-text">about C++ class</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#friend"><span class="nav-number">3.1.</span> <span class="nav-text">friend</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#virtual"><span class="nav-number">3.2.</span> <span class="nav-text">virtual</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#object-slicing"><span class="nav-number">3.3.</span> <span class="nav-text">object slicing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#the-rule-of-five"><span class="nav-number">3.4.</span> <span class="nav-text">the rule of five</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OS-related"><span class="nav-number">4.</span> <span class="nav-text">OS related</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Edge-Trigger-Level-Trigger"><span class="nav-number">4.1.</span> <span class="nav-text">Edge Trigger &amp; Level Trigger</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#memory"><span class="nav-number">4.2.</span> <span class="nav-text">memory</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mutex-semaphore"><span class="nav-number">4.3.</span> <span class="nav-text">mutex &amp; semaphore</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Big-Endian-Little-Endian"><span class="nav-number">4.4.</span> <span class="nav-text">Big Endian &amp; Little Endian</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#how-to-IPC"><span class="nav-number">4.5.</span> <span class="nav-text">how to IPC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#deadlock-condition"><span class="nav-number">4.6.</span> <span class="nav-text">deadlock condition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#thread-process"><span class="nav-number">4.7.</span> <span class="nav-text">thread &amp; process</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#how-to-talk-to-kernel"><span class="nav-number">4.8.</span> <span class="nav-text">how to talk to kernel</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#volatile"><span class="nav-number">5.</span> <span class="nav-text">volatile</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Can-we-use-“const”-and-“volatile”-in-the-same-variable"><span class="nav-number">5.1.</span> <span class="nav-text">Can we use “const” and “volatile” in the same variable?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#malloc、calloc、realloc"><span class="nav-number">6.</span> <span class="nav-text">malloc、calloc、realloc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pointer-size"><span class="nav-number">7.</span> <span class="nav-text">pointer size</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#macro"><span class="nav-number">8.</span> <span class="nav-text">macro</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一些工具"><span class="nav-number">8.1.</span> <span class="nav-text">一些工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用時要注意"><span class="nav-number">8.2.</span> <span class="nav-text">使用時要注意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#useful-macro-case-study"><span class="nav-number">8.3.</span> <span class="nav-text">useful macro &amp; case study</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#floating-point"><span class="nav-number">9.</span> <span class="nav-text">floating point</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ISR"><span class="nav-number">10.</span> <span class="nav-text">ISR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pitfall"><span class="nav-number">11.</span> <span class="nav-text">pitfall</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#auto-cast"><span class="nav-number">11.1.</span> <span class="nav-text">auto cast</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#type-size"><span class="nav-number">11.2.</span> <span class="nav-text">type size</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#p-p"><span class="nav-number">11.3.</span> <span class="nav-text">p++ &amp; ++p</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#typedef"><span class="nav-number">11.4.</span> <span class="nav-text">typedef</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pointer-array-type"><span class="nav-number">11.5.</span> <span class="nav-text">pointer &amp; array type</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#const-pointer"><span class="nav-number">11.6.</span> <span class="nav-text">const &amp; pointer</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#計組"><span class="nav-number">12.</span> <span class="nav-text">計組</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Pipeline"><span class="nav-number">12.1.</span> <span class="nav-text">Pipeline</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#harzards"><span class="nav-number">12.2.</span> <span class="nav-text">harzards</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Network-Programming"><span class="nav-number">13.</span> <span class="nav-text">Network Programming</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#server"><span class="nav-number">13.1.</span> <span class="nav-text">server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#client"><span class="nav-number">13.2.</span> <span class="nav-text">client</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#傳struct"><span class="nav-number">13.3.</span> <span class="nav-text">傳struct</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pipe"><span class="nav-number">13.4.</span> <span class="nav-text">pipe</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#how-tcpdump-works"><span class="nav-number">13.5.</span> <span class="nav-text">how tcpdump works</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#除此之外"><span class="nav-number">14.</span> <span class="nav-text">除此之外</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">zhengcf</p>
+  <div class="site-description" itemprop="description">想到什麼就寫什麼</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">683</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhengcf</span>
+</div>
+  <div class="powered-by">Powered by <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl theme-link" data-url="aHR0cHM6Ly9tdXNlLnRoZW1lLW5leHQub3Jn">NexT.Muse</span>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 1000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://littlebees.github.io/2020/12/c-faq/',]
+      });
+      });
+  </script>
+
+</body>
+</html>

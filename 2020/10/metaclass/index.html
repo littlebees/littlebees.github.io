@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="AEpTGuQAkxnTOlmfF4INDna3S660LxrkyZ4BQzVbRSw">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"littlebees.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="動機 之前欠的要補…">
+<meta property="og:type" content="article">
+<meta property="og:title" content="metaclass - class與instance的融合">
+<meta property="og:url" content="https://littlebees.github.io/2020/10/metaclass/index.html">
+<meta property="og:site_name" content="記事本">
+<meta property="og:description" content="動機 之前欠的要補…">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-10-16T18:53:47.000Z">
+<meta property="article:modified_time" content="2022-01-21T19:20:51.997Z">
+<meta property="article:author" content="zhengcf">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://littlebees.github.io/2020/10/metaclass/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>metaclass - class與instance的融合 | 記事本</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">記事本</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">寫下來，不然會忘</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2020/10/metaclass/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhengcf">
+      <meta itemprop="description" content="想到什麼就寫什麼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="記事本">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          metaclass - class與instance的融合
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-10-17 02:53:47" itemprop="dateCreated datePublished" datetime="2020-10-17T02:53:47+08:00">2020-10-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-01-22 03:20:51" itemprop="dateModified" datetime="2022-01-22T03:20:51+08:00">2022-01-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Rails/" itemprop="url" rel="index"><span itemprop="name">Rails</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Rails/FAQ/" itemprop="url" rel="index"><span itemprop="name">FAQ</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="動機">動機</h2>
+<p>之前欠的要補…</p>
+<a id="more"></a>
+<h2 id="希望你知道…">希望你知道…</h2>
+<ol>
+<li>interpreter的結構</li>
+<li>scheme(或lisp)</li>
+</ol>
+<h2 id="class的演化">class的演化</h2>
+<p>lambda的部分是interpreter的一部份code</p>
+<p>其實這裡的重點是struct(這裡叫record)有什麼，只要了解為什麼struct這樣設計大概就會了解到底發生什麼事</p>
+<h3 id="class-instance">class &amp; instance</h3>
+<p>把東西分成class與class之下的instance</p>
+<p>instance有</p>
+<ul>
+<li>其所屬的class</li>
+<li>attribute的值</li>
+</ul>
+<p>class有</p>
+<ul>
+<li>class var的symbol(名字)</li>
+<li>class var的值</li>
+<li>attribute的symbol(名字)</li>
+<li>method的表(method_name =&gt; real_proc)</li>
+</ul>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">define-record</span> instance (<span class="name"><span class="builtin-name">class</span></span> i-vals))</span><br><span class="line">(<span class="name">define-record</span> class (<span class="name">c-vars</span> c-vals i-vars m-env))</span><br><span class="line"></span><br><span class="line">(<span class="name"><span class="builtin-name">lambda</span></span> (exp env class inst)</span><br><span class="line">    (<span class="name">variant-case</span> exp</span><br><span class="line">                  (<span class="name">i-varref</span> (<span class="name">var</span>)</span><br><span class="line">                            (<span class="name">lookup</span> var</span><br><span class="line">                                    (<span class="name">class-&gt;i-vars</span> (<span class="name">something-&gt;value</span> class))</span><br><span class="line">                                    (<span class="name">instance-&gt;i-vals</span> (<span class="name">something-&gt;value</span> inst))))</span><br><span class="line">                  (<span class="name">c-varref</span> (<span class="name">var</span>)</span><br><span class="line">                            (<span class="name">lookup</span> var</span><br><span class="line">                                    (<span class="name">class-&gt;c-vars</span> (<span class="name">something-&gt;value</span> class))</span><br><span class="line">                                    (<span class="name">class-&gt;c-vals</span> (<span class="name">something-&gt;value</span> class))))</span><br><span class="line">                  (<span class="name">i-varassign</span> (<span class="name">var</span> exp)</span><br><span class="line">                               (<span class="name"><span class="builtin-name">let</span></span> ((<span class="name">value</span> (<span class="name">eval-exp</span> exp env class inst)))</span><br><span class="line">                                 (<span class="name">void-&gt;expressed</span></span><br><span class="line">                                  (<span class="name">assign!</span> var</span><br><span class="line">                                           value</span><br><span class="line">                                           (<span class="name">class-&gt;i-vars</span> (<span class="name">something-&gt;value</span> class))</span><br><span class="line">                                           (<span class="name">instance-&gt;i-vals</span> (<span class="name">something-&gt;value</span> inst))))))</span><br><span class="line">                  (<span class="name">c-varassign</span> (<span class="name">var</span> exp)</span><br><span class="line">                               (<span class="name"><span class="builtin-name">let</span></span> ((<span class="name">value</span> (<span class="name">eval-exp</span> exp env class inst))</span><br><span class="line">                                     (<span class="name">c-vals</span> (<span class="name">class-&gt;c-vals</span> (<span class="name">something-&gt;value</span> class))))</span><br><span class="line">                                 (<span class="name">void-&gt;expressed</span></span><br><span class="line">                                  (<span class="name">assign!</span> var</span><br><span class="line">                                           value</span><br><span class="line">                                           (<span class="name">class-&gt;c-vars</span> (<span class="name">something-&gt;value</span> class))</span><br><span class="line">                                           c-vals))))</span><br><span class="line">                  (<span class="name">method</span> (<span class="name">formals</span> body)</span><br><span class="line">                          (<span class="name"><span class="builtin-name">let</span></span> ((<span class="name">new-formals</span> (<span class="name"><span class="builtin-name">cons</span></span> <span class="symbol">'self</span> formals)))</span><br><span class="line">                            (<span class="name">open-method-&gt;expressed</span></span><br><span class="line">                             (<span class="name"><span class="builtin-name">lambda</span></span> (class-thunk) <span class="comment">;; class has not instanced, wait for the class here</span></span><br><span class="line">                               (<span class="name"><span class="builtin-name">lambda</span></span> (args)</span><br><span class="line">                                 (<span class="name">eval-exp</span></span><br><span class="line">                                  body</span><br><span class="line">                                  (<span class="name">extend-env</span> new-formals (<span class="name"><span class="builtin-name">map</span></span> expressed-&gt;denoted args) env)</span><br><span class="line">                                  (<span class="name">make-something</span> (<span class="name">class-thunk</span>))</span><br><span class="line">                                  (<span class="name">make-something</span> (<span class="name"><span class="builtin-name">car</span></span> args))))))))</span><br><span class="line">                  (<span class="name">meth-app</span> (<span class="name">name</span> rands)</span><br><span class="line">                            (<span class="name"><span class="builtin-name">let</span></span> ((<span class="name">args</span> (<span class="name"><span class="builtin-name">map</span></span> (<span class="name"><span class="builtin-name">lambda</span></span> (rand)</span><br><span class="line">                                               (<span class="name">eval-exp</span> rand env class inst))</span><br><span class="line">                                             rands)))</span><br><span class="line">                              (<span class="name">meth-call</span> name (<span class="name">instance-&gt;class</span> (<span class="name"><span class="builtin-name">car</span></span> args)) args)))</span><br><span class="line">                  (<span class="name">new-simpleinst</span> (<span class="name">class-exp</span>)</span><br><span class="line">                                  (<span class="name"><span class="builtin-name">let</span></span> ((<span class="name">inst-class</span> (<span class="name">eval-exp</span> class-exp env class inst)))</span><br><span class="line">                                    (<span class="name"><span class="builtin-name">let</span></span> ((<span class="name">new-inst</span> (<span class="name">make-instance</span> inst-class</span><br><span class="line">                                                                   (<span class="name">make-vals</span> (<span class="name">class-&gt;i-vars</span> inst-class)))))</span><br><span class="line">                                      (<span class="name">ignore</span> (<span class="name">meth-call</span> <span class="symbol">'initialize</span> inst-class (<span class="name"><span class="builtin-name">list</span></span> new-inst)))</span><br><span class="line">                                      new-inst)))</span><br><span class="line">                  (<span class="name">new-simpleclass</span> (<span class="name">c-vars</span> i-vars methdecls init-exp)</span><br><span class="line">                                   (<span class="name"><span class="builtin-name">let</span></span> ((<span class="name">open-methods</span></span><br><span class="line">                                          (<span class="name"><span class="builtin-name">map</span></span> (<span class="name"><span class="builtin-name">lambda</span></span> (decl)</span><br><span class="line">                                                 (<span class="name">expressed-&gt;open-method</span></span><br><span class="line">                                                  (<span class="name">eval-exp</span> (<span class="name">decl-&gt;exp</span> decl) env class inst)))</span><br><span class="line">                                               methdecls)))</span><br><span class="line">                                     (<span class="name"><span class="builtin-name">letrec</span></span> ((<span class="name">new-class</span></span><br><span class="line">                                               (<span class="name">make-class</span></span><br><span class="line">                                                c-vars</span><br><span class="line">                                                (<span class="name">make-vals</span> c-vars)</span><br><span class="line">                                                i-vars</span><br><span class="line">                                                (<span class="name">extend-method-env</span></span><br><span class="line">                                                 (<span class="name"><span class="builtin-name">map</span></span> decl-&gt;var methdecls)</span><br><span class="line">                                                 (<span class="name"><span class="builtin-name">map</span></span> (<span class="name"><span class="builtin-name">lambda</span></span> (open-meth)</span><br><span class="line">                                                        (<span class="name">open-meth</span> (<span class="name"><span class="builtin-name">lambda</span></span> () new-class)))</span><br><span class="line">                                                      open-methods)</span><br><span class="line">                                                 init-meth-env))))</span><br><span class="line">                                       (<span class="name">ignore</span> (<span class="name">eval-exp</span> init-exp</span><br><span class="line">                                                         env</span><br><span class="line">                                                         (<span class="name">make-something</span> new-class)</span><br><span class="line">                                                         (<span class="name">make-nothing</span>)))</span><br><span class="line">                                       new-class)))))</span><br></pre></td></tr></table></figure>
+<h3 id="inherence">inherence</h3>
+<p>現在class可以往上找，所以多一個parent指到另一個class</p>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">define-record</span> instance (<span class="name"><span class="builtin-name">class</span></span> i-vals))</span><br><span class="line">(<span class="name">define-record</span> class (<span class="name">parent</span> c-vars c-vals i-vars m-env))</span><br><span class="line"></span><br><span class="line">(<span class="name"><span class="builtin-name">lambda</span></span> (exp env class inst)</span><br><span class="line">    (<span class="name">variant-case</span> exp</span><br><span class="line">                  (<span class="name">new-class</span> (<span class="name">parent-exp</span> c-vars i-vars methdecls init-exp)</span><br><span class="line">                             (<span class="name"><span class="builtin-name">let</span></span> ((<span class="name">parent-class</span> (<span class="name">eval-exp</span> parent-exp env class inst))</span><br><span class="line">                                   (<span class="name">open-methods</span></span><br><span class="line">                                    (<span class="name"><span class="builtin-name">map</span></span> (<span class="name"><span class="builtin-name">lambda</span></span> (decl)</span><br><span class="line">                                           (<span class="name">expressed-&gt;open-method</span></span><br><span class="line">                                            (<span class="name">eval-exp</span> (<span class="name">decl-&gt;exp</span> decl) env class inst)))</span><br><span class="line">                                         methdecls)))</span><br><span class="line">                               (<span class="name"><span class="builtin-name">let</span></span> ((<span class="name">new-c-vars</span> (<span class="name"><span class="builtin-name">append</span></span> c-vars (<span class="name">class-&gt;c-vars</span> parent-class)))</span><br><span class="line">                                     (<span class="name">new-i-vars</span> (<span class="name"><span class="builtin-name">append</span></span> i-vars (<span class="name">class-&gt;i-vars</span> parent-class)))</span><br><span class="line">                                     (<span class="name">new-c-vals</span> <span class="comment">; NEW!</span></span><br><span class="line">                                      (<span class="name">make-shared-c-vals</span> (<span class="name">class-&gt;c-vals</span> parent-class) c-vars)))</span><br><span class="line">                                 (<span class="name"><span class="builtin-name">letrec</span></span> ((<span class="name">new-class</span></span><br><span class="line">                                           (<span class="name">make-class</span></span><br><span class="line">                                            (<span class="name">make-something</span> parent-class)</span><br><span class="line">                                            new-c-vars</span><br><span class="line">                                            new-c-vals</span><br><span class="line">                                            new-i-vars</span><br><span class="line">                                            (<span class="name">extend-method-env</span></span><br><span class="line">                                             (<span class="name"><span class="builtin-name">map</span></span> decl-&gt;var methdecls)</span><br><span class="line">                                             (<span class="name"><span class="builtin-name">map</span></span> (<span class="name"><span class="builtin-name">lambda</span></span> (open-method)</span><br><span class="line">                                                    (<span class="name">open-method</span> (<span class="name"><span class="builtin-name">lambda</span></span> () new-class)))</span><br><span class="line">                                                  open-methods)</span><br><span class="line">                                             (<span class="name">class-&gt;m-env</span> parent-class)))))</span><br><span class="line">                                   (<span class="name">ignore</span></span><br><span class="line">                                    (<span class="name">eval-exp</span> init-exp</span><br><span class="line">                                              env</span><br><span class="line">                                              (<span class="name">make-something</span> new-class)</span><br><span class="line">                                              (<span class="name">make-nothing</span>)))</span><br><span class="line">                                   new-class))))</span><br><span class="line">                  (<span class="name">super-meth-app</span> (<span class="name">name</span> rands)</span><br><span class="line">                                  (<span class="name"><span class="builtin-name">let</span></span> ((<span class="name">args</span> (<span class="name"><span class="builtin-name">map</span></span> (<span class="name"><span class="builtin-name">lambda</span></span> (x) (<span class="name">eval-exp</span> x env class inst)) rands)))</span><br><span class="line">                                    (<span class="name">meth-call</span> name</span><br><span class="line">                                               (<span class="name">something-&gt;value</span></span><br><span class="line">                                                (<span class="name">class-&gt;parent</span></span><br><span class="line">                                                 (<span class="name">something-&gt;value</span> class)))</span><br><span class="line">                                               (<span class="name"><span class="builtin-name">cons</span></span> (<span class="name">something-&gt;value</span> inst) args))))</span><br><span class="line">                  <span class="comment">;; Figure 7.1.3 : page 219</span></span><br><span class="line">                  (<span class="name">i-varref</span> (<span class="name">var</span>)</span><br><span class="line">                            (<span class="name">lookup</span> var</span><br><span class="line">                                    (<span class="name">class-&gt;i-vars</span> (<span class="name">something-&gt;value</span> class))</span><br><span class="line">                                    (<span class="name">instance-&gt;i-vals</span> (<span class="name">something-&gt;value</span> inst))))</span><br><span class="line">                  (<span class="name">c-varref</span> (<span class="name">var</span>)</span><br><span class="line">                            (<span class="name">lookup</span> var</span><br><span class="line">                                    (<span class="name">class-&gt;c-vars</span> (<span class="name">something-&gt;value</span> class))</span><br><span class="line">                                    (<span class="name">class-&gt;c-vals</span> (<span class="name">something-&gt;value</span> class))))</span><br><span class="line">                  (<span class="name">i-varassign</span> (<span class="name">var</span> exp)</span><br><span class="line">                               (<span class="name"><span class="builtin-name">let</span></span> ((<span class="name">value</span> (<span class="name">eval-exp</span> exp env class inst)))</span><br><span class="line">                                 (<span class="name">void-&gt;expressed</span></span><br><span class="line">                                  (<span class="name">assign!</span> var</span><br><span class="line">                                           value</span><br><span class="line">                                           (<span class="name">class-&gt;i-vars</span> (<span class="name">something-&gt;value</span> class))</span><br><span class="line">                                           (<span class="name">instance-&gt;i-vals</span> (<span class="name">something-&gt;value</span> inst))))))</span><br><span class="line">                  (<span class="name">c-varassign</span> (<span class="name">var</span> exp)</span><br><span class="line">                               (<span class="name"><span class="builtin-name">let</span></span> ((<span class="name">value</span> (<span class="name">eval-exp</span> exp env class inst))</span><br><span class="line">                                     (<span class="name">c-vals</span> (<span class="name">class-&gt;c-vals</span> (<span class="name">something-&gt;value</span> class))))</span><br><span class="line">                                 (<span class="name">void-&gt;expressed</span></span><br><span class="line">                                  (<span class="name">assign!</span> var</span><br><span class="line">                                           value</span><br><span class="line">                                           (<span class="name">class-&gt;c-vars</span> (<span class="name">something-&gt;value</span> class))</span><br><span class="line">                                           c-vals))))</span><br><span class="line">                  (<span class="name">method</span> (<span class="name">formals</span> body)</span><br><span class="line">                          (<span class="name"><span class="builtin-name">let</span></span> ((<span class="name">new-formals</span> (<span class="name"><span class="builtin-name">cons</span></span> <span class="symbol">'self</span> formals)))</span><br><span class="line">                            (<span class="name">open-method-&gt;expressed</span></span><br><span class="line">                             (<span class="name"><span class="builtin-name">lambda</span></span> (class-thunk)</span><br><span class="line">                               (<span class="name"><span class="builtin-name">lambda</span></span> (args)</span><br><span class="line">                                 (<span class="name">eval-exp</span></span><br><span class="line">                                  body</span><br><span class="line">                                  (<span class="name">extend-env</span> new-formals (<span class="name"><span class="builtin-name">map</span></span> expressed-&gt;denoted args) env)</span><br><span class="line">                                  (<span class="name">make-something</span> (<span class="name">class-thunk</span>))</span><br><span class="line">                                  (<span class="name">make-something</span> (<span class="name"><span class="builtin-name">car</span></span> args))))))))</span><br><span class="line">                  (<span class="name">meth-app</span> (<span class="name">name</span> rands)</span><br><span class="line">                            (<span class="name"><span class="builtin-name">let</span></span> ((<span class="name">args</span> (<span class="name"><span class="builtin-name">map</span></span> (<span class="name"><span class="builtin-name">lambda</span></span> (rand)</span><br><span class="line">                                               (<span class="name">eval-exp</span> rand env class inst))</span><br><span class="line">                                             rands)))</span><br><span class="line">                              (<span class="name">meth-call</span> name (<span class="name">instance-&gt;class</span> (<span class="name"><span class="builtin-name">car</span></span> args)) args)))</span><br><span class="line">                  (<span class="name">new-simpleinst</span> (<span class="name">class-exp</span>)</span><br><span class="line">                                  (<span class="name"><span class="builtin-name">let</span></span> ((<span class="name">inst-class</span> (<span class="name">eval-exp</span> class-exp env class inst)))</span><br><span class="line">                                    (<span class="name"><span class="builtin-name">let</span></span> ((<span class="name">new-inst</span> (<span class="name">make-instance</span> inst-class</span><br><span class="line">                                                                   (<span class="name">make-vals</span> (<span class="name">class-&gt;i-vars</span> inst-class)))))</span><br><span class="line">                                      (<span class="name">ignore</span> (<span class="name">meth-call</span> <span class="symbol">'initialize</span> inst-class (<span class="name"><span class="builtin-name">list</span></span> new-inst)))</span><br><span class="line">                                      new-inst)))</span><br><span class="line">                  <span class="comment">;; The following is a convenience to make old examples work (stackclass).</span></span><br><span class="line">                  <span class="comment">;; Syntax-expand can't handle simpleclass, because then it would be</span></span><br><span class="line">                  <span class="comment">;; expanded away in section 7.1</span></span><br><span class="line">                  (<span class="name">new-simpleclass</span> (<span class="name">c-vars</span> i-vars methdecls init-exp)</span><br><span class="line">                                   (<span class="name">eval-exp</span> (<span class="name">make-new-class</span> (<span class="name">make-varref</span> <span class="symbol">'baseobject</span>)</span><br><span class="line">                                                             c-vars i-vars methdecls init-exp)</span><br><span class="line">                                             env class inst))))</span><br></pre></td></tr></table></figure>
+<h3 id="metaclass">metaclass</h3>
+<p>從繼承那邊可以看出來，其實parent與class(struct中的ptr)很像，都是往被指到的東西中找值，所以其實我們也不用區分是class還是instance</p>
+<p>把class與instance和在一起，會發現，我們不需要c-vals與c-vars，因為</p>
+<ul>
+<li>如果要instance變數，就看i-vals</li>
+<li>如果要class變數，就看class的i-vals</li>
+</ul>
+<p>到這裡就可以知道，為什麼python與ruby的class都可以有自己的變數，同時可以在某種程度上當class變數用</p>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name">define-record</span> instance (<span class="name"><span class="builtin-name">class</span></span> parent i-vars m-env i-vals))</span><br><span class="line"></span><br><span class="line">(<span class="name"><span class="builtin-name">lambda</span></span> (exp env class inst)</span><br><span class="line">  (<span class="name">variant-case</span> exp</span><br><span class="line">                (<span class="name">c-varref</span> (<span class="name">var</span>) </span><br><span class="line">                          (<span class="name">lookup</span> var</span><br><span class="line">                                  (<span class="name">class-&gt;i-vars</span></span><br><span class="line">                                   (<span class="name">something-&gt;value</span></span><br><span class="line">                                    (<span class="name">instance-&gt;class</span></span><br><span class="line">                                     (<span class="name">something-&gt;value</span> class))))</span><br><span class="line">                                  (<span class="name">instance-&gt;i-vals</span></span><br><span class="line">                                   (<span class="name">something-&gt;value</span> class))))</span><br><span class="line">                (<span class="name">c-varassign</span> (<span class="name">var</span> exp)</span><br><span class="line">                             (<span class="name"><span class="builtin-name">let</span></span> ((<span class="name">value</span> (<span class="name">eval-exp</span> exp env class inst)))</span><br><span class="line">                               (<span class="name">void-&gt;expressed</span></span><br><span class="line">                                (<span class="name">assign!</span> var</span><br><span class="line">                                         value</span><br><span class="line">                                         (<span class="name">class-&gt;i-vars</span></span><br><span class="line">                                          (<span class="name">something-&gt;value</span></span><br><span class="line">                                           (<span class="name">instance-&gt;class</span></span><br><span class="line">                                            (<span class="name">something-&gt;value</span> class))))</span><br><span class="line">                                         (<span class="name">instance-&gt;i-vals</span></span><br><span class="line">                                          (<span class="name">something-&gt;value</span> class))))))</span><br><span class="line">                (<span class="name">new-instance</span> (<span class="name">class-exp</span> parent-exp i-vars methdecls)</span><br><span class="line">                              (<span class="name"><span class="builtin-name">let</span></span> ((<span class="name">inst-class</span> (<span class="name">eval-exp</span> class-exp env class inst))</span><br><span class="line">                                    (<span class="name">parent-class</span> (<span class="name">eval-exp</span> parent-exp env class inst))</span><br><span class="line">                                    (<span class="name">open-methods</span></span><br><span class="line">                                     (<span class="name"><span class="builtin-name">map</span></span> (<span class="name"><span class="builtin-name">lambda</span></span> (decl)</span><br><span class="line">                                            (<span class="name">expressed-&gt;open-method</span></span><br><span class="line">                                             (<span class="name">eval-exp</span> (<span class="name">decl-&gt;exp</span> decl) env class inst)))</span><br><span class="line">                                          methdecls)))</span><br><span class="line">                                (<span class="name"><span class="builtin-name">let</span></span> ((<span class="name">new-i-vars</span> (<span class="name"><span class="builtin-name">append</span></span> i-vars (<span class="name">class-&gt;i-vars</span> parent-class))))</span><br><span class="line">                                  (<span class="name"><span class="builtin-name">letrec</span></span> ((<span class="name">new-inst</span></span><br><span class="line">                                            (<span class="name">make-instance</span></span><br><span class="line">                                             (<span class="name">make-something</span> inst-class)</span><br><span class="line">                                             (<span class="name">make-something</span> parent-class)</span><br><span class="line">                                             new-i-vars</span><br><span class="line">                                             (<span class="name">extend-method-env</span> (<span class="name"><span class="builtin-name">map</span></span> decl-&gt;var methdecls)</span><br><span class="line">                                                                (<span class="name"><span class="builtin-name">map</span></span> (<span class="name"><span class="builtin-name">lambda</span></span> (open-method)</span><br><span class="line">                                                                       (<span class="name">open-method</span> (<span class="name"><span class="builtin-name">lambda</span></span> () new-inst)))</span><br><span class="line">                                                                     open-methods)</span><br><span class="line">                                                                (<span class="name">class-&gt;m-env</span> parent-class))</span><br><span class="line">                                             (<span class="name">make-vals</span> (<span class="name">class-&gt;i-vars</span> inst-class)))))</span><br><span class="line">                                    (<span class="name">ignore</span> (<span class="name">meth-call</span> <span class="symbol">'initialize</span> inst-class (<span class="name"><span class="builtin-name">list</span></span> new-inst)))</span><br><span class="line">                                    new-inst))))</span><br><span class="line">                <span class="comment">;; Figure 7.2.4 : page 228</span></span><br><span class="line">                (<span class="name">super-meth-app</span> (<span class="name">name</span> rands)</span><br><span class="line">                                (<span class="name"><span class="builtin-name">let</span></span> ((<span class="name">args</span> (<span class="name"><span class="builtin-name">map</span></span> (<span class="name"><span class="builtin-name">lambda</span></span> (x) (<span class="name">eval-exp</span> x env class inst)) rands)))</span><br><span class="line">                                  (<span class="name">meth-call</span> name</span><br><span class="line">                                             (<span class="name">something-&gt;value</span></span><br><span class="line">                                              (<span class="name">class-&gt;parent</span></span><br><span class="line">                                               (<span class="name">something-&gt;value</span> class)))</span><br><span class="line">                                             (<span class="name"><span class="builtin-name">cons</span></span> (<span class="name">something-&gt;value</span> inst) args))))</span><br><span class="line">                <span class="comment">;; Figure 7.1.3 : page 219</span></span><br><span class="line">                (<span class="name">i-varref</span> (<span class="name">var</span>)</span><br><span class="line">                          (<span class="name">lookup</span> var</span><br><span class="line">                                  (<span class="name">class-&gt;i-vars</span> (<span class="name">something-&gt;value</span> class))</span><br><span class="line">                                  (<span class="name">instance-&gt;i-vals</span> (<span class="name">something-&gt;value</span> inst))))</span><br><span class="line">                (<span class="name">i-varassign</span> (<span class="name">var</span> exp)</span><br><span class="line">                             (<span class="name"><span class="builtin-name">let</span></span> ((<span class="name">value</span> (<span class="name">eval-exp</span> exp env class inst)))</span><br><span class="line">                               (<span class="name">void-&gt;expressed</span></span><br><span class="line">                                (<span class="name">assign!</span> var</span><br><span class="line">                                         value</span><br><span class="line">                                         (<span class="name">class-&gt;i-vars</span> (<span class="name">something-&gt;value</span> class))</span><br><span class="line">                                         (<span class="name">instance-&gt;i-vals</span> (<span class="name">something-&gt;value</span> inst))))))</span><br><span class="line">                (<span class="name">method</span> (<span class="name">formals</span> body)</span><br><span class="line">                        (<span class="name"><span class="builtin-name">let</span></span> ((<span class="name">new-formals</span> (<span class="name"><span class="builtin-name">cons</span></span> <span class="symbol">'self</span> formals)))</span><br><span class="line">                          (<span class="name">open-method-&gt;expressed</span></span><br><span class="line">                           (<span class="name"><span class="builtin-name">lambda</span></span> (class-thunk)</span><br><span class="line">                             (<span class="name"><span class="builtin-name">lambda</span></span> (args)</span><br><span class="line">                               (<span class="name">eval-exp</span></span><br><span class="line">                                body</span><br><span class="line">                                (<span class="name">extend-env</span> new-formals (<span class="name"><span class="builtin-name">map</span></span> expressed-&gt;denoted args) env)</span><br><span class="line">                                (<span class="name">make-something</span> (<span class="name">class-thunk</span>))</span><br><span class="line">                                (<span class="name">make-something</span> (<span class="name"><span class="builtin-name">car</span></span> args))))))))</span><br><span class="line">                (<span class="name">meth-app</span> (<span class="name">name</span> rands)</span><br><span class="line">                          (<span class="name"><span class="builtin-name">let</span></span> ((<span class="name">args</span> (<span class="name"><span class="builtin-name">map</span></span> (<span class="name"><span class="builtin-name">lambda</span></span> (rand)</span><br><span class="line">                                             (<span class="name">eval-exp</span> rand env class inst))</span><br><span class="line">                                           rands)))</span><br><span class="line">                            (<span class="name">meth-call</span> name</span><br><span class="line">                                       (<span class="name">something-&gt;value</span> (<span class="name">instance-&gt;class</span> (<span class="name"><span class="builtin-name">car</span></span> args)))</span><br><span class="line">                                       args)))))</span><br></pre></td></tr></table></figure>
+<h2 id="python">python</h2>
+<p>從剛剛metaclass的struct來看，先不管i-vals與i-vars與m-env</p>
+<p>看到下面的code的class C<br>
+可以發現 B 是 parent，而A是 class</p>
+<p>再看到<code>type.__new__(ins, name,parent,attrs)</code><br>
+attrs就是Dict，可以放值或是function，可以當成i-vals與i-vars與m-env的結合</p>
+<p>所以ins是 class， parent是parent，這裡生的就是instance</p>
+<p>剛剛是把python的metaclass與之前說的metaclass做結合，<br>
+剩下的部分就是__new__與__init__，__new__就是會丟出instance，而__init__就是instance的終點<br>
+另外super就是找繼承鍊上的instance，詳情可以看Ref的文章</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span><span class="params">(type)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__new__</span><span class="params">(ins, name, parent, attrs)</span>:</span></span><br><span class="line">        print(<span class="string">"in A"</span>)</span><br><span class="line">        attrs[<span class="string">'ins_var_of_C'</span>] = <span class="number">101</span></span><br><span class="line">        ins.class_var_of_C = <span class="string">'123'</span></span><br><span class="line">        ret = type.__new__(ins, name,parent,attrs)</span><br><span class="line">        <span class="keyword">return</span> ret</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">from_A</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">1000</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__new__</span><span class="params">(ins)</span>:</span></span><br><span class="line">        print(<span class="string">"in B"</span>)</span><br><span class="line">        ins.b = <span class="number">19</span></span><br><span class="line">        <span class="keyword">return</span> super().__new__(ins)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span><span class="params">(B,metaclass=A)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__new__</span><span class="params">(ins)</span>:</span></span><br><span class="line">        print(<span class="string">"in C"</span>)</span><br><span class="line">        ins.from_here = <span class="number">876</span></span><br><span class="line">        <span class="keyword">return</span> super().__new__(ins)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.a = <span class="number">999</span></span><br><span class="line">C.from_A()</span><br><span class="line">c = C()</span><br><span class="line">print(c.b)</span><br><span class="line">print(c.a)</span><br><span class="line">print(c.from_here)</span><br><span class="line">print(C.ins_var_of_C)</span><br><span class="line">print(C.class_var_of_C)</span><br><span class="line">print(c.ins_var_of_C)</span><br></pre></td></tr></table></figure>
+<h2 id="ruby">ruby</h2>
+<p>與python不同的是，class的部分(metaclass in Python)，沒有指定的機會，Ruby會自己生</p>
+<p>但是Ruby有eval來做許多壞事</p>
+<p>instance_eval 就是用 之前提到的instance來做eval，可以想像成用instance的所有資料作為跑code的環境<br>
+class_eval 其實就是會檢查 執行的obj是不是class，其實用{class}.instance_eval是等於{class}.class_eval的</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Object</span></span></span><br><span class="line">   <span class="comment"># The hidden singleton lurks behind everyone</span></span><br><span class="line">   <span class="function"><span class="keyword">def</span> <span class="title">metaclass</span>;</span> <span class="class"><span class="keyword">class</span> &lt;&lt; self;</span> <span class="keyword">self</span>; <span class="keyword">end</span>; <span class="keyword">end</span></span><br><span class="line">   <span class="function"><span class="keyword">def</span> <span class="title">meta_eval</span> <span class="title">&amp;</span><span class="title">blk</span>;</span> metaclass.instance_eval &amp;blk; <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">   <span class="comment"># Adds methods to a metaclass</span></span><br><span class="line">   <span class="function"><span class="keyword">def</span> <span class="title">meta_def</span> <span class="title">name</span>, <span class="title">&amp;</span><span class="title">blk</span></span></span><br><span class="line">     meta_eval &#123; define_method name, &amp;blk &#125;</span><br><span class="line">   <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">   <span class="comment"># Defines an instance method within a class</span></span><br><span class="line">   <span class="function"><span class="keyword">def</span> <span class="title">class_def</span> <span class="title">name</span>, <span class="title">&amp;</span><span class="title">blk</span></span></span><br><span class="line">     class_eval &#123; define_method name, &amp;blk &#125;</span><br><span class="line">   <span class="keyword">end</span></span><br><span class="line"> <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"> <span class="class"><span class="keyword">class</span> <span class="title">MailTruck</span></span></span><br><span class="line">   <span class="function"><span class="keyword">def</span> <span class="title">self</span>.<span class="title">company</span><span class="params">( name )</span></span></span><br><span class="line">     meta_def <span class="symbol">:company</span> <span class="keyword">do</span>; name; <span class="keyword">end</span></span><br><span class="line">     <span class="comment"># 吃當下的class的metaclass來加method，也就是替被執行該method的class加一個class method，叫company</span></span><br><span class="line">   <span class="keyword">end</span></span><br><span class="line"> <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">HappyTruck</span> &lt; MailTruck</span></span><br><span class="line">   company <span class="string">"Happy's -- We Bring the Mail, and That's It!"</span></span><br><span class="line"> <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">Creature</span></span></span><br><span class="line">   <span class="function"><span class="keyword">def</span> <span class="title">self</span>.<span class="title">traits</span><span class="params">( *arr )</span></span></span><br><span class="line">     <span class="keyword">return</span> @traits <span class="keyword">if</span> arr.empty?</span><br><span class="line">     <span class="keyword">attr_accessor</span> *arr</span><br><span class="line">     arr.each <span class="keyword">do</span> <span class="params">|trait|</span></span><br><span class="line">       meta_def trait <span class="keyword">do</span> <span class="params">|val|</span></span><br><span class="line">         @traits <span class="params">||</span>= &#123;&#125;</span><br><span class="line">         @traits[trait] = val</span><br><span class="line">       <span class="keyword">end</span></span><br><span class="line">     <span class="keyword">end</span></span><br><span class="line">     class_def <span class="symbol">:initialize</span> <span class="keyword">do</span></span><br><span class="line">       <span class="keyword">self</span><span class="class">.<span class="keyword">class</span>.<span class="title">traits</span>.<span class="title">each</span> <span class="title">do</span> |<span class="title">k</span>,<span class="title">v</span>|</span></span><br><span class="line">         instance_variable_set( <span class="string">"@<span class="subst">#&#123;k&#125;</span>"</span>, v )</span><br><span class="line">       <span class="keyword">end</span></span><br><span class="line">     <span class="keyword">end</span></span><br><span class="line">     class_def <span class="symbol">:hi</span> <span class="keyword">do</span></span><br><span class="line">      <span class="keyword">self</span><span class="class">.<span class="keyword">class</span>.<span class="title">traits</span>.<span class="title">each</span> <span class="title">do</span> |<span class="title">k</span>,<span class="title">_</span>|</span></span><br><span class="line">        puts <span class="string">"<span class="subst">#&#123;<span class="keyword">self</span>.instance_eval <span class="string">"self.<span class="subst">#&#123;k&#125;</span>"</span>&#125;</span>"</span></span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">   <span class="keyword">end</span></span><br><span class="line"> <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"> <span class="class"><span class="keyword">class</span> <span class="title">A</span> &lt; Creature</span></span><br><span class="line">  traits <span class="symbol">:a</span>, <span class="symbol">:b</span>, <span class="symbol">:c</span></span><br><span class="line"> <span class="keyword">end</span></span><br><span class="line"> A.a <span class="number">10</span></span><br><span class="line"> A.b <span class="number">20</span></span><br><span class="line"> A.c <span class="number">30</span></span><br><span class="line"> x = A.new</span><br><span class="line"> y = A.new</span><br><span class="line"> puts <span class="string">"x content"</span></span><br><span class="line">x.hi</span><br><span class="line">puts <span class="string">"y content"</span></span><br><span class="line">y.hi</span><br><span class="line">puts <span class="string">"change"</span></span><br><span class="line">y.b = <span class="number">100</span></span><br><span class="line">y.hi</span><br></pre></td></tr></table></figure>
+<h2 id="Ref">Ref</h2>
+<p>EoPL1 Ch10<br>
+<span class="exturl" data-url="aHR0cDovL3J1YnktbWV0YXByb2dyYW1taW5nLnJ1YnlsZWFybmluZy5jb20vaHRtbC9zZWVpbmdNZXRhY2xhc3Nlc0NsZWFybHkuaHRtbA==">Metaprogramming in Ruby<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly93aWtpLmppa2V4dWV5dWFuLmNvbS9wcm9qZWN0L2V4cGxvcmUtcHl0aG9uL0NsYXNzL3N1cGVyLmh0bWw=">你不知道的 super<i class="fa fa-external-link-alt"></i></span></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/a-interview-question/" rel="prev" title="一個面試問題">
+      <i class="fa fa-chevron-left"></i> 一個面試問題
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/10/netns-note/" rel="next" title="netns與虛擬網路裝置">
+      netns與虛擬網路裝置 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#希望你知道…"><span class="nav-number">2.</span> <span class="nav-text">希望你知道…</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#class的演化"><span class="nav-number">3.</span> <span class="nav-text">class的演化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#class-instance"><span class="nav-number">3.1.</span> <span class="nav-text">class &amp; instance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#inherence"><span class="nav-number">3.2.</span> <span class="nav-text">inherence</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#metaclass"><span class="nav-number">3.3.</span> <span class="nav-text">metaclass</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python"><span class="nav-number">4.</span> <span class="nav-text">python</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ruby"><span class="nav-number">5.</span> <span class="nav-text">ruby</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">6.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">zhengcf</p>
+  <div class="site-description" itemprop="description">想到什麼就寫什麼</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">683</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhengcf</span>
+</div>
+  <div class="powered-by">Powered by <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl theme-link" data-url="aHR0cHM6Ly9tdXNlLnRoZW1lLW5leHQub3Jn">NexT.Muse</span>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 1000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://littlebees.github.io/2020/10/metaclass/',]
+      });
+      });
+  </script>
+
+</body>
+</html>

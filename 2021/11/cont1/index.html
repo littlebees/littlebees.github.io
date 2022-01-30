@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="AEpTGuQAkxnTOlmfF4INDna3S660LxrkyZ4BQzVbRSw">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"littlebees.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="動機 整理continuation與CPS轉換">
+<meta property="og:type" content="article">
+<meta property="og:title" content="continuation整理與CPS轉換">
+<meta property="og:url" content="https://littlebees.github.io/2021/11/cont1/index.html">
+<meta property="og:site_name" content="記事本">
+<meta property="og:description" content="動機 整理continuation與CPS轉換">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-11-01T16:24:06.000Z">
+<meta property="article:modified_time" content="2022-01-22T11:01:06.375Z">
+<meta property="article:author" content="zhengcf">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://littlebees.github.io/2021/11/cont1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>continuation整理與CPS轉換 | 記事本</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">記事本</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">寫下來，不然會忘</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2021/11/cont1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhengcf">
+      <meta itemprop="description" content="想到什麼就寫什麼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="記事本">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          continuation整理與CPS轉換
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-11-02 00:24:06" itemprop="dateCreated datePublished" datetime="2021-11-02T00:24:06+08:00">2021-11-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-01-22 19:01:06" itemprop="dateModified" datetime="2022-01-22T19:01:06+08:00">2022-01-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Lisp/" itemprop="url" rel="index"><span itemprop="name">Lisp</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PLT/" itemprop="url" rel="index"><span itemprop="name">PLT</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PLT/Tips/" itemprop="url" rel="index"><span itemprop="name">Tips</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Lisp/Tips/" itemprop="url" rel="index"><span itemprop="name">Tips</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="動機">動機</h2>
+<p>整理continuation與CPS轉換</p>
+<a id="more"></a>
+<h2 id="用法">用法</h2>
+<p>cont可以當成一種很強的return或是goto，但是可以當成函數用</p>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name"><span class="builtin-name">let</span></span> ((<span class="name">val</span> (<span class="name">callcc</span> (<span class="name"><span class="builtin-name">lambda</span></span> (k) (<span class="name">k</span> k)))))</span><br><span class="line">  (<span class="name"><span class="builtin-name">set!</span></span> cont k)</span><br><span class="line">  (<span class="name"><span class="builtin-name">display</span></span> k))</span><br><span class="line"></span><br><span class="line">(<span class="name">cont</span> <span class="number">10</span>)</span><br><span class="line">(<span class="name">cont</span> <span class="number">20</span>)</span><br></pre></td></tr></table></figure>
+<p>只要調用cont就會回去當初執行callcc的那一行，所以可以用它來跳來跳去</p>
+<h2 id="應用">應用</h2>
+<h3 id="dynamic-wind">dynamic-wind</h3>
+<p>類似prehook與posthook，只是有在裡面執行或是要到裡面，就一定會跑prehook與posthook</p>
+<p>下面是其中一種實作，stack放<code>(prehook . afterhook)</code>，之後就是對callcc動手腳，只要有人call就去跑整個stack</p>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name"><span class="builtin-name">define</span></span> *here* (<span class="name"><span class="builtin-name">list</span></span> <span class="literal">#f</span>))</span><br><span class="line"></span><br><span class="line">(<span class="name"><span class="builtin-name">define</span></span> origin-callcc call-with-current-continuation)</span><br><span class="line"></span><br><span class="line">(<span class="name"><span class="builtin-name">define</span></span> (<span class="name"><span class="builtin-name">call-with-current-continuation</span></span> proc)</span><br><span class="line">    (<span class="name"><span class="builtin-name">let</span></span> ((<span class="name">here</span> *here*))</span><br><span class="line">        (<span class="name">origin-callcc</span> (<span class="name"><span class="builtin-name">lambda</span></span> (cont)</span><br><span class="line">            (<span class="name">proc</span></span><br><span class="line">                (<span class="name"><span class="builtin-name">lambda</span></span> <span class="name">results</span></span><br><span class="line">                    (reroot! here) <span class="comment">;; 包一層</span></span><br><span class="line">                    (<span class="name"><span class="builtin-name">apply</span></span> cont results)))))))</span><br><span class="line"></span><br><span class="line">(<span class="name"><span class="builtin-name">define</span></span> (<span class="name"><span class="builtin-name">dynamic-wind</span></span> before during after)</span><br><span class="line">    (<span class="name"><span class="builtin-name">let</span></span> ((<span class="name">here</span> *here*))</span><br><span class="line">        (<span class="name">reroot!</span> (<span class="name"><span class="builtin-name">cons</span></span> (<span class="name"><span class="builtin-name">cons</span></span> before after) here))</span><br><span class="line">        (<span class="name"><span class="builtin-name">call-with-values</span></span> during (<span class="name"><span class="builtin-name">lambda</span></span> <span class="name">results</span></span><br><span class="line">                                    (reroot! here)</span><br><span class="line">                                    (<span class="name"><span class="builtin-name">apply</span></span> values results)))))</span><br><span class="line"></span><br><span class="line">(<span class="name"><span class="builtin-name">define</span></span> (<span class="name">reroot!</span> there)</span><br><span class="line">    (<span class="name"><span class="builtin-name">if</span></span> (<span class="name"><span class="builtin-name">not</span></span> (<span class="name"><span class="builtin-name">eq?</span></span> *here* there))</span><br><span class="line">        (<span class="name"><span class="builtin-name">begin</span></span></span><br><span class="line">            (<span class="name">reroot!</span> (<span class="name"><span class="builtin-name">cdr</span></span> there))</span><br><span class="line">            (<span class="name"><span class="builtin-name">let</span></span> ((<span class="name">before</span> (<span class="name"><span class="builtin-name">caar</span></span> there))</span><br><span class="line">                  (<span class="name">after</span> (<span class="name">cdar</span> there)))</span><br><span class="line">                (<span class="name"><span class="builtin-name">set-car!</span></span> *here* (<span class="name"><span class="builtin-name">cons</span></span> after before)) <span class="comment">;; reverse before after, so next time after will be invoke!!</span></span><br><span class="line">                (<span class="name"><span class="builtin-name">set-cdr!</span></span> *here* there)</span><br><span class="line">                (<span class="name"><span class="builtin-name">set-car!</span></span> there <span class="literal">#f</span>)</span><br><span class="line">                (<span class="name"><span class="builtin-name">set-cdr!</span></span> there '())</span><br><span class="line">                (<span class="name"><span class="builtin-name">set!</span></span> *here* there)</span><br><span class="line">                (<span class="name">before</span>)))))</span><br></pre></td></tr></table></figure>
+<h3 id="exception">exception</h3>
+<p>一個stack放fail時要跳回去那邊的cont</p>
+<p>dynamic-wind是確保，cont被call時一定會pop stack<br>
+從cont進去時會把stack建回去 (在exception不需要就是了)</p>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name"><span class="builtin-name">define-syntax</span></span> try </span><br><span class="line">  (<span class="name"><span class="builtin-name">syntax-rules</span></span> (<span class="name">catch</span>)</span><br><span class="line">    ((<span class="name">_</span> exp ... catch proc) </span><br><span class="line">     <span class="comment">; =&gt;</span></span><br><span class="line">     (<span class="name"><span class="builtin-name">let</span></span> ((<span class="name">cc</span> (<span class="name">current-continuation</span>)))</span><br><span class="line">       (<span class="name"><span class="builtin-name">cond</span></span></span><br><span class="line">         ((<span class="name"><span class="builtin-name">procedure?</span></span> cc)</span><br><span class="line">          (<span class="name"><span class="builtin-name">dynamic-wind</span></span> </span><br><span class="line">           (<span class="name"><span class="builtin-name">lambda</span></span> ()</span><br><span class="line">             (<span class="name"><span class="builtin-name">set!</span></span> exception-stack (<span class="name"><span class="builtin-name">cons</span></span> cc exception-stack)))</span><br><span class="line">           (<span class="name"><span class="builtin-name">lambda</span></span> ()</span><br><span class="line">             exp ...)</span><br><span class="line">           (<span class="name"><span class="builtin-name">lambda</span></span> ()</span><br><span class="line">             (<span class="name"><span class="builtin-name">set!</span></span> exception-stack (<span class="name"><span class="builtin-name">cdr</span></span> exception-stack)))))</span><br><span class="line">         </span><br><span class="line">         ((<span class="name"><span class="builtin-name">pair?</span></span> cc) </span><br><span class="line">          (<span class="name">proc</span> (<span class="name"><span class="builtin-name">cadr</span></span> cc))))))))</span><br><span class="line"></span><br><span class="line">(<span class="name"><span class="builtin-name">define</span></span> (<span class="name">throw</span> exception-value)</span><br><span class="line">  (<span class="name"><span class="builtin-name">let</span></span> ((<span class="name">handler</span> (<span class="name"><span class="builtin-name">car</span></span> exception-stack)))</span><br><span class="line">    (<span class="name">handler</span> (<span class="name"><span class="builtin-name">list</span></span> <span class="symbol">'exception</span> exception-value))))</span><br><span class="line"></span><br><span class="line">(<span class="name">try</span> (<span class="name">try</span> (<span class="name">throw</span> <span class="symbol">'foo</span>)</span><br><span class="line">          catch</span><br><span class="line">          (<span class="name"><span class="builtin-name">lambda</span></span> (exn)</span><br><span class="line">            (<span class="name"><span class="builtin-name">display</span></span> <span class="string">"got inner exception: "</span>)</span><br><span class="line">            (<span class="name"><span class="builtin-name">display</span></span> exn)</span><br><span class="line">            (<span class="name"><span class="builtin-name">newline</span></span>)</span><br><span class="line">            (<span class="name">throw</span> <span class="symbol">'bar</span>)))</span><br><span class="line">     catch</span><br><span class="line">     (<span class="name"><span class="builtin-name">lambda</span></span> (exn)</span><br><span class="line">       (<span class="name"><span class="builtin-name">display</span></span> <span class="string">"got outer exception: "</span>)</span><br><span class="line">       (<span class="name"><span class="builtin-name">display</span></span> exn)</span><br><span class="line">       (<span class="name"><span class="builtin-name">newline</span></span>)))</span><br></pre></td></tr></table></figure>
+<h3 id="non-determing-computing">non-determing computing</h3>
+<p>一個stack放fail時要跳回去那邊的cont</p>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name"><span class="builtin-name">define</span></span> (<span class="name">current-continuation</span>) </span><br><span class="line">  (<span class="name"><span class="builtin-name">call-with-current-continuation</span></span> </span><br><span class="line">   (<span class="name"><span class="builtin-name">lambda</span></span> (cc)</span><br><span class="line">     (<span class="name">cc</span> cc))))</span><br><span class="line"></span><br><span class="line"><span class="comment">; fail-stack : list[continuation]</span></span><br><span class="line">(<span class="name"><span class="builtin-name">define</span></span> fail-stack '())</span><br><span class="line"></span><br><span class="line"><span class="comment">; fail : -&gt; ...</span></span><br><span class="line">(<span class="name"><span class="builtin-name">define</span></span> (<span class="name">fail</span>)</span><br><span class="line">  (<span class="name"><span class="builtin-name">if</span></span> (<span class="name"><span class="builtin-name">not</span></span> (<span class="name"><span class="builtin-name">pair?</span></span> fail-stack))</span><br><span class="line">      (<span class="name">error</span> <span class="string">"back-tracking stack exhausted!"</span>)</span><br><span class="line">      (<span class="name"><span class="builtin-name">begin</span></span></span><br><span class="line">        (<span class="name"><span class="builtin-name">let</span></span> ((<span class="name">back-track-point</span> (<span class="name"><span class="builtin-name">car</span></span> fail-stack)))</span><br><span class="line">          (<span class="name"><span class="builtin-name">set!</span></span> fail-stack (<span class="name"><span class="builtin-name">cdr</span></span> fail-stack))</span><br><span class="line">          (<span class="name">back-track-point</span> back-track-point)))))</span><br><span class="line"></span><br><span class="line"><span class="comment">; amb : list[a] -&gt; a</span></span><br><span class="line">(<span class="name"><span class="builtin-name">define</span></span> (<span class="name">amb</span> choices)</span><br><span class="line">  (<span class="name"><span class="builtin-name">let</span></span> ((<span class="name">cc</span> (<span class="name">current-continuation</span>)))</span><br><span class="line">    (<span class="name"><span class="builtin-name">cond</span></span></span><br><span class="line">      ((<span class="name"><span class="builtin-name">null?</span></span> choices)      (<span class="name">fail</span>))</span><br><span class="line">      ((<span class="name"><span class="builtin-name">pair?</span></span> choices)      (<span class="name"><span class="builtin-name">let</span></span> ((<span class="name">choice</span> (<span class="name"><span class="builtin-name">car</span></span> choices)))</span><br><span class="line">                              (<span class="name"><span class="builtin-name">set!</span></span> choices (<span class="name"><span class="builtin-name">cdr</span></span> choices))</span><br><span class="line">                              (<span class="name"><span class="builtin-name">set!</span></span> fail-stack (<span class="name"><span class="builtin-name">cons</span></span> cc fail-stack))</span><br><span class="line">                              choice)))))</span><br><span class="line"></span><br><span class="line">(<span class="name"><span class="builtin-name">define</span></span> (<span class="name">assert</span> condition)</span><br><span class="line">  (<span class="name"><span class="builtin-name">or</span></span> condition (<span class="name">fail</span>)))</span><br><span class="line"></span><br><span class="line"><span class="comment">; The following prints (4 3 5)</span></span><br><span class="line">(<span class="name"><span class="builtin-name">let</span></span> ((<span class="name">a</span> (<span class="name">amb</span> (<span class="name"><span class="builtin-name">list</span></span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span>)))</span><br><span class="line">      (<span class="name">b</span> (<span class="name">amb</span> (<span class="name"><span class="builtin-name">list</span></span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span>)))</span><br><span class="line">      (<span class="name">c</span> (<span class="name">amb</span> (<span class="name"><span class="builtin-name">list</span></span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span>))))</span><br><span class="line">  (<span class="name">assert</span> (<span class="name"><span class="builtin-name">=</span></span> (<span class="name"><span class="builtin-name">*</span></span> c c) (<span class="name"><span class="builtin-name">+</span></span> (<span class="name"><span class="builtin-name">*</span></span> a a) (<span class="name"><span class="builtin-name">*</span></span> b b)))))</span><br></pre></td></tr></table></figure>
+<h3 id="generator">generator</h3>
+<p>一個ptr指向目前generator停下來的位置，另外為了讓generator好看，所以把生generator的cont交給make-yield</p>
+<p>所以每次yield就會把val與cont丟回去</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">(define (current-continuation) </span><br><span class="line">  (call-with-current-continuation</span><br><span class="line">   (lambda (cc)</span><br><span class="line">     (cc cc))))</span><br><span class="line"></span><br><span class="line">; void : -&gt; void</span><br><span class="line">(define (void)</span><br><span class="line">  (if #f #t))</span><br><span class="line"></span><br><span class="line">; tree-iterator : tree -&gt; generator</span><br><span class="line">(define (tree-iterator tree)</span><br><span class="line">  (lambda (yield)</span><br><span class="line">    (define (walk tree)</span><br><span class="line">      (if (not (pair? tree))</span><br><span class="line">          (yield tree)</span><br><span class="line">          (begin</span><br><span class="line">            (walk (car tree))</span><br><span class="line">            (walk (cdr tree)))))</span><br><span class="line">    </span><br><span class="line">    (walk tree)))</span><br><span class="line"></span><br><span class="line">; make-yield : continuation -&gt; (value -&gt; ...)</span><br><span class="line">(define (make-yield for-cc)</span><br><span class="line">  (lambda (value)</span><br><span class="line">    (let ((cc (current-continuation)))</span><br><span class="line">      (if (procedure? cc)</span><br><span class="line">          (for-cc (cons cc value))</span><br><span class="line">          (void)))))</span><br><span class="line"></span><br><span class="line">; (for v in generator body) will execute body </span><br><span class="line">; with v bound to successive values supplied</span><br><span class="line">; by generator.</span><br><span class="line">(define-syntax for</span><br><span class="line">  (syntax-rules (in)</span><br><span class="line">    ((_ v in iterator body ...)</span><br><span class="line">     ; &#x3D;&gt; </span><br><span class="line">     (let ((iterator-cont #f))</span><br><span class="line">       (letrec ((loop (lambda ()</span><br><span class="line">                        (let ((cc (current-continuation)))</span><br><span class="line">                          (if (procedure? cc)</span><br><span class="line">                              (if iterator-cont</span><br><span class="line">                                  (iterator-cont (void))</span><br><span class="line">                                  (iterator (make-yield cc)))</span><br><span class="line">                              (let ((it-cont (car cc))</span><br><span class="line">                                    (it-val  (cdr cc)))</span><br><span class="line">                                (set! iterator-cont it-cont)</span><br><span class="line">                                (let ((v it-val))</span><br><span class="line">                                  body ...)</span><br><span class="line">                                (loop)))))))</span><br><span class="line">         (loop))))))</span><br><span class="line"></span><br><span class="line">(for v in (tree-iterator &#39;(3 . ( ( 4 . 5 ) . 6 ) )) </span><br><span class="line">  (display v)</span><br><span class="line">  (newline))</span><br></pre></td></tr></table></figure>
+<h3 id="thread">thread</h3>
+<p>前面是把cont塞到stack，這裡放到queue去!!</p>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">; thread-queue : list[continuation]</span></span><br><span class="line">(<span class="name"><span class="builtin-name">define</span></span> thread-queue '())</span><br><span class="line"></span><br><span class="line"><span class="comment">; halt : continuation</span></span><br><span class="line">(<span class="name"><span class="builtin-name">define</span></span> halt <span class="literal">#f</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">; void : -&gt; void</span></span><br><span class="line">(<span class="name"><span class="builtin-name">define</span></span> (<span class="name">void</span>) (<span class="name"><span class="builtin-name">if</span></span> <span class="literal">#f</span> <span class="literal">#t</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">; current-continuation : -&gt; continuation</span></span><br><span class="line">(<span class="name"><span class="builtin-name">define</span></span> (<span class="name">current-continuation</span>)</span><br><span class="line">  (<span class="name"><span class="builtin-name">call-with-current-continuation</span></span></span><br><span class="line">   (<span class="name"><span class="builtin-name">lambda</span></span> (cc)</span><br><span class="line">     (<span class="name">cc</span> cc))))</span><br><span class="line"></span><br><span class="line"><span class="comment">; spawn : (-&gt; anything) -&gt; void</span></span><br><span class="line">(<span class="name"><span class="builtin-name">define</span></span> (<span class="name">spawn</span> thunk)</span><br><span class="line">  (<span class="name"><span class="builtin-name">let</span></span> ((<span class="name">cc</span> (<span class="name">current-continuation</span>)))</span><br><span class="line">    (<span class="name"><span class="builtin-name">if</span></span> (<span class="name"><span class="builtin-name">procedure?</span></span> cc)</span><br><span class="line">        (<span class="name"><span class="builtin-name">set!</span></span> thread-queue (<span class="name"><span class="builtin-name">append</span></span> thread-queue (<span class="name"><span class="builtin-name">list</span></span> cc)))</span><br><span class="line">        (<span class="name"><span class="builtin-name">begin</span></span> (<span class="name">thunk</span>)</span><br><span class="line">               (<span class="name">quit</span>)))))</span><br><span class="line"></span><br><span class="line"><span class="comment">; yield : value -&gt; void</span></span><br><span class="line">(<span class="name"><span class="builtin-name">define</span></span> (<span class="name">yield</span>)</span><br><span class="line">  (<span class="name"><span class="builtin-name">let</span></span> ((<span class="name">cc</span> (<span class="name">current-continuation</span>)))</span><br><span class="line">    (<span class="name"><span class="builtin-name">if</span></span> (<span class="name"><span class="builtin-name">and</span></span> (<span class="name"><span class="builtin-name">procedure?</span></span> cc) (<span class="name"><span class="builtin-name">pair?</span></span> thread-queue))</span><br><span class="line">        (<span class="name"><span class="builtin-name">let</span></span> ((<span class="name">next-thread</span> (<span class="name"><span class="builtin-name">car</span></span> thread-queue)))</span><br><span class="line">          (<span class="name"><span class="builtin-name">set!</span></span> thread-queue (<span class="name"><span class="builtin-name">append</span></span> (<span class="name"><span class="builtin-name">cdr</span></span> thread-queue) (<span class="name"><span class="builtin-name">list</span></span> cc)))</span><br><span class="line">          (<span class="name">next-thread</span> <span class="symbol">'resume</span>))</span><br><span class="line">        (<span class="name">void</span>))))</span><br><span class="line"></span><br><span class="line"><span class="comment">; quit : -&gt; ...</span></span><br><span class="line">(<span class="name"><span class="builtin-name">define</span></span> (<span class="name">quit</span>)</span><br><span class="line">  (<span class="name"><span class="builtin-name">if</span></span> (<span class="name"><span class="builtin-name">pair?</span></span> thread-queue)</span><br><span class="line">      (<span class="name"><span class="builtin-name">let</span></span> ((<span class="name">next-thread</span> (<span class="name"><span class="builtin-name">car</span></span> thread-queue)))</span><br><span class="line">        (<span class="name"><span class="builtin-name">set!</span></span> thread-queue (<span class="name"><span class="builtin-name">cdr</span></span> thread-queue))</span><br><span class="line">        (<span class="name">next-thread</span> <span class="symbol">'resume</span>))</span><br><span class="line">      (<span class="name">halt</span>)))</span><br><span class="line">   </span><br><span class="line"><span class="comment">; start-threads : -&gt; ...</span></span><br><span class="line">(<span class="name"><span class="builtin-name">define</span></span> (<span class="name">start-threads</span>)</span><br><span class="line">  (<span class="name"><span class="builtin-name">let</span></span> ((<span class="name">cc</span> (<span class="name">current-continuation</span>)))</span><br><span class="line">    (<span class="name"><span class="builtin-name">if</span></span> cc</span><br><span class="line">        (<span class="name"><span class="builtin-name">begin</span></span></span><br><span class="line">          (<span class="name"><span class="builtin-name">set!</span></span> halt (<span class="name"><span class="builtin-name">lambda</span></span> () (<span class="name">cc</span> <span class="literal">#f</span>)))</span><br><span class="line">          (<span class="name"><span class="builtin-name">if</span></span> (<span class="name"><span class="builtin-name">null?</span></span> thread-queue)</span><br><span class="line">              (<span class="name">void</span>)</span><br><span class="line">              (<span class="name"><span class="builtin-name">begin</span></span></span><br><span class="line">                (<span class="name"><span class="builtin-name">let</span></span> ((<span class="name">next-thread</span> (<span class="name"><span class="builtin-name">car</span></span> thread-queue)))</span><br><span class="line">                  (<span class="name"><span class="builtin-name">set!</span></span> thread-queue (<span class="name"><span class="builtin-name">cdr</span></span> thread-queue))</span><br><span class="line">                  (<span class="name">next-thread</span> <span class="symbol">'resume</span>)))))</span><br><span class="line">        (<span class="name">void</span>))))</span><br><span class="line"></span><br><span class="line"><span class="comment">;; Example cooperatively threaded program</span></span><br><span class="line">(<span class="name"><span class="builtin-name">define</span></span> counter <span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">(<span class="name"><span class="builtin-name">define</span></span> (<span class="name">make-thread-thunk</span> name)</span><br><span class="line">  (<span class="name"><span class="builtin-name">letrec</span></span> ((<span class="name">loop</span> (<span class="name"><span class="builtin-name">lambda</span></span> ()</span><br><span class="line">                   (<span class="name"><span class="builtin-name">if</span></span> (<span class="name"><span class="builtin-name">&lt;</span></span> counter <span class="number">0</span>)</span><br><span class="line">                       (<span class="name">quit</span>))</span><br><span class="line">                   (<span class="name"><span class="builtin-name">display</span></span> <span class="string">"in thread "</span>)</span><br><span class="line">                   (<span class="name"><span class="builtin-name">display</span></span> name)</span><br><span class="line">                   (<span class="name"><span class="builtin-name">display</span></span> <span class="string">"; counter = "</span>)</span><br><span class="line">                   (<span class="name"><span class="builtin-name">display</span></span> counter)</span><br><span class="line">                   (<span class="name"><span class="builtin-name">newline</span></span>)</span><br><span class="line">                   (<span class="name"><span class="builtin-name">set!</span></span> counter (<span class="name"><span class="builtin-name">-</span></span> counter <span class="number">1</span>))</span><br><span class="line">                   (<span class="name">yield</span>)</span><br><span class="line">                   (<span class="name">loop</span>))))</span><br><span class="line">    loop))</span><br><span class="line"></span><br><span class="line">(<span class="name">spawn</span> (<span class="name">make-thread-thunk</span> <span class="symbol">'a</span>))</span><br><span class="line">(<span class="name">spawn</span> (<span class="name">make-thread-thunk</span> <span class="symbol">'b</span>))</span><br><span class="line">(<span class="name">spawn</span> (<span class="name">make-thread-thunk</span> <span class="symbol">'c</span>))</span><br><span class="line"></span><br><span class="line">(<span class="name">start-threads</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="cont-monad">cont monad</h2>
+<p>monad就是消滅傳遞參數的過程，下面來複習cont monad</p>
+<p>先基本的cps</p>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name"><span class="builtin-name">define</span></span> (<span class="name">id</span> x) x)</span><br><span class="line">(<span class="name"><span class="builtin-name">define</span></span> (<span class="name">fib1</span> n k)</span><br><span class="line">    (<span class="name"><span class="builtin-name">if</span></span> (<span class="name"><span class="builtin-name">&lt;=</span></span> n <span class="number">1</span>)</span><br><span class="line">        (<span class="name">k</span> <span class="number">1</span>)</span><br><span class="line">        (<span class="name">fib1</span> (<span class="name"><span class="builtin-name">-</span></span> n <span class="number">1</span>)</span><br><span class="line">            (<span class="name"><span class="builtin-name">lambda</span></span> (v1)</span><br><span class="line">                (<span class="name">fib1</span> (<span class="name"><span class="builtin-name">-</span></span> n <span class="number">2</span>)</span><br><span class="line">                    (<span class="name"><span class="builtin-name">lambda</span></span> (v2)</span><br><span class="line">                        (<span class="name">k</span> (<span class="name"><span class="builtin-name">+</span></span> v1 v2))))))))</span><br><span class="line">(<span class="name">writeln</span> (<span class="name">fib1</span> <span class="number">5</span> id))</span><br></pre></td></tr></table></figure>
+<p>把k往裡面推</p>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name"><span class="builtin-name">define</span></span> (<span class="name">fib2</span> n)</span><br><span class="line">    (<span class="name"><span class="builtin-name">if</span></span> (<span class="name"><span class="builtin-name">&lt;=</span></span> n <span class="number">1</span>)</span><br><span class="line">        (<span class="name"><span class="builtin-name">lambda</span></span> (k) (<span class="name">k</span> <span class="number">1</span>))</span><br><span class="line">        (<span class="name"><span class="builtin-name">lambda</span></span> (k)</span><br><span class="line">            ((<span class="name">fib2</span> (<span class="name"><span class="builtin-name">-</span></span> n <span class="number">1</span>))</span><br><span class="line">                (<span class="name"><span class="builtin-name">lambda</span></span> (v1)</span><br><span class="line">                    ((<span class="name">fib2</span> (<span class="name"><span class="builtin-name">-</span></span> n <span class="number">2</span>))</span><br><span class="line">                        (<span class="name"><span class="builtin-name">lambda</span></span> (v2)</span><br><span class="line">                            (<span class="name">k</span> (<span class="name"><span class="builtin-name">+</span></span> v1 v2)))))))))</span><br><span class="line">(<span class="name">writeln</span> ((<span class="name">fib2</span> <span class="number">5</span>) id))</span><br></pre></td></tr></table></figure>
+<p>包一包，這裡可以注意到其實monad指的就是<code>(lambda (k) ...)</code>，只要被這個包起來就是monad!!</p>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name"><span class="builtin-name">define</span></span> (<span class="name">return</span> val)</span><br><span class="line">    (<span class="name"><span class="builtin-name">lambda</span></span> (k) (<span class="name">k</span> val)))</span><br><span class="line">(<span class="name"><span class="builtin-name">define</span></span> (<span class="name">bind</span> m f)</span><br><span class="line">    (<span class="name"><span class="builtin-name">lambda</span></span> (k)</span><br><span class="line">        ((<span class="name">m</span> f) k)))</span><br><span class="line">(<span class="name"><span class="builtin-name">define</span></span> (<span class="name">fib3</span> n)</span><br><span class="line">    (<span class="name"><span class="builtin-name">if</span></span> (<span class="name"><span class="builtin-name">&lt;=</span></span> n <span class="number">1</span>)</span><br><span class="line">        (<span class="name">return</span> <span class="number">1</span>)</span><br><span class="line">        (<span class="name">bind</span></span><br><span class="line">            (<span class="name">fib3</span> (<span class="name"><span class="builtin-name">-</span></span> n <span class="number">1</span>))</span><br><span class="line">            (<span class="name"><span class="builtin-name">lambda</span></span> (v1)</span><br><span class="line">                (<span class="name">bind</span></span><br><span class="line">                    (<span class="name">fib3</span> (<span class="name"><span class="builtin-name">-</span></span> n <span class="number">2</span>))</span><br><span class="line">                    (<span class="name"><span class="builtin-name">lambda</span></span> (v2)</span><br><span class="line">                        (<span class="name">return</span> (<span class="name"><span class="builtin-name">+</span></span> v1 v2))))))))</span><br><span class="line">(<span class="name">writeln</span> ((<span class="name">fib3</span> <span class="number">5</span>) id))</span><br></pre></td></tr></table></figure>
+<p>callcc就是</p>
+<ol>
+<li>擷取現在的cont，塞進去lambda</li>
+<li>讓原本的程式用原本的cont繼續跑</li>
+</ol>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name"><span class="builtin-name">define</span></span> (<span class="name">callcc</span> f)</span><br><span class="line">  (<span class="name"><span class="builtin-name">lambda</span></span> (k)</span><br><span class="line">    ((<span class="name">f</span> (<span class="name"><span class="builtin-name">lambda</span></span> (val)</span><br><span class="line">          (<span class="name"><span class="builtin-name">lambda</span></span> (_)</span><br><span class="line">            (<span class="name">k</span> val))))</span><br><span class="line">      k)))</span><br></pre></td></tr></table></figure>
+<h2 id="邏輯上的關聯-callcc的type是">邏輯上的關聯: callcc的type是?</h2>
+<p>cont吃一個值之後就跳走，所以她的return val是什麼type?<br>
+沒關西，先當成<code>P -&gt; Q</code></p>
+<p>callcc是什麼type?<br>
+吃一個func，接回去原本的運算，注意到因為這裡的return val與cont吃得一樣，所以用一樣的type<br>
+<code>F -&gt; P</code></p>
+<p>F是什麼type?<br>
+吃一個cont，回傳某個值<br>
+<code>(P -&gt; Q) -&gt; ?</code></p>
+<p>某個值是什麼type?<br>
+這func要接回去原本的運算，所以是P</p>
+<p>整個是<code>((P -&gt; Q) -&gt; P) -&gt; P</code></p>
+<p>這就是Peirce’s law，如果把Q帶成bottom(Absurd)，就可以得到排中律!!</p>
+<h2 id="CPS-conversion">CPS conversion</h2>
+<p>在cont monad看到monad怎麼把cont藏起來<br>
+接著就是怎麼把這個k自己生出來，下面都用untyped lambda calculus</p>
+<p>說老實話，其實是為了這個才把這篇打出來的</p>
+<p>另外如果有人說，學遞迴要用trace實際執行過程，直接丟這個給他看，看他怎麼trace<br>
+或是說遞迴可以轉成loop，也是丟這個，看他怎麼轉</p>
+<h3 id="naive">naive</h3>
+<p>先是base case，變數與lambda，這裡base case叫atomic<br>
+變數直接回傳，lambda要幫他開一個洞，把值傳回去</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">(define (M expr)</span><br><span class="line">  (match expr</span><br><span class="line">    [&#96;(λ (,var) ,expr)</span><br><span class="line">      (define $k (gensym &#39;$k))</span><br><span class="line">     &#96;(λ (,var ,$k) ,(T expr $k))]</span><br><span class="line">    [(? symbol?)</span><br><span class="line">      expr]))</span><br></pre></td></tr></table></figure>
+<p>剩下就是apply，每個都要先轉沒問題，那這裡要放什麼?<br>
+可以先看看簡單的case: <code>(f v)</code>且都是變數<br>
+最保險就是每個都要轉(過M)，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">((λ (a)</span><br><span class="line">  ((λ (b)</span><br><span class="line">    (k (a b))) ;; !!</span><br><span class="line">      v))</span><br><span class="line">  f)</span><br></pre></td></tr></table></figure>
+<p>等等，現在a會多一個cont</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">((λ (a)</span><br><span class="line">  ((λ (b)</span><br><span class="line">    (a b k)) ;; good</span><br><span class="line">      v))</span><br><span class="line">  f)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">(define (T expr k)</span><br><span class="line">  (match expr</span><br><span class="line">    [&#96;(λ . ,_) &#96;(,k ,(M expr))]</span><br><span class="line">    [(? symbol?) &#96;(,k ,(M expr))]</span><br><span class="line">    [&#96;(,F ,V)</span><br><span class="line">      (define $f (gensym &#39;$f))</span><br><span class="line">      (define $v (gensym &#39;$v))</span><br><span class="line">      (T F &#96;(λ (,$f)</span><br><span class="line">              ,(T V &#96;(λ (,$v)</span><br><span class="line">                       (,$f ,$v ,k)))))]))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(T &#39;(g a) &#39;halt)</span><br></pre></td></tr></table></figure>
+<p>變成</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">((λ ($f1445) </span><br><span class="line">  ((λ ($e1446) </span><br><span class="line">    ($f1445 $e1446 halt)) a)) g)</span><br></pre></td></tr></table></figure>
+<h3 id="high-order">high-order</h3>
+<p>最保險的方式可以work，但output有點長，為什麼不直接apply進去?</p>
+<p>怎麼直接apply進去?<br>
+我們不是有現成的函數嗎</p>
+<p>重新看T的base case，這裡如果可以直接apply函數，就可以把那坨去掉<br>
+換言之，我們原本在k傳的是symbol，但現在是racket的function，最後回傳symbol<br>
+所以先把quote拿掉</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">(define (T expr k)</span><br><span class="line">  (match expr</span><br><span class="line">    [&#96;(λ . ,_) (k (M expr))]</span><br><span class="line">    [(? symbol?) (k (M expr))]</span><br><span class="line">    [&#96;(,F ,V)</span><br><span class="line">      (T F (λ (f)</span><br><span class="line">              (T V (λ (v)</span><br><span class="line">                       &#96;(,f ,v ,k)))))])) ;; !!</span><br></pre></td></tr></table></figure>
+<p>等等，這裡k是racket的lambdaㄟ<br>
+這裡要是quote，所以要把<code>(f v)</code>的拉到原本的k去</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">(define (T expr k)</span><br><span class="line">  (match expr</span><br><span class="line">    [&#96;(λ . ,_) (k (M expr))]</span><br><span class="line">    [(? symbol?) (k (M expr))]</span><br><span class="line">    [&#96;(,F ,V)</span><br><span class="line">      (define $ret (gensym &#96;$ret))</span><br><span class="line">      (define cont &#96;(λ (,$ret) ,(k $ret)))</span><br><span class="line">      (T F (λ (f)</span><br><span class="line">              (T V (λ (v)</span><br><span class="line">                       &#96;(,f ,v ,cont)))))]))</span><br></pre></td></tr></table></figure>
+<p>回來看M，會看到lambda的k要改，改成racket的lambda，最後回傳symbol</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">(define (M expr)</span><br><span class="line">  (match expr</span><br><span class="line">    [&#96;(λ (,var) ,expr)</span><br><span class="line">      (define $k (gensym &#39;$k))</span><br><span class="line">     &#96;(λ (,var ,$k) ,(T expr (λ (ret) &#96;(,$k ,ret))))]</span><br><span class="line">    [(? symbol?)</span><br><span class="line">      expr]))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(T &#39;(g a) (λ (ans) &#96;(halt ,ans)))</span><br></pre></td></tr></table></figure>
+<p>變成</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(g a (λ ($rv1) (halt $rv1)))</span><br></pre></td></tr></table></figure>
+<p>少很多，但能不能更好，那個lambda很多餘</p>
+<h3 id="混合">混合</h3>
+<p>多的lambda來自T的cont，但又不能直接去掉，有什麼辦法?<br>
+回去看怎麼用的，不覺得很怪嗎，明明是轉symbol卻要寫lambda，有沒有辦法變成最初的方式去call</p>
+<p>所以第一層可以先抄第一種T</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(define (T-symbol expr k-symbol)</span><br><span class="line">  (match expr</span><br><span class="line">    [&#96;(λ . ,_) &#96;(,k-symbol (M expr))]</span><br><span class="line">    [(? symbol?) &#96;(,k-symbol (M expr))]</span><br><span class="line">    [&#96;(,F ,V)</span><br><span class="line">      ... ]))</span><br></pre></td></tr></table></figure>
+<p>但apply用第二種T</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">(define (T-symbol expr k-symbol)</span><br><span class="line">  (match expr</span><br><span class="line">    [&#96;(λ . ,_) &#96;(,k-symbol ,(M expr))]</span><br><span class="line">    [(? symbol?) &#96;(,k-symbol ,(M expr))]</span><br><span class="line">    [&#96;(,F ,V)</span><br><span class="line">      (T-func F (λ (f)</span><br><span class="line">              (T-func V (λ (v)</span><br><span class="line">                       &#96;(,f ,v ,k-symbol)))))]))</span><br></pre></td></tr></table></figure>
+<p>再抄第二種T</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">(define (T-func expr k-func)</span><br><span class="line">  (match expr</span><br><span class="line">    [&#96;(λ . ,_) (k-func (M expr))]</span><br><span class="line">    [(? symbol?) (k-func (M expr))]</span><br><span class="line">    [&#96;(,F ,V)</span><br><span class="line">      (define $ret (gensym &#96;$ret))</span><br><span class="line">      (define cont &#96;(λ (,$ret) ,(k-func $ret)))</span><br><span class="line">      (T-func F (λ (f)</span><br><span class="line">              (T-func V (λ (v)</span><br><span class="line">                       &#96;(,f ,v ,cont)))))]))</span><br></pre></td></tr></table></figure>
+<p>M要抄第一種，觀察兩個T的base case，會看到<code>(M expr)</code>，最後都是要被展開成symbol<br>
+所以選都是symbol的第一種</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">(define (M expr)</span><br><span class="line">  (match expr</span><br><span class="line">    [&#96;(λ (,var) ,expr)</span><br><span class="line">      (define $k (gensym &#39;$k))</span><br><span class="line">     &#96;(λ (,var ,$k) ,(T-symbol expr $k))]</span><br><span class="line">    [(? symbol?)</span><br><span class="line">      expr]))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(T-symbol &#39;(g a) &#39;halt)</span><br></pre></td></tr></table></figure>
+<p>變成</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(g a halt)</span><br></pre></td></tr></table></figure>
+<h3 id="partition">partition</h3>
+<p>這個是為了還原calling stack而產生的</p>
+<p>要還原calling stack需要知道誰是caller，與之後衍生的<br>
+所以回去看生出cont的部分(幫lambda多一格的部分)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">(define (T-func expr k-func)</span><br><span class="line">  (match expr</span><br><span class="line">    [&#96;(λ . ,_) (k-func (M expr))]</span><br><span class="line">    [(? symbol?) (k-func (M expr))]</span><br><span class="line">    [&#96;(,F ,V)</span><br><span class="line">      (define $ret (gensym &#96;$ret)) ;; 1</span><br><span class="line">      (define cont &#96;(λ (,$ret) ,(k-func $ret)))</span><br><span class="line">      (T-func F (λ (f)</span><br><span class="line">              (T-func V (λ (v)</span><br><span class="line">                       &#96;(,f ,v ,cont)))))]))</span><br><span class="line"></span><br><span class="line">(define (M expr)</span><br><span class="line">  (match expr</span><br><span class="line">    [&#96;(λ (,var) ,expr)</span><br><span class="line">      (define $k (gensym &#39;$k)) ;; 2</span><br><span class="line">     &#96;(λ (,var ,$k) ,(T-symbol expr $k))]</span><br><span class="line">    [(? symbol?)</span><br><span class="line">      expr]))</span><br></pre></td></tr></table></figure>
+<p>1是起點，也就是apply；2是中間。<br>
+所以把1的symbol標成user, 2是cont</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">(define (T-func expr k-func)</span><br><span class="line">  (match expr</span><br><span class="line">    [&#96;(λ . ,_) (k-func (M expr))]</span><br><span class="line">    [(? symbol?) (k-func (M expr))]</span><br><span class="line">    [&#96;(,F ,V)</span><br><span class="line">      (define $ret (genusym &#96;$ret)) ;; 1</span><br><span class="line">      (define cont &#96;(λ (,$ret) ,(k-func $ret)))</span><br><span class="line">      (T-func F (λ (f)</span><br><span class="line">              (T-func V (λ (v)</span><br><span class="line">                       &#96;(,f ,v ,cont)))))]))</span><br><span class="line"></span><br><span class="line">(define (M expr)</span><br><span class="line">  (match expr</span><br><span class="line">    [&#96;(λ (,var) ,expr)</span><br><span class="line">      (define $k (genksym &#39;$k)) ;; 2</span><br><span class="line">     &#96;(λ (,var ,$k) ,(T-symbol expr $k))]</span><br><span class="line">    [(? symbol?)</span><br><span class="line">      expr]))</span><br></pre></td></tr></table></figure>
+<p>在ref中還有scheme的轉換，但其實就是多了不定數量參數列的處理</p>
+<h2 id="TODO">TODO</h2>
+<p>delimit cont<br>
+據說cooperative的thread加macro可以變成preemptive!<br>
+<span class="exturl" data-url="aHR0cHM6Ly9tYXR0Lm1pZ2h0Lm5ldC9hcnRpY2xlcy9jbG9zdXJlLWNvbnZlcnNpb24v">Closure conversion: How to compile lambda<i class="fa fa-external-link-alt"></i></span></p>
+<h2 id="Ref">Ref</h2>
+<p><span class="exturl" data-url="aHR0cHM6Ly9tYXR0Lm1pZ2h0Lm5ldC9hcnRpY2xlcy9wcm9ncmFtbWluZy13aXRoLWNvbnRpbnVhdGlvbnMtLWV4Y2VwdGlvbnMtYmFja3RyYWNraW5nLXNlYXJjaC10aHJlYWRzLWdlbmVyYXRvcnMtY29yb3V0aW5lcy8=">Continuations by example: Exceptions, time-traveling search, generators, threads, and coroutines<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly93d3cuY3MuaG1jLmVkdS9+ZmxlY2svZW52aXNpb24vc2NoZW1lNDgvbWVldGluZy9ub2RlNy5odG1s">Appendix: An implementation of dynamic-wind<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3F1ZXN0aW9uLzIxOTU0MjM4">如何解释 Lisp 中 call/cc 的概念？<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly93d3cuamlhbnNodS5jb20vcC9lODYwZjk1Y2FkNTE=">用call/cc合成所有的控制流结构<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly9tYXR0Lm1pZ2h0Lm5ldC9hcnRpY2xlcy9jcHMtY29udmVyc2lvbi8=">How to compile with continuations<i class="fa fa-external-link-alt"></i></span></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/10/graphql-tutorial/" rel="prev" title="graphql的理解">
+      <i class="fa fa-chevron-left"></i> graphql的理解
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/11/gitlab-ci-tips/" rel="next" title="gitlab-ci的一點設定tips">
+      gitlab-ci的一點設定tips <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用法"><span class="nav-number">2.</span> <span class="nav-text">用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#應用"><span class="nav-number">3.</span> <span class="nav-text">應用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#dynamic-wind"><span class="nav-number">3.1.</span> <span class="nav-text">dynamic-wind</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exception"><span class="nav-number">3.2.</span> <span class="nav-text">exception</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#non-determing-computing"><span class="nav-number">3.3.</span> <span class="nav-text">non-determing computing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#generator"><span class="nav-number">3.4.</span> <span class="nav-text">generator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#thread"><span class="nav-number">3.5.</span> <span class="nav-text">thread</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cont-monad"><span class="nav-number">4.</span> <span class="nav-text">cont monad</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#邏輯上的關聯-callcc的type是"><span class="nav-number">5.</span> <span class="nav-text">邏輯上的關聯: callcc的type是?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CPS-conversion"><span class="nav-number">6.</span> <span class="nav-text">CPS conversion</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#naive"><span class="nav-number">6.1.</span> <span class="nav-text">naive</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#high-order"><span class="nav-number">6.2.</span> <span class="nav-text">high-order</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#混合"><span class="nav-number">6.3.</span> <span class="nav-text">混合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#partition"><span class="nav-number">6.4.</span> <span class="nav-text">partition</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TODO"><span class="nav-number">7.</span> <span class="nav-text">TODO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">8.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">zhengcf</p>
+  <div class="site-description" itemprop="description">想到什麼就寫什麼</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">683</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhengcf</span>
+</div>
+  <div class="powered-by">Powered by <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl theme-link" data-url="aHR0cHM6Ly9tdXNlLnRoZW1lLW5leHQub3Jn">NexT.Muse</span>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 1000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://littlebees.github.io/2021/11/cont1/',]
+      });
+      });
+  </script>
+
+</body>
+</html>

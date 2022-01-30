@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="AEpTGuQAkxnTOlmfF4INDna3S660LxrkyZ4BQzVbRSw">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"littlebees.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="動機 看bpf時突然想起來，整理一下">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linking的種類">
+<meta property="og:url" content="https://littlebees.github.io/2021/07/linking-and-elf/index.html">
+<meta property="og:site_name" content="記事本">
+<meta property="og:description" content="動機 看bpf時突然想起來，整理一下">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://www.programmersought.com/images/584/fbf9a9389a613ea331fd15d3771b0620.png">
+<meta property="article:published_time" content="2021-07-01T16:28:49.000Z">
+<meta property="article:modified_time" content="2022-01-22T02:31:37.615Z">
+<meta property="article:author" content="zhengcf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.programmersought.com/images/584/fbf9a9389a613ea331fd15d3771b0620.png">
+
+<link rel="canonical" href="https://littlebees.github.io/2021/07/linking-and-elf/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>linking的種類 | 記事本</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">記事本</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">寫下來，不然會忘</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2021/07/linking-and-elf/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhengcf">
+      <meta itemprop="description" content="想到什麼就寫什麼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="記事本">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          linking的種類
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-07-02 00:28:49" itemprop="dateCreated datePublished" datetime="2021-07-02T00:28:49+08:00">2021-07-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-01-22 10:31:37" itemprop="dateModified" datetime="2022-01-22T10:31:37+08:00">2022-01-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/FAQ/" itemprop="url" rel="index"><span itemprop="name">FAQ</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="動機">動機</h2>
+<p>看bpf時突然想起來，整理一下</p>
+<a id="more"></a>
+<h2 id="行前工具">行前工具</h2>
+<ul>
+<li>compiler: gcc</li>
+<li>看elf的工具: readelf 或 objdump</li>
+<li>單純看symbol: nm</li>
+</ul>
+<h2 id="compile流程">compile流程</h2>
+<ol>
+<li>compile: code -&gt; object code
+<ul>
+<li>前面其實還有preprocesser展開，但先當成一起的</li>
+<li>從高階語言變成低階語言</li>
+</ul>
+</li>
+<li>assemble: object code -&gt; binary(relocatable, 又名object file)
+<ul>
+<li>從低階語言變成binary</li>
+<li>但在其他檔案的code怎麼找到他們?</li>
+</ul>
+</li>
+<li>linking: binary(relocatable, 又名object file) -&gt; binary(real exe)
+<ul>
+<li>把其他object file整理起來</li>
+<li>算位置並填上binary去 (relocate)</li>
+</ul>
+</li>
+</ol>
+<h2 id="ELF">ELF</h2>
+<p>kernel就是從ELF去看或找</p>
+<ul>
+<li>有什麼code</li>
+<li>有什麼symbol、要去哪找</li>
+<li>大小、長度多少</li>
+<li>資料的讀取權限</li>
+<li>debug info</li>
+</ul>
+<p>類型有</p>
+<ul>
+<li>relocatable(o)</li>
+<li>executable</li>
+<li>shared obj(so)</li>
+<li>core(core dump)</li>
+</ul>
+<p><img src="https://www.programmersought.com/images/584/fbf9a9389a613ea331fd15d3771b0620.png" alt=""></p>
+<p>詳細的可以看<span class="exturl" data-url="aHR0cDovL3d3dy5jandpbmQuaWR2LnR3L1N0YXRpYy1MaW5rLw==">這邊<i class="fa fa-external-link-alt"></i></span></p>
+<p>所以生出exe的過程可以看成改寫ELF的過程</p>
+<h2 id="linking">linking</h2>
+<ul>
+<li>linking
+<ul>
+<li>把很多object file和在一起</li>
+<li>確認symbol在不在，處理各個symbol</li>
+<li>依據symbol的來源分成兩種
+<ul>
+<li>static linking
+<ul>
+<li>symbol實際定義都在object file中
+<ul>
+<li>只要排好給位置就好(relocate)</li>
+</ul>
+</li>
+<li>所以
+<ul>
+<li>static lib其實就是把object file黏成一個</li>
+<li>如果改code要重算</li>
+<li>static加越多，最後出來的exe越大</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>dynamic linking
+<ul>
+<li>symbol不在object file中，所以
+<ul>
+<li>執行時要往外找 (<em>先找到先用</em>)
+<ul>
+<li>等到要load lib時，linker一樣會做relocate，不過與static不同，看PIC</li>
+</ul>
+</li>
+<li>編譯時
+<ul>
+<li>有找到就編過</li>
+<li>symbol會標上dynamic</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>所以
+<ul>
+<li>編dynamic lib需要特別一點
+<ul>
+<li>因為每個proc就算call同一種code，內部addr也會不同
+<ul>
+<li>Position-independent Code(PIC)，兩個case
+<ul>
+<li>code都在同一個檔案
+<ul>
+<li>直接算相對位置</li>
+</ul>
+</li>
+<li>需要其他lib
+<ul>
+<li>linker在載入lib時會填Global Offset Table</li>
+<li>裡面會有其他lib的位置，等要call就去查，再跳</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>可以開心地換lib</li>
+<li>大家可以共用</li>
+<li>可以在runtime做load!! (dlopen, dlsym, dlerror, dlclose)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="實際試試看">實際試試看</h2>
+<h3 id="compile-assemble">compile+assemble</h3>
+<p>main.c，但沒有p1, p2的宣告</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  p1();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>gcc -c main.c</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">main.c: In function ‘main’:</span><br><span class="line">main.c:4:5: warning: implicit declaration of function ‘p1’ [-Wimplicit-function-declaration]</span><br><span class="line">    4 |     p1();</span><br><span class="line">      |     ^~</span><br></pre></td></tr></table></figure>
+<p>把p1補上去</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">p1</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  p1();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="static-linking">static linking</h3>
+<p>a.c</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">p1</span><span class="params">()</span></span>&#123;</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"static"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>同樣編成object file<br>
+<code>gcc -o a.c</code></p>
+<p>開編<br>
+<code>gcc -o main main.o a.o</code></p>
+<p>如果想模擬一下static lib<br>
+<code>ar rcs liba.a a.o</code><br>
+編的語法是<br>
+<code>gcc -o main -L. -la</code><br>
+其中<code>-L</code>是lib要去哪裡找，<code>-l</code>是lib的名稱</p>
+<p>在linux，lib都是<code>lib&lt;libname&gt;.??</code></p>
+<h4 id="nm">nm</h4>
+<p>先用<code>nm</code>看有什麼symbol，有puts與p1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">bee314@DESKTOP-259SCE7:~$ nm main</span><br><span class="line">0000000000003dc8 d _DYNAMIC</span><br><span class="line">0000000000003fb8 d _GLOBAL_OFFSET_TABLE_</span><br><span class="line">0000000000002000 R _IO_stdin_used</span><br><span class="line">                 w _ITM_deregisterTMCloneTable</span><br><span class="line">                 w _ITM_registerTMCloneTable</span><br><span class="line">0000000000002184 r __FRAME_END__</span><br><span class="line">0000000000002010 r __GNU_EH_FRAME_HDR</span><br><span class="line">0000000000004010 D __TMC_END__</span><br><span class="line">0000000000004010 B __bss_start</span><br><span class="line">                 w __cxa_finalize@@GLIBC_2.2.5</span><br><span class="line">0000000000004000 D __data_start</span><br><span class="line">0000000000001100 t __do_global_dtors_aux</span><br><span class="line">0000000000003dc0 d __do_global_dtors_aux_fini_array_entry</span><br><span class="line">0000000000004008 D __dso_handle</span><br><span class="line">0000000000003db8 d __frame_dummy_init_array_entry</span><br><span class="line">                 w __gmon_start__</span><br><span class="line">0000000000003dc0 d __init_array_end</span><br><span class="line">0000000000003db8 d __init_array_start</span><br><span class="line">00000000000011f0 T __libc_csu_fini</span><br><span class="line">0000000000001180 T __libc_csu_init</span><br><span class="line">                 U __libc_start_main@@GLIBC_2.2.5</span><br><span class="line">0000000000004010 D _edata</span><br><span class="line">0000000000004018 B _end</span><br><span class="line">00000000000011f8 T _fini</span><br><span class="line">0000000000001000 t _init</span><br><span class="line">0000000000001060 T _start</span><br><span class="line">0000000000004010 b completed.8060</span><br><span class="line">0000000000004000 W data_start</span><br><span class="line">0000000000001090 t deregister_tm_clones</span><br><span class="line">0000000000001140 t frame_dummy</span><br><span class="line">0000000000001149 T main</span><br><span class="line">000000000000115e T p1</span><br><span class="line">                 U puts@@GLIBC_2.2.5</span><br><span class="line">00000000000010c0 t register_tm_clones</span><br></pre></td></tr></table></figure>
+<h4 id="readelf-objdump">readelf &amp; objdump</h4>
+<p>編出來後用<code>objdump</code>與<code>readelf</code>看dynsym，會看到這裡的dynsym是puts</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">bee314@DESKTOP-259SCE7:~$ readelf -r main</span><br><span class="line"></span><br><span class="line">Relocation section &#39;.rela.dyn&#39; at offset 0x520 contains 8 entries:</span><br><span class="line">  Offset          Info           Type           Sym. Value    Sym. Name + Addend</span><br><span class="line">000000003db8  000000000008 R_X86_64_RELATIVE                    1140</span><br><span class="line">000000003dc0  000000000008 R_X86_64_RELATIVE                    1100</span><br><span class="line">000000004008  000000000008 R_X86_64_RELATIVE                    4008</span><br><span class="line">000000003fd8  000100000006 R_X86_64_GLOB_DAT 0000000000000000 _ITM_deregisterTMClone + 0</span><br><span class="line">000000003fe0  000300000006 R_X86_64_GLOB_DAT 0000000000000000 __libc_start_main@GLIBC_2.2.5 + 0</span><br><span class="line">000000003fe8  000400000006 R_X86_64_GLOB_DAT 0000000000000000 __gmon_start__ + 0</span><br><span class="line">000000003ff0  000500000006 R_X86_64_GLOB_DAT 0000000000000000 _ITM_registerTMCloneTa + 0</span><br><span class="line">000000003ff8  000600000006 R_X86_64_GLOB_DAT 0000000000000000 __cxa_finalize@GLIBC_2.2.5 + 0</span><br><span class="line"></span><br><span class="line">Relocation section &#39;.rela.plt&#39; at offset 0x5e0 contains 1 entry:</span><br><span class="line">  Offset          Info           Type           Sym. Value    Sym. Name + Addend</span><br><span class="line">000000003fd0  000200000007 R_X86_64_JUMP_SLO 0000000000000000 puts@GLIBC_2.2.5 + 0</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">bee314@DESKTOP-259SCE7:~$ objdump -T main</span><br><span class="line"></span><br><span class="line">main:     file format elf64-x86-64</span><br><span class="line"></span><br><span class="line">DYNAMIC SYMBOL TABLE:</span><br><span class="line">0000000000000000  w   D  -UND*  0000000000000000              _ITM_deregisterTMCloneTable</span><br><span class="line">0000000000000000      DF -UND*  0000000000000000  GLIBC_2.2.5 puts</span><br><span class="line">0000000000000000      DF -UND*  0000000000000000  GLIBC_2.2.5 __libc_start_main</span><br><span class="line">0000000000000000  w   D  -UND*  0000000000000000              __gmon_start__</span><br><span class="line">0000000000000000  w   D  -UND*  0000000000000000              _ITM_registerTMCloneTable</span><br><span class="line">0000000000000000  w   DF -UND*  0000000000000000  GLIBC_2.2.5 __cxa_finalize</span><br></pre></td></tr></table></figure>
+<h4 id="ldd">ldd</h4>
+<p>最後用<code>ldd</code>看有連結到那些lib，就是最基本的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">bee314@DESKTOP-259SCE7:~$ ldd main</span><br><span class="line">        linux-vdso.so.1 (0x00007fffde0c8000)</span><br><span class="line">        libc.so.6 &#x3D;&gt; &#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;libc.so.6 (0x00007f0db9050000)</span><br><span class="line">        &#x2F;lib64&#x2F;ld-linux-x86-64.so.2 (0x00007f0db926d000)</span><br></pre></td></tr></table></figure>
+<h3 id="dynamic-linking">dynamic linking</h3>
+<p>b.c</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">p1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"dynamic"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>編成shared lib<br>
+<code>gcc -o libb.so -fPIC -shared b.c</code></p>
+<p>開編<br>
+<code>gcc -o main -L. -lb</code></p>
+<p>之後執行下去</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;main: error while loading shared libraries: libb.so: cannot open shared object file: No such file or directory</span><br></pre></td></tr></table></figure>
+<p>這是找不到shared lib，所以</p>
+<ul>
+<li>把libb.so放到預設路徑</li>
+<li>加找的路徑</li>
+</ul>
+<p>這裡直接幫他加找的路徑<br>
+<code>LD_LIBRARY_PATH=. ./main</code></p>
+<h4 id="nm-2">nm</h4>
+<p>用<code>nm</code>看有什麼symbol，少了puts</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">bee314@DESKTOP-259SCE7:~$ nm main</span><br><span class="line">0000000000003db8 d _DYNAMIC</span><br><span class="line">0000000000003fb8 d _GLOBAL_OFFSET_TABLE_</span><br><span class="line">0000000000002000 R _IO_stdin_used</span><br><span class="line">                 w _ITM_deregisterTMCloneTable</span><br><span class="line">                 w _ITM_registerTMCloneTable</span><br><span class="line">000000000000214c r __FRAME_END__</span><br><span class="line">0000000000002004 r __GNU_EH_FRAME_HDR</span><br><span class="line">0000000000004010 D __TMC_END__</span><br><span class="line">0000000000004010 B __bss_start</span><br><span class="line">                 w __cxa_finalize@@GLIBC_2.2.5</span><br><span class="line">0000000000004000 D __data_start</span><br><span class="line">0000000000001100 t __do_global_dtors_aux</span><br><span class="line">0000000000003db0 d __do_global_dtors_aux_fini_array_entry</span><br><span class="line">0000000000004008 D __dso_handle</span><br><span class="line">0000000000003da8 d __frame_dummy_init_array_entry</span><br><span class="line">                 w __gmon_start__</span><br><span class="line">0000000000003db0 d __init_array_end</span><br><span class="line">0000000000003da8 d __init_array_start</span><br><span class="line">00000000000011d0 T __libc_csu_fini</span><br><span class="line">0000000000001160 T __libc_csu_init</span><br><span class="line">                 U __libc_start_main@@GLIBC_2.2.5</span><br><span class="line">0000000000004010 D _edata</span><br><span class="line">0000000000004018 B _end</span><br><span class="line">00000000000011d8 T _fini</span><br><span class="line">0000000000001000 t _init</span><br><span class="line">0000000000001060 T _start</span><br><span class="line">0000000000004010 b completed.8060</span><br><span class="line">0000000000004000 W data_start</span><br><span class="line">0000000000001090 t deregister_tm_clones</span><br><span class="line">0000000000001140 t frame_dummy</span><br><span class="line">0000000000001149 T main</span><br><span class="line">                 U p1</span><br><span class="line">00000000000010c0 t register_tm_clones</span><br></pre></td></tr></table></figure>
+<h4 id="readelf-objdump-2">readelf &amp; objdump</h4>
+<p>同樣用<code>objdump</code>與<code>readelf</code>看dynsym，這邊只剩下p1，而沒有puts了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">bee314@DESKTOP-259SCE7:~$ readelf -r main</span><br><span class="line"></span><br><span class="line">Relocation section &#39;.rela.dyn&#39; at offset 0x528 contains 8 entries:</span><br><span class="line">  Offset          Info           Type           Sym. Value    Sym. Name + Addend</span><br><span class="line">000000003da8  000000000008 R_X86_64_RELATIVE                    1140</span><br><span class="line">000000003db0  000000000008 R_X86_64_RELATIVE                    1100</span><br><span class="line">000000004008  000000000008 R_X86_64_RELATIVE                    4008</span><br><span class="line">000000003fd8  000100000006 R_X86_64_GLOB_DAT 0000000000000000 _ITM_deregisterTMClone + 0</span><br><span class="line">000000003fe0  000200000006 R_X86_64_GLOB_DAT 0000000000000000 __libc_start_main@GLIBC_2.2.5 + 0</span><br><span class="line">000000003fe8  000300000006 R_X86_64_GLOB_DAT 0000000000000000 __gmon_start__ + 0</span><br><span class="line">000000003ff0  000500000006 R_X86_64_GLOB_DAT 0000000000000000 _ITM_registerTMCloneTa + 0</span><br><span class="line">000000003ff8  000600000006 R_X86_64_GLOB_DAT 0000000000000000 __cxa_finalize@GLIBC_2.2.5 + 0</span><br><span class="line"></span><br><span class="line">Relocation section &#39;.rela.plt&#39; at offset 0x5e8 contains 1 entry:</span><br><span class="line">  Offset          Info           Type           Sym. Value    Sym. Name + Addend</span><br><span class="line">000000003fd0  000400000007 R_X86_64_JUMP_SLO 0000000000000000 p1 + 0</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">bee314@DESKTOP-259SCE7:~$ objdump -T main</span><br><span class="line"></span><br><span class="line">main:     file format elf64-x86-64</span><br><span class="line"></span><br><span class="line">DYNAMIC SYMBOL TABLE:</span><br><span class="line">0000000000000000  w   D  -UND*  0000000000000000              _ITM_deregisterTMCloneTable</span><br><span class="line">0000000000000000      DF -UND*  0000000000000000  GLIBC_2.2.5 __libc_start_main</span><br><span class="line">0000000000000000  w   D  -UND*  0000000000000000              __gmon_start__</span><br><span class="line">0000000000000000      DF -UND*  0000000000000000              p1</span><br><span class="line">0000000000000000  w   D  -UND*  0000000000000000              _ITM_registerTMCloneTable</span><br><span class="line">0000000000000000  w   DF -UND*  0000000000000000  GLIBC_2.2.5 __cxa_finalize</span><br></pre></td></tr></table></figure>
+<h4 id="ldd-2">ldd</h4>
+<p>用<code>ldd</code>看連結到那些lib，<span class="exturl" data-url="aHR0cDovL3huLS1saWJiLXBzNWZoNDdjLnNv">多了libb.so<i class="fa fa-external-link-alt"></i></span>，雖然找不到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">bee314@DESKTOP-259SCE7:~$ ldd main</span><br><span class="line">        linux-vdso.so.1 (0x00007fffc4a8a000)</span><br><span class="line">        libb.so &#x3D;&gt; not found</span><br><span class="line">        libc.so.6 &#x3D;&gt; &#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;libc.so.6 (0x00007f5a07ce0000)</span><br><span class="line">        &#x2F;lib64&#x2F;ld-linux-x86-64.so.2 (0x00007f5a07efa000)</span><br></pre></td></tr></table></figure>
+<p>讓<code>ldd</code>好看一點，把libb.so移到<code>/lib/x86_64-linux-gnu/</code>(抄libc.so.6)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">bee314@DESKTOP-259SCE7:~$ ldd main</span><br><span class="line">        linux-vdso.so.1 (0x00007fffeb59a000)</span><br><span class="line">        libb.so &#x3D;&gt; &#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;libb.so (0x00007fe732bc0000)</span><br><span class="line">        libc.so.6 &#x3D;&gt; &#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;libc.so.6 (0x00007fe7329c0000)</span><br><span class="line">        &#x2F;lib64&#x2F;ld-linux-x86-64.so.2 (0x00007fe732be1000)</span><br></pre></td></tr></table></figure>
+<h2 id="Ref">Ref</h2>
+<p><span class="exturl" data-url="aHR0cDovL3d3dy5jandpbmQuaWR2LnR3L0R5bmFtaWMtTGlua2luZy1QSUMv">Dynamic Linking Position-independent Code（PIC）<i class="fa fa-external-link-alt"></i></span></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/07/gdb-tutorial/" rel="prev" title="gdb使用筆記">
+      <i class="fa fa-chevron-left"></i> gdb使用筆記
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/07/system-design-faq/" rel="next" title="system-design的faq">
+      system-design的faq <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#行前工具"><span class="nav-number">2.</span> <span class="nav-text">行前工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#compile流程"><span class="nav-number">3.</span> <span class="nav-text">compile流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ELF"><span class="nav-number">4.</span> <span class="nav-text">ELF</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linking"><span class="nav-number">5.</span> <span class="nav-text">linking</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#實際試試看"><span class="nav-number">6.</span> <span class="nav-text">實際試試看</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#compile-assemble"><span class="nav-number">6.1.</span> <span class="nav-text">compile+assemble</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#static-linking"><span class="nav-number">6.2.</span> <span class="nav-text">static linking</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#nm"><span class="nav-number">6.2.1.</span> <span class="nav-text">nm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#readelf-objdump"><span class="nav-number">6.2.2.</span> <span class="nav-text">readelf &amp; objdump</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ldd"><span class="nav-number">6.2.3.</span> <span class="nav-text">ldd</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dynamic-linking"><span class="nav-number">6.3.</span> <span class="nav-text">dynamic linking</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#nm-2"><span class="nav-number">6.3.1.</span> <span class="nav-text">nm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#readelf-objdump-2"><span class="nav-number">6.3.2.</span> <span class="nav-text">readelf &amp; objdump</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ldd-2"><span class="nav-number">6.3.3.</span> <span class="nav-text">ldd</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">7.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">zhengcf</p>
+  <div class="site-description" itemprop="description">想到什麼就寫什麼</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">683</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhengcf</span>
+</div>
+  <div class="powered-by">Powered by <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl theme-link" data-url="aHR0cHM6Ly9tdXNlLnRoZW1lLW5leHQub3Jn">NexT.Muse</span>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 1000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://littlebees.github.io/2021/07/linking-and-elf/',]
+      });
+      });
+  </script>
+
+</body>
+</html>
