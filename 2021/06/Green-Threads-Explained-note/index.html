@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 6.0.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://morsmachine.dk/syscall.jpg">
 <meta property="article:published_time" content="2021-06-23T07:41:46.000Z">
-<meta property="article:modified_time" content="2022-01-22T01:28:41.585Z">
+<meta property="article:modified_time" content="2022-01-30T06:31:02.310Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://morsmachine.dk/syscall.jpg">
@@ -232,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-22 09:28:41" itemprop="dateModified" datetime="2022-01-22T09:28:41+08:00">2022-01-22</time>
+                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -259,9 +259,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機">動機</h2>
+        <h2 id="動機-179">動機</h2>
 <p>偶然找到<span class="exturl" data-url="aHR0cHM6Ly9jOXgubWUvYXJ0aWNsZXMvZ3RocmVhZHMvaW50cm8uaHRtbA==">Green Threads Explained<i class="fa fa-external-link-alt"></i></span>很讚，做點筆記</p>
-<a id="more"></a>
+<span id="more"></span>
 <h2 id="thread要有">thread要有?</h2>
 <ul>
 <li>scheduler
@@ -293,7 +293,7 @@
 <ol start="2">
 <li>thread的狀態</li>
 </ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">gt</span> &#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">gtctx</span> &#123;</span></span><br><span class="line">        <span class="keyword">uint64_t</span> rsp; <span class="comment">//  Stack pointer for top address of the stack</span></span><br><span class="line">        <span class="keyword">uint64_t</span> r15; <span class="comment">// I dont know</span></span><br><span class="line">        <span class="keyword">uint64_t</span> r14;</span><br><span class="line">        <span class="keyword">uint64_t</span> r13;</span><br><span class="line">        <span class="keyword">uint64_t</span> r12;</span><br><span class="line">        <span class="keyword">uint64_t</span> rbx; <span class="comment">// Base index (for use with arrays)</span></span><br><span class="line">        <span class="keyword">uint64_t</span> rbp; <span class="comment">// Stack base pointer for holding the address of the current stack frame.</span></span><br><span class="line">    &#125; ctx;</span><br><span class="line">    <span class="keyword">enum</span> &#123;</span><br><span class="line">        Unused, </span><br><span class="line">        Running,</span><br><span class="line">        Ready, <span class="comment">// has rest of works</span></span><br><span class="line">    &#125; st;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">gt</span> &#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">gtctx</span> &#123;</span></span><br><span class="line">        <span class="keyword">uint64_t</span> rsp; <span class="comment">//  Stack pointer for top address of the stack</span></span><br><span class="line">        <span class="keyword">uint64_t</span> r15; <span class="comment">// I dont know</span></span><br><span class="line">        <span class="keyword">uint64_t</span> r14;</span><br><span class="line">        <span class="keyword">uint64_t</span> r13;</span><br><span class="line">        <span class="keyword">uint64_t</span> r12;</span><br><span class="line">        <span class="keyword">uint64_t</span> rbx; <span class="comment">// Base index (for use with arrays)</span></span><br><span class="line">        <span class="keyword">uint64_t</span> rbp; <span class="comment">// Stack base pointer for holding the address of the current stack frame.</span></span><br><span class="line">    &#125; ctx;</span><br><span class="line">    <span class="class"><span class="keyword">enum</span> &#123;</span></span><br><span class="line">        Unused, </span><br><span class="line">        Running,</span><br><span class="line">        Ready, <span class="comment">// has rest of works</span></span><br><span class="line">    &#125; st;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <h3 id="context-switch">context switch</h3>
 <p>這要同時看<code>gtgo</code>與<code>gtswtch</code></p>
 <p>gtgo負責</p>
@@ -310,7 +310,7 @@
 </ul>
 </li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">*(<span class="keyword">uint64_t</span> *)&amp;<span class="built_in">stack</span>[StackSize -  <span class="number">8</span>] = (<span class="keyword">uint64_t</span>)gtstop;</span><br><span class="line">*(<span class="keyword">uint64_t</span> *)&amp;<span class="built_in">stack</span>[StackSize - <span class="number">16</span>] = (<span class="keyword">uint64_t</span>)f;</span><br><span class="line">p-&gt;ctx.rsp = (<span class="keyword">uint64_t</span>)&amp;<span class="built_in">stack</span>[StackSize - <span class="number">16</span>];</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">*(<span class="keyword">uint64_t</span> *)&amp;stack[StackSize -  <span class="number">8</span>] = (<span class="keyword">uint64_t</span>)gtstop;</span><br><span class="line">*(<span class="keyword">uint64_t</span> *)&amp;stack[StackSize - <span class="number">16</span>] = (<span class="keyword">uint64_t</span>)f;</span><br><span class="line">p-&gt;ctx.rsp = (<span class="keyword">uint64_t</span>)&amp;stack[StackSize - <span class="number">16</span>];</span><br></pre></td></tr></table></figure>
 <p>gtswtch就是把reg存起來，但問題是從哪到哪?<br>
 怎麼看old與new?</p>
 <ol>
@@ -326,7 +326,7 @@
 <li>ABI會說，reg要怎麼用，像function的參數要怎麼帶</li>
 <li>這裡<code>rdi</code>是第一個參數，<code>rsi</code>是第二個參數</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">gtswtch:</span><br><span class="line">        mov     %rsp, 0x00(%rdi)</span><br><span class="line">        mov     %r15, 0x08(%rdi)</span><br><span class="line">        mov     %r14, 0x10(%rdi)</span><br><span class="line">        mov     %r13, 0x18(%rdi)</span><br><span class="line">        mov     %r12, 0x20(%rdi)</span><br><span class="line">        mov     %rbx, 0x28(%rdi)</span><br><span class="line">        mov     %rbp, 0x30(%rdi)</span><br><span class="line"></span><br><span class="line">        mov     0x00(%rsi), %rsp</span><br><span class="line">        mov     0x08(%rsi), %r15</span><br><span class="line">        mov     0x10(%rsi), %r14</span><br><span class="line">        mov     0x18(%rsi), %r13</span><br><span class="line">        mov     0x20(%rsi), %r12</span><br><span class="line">        mov     0x28(%rsi), %rbx</span><br><span class="line">        mov     0x30(%rsi), %rbp</span><br><span class="line"></span><br><span class="line">        ret</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">gtswtch:</span><br><span class="line">        mov     %rsp, 0x00(%rdi)</span><br><span class="line">        mov     %r15, 0x08(%rdi)</span><br><span class="line">        mov     %r14, 0x10(%rdi)</span><br><span class="line">        mov     %r13, 0x18(%rdi)</span><br><span class="line">        mov     %r12, 0x20(%rdi)</span><br><span class="line">        mov     %rbx, 0x28(%rdi)</span><br><span class="line">        mov     %rbp, 0x30(%rdi)</span><br><span class="line"></span><br><span class="line">        mov     0x00(%rsi), %rsp</span><br><span class="line">        mov     0x08(%rsi), %r15</span><br><span class="line">        mov     0x10(%rsi), %r14</span><br><span class="line">        mov     0x18(%rsi), %r13</span><br><span class="line">        mov     0x20(%rsi), %r12</span><br><span class="line">        mov     0x28(%rsi), %rbx</span><br><span class="line">        mov     0x30(%rsi), %rbp</span><br><span class="line"></span><br><span class="line">        ret</span><br></pre></td></tr></table></figure>
 <h3 id="整體邏輯">整體邏輯</h3>
 <p>一個array去放thread，之後在<code>yield</code>被call時，換(這裡用RR去選)到下一個thread</p>
 <h2 id="Goroutines">Goroutines</h2>
@@ -357,7 +357,7 @@
 <p>since it is invoked implicitly in the code e.g. during sleep or channel wait, the compile only needs to safe/restore the registers which are alive at these points.<br>
 In Go, this means only 3 registers i.e. PC, SP and DX (Data Registers) being updated during context switch rather than all registers</p>
 </blockquote>
-<h2 id="Ref">Ref</h2>
+<h2 id="Ref-76">Ref</h2>
 <p><span class="exturl" data-url="aHR0cHM6Ly9tb3JzbWFjaGluZS5kay9nby1zY2hlZHVsZXI=">The Go scheduler<i class="fa fa-external-link-alt"></i></span><br>
 <span class="exturl" data-url="aHR0cHM6Ly9jb2RlYnVyc3QuaW8vd2h5LWdvcm91dGluZXMtYXJlLW5vdC1saWdodHdlaWdodC10aHJlYWRzLTdjNDYwYzFmMTU1ZiMzOTZi">Why goroutines are not lightweight threads?<i class="fa fa-external-link-alt"></i></span></p>
 
@@ -440,7 +440,7 @@ In Go, this means only 3 registers i.e. PC, SP and DX (Data Registers) being upd
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#thread要有"><span class="nav-number">2.</span> <span class="nav-text">thread要有?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#實作"><span class="nav-number">3.</span> <span class="nav-text">實作?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#struct-gt"><span class="nav-number">3.1.</span> <span class="nav-text">struct gt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#context-switch"><span class="nav-number">3.2.</span> <span class="nav-text">context switch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#整體邏輯"><span class="nav-number">3.3.</span> <span class="nav-text">整體邏輯</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Goroutines"><span class="nav-number">4.</span> <span class="nav-text">Goroutines</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Goroutines沒有yield"><span class="nav-number">4.1.</span> <span class="nav-text">Goroutines沒有yield</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#syscall不會block其他threadㄟ"><span class="nav-number">4.2.</span> <span class="nav-text">syscall不會block其他threadㄟ</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Goroutines的context-switch比較快"><span class="nav-number">4.3.</span> <span class="nav-text">Goroutines的context switch比較快?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">5.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-179"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#thread%E8%A6%81%E6%9C%89"><span class="nav-number">2.</span> <span class="nav-text">thread要有?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%A6%E4%BD%9C"><span class="nav-number">3.</span> <span class="nav-text">實作?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#struct-gt"><span class="nav-number">3.1.</span> <span class="nav-text">struct gt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#context-switch"><span class="nav-number">3.2.</span> <span class="nav-text">context switch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B4%E9%AB%94%E9%82%8F%E8%BC%AF"><span class="nav-number">3.3.</span> <span class="nav-text">整體邏輯</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Goroutines"><span class="nav-number">4.</span> <span class="nav-text">Goroutines</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Goroutines%E6%B2%92%E6%9C%89yield"><span class="nav-number">4.1.</span> <span class="nav-text">Goroutines沒有yield</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#syscall%E4%B8%8D%E6%9C%83block%E5%85%B6%E4%BB%96thread%E3%84%9F"><span class="nav-number">4.2.</span> <span class="nav-text">syscall不會block其他threadㄟ</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Goroutines%E7%9A%84context-switch%E6%AF%94%E8%BC%83%E5%BF%AB"><span class="nav-number">4.3.</span> <span class="nav-text">Goroutines的context switch比較快?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-76"><span class="nav-number">5.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -553,8 +553,6 @@ In Go, this means only 3 registers i.e. PC, SP and DX (Data Registers) being upd
 
 
 
-
-  
 
   
 

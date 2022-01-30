@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 6.0.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 這是更新上次安裝arch的流程  用systemd-boot 用systemd-networkd 用systemd-homed 用doas 優化pacman">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-10-04T16:11:49.000Z">
-<meta property="article:modified_time" content="2022-01-22T02:44:13.385Z">
+<meta property="article:modified_time" content="2022-01-30T06:31:02.330Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-22 10:44:13" itemprop="dateModified" datetime="2022-01-22T10:44:13+08:00">2022-01-22</time>
+                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -257,7 +257,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機">動機</h2>
+        <h2 id="動機-357">動機</h2>
 <p>這是更新上次安裝arch的流程</p>
 <ol>
 <li>用systemd-boot</li>
@@ -266,7 +266,7 @@
 <li>用doas</li>
 <li>優化pacman</li>
 </ol>
-<a id="more"></a>
+<span id="more"></span>
 <h2 id="systemd-boot">systemd-boot</h2>
 <p>取代grub，預設裝在systemd中的bootloader</p>
 <p><span class="exturl" data-url="aHR0cHM6Ly93d3cubGludXhzZXJ2ZXIuaW8vYmxvZy8yMDE4LTA1LTE3LWhvdy10by1jb25maWd1cmUtc3lzdGVtZC1ib290">詳細流程<i class="fa fa-external-link-alt"></i></span></p>
@@ -282,14 +282,14 @@
 <li>放設定檔</li>
 </ol>
 <p><code>/boot/loader/loader.conf</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">default arch</span><br><span class="line">timeout 0</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">default arch</span><br><span class="line">timeout 0</span><br></pre></td></tr></table></figure>
 <p><code>/boot/loader/entries/arch.conf</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">title   Arch Linux</span><br><span class="line">linux   &#x2F;vmlinuz-linux</span><br><span class="line">initrd  &#x2F;initramfs-linux.img</span><br><span class="line">options root&#x3D;PARTUUID&#x3D;[UUID] rw</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">title   Arch Linux</span><br><span class="line">linux   /vmlinuz-linux</span><br><span class="line">initrd  /initramfs-linux.img</span><br><span class="line">options root=PARTUUID=[UUID] rw</span><br></pre></td></tr></table></figure>
 <p>UUID用<code>blkid -s PARTUUID -o value [path to arch root device]</code></p>
 <h2 id="systemd-networkd">systemd-networkd</h2>
 <p>就是管網路的，但不太好用，想預設沒個網卡用dhcp要自己設定</p>
 <p><code>/etc/systemd/network/10-dhcp.network</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[Match]</span><br><span class="line">Name&#x3D;*</span><br><span class="line"></span><br><span class="line">[Network]</span><br><span class="line">DHCP&#x3D;Yes</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[Match]</span><br><span class="line">Name=*</span><br><span class="line"></span><br><span class="line">[Network]</span><br><span class="line">DHCP=Yes</span><br></pre></td></tr></table></figure>
 <h2 id="systemd-homed">systemd-homed</h2>
 <h3 id="創帳號很痛苦">創帳號很痛苦</h3>
 <p>新的管帳號的方式，但很不方便</p>
@@ -298,46 +298,46 @@
 <li>創帳號一定要密碼，但沒辦法用echo去給!!</li>
 </ol>
 <p>第一點目前沒想法，所以就等reboot後再創帳號<br>
-<code>homectl create  --group=wheel --shell=/bin/zsh</code></p>
+<code>homectl create &#123;&#123; user_id &#125;&#125; --group=wheel --shell=/bin/zsh</code></p>
 <p>第二點在翻了homectl的source code發現有一個env可以放密碼!!<br>
-<code>&quot;NEWPASSWORD= homectl create  --group=wheel --shell=/bin/zsh</code></p>
+<code>&quot;NEWPASSWORD=&#123;&#123; user_pw &#125;&#125; homectl create &#123;&#123; user_id &#125;&#125; --group=wheel --shell=/bin/zsh</code></p>
 <h3 id="ssh沒有啟動的帳號">ssh沒有啟動的帳號</h3>
 <p>arch的wiki有解法</p>
 <ol>
 <li>在創帳號時紀錄sshd要去哪邊看authorized-keys</li>
 </ol>
 <ul>
-<li><code>NEWPASSWORD= homectl create  --group=wheel --shell=/bin/zsh --ssh-authorized-keys=@/home/authorized_keys</code></li>
+<li><code>NEWPASSWORD=&#123;&#123; user_pw &#125;&#125; homectl create &#123;&#123; user_id &#125;&#125; --group=wheel --shell=/bin/zsh --ssh-authorized-keys=@/home/authorized_keys</code></li>
 </ul>
 <ol start="2">
 <li>改sshd_config</li>
 <li>之後登入都是用public key與password</li>
 </ol>
 <p>sshd_config</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">AuthenticationMethods publickey,password</span><br><span class="line">AuthorizedKeysCommand &#x2F;usr&#x2F;bin&#x2F;userdbctl ssh-authorized-keys %u</span><br><span class="line">AuthorizedKeysCommandUser root</span><br><span class="line">PasswordAuthentication yes</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">AuthenticationMethods publickey,password</span><br><span class="line">AuthorizedKeysCommand /usr/bin/userdbctl ssh-authorized-keys %u</span><br><span class="line">AuthorizedKeysCommandUser root</span><br><span class="line">PasswordAuthentication yes</span><br></pre></td></tr></table></figure>
 <h3 id="su不給用">su不給用</h3>
 <p>另外還有一個是homed沒辦法直接su，這要改su的pam(原本只吃unix的account)<br>
 <code>/etc/pam.d/su-l</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">auth        include         system-auth</span><br><span class="line">account        include         system-auth</span><br><span class="line">session        include         system-auth</span><br><span class="line">password        include         system-auth</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">auth        include         system-auth</span><br><span class="line">account        include         system-auth</span><br><span class="line">session        include         system-auth</span><br><span class="line">password        include         system-auth</span><br></pre></td></tr></table></figure>
 <h2 id="doas">doas</h2>
 <p>simple的sudo</p>
 <h3 id="doas-conf">doas conf</h3>
 <p><code>/etc/doas.conf</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">permit persist :wheel</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">permit persist :wheel</span><br></pre></td></tr></table></figure>
 <p>在wheel group可以用doas，同時在成功auth後一段時間不用打密碼</p>
 <h3 id="doas-auto-complete">doas auto-complete</h3>
 <p><code>~/.bashrc</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">complete -cf doas</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">complete -cf doas</span><br></pre></td></tr></table></figure>
 <h2 id="優化pacman">優化pacman</h2>
 <h3 id="reflector怪怪的">reflector怪怪的</h3>
 <p>當初是用reflector直接掃，但是之後看出來的結果沒有最好的site，所以就直接用自己的吧</p>
 <p>另外，在安裝環境改的mirrorlist會直接影響到被安裝的mirrorlist。<br>
 也就是只要copy一次，在chroot中不用再複製一次</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Server &#x3D; http:&#x2F;&#x2F;free.nchc.org.tw&#x2F;arch&#x2F;$repo&#x2F;os&#x2F;$arch</span><br><span class="line">Server &#x3D; http:&#x2F;&#x2F;archlinux.cs.nctu.edu.tw&#x2F;$repo&#x2F;os&#x2F;$arch</span><br><span class="line">Server &#x3D; http:&#x2F;&#x2F;shadow.ind.ntou.edu.tw&#x2F;archlinux&#x2F;$repo&#x2F;os&#x2F;$arch</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Server = http://free.nchc.org.tw/arch/$repo/os/$arch</span><br><span class="line">Server = http://archlinux.cs.nctu.edu.tw/$repo/os/$arch</span><br><span class="line">Server = http://shadow.ind.ntou.edu.tw/archlinux/$repo/os/$arch</span><br></pre></td></tr></table></figure>
 <h3 id="pacman平行化">pacman平行化</h3>
 <p>pacman一次只載一個，所以要改一下設定<br>
 <code>/etc/pacman.conf</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">ParallelDownloads &#x3D; 10</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">ParallelDownloads = 10</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -417,7 +417,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#systemd-boot"><span class="nav-number">2.</span> <span class="nav-text">systemd-boot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#systemd-networkd"><span class="nav-number">3.</span> <span class="nav-text">systemd-networkd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#systemd-homed"><span class="nav-number">4.</span> <span class="nav-text">systemd-homed</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#創帳號很痛苦"><span class="nav-number">4.1.</span> <span class="nav-text">創帳號很痛苦</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ssh沒有啟動的帳號"><span class="nav-number">4.2.</span> <span class="nav-text">ssh沒有啟動的帳號</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#su不給用"><span class="nav-number">4.3.</span> <span class="nav-text">su不給用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#doas"><span class="nav-number">5.</span> <span class="nav-text">doas</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#doas-conf"><span class="nav-number">5.1.</span> <span class="nav-text">doas conf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#doas-auto-complete"><span class="nav-number">5.2.</span> <span class="nav-text">doas auto-complete</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#優化pacman"><span class="nav-number">6.</span> <span class="nav-text">優化pacman</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#reflector怪怪的"><span class="nav-number">6.1.</span> <span class="nav-text">reflector怪怪的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pacman平行化"><span class="nav-number">6.2.</span> <span class="nav-text">pacman平行化</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-357"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#systemd-boot"><span class="nav-number">2.</span> <span class="nav-text">systemd-boot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#systemd-networkd"><span class="nav-number">3.</span> <span class="nav-text">systemd-networkd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#systemd-homed"><span class="nav-number">4.</span> <span class="nav-text">systemd-homed</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%B5%E5%B8%B3%E8%99%9F%E5%BE%88%E7%97%9B%E8%8B%A6"><span class="nav-number">4.1.</span> <span class="nav-text">創帳號很痛苦</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ssh%E6%B2%92%E6%9C%89%E5%95%9F%E5%8B%95%E7%9A%84%E5%B8%B3%E8%99%9F"><span class="nav-number">4.2.</span> <span class="nav-text">ssh沒有啟動的帳號</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#su%E4%B8%8D%E7%B5%A6%E7%94%A8"><span class="nav-number">4.3.</span> <span class="nav-text">su不給用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#doas"><span class="nav-number">5.</span> <span class="nav-text">doas</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#doas-conf"><span class="nav-number">5.1.</span> <span class="nav-text">doas conf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#doas-auto-complete"><span class="nav-number">5.2.</span> <span class="nav-text">doas auto-complete</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%84%AA%E5%8C%96pacman"><span class="nav-number">6.</span> <span class="nav-text">優化pacman</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#reflector%E6%80%AA%E6%80%AA%E7%9A%84"><span class="nav-number">6.1.</span> <span class="nav-text">reflector怪怪的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pacman%E5%B9%B3%E8%A1%8C%E5%8C%96"><span class="nav-number">6.2.</span> <span class="nav-text">pacman平行化</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -530,8 +530,6 @@
 
 
 
-
-  
 
   
 

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 6.0.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 之前工作要架簡單的server去測，但裝一般的server還要設定有的沒的，所以用這個來偷吃步">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-06-27T17:08:48.000Z">
-<meta property="article:modified_time" content="2022-01-22T01:29:31.965Z">
+<meta property="article:modified_time" content="2022-01-30T06:31:02.310Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-22 09:29:31" itemprop="dateModified" datetime="2022-01-22T09:29:31+08:00">2022-01-22</time>
+                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -257,17 +257,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機">動機</h2>
+        <h2 id="動機-184">動機</h2>
 <p>之前工作要架簡單的server去測，但裝一般的server還要設定有的沒的，所以用這個來偷吃步</p>
-<a id="more"></a>
+<span id="more"></span>
 <h2 id="twisted">twisted</h2>
 <p>一個方便寫network programming的framework</p>
 <p>會遇到的理由是之前想架ftp server測試用，但是arch linux的vsftpd架不起來(居然要systemd-homed!?)<br>
 所以找到他，下面是ftp server的範例</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> twisted.protocols.ftp <span class="keyword">import</span> FTPFactory, FTPRealm</span><br><span class="line"><span class="keyword">from</span> twisted.cred.portal <span class="keyword">import</span> Portal</span><br><span class="line"><span class="keyword">from</span> twisted.cred.checkers <span class="keyword">import</span> AllowAnonymousAccess, FilePasswordDB</span><br><span class="line"><span class="keyword">from</span> twisted.internet <span class="keyword">import</span> reactor</span><br><span class="line"></span><br><span class="line">p = Portal(FTPRealm(<span class="string">"./"</span>), [AllowAnonymousAccess(), FilePasswordDB(<span class="string">"pass.dat"</span>)])</span><br><span class="line"></span><br><span class="line">f = FTPFactory(p)</span><br><span class="line"></span><br><span class="line">reactor.listenTCP(<span class="number">21</span>, f)</span><br><span class="line">reactor.run()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> twisted.protocols.ftp <span class="keyword">import</span> FTPFactory, FTPRealm</span><br><span class="line"><span class="keyword">from</span> twisted.cred.portal <span class="keyword">import</span> Portal</span><br><span class="line"><span class="keyword">from</span> twisted.cred.checkers <span class="keyword">import</span> AllowAnonymousAccess, FilePasswordDB</span><br><span class="line"><span class="keyword">from</span> twisted.internet <span class="keyword">import</span> reactor</span><br><span class="line"></span><br><span class="line">p = Portal(FTPRealm(<span class="string">&quot;./&quot;</span>), [AllowAnonymousAccess(), FilePasswordDB(<span class="string">&quot;pass.dat&quot;</span>)])</span><br><span class="line"></span><br><span class="line">f = FTPFactory(p)</span><br><span class="line"></span><br><span class="line">reactor.listenTCP(<span class="number">21</span>, f)</span><br><span class="line">reactor.run()</span><br></pre></td></tr></table></figure>
 <p>code很短，也很好架，python+code就結束</p>
 <p>http server(from官網)</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> twisted.web <span class="keyword">import</span> server, resource</span><br><span class="line"><span class="keyword">from</span> twisted.internet <span class="keyword">import</span> reactor, endpoints</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Counter</span><span class="params">(resource.Resource)</span>:</span></span><br><span class="line">    isLeaf = <span class="literal">True</span></span><br><span class="line">    numberRequests = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">render_GET</span><span class="params">(self, request)</span>:</span></span><br><span class="line">        self.numberRequests += <span class="number">1</span></span><br><span class="line">        request.setHeader(<span class="string">b"content-type"</span>, <span class="string">b"text/plain"</span>)</span><br><span class="line">        content = <span class="string">u"I am request #&#123;&#125;\n"</span>.format(self.numberRequests)</span><br><span class="line">        <span class="keyword">return</span> content.encode(<span class="string">"ascii"</span>)</span><br><span class="line"></span><br><span class="line">endpoints.serverFromString(reactor, <span class="string">"tcp:8080"</span>).listen(server.Site(Counter()))</span><br><span class="line">reactor.run()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> twisted.web <span class="keyword">import</span> server, resource</span><br><span class="line"><span class="keyword">from</span> twisted.internet <span class="keyword">import</span> reactor, endpoints</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Counter</span>(<span class="params">resource.Resource</span>):</span></span><br><span class="line">    isLeaf = <span class="literal">True</span></span><br><span class="line">    numberRequests = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">render_GET</span>(<span class="params">self, request</span>):</span></span><br><span class="line">        self.numberRequests += <span class="number">1</span></span><br><span class="line">        request.setHeader(<span class="string">b&quot;content-type&quot;</span>, <span class="string">b&quot;text/plain&quot;</span>)</span><br><span class="line">        content = <span class="string">u&quot;I am request #&#123;&#125;\n&quot;</span>.<span class="built_in">format</span>(self.numberRequests)</span><br><span class="line">        <span class="keyword">return</span> content.encode(<span class="string">&quot;ascii&quot;</span>)</span><br><span class="line"></span><br><span class="line">endpoints.serverFromString(reactor, <span class="string">&quot;tcp:8080&quot;</span>).listen(server.Site(Counter()))</span><br><span class="line">reactor.run()</span><br></pre></td></tr></table></figure>
 <p>其他還有mail, ssh, reverse-proxy等等</p>
 <p>不過我看不懂要怎麼用，都是用範例去改<br>
 所以我都是需要什麼用<code>twisted what-i-want</code>去找</p>
@@ -371,7 +371,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#twisted"><span class="nav-number">2.</span> <span class="nav-text">twisted</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#怪怪的ftp"><span class="nav-number">2.1.</span> <span class="nav-text">怪怪的ftp</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ngrok"><span class="nav-number">3.</span> <span class="nav-text">ngrok</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-184"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#twisted"><span class="nav-number">2.</span> <span class="nav-text">twisted</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%AA%E6%80%AA%E7%9A%84ftp"><span class="nav-number">2.1.</span> <span class="nav-text">怪怪的ftp</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ngrok"><span class="nav-number">3.</span> <span class="nav-text">ngrok</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -484,8 +484,6 @@
 
 
 
-
-  
 
   
 

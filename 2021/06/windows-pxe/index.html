@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 6.0.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://i.imgur.com/1Gyxf66.png">
 <meta property="og:image" content="https://i.imgur.com/yHApwwd.png">
 <meta property="article:published_time" content="2021-06-23T18:00:28.000Z">
-<meta property="article:modified_time" content="2022-01-22T01:41:10.325Z">
+<meta property="article:modified_time" content="2022-01-30T06:31:02.310Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://i.imgur.com/1Gyxf66.png">
@@ -233,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-22 09:41:10" itemprop="dateModified" datetime="2022-01-22T09:41:10+08:00">2022-01-22</time>
+                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -260,11 +260,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機">動機</h2>
+        <h2 id="動機-193">動機</h2>
 <p>我找不到我的隨身碟，剩下的sd卡也掉到某個床縫中，暫時拿不到<br>
 只好來研究怎麼用網路來裝OS了</p>
 <p>原本用serva，好不容易用完，開機之後發現帳密不管怎麼打都不對，就只好自立自強了</p>
-<a id="more"></a>
+<span id="more"></span>
 <h2 id="PXE需要">PXE需要?</h2>
 <ul>
 <li>DHCP server
@@ -281,7 +281,7 @@
 </ul>
 <p>這裡是用TFTPD64</p>
 <h2 id="網路topo">網路topo</h2>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PXE server &lt;&#x3D;&gt; L2 switch &lt;&#x3D;&gt; 要被裝的電腦</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PXE server &lt;=&gt; L2 switch &lt;=&gt; 要被裝的電腦</span><br></pre></td></tr></table></figure>
 <h2 id="怎麼搞PXE">怎麼搞PXE</h2>
 <h3 id="取得WinPE">取得WinPE</h3>
 <ol>
@@ -340,9 +340,9 @@
 </ol>
 <ul>
 <li><code>bcdedit /createstore c:\BCD</code></li>
-<li><code>bcdedit /store c:\BCD /create {ramdiskoptions} /d &quot;Ramdisk options&quot;</code></li>
-<li><code>bcdedit /store c:\BCD /set {ramdiskoptions} ramdisksdidevice boot</code></li>
-<li><code>bcdedit /store c:\BCD /set {ramdiskoptions} ramdisksdipath \Boot\boot.sdi</code>
+<li><code>bcdedit /store c:\BCD /create &#123;ramdiskoptions&#125; /d &quot;Ramdisk options&quot;</code></li>
+<li><code>bcdedit /store c:\BCD /set &#123;ramdiskoptions&#125; ramdisksdidevice boot</code></li>
+<li><code>bcdedit /store c:\BCD /set &#123;ramdiskoptions&#125; ramdisksdipath \Boot\boot.sdi</code>
 <ul>
 <li>這裡的root就是tftp的root</li>
 </ul>
@@ -354,21 +354,21 @@
 <li>設定BCD</li>
 </ol>
 <ul>
-<li><code>bcdedit /store c:\BCD /set {18baf49f-d429-11eb-b837-000c299a782c} device ramdisk=[boot]\Boot\boot.wim,{ramdiskoptions}</code></li>
-<li><code>bcdedit /store c:\BCD /set {18baf49f-d429-11eb-b837-000c299a782c} path \windows\system32\winload.exe</code>
+<li><code>bcdedit /store c:\BCD /set &#123;18baf49f-d429-11eb-b837-000c299a782c&#125; device ramdisk=[boot]\Boot\boot.wim,&#123;ramdiskoptions&#125;</code></li>
+<li><code>bcdedit /store c:\BCD /set &#123;18baf49f-d429-11eb-b837-000c299a782c&#125; path \windows\system32\winload.exe</code>
 <ul>
 <li>這個是boot.wim裡面的path，但要注意是用BIOS還是UEFI</li>
 <li><code>winload.exe</code>會用BIOS</li>
 <li><code>winload.efi</code>會用UEFI</li>
 </ul>
 </li>
-<li><code>bcdedit /store c:\BCD /set {18baf49f-d429-11eb-b837-000c299a782c} osdevice ramdisk=[boot]\Boot\boot.wim,{ramdiskoptions}</code></li>
-<li><code>bcdedit /store c:\BCD /set {18baf49f-d429-11eb-b837-000c299a782c} systemroot \windows</code></li>
-<li><code>bcdedit /store c:\BCD /set {18baf49f-d429-11eb-b837-000c299a782c} detecthal Yes</code></li>
-<li><code>bcdedit /store c:\BCD /set {18baf49f-d429-11eb-b837-000c299a782c} winpe Yes</code></li>
-<li><code>bcdedit /store c:\BCD /create {bootmgr} /d &quot;boot manager&quot;</code></li>
-<li><code>bcdedit /store c:\BCD /set {bootmgr} timeout 30 </code></li>
-<li><code>bcdedit /store c:\BCD -displayorder {18baf49f-d429-11eb-b837-000c299a782c} -addlast</code></li>
+<li><code>bcdedit /store c:\BCD /set &#123;18baf49f-d429-11eb-b837-000c299a782c&#125; osdevice ramdisk=[boot]\Boot\boot.wim,&#123;ramdiskoptions&#125;</code></li>
+<li><code>bcdedit /store c:\BCD /set &#123;18baf49f-d429-11eb-b837-000c299a782c&#125; systemroot \windows</code></li>
+<li><code>bcdedit /store c:\BCD /set &#123;18baf49f-d429-11eb-b837-000c299a782c&#125; detecthal Yes</code></li>
+<li><code>bcdedit /store c:\BCD /set &#123;18baf49f-d429-11eb-b837-000c299a782c&#125; winpe Yes</code></li>
+<li><code>bcdedit /store c:\BCD /create &#123;bootmgr&#125; /d &quot;boot manager&quot;</code></li>
+<li><code>bcdedit /store c:\BCD /set &#123;bootmgr&#125; timeout 30 </code></li>
+<li><code>bcdedit /store c:\BCD -displayorder &#123;18baf49f-d429-11eb-b837-000c299a782c&#125; -addlast</code></li>
 </ul>
 <ol start="4">
 <li>copy BCD</li>
@@ -388,9 +388,9 @@
 <p>改<code>Windows\System32\startnet.cmd</code>，所以用剛剛的例子路徑是<br>
 <code>c:\winpe_amd64\mount\Windows\System32\startnet.cmd</code></p>
 <p>這裡直接把iso透過smbda掛上去，再call setup.exe</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net use Z: \\192.168.123.1\TFTPRoot\iso iso &#x2F;user:192.168.123.1\iso</span><br><span class="line">Z:setup.exe</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net use Z: \\192.168.123.1\TFTPRoot\iso iso /user:192.168.123.1\iso</span><br><span class="line">Z:setup.exe</span><br></pre></td></tr></table></figure>
 <p>改完要寫回去boot.wim</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Dism &#x2F;Unmount-Image &#x2F;MountDir:&quot;C:\WinPE_amd64\mount&quot; &#x2F;commit</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Dism /Unmount-Image /MountDir:&quot;C:\WinPE_amd64\mount&quot; /commit</span><br></pre></td></tr></table></figure>
 <h4 id="net-use一直出事">net use一直出事</h4>
 <ol>
 <li>一個是<code>net use</code>的問題，我試了好幾次最後試出來是上面那樣</li>
@@ -426,7 +426,7 @@
 <li>設定成公開(要可以用smbda連)</li>
 <li>創一個有密碼的帳號(我這裡是給iso/iso)</li>
 </ol>
-<h2 id="Ref">Ref</h2>
+<h2 id="Ref-83">Ref</h2>
 <p><span class="exturl" data-url="aHR0cHM6Ly9kb2NzLm1pY3Jvc29mdC5jb20vemgtdHcvd2luZG93cy9kZXBsb3ltZW50L2NvbmZpZ3VyZS1hLXB4ZS1zZXJ2ZXItdG8tbG9hZC13aW5kb3dzLXBl">設定 PXE 伺服器以載入 Windows PE<i class="fa fa-external-link-alt"></i></span><br>
 <span class="exturl" data-url="aHR0cHM6Ly9zdXBlcnVzZXIuY29tL3F1ZXN0aW9ucy8xMTI1NDM4L3dpbmRvd3MtMTAtcGFzc3dvcmQtZXJyb3Itd2l0aC1zYW1iYS1zaGFyZQ==">Windows 10 Password Error with Samba Share<i class="fa fa-external-link-alt"></i></span><br>
 <span class="exturl" data-url="aHR0cHM6Ly9tYXJjb2JlbmFnbGlvLndvcmRwcmVzcy5jb20vMjAxMC8xMi8yNS9pZi15b3UtdHJ5LXRvLW1vdW50LWEtc2hhcmUtb24td2luZG93cy0yMDA4LXIyLXNlcnZlci10aGUtc3lzdGVtLXN0aWxsLXByb21wdC1mb3ItY3JlZGVudGlhbC1ldmVuLWlmLXlvdS10eXBlLXRoZW0tY29ycmVjdGx5Lw==">If you try to mount a share on windows 2008 R2 server the system still prompt for credential even if you type them correctly<i class="fa fa-external-link-alt"></i></span><br>
@@ -513,7 +513,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PXE需要"><span class="nav-number">2.</span> <span class="nav-text">PXE需要?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#網路topo"><span class="nav-number">3.</span> <span class="nav-text">網路topo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#怎麼搞PXE"><span class="nav-number">4.</span> <span class="nav-text">怎麼搞PXE</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#取得WinPE"><span class="nav-number">4.1.</span> <span class="nav-text">取得WinPE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定義winpe啟動腳本"><span class="nav-number">4.2.</span> <span class="nav-text">自定義winpe啟動腳本</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#net-use一直出事"><span class="nav-number">4.2.1.</span> <span class="nav-text">net use一直出事</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#怎麼設定tftp"><span class="nav-number">4.3.</span> <span class="nav-text">怎麼設定tftp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#怎麼設定dhcp"><span class="nav-number">4.4.</span> <span class="nav-text">怎麼設定dhcp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#怎麼call到iso"><span class="nav-number">4.5.</span> <span class="nav-text">怎麼call到iso</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">5.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-193"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PXE%E9%9C%80%E8%A6%81"><span class="nav-number">2.</span> <span class="nav-text">PXE需要?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B6%B2%E8%B7%AFtopo"><span class="nav-number">3.</span> <span class="nav-text">網路topo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%8E%E9%BA%BC%E6%90%9EPXE"><span class="nav-number">4.</span> <span class="nav-text">怎麼搞PXE</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%96%E5%BE%97WinPE"><span class="nav-number">4.1.</span> <span class="nav-text">取得WinPE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E7%BE%A9winpe%E5%95%9F%E5%8B%95%E8%85%B3%E6%9C%AC"><span class="nav-number">4.2.</span> <span class="nav-text">自定義winpe啟動腳本</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#net-use%E4%B8%80%E7%9B%B4%E5%87%BA%E4%BA%8B"><span class="nav-number">4.2.1.</span> <span class="nav-text">net use一直出事</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%8E%E9%BA%BC%E8%A8%AD%E5%AE%9Atftp"><span class="nav-number">4.3.</span> <span class="nav-text">怎麼設定tftp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%8E%E9%BA%BC%E8%A8%AD%E5%AE%9Adhcp"><span class="nav-number">4.4.</span> <span class="nav-text">怎麼設定dhcp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%8E%E9%BA%BCcall%E5%88%B0iso"><span class="nav-number">4.5.</span> <span class="nav-text">怎麼call到iso</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-83"><span class="nav-number">5.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -626,8 +626,6 @@
 
 
 
-
-  
 
   
 

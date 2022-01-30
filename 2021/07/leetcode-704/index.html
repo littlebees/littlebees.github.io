@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 6.0.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 複習bsearch">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-07-30T19:44:36.000Z">
-<meta property="article:modified_time" content="2022-01-22T10:54:02.295Z">
+<meta property="article:modified_time" content="2022-01-30T06:31:02.318Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Array">
 <meta property="article:tag" content="Binary Search">
@@ -232,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-22 18:54:02" itemprop="dateModified" datetime="2022-01-22T18:54:02+08:00">2022-01-22</time>
+                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -263,13 +263,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機">動機</h2>
+        <h2 id="動機-603">動機</h2>
 <p>複習bsearch</p>
-<a id="more"></a>
-<h2 id="Problem">Problem</h2>
+<span id="more"></span>
+<h2 id="Problem-406">Problem</h2>
 <p>Given an array of integers <code>nums</code> which is sorted in ascending order, and an integer <code>target</code>, write a function to search <code>target</code> in <code>nums</code>. If <code>target</code> exists, then return its index. Otherwise, return <code>-1</code>.</p><p>You must write an algorithm with <code>O(log n)</code> runtime complexity.</p><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input:</strong> nums = [-1,0,3,5,9,12], target = 9<strong>Output:</strong> 4<strong>Explanation:</strong> 9 exists in nums and its index is 4</pre><p><strong>Example 2:</strong></p><pre><strong>Input:</strong> nums = [-1,0,3,5,9,12], target = 2<strong>Output:</strong> -1<strong>Explanation:</strong> 2 does not exist in nums so return -1</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>1 <= nums.length <= 10<sup>4</sup></code></li><li><code>-10<sup>4</sup> < nums[i], target < 10<sup>4</sup></code></li><li>All the integers in <code>nums</code> are <strong>unique</strong>.</li><li><code>nums</code> is sorted in ascending order.</li></ul>
-<h2 id="Sol">Sol</h2>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">search</span><span class="params">(self, nums: List[int], target: int)</span> -&gt; int:</span></span><br><span class="line">        i = bisect_left(nums,target)</span><br><span class="line">        <span class="keyword">return</span> i <span class="keyword">if</span> i &lt; len(nums) <span class="keyword">and</span> nums[i] == target <span class="keyword">else</span> <span class="number">-1</span></span><br></pre></td></tr></table></figure>
+<h2 id="Sol-385">Sol</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">search</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>], target: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        i = bisect_left(nums,target)</span><br><span class="line">        <span class="keyword">return</span> i <span class="keyword">if</span> i &lt; <span class="built_in">len</span>(nums) <span class="keyword">and</span> nums[i] == target <span class="keyword">else</span> -<span class="number">1</span></span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -353,7 +353,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-603"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-406"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-385"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -466,8 +466,6 @@
 
 
 
-
-  
 
   
 

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 6.0.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 重新體驗binary search 這題可以與153一起看，會有新的理解">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-07-15T20:00:08.000Z">
-<meta property="article:modified_time" content="2022-01-22T10:54:02.295Z">
+<meta property="article:modified_time" content="2022-01-30T06:31:02.318Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Array">
 <meta property="article:tag" content="Binary Search">
@@ -232,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-22 18:54:02" itemprop="dateModified" datetime="2022-01-22T18:54:02+08:00">2022-01-22</time>
+                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -252,11 +252,11 @@
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/Leetcode/Top-Interview-Questions/" itemprop="url" rel="index"><span itemprop="name">Top Interview Questions</span></a>
+                  <a href="/categories/Algorithm/Leetcode/60-questions-to-solve/" itemprop="url" rel="index"><span itemprop="name">60 questions to solve</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/Leetcode/60-questions-to-solve/" itemprop="url" rel="index"><span itemprop="name">60 questions to solve</span></a>
+                  <a href="/categories/Algorithm/Leetcode/Top-Interview-Questions/" itemprop="url" rel="index"><span itemprop="name">Top Interview Questions</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -283,13 +283,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機">動機</h2>
+        <h2 id="動機-542">動機</h2>
 <p>重新體驗binary search</p>
 <p>這題可以與<a href="/2021/07/leetcode-153">153</a>一起看，會有新的理解</p>
-<a id="more"></a>
-<h2 id="Problem">Problem</h2>
+<span id="more"></span>
+<h2 id="Problem-345">Problem</h2>
 <p>There is an integer array <code>nums</code> sorted in ascending order (with <strong>distinct</strong> values).</p><p>Prior to being passed to your function, <code>nums</code> is <strong>rotated</strong> at an unknown pivot index <code>k</code> (<code>0 <= k < nums.length</code>) such that the resulting array is <code>[nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]]</code> (<strong>0-indexed</strong>). For example, <code>[0,1,2,4,5,6,7]</code> might be rotated at pivot index <code>3</code> and become <code>[4,5,6,7,0,1,2]</code>.</p><p>Given the array <code>nums</code> <strong>after</strong> the rotation and an integer <code>target</code>, return <em>the index of </em><code>target</code><em> if it is in </em><code>nums</code><em>, or </em><code>-1</code><em> if it is not in </em><code>nums</code>.</p><p>You must write an algorithm with <code>O(log n)</code> runtime complexity.</p><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input:</strong> nums = [4,5,6,7,0,1,2], target = 0<strong>Output:</strong> 4</pre><p><strong>Example 2:</strong></p><pre><strong>Input:</strong> nums = [4,5,6,7,0,1,2], target = 3<strong>Output:</strong> -1</pre><p><strong>Example 3:</strong></p><pre><strong>Input:</strong> nums = [1], target = 0<strong>Output:</strong> -1</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>1 <= nums.length <= 5000</code></li><li><code>-10<sup>4</sup> <= nums[i] <= 10<sup>4</sup></code></li><li>All values of <code>nums</code> are <strong>unique</strong>.</li><li><code>nums</code> is guaranteed to be rotated at some pivot.</li><li><code>-10<sup>4</sup> <= target <= 10<sup>4</sup></code></li></ul>
-<h2 id="Sol">Sol</h2>
+<h2 id="Sol-324">Sol</h2>
 <p>bsearch重要的就是</p>
 <ol>
 <li>怎麼求中點</li>
@@ -298,7 +298,7 @@
 </ol>
 <p>而這題是只要意識到<strong>其中一邊一定會有序，就知道一定有一邊可以丟</strong>，那就只看target有沒有可能在這裡面，有就進去，沒有就另一邊</p>
 <p>另外就是比範圍時，只有中點不用看等於，像一開始看右邊是不是有序是<code>ns[mid] &lt; ns[mid+1] &lt; ns[j-1]</code>，但只要遇到長度為2範圍就爆了，mid+1等於j-1啊</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bs</span><span class="params">(ns, x, i, j)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> i&gt;j <span class="keyword">or</span> i &lt; <span class="number">0</span> <span class="keyword">or</span> i &gt; len(ns):</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">    <span class="keyword">if</span> j-i &lt;= <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> i <span class="keyword">if</span> ns[i] == x <span class="keyword">else</span> <span class="number">-1</span></span><br><span class="line">    <span class="keyword">elif</span> j-i == <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">return</span> i <span class="keyword">if</span> ns[i] == x <span class="keyword">else</span> bs(ns,x,i+<span class="number">1</span>,j)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        mid = i + (j-i)//<span class="number">2</span></span><br><span class="line">        <span class="keyword">if</span> ns[mid] == x:</span><br><span class="line">            <span class="keyword">return</span> mid</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            rightasc = ns[mid] &lt; ns[mid+<span class="number">1</span>] &lt;= ns[j<span class="number">-1</span>]</span><br><span class="line">            inright = ns[mid] &lt; x &lt;= ns[j<span class="number">-1</span>]</span><br><span class="line">            inleft = ns[i] &lt;= x &lt; ns[mid]</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> rightasc <span class="keyword">and</span> inright <span class="keyword">or</span> <span class="keyword">not</span> rightasc <span class="keyword">and</span> <span class="keyword">not</span> inleft:</span><br><span class="line">                <span class="keyword">return</span> bs(ns,x,mid+<span class="number">1</span>,j)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">return</span> bs(ns,x,i,mid)</span><br><span class="line">                    </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">search</span><span class="params">(self, nums: List[int], target: int)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">return</span> bs(nums,target,<span class="number">0</span>,len(nums))</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bs</span>(<span class="params">ns, x, i, j</span>):</span></span><br><span class="line">    <span class="keyword">if</span> i&gt;j <span class="keyword">or</span> i &lt; <span class="number">0</span> <span class="keyword">or</span> i &gt; <span class="built_in">len</span>(ns):</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> j-i &lt;= <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> i <span class="keyword">if</span> ns[i] == x <span class="keyword">else</span> -<span class="number">1</span></span><br><span class="line">    <span class="keyword">elif</span> j-i == <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">return</span> i <span class="keyword">if</span> ns[i] == x <span class="keyword">else</span> bs(ns,x,i+<span class="number">1</span>,j)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        mid = i + (j-i)//<span class="number">2</span></span><br><span class="line">        <span class="keyword">if</span> ns[mid] == x:</span><br><span class="line">            <span class="keyword">return</span> mid</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            rightasc = ns[mid] &lt; ns[mid+<span class="number">1</span>] &lt;= ns[j-<span class="number">1</span>]</span><br><span class="line">            inright = ns[mid] &lt; x &lt;= ns[j-<span class="number">1</span>]</span><br><span class="line">            inleft = ns[i] &lt;= x &lt; ns[mid]</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> rightasc <span class="keyword">and</span> inright <span class="keyword">or</span> <span class="keyword">not</span> rightasc <span class="keyword">and</span> <span class="keyword">not</span> inleft:</span><br><span class="line">                <span class="keyword">return</span> bs(ns,x,mid+<span class="number">1</span>,j)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">return</span> bs(ns,x,i,mid)</span><br><span class="line">                    </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">search</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>], target: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        <span class="keyword">return</span> bs(nums,target,<span class="number">0</span>,<span class="built_in">len</span>(nums))</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -382,7 +382,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-542"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-345"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-324"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -495,8 +495,6 @@
 
 
 
-
-  
 
   
 

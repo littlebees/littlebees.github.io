@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 6.0.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 整理一些linux debug工具">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-10-22T12:23:31.000Z">
-<meta property="article:modified_time" content="2022-01-22T02:46:30.135Z">
+<meta property="article:modified_time" content="2022-01-30T06:31:02.330Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-22 10:46:30" itemprop="dateModified" datetime="2022-01-22T10:46:30+08:00">2022-01-22</time>
+                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -257,9 +257,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機">動機</h2>
+        <h2 id="動機-369">動機</h2>
 <p>整理一些linux debug工具</p>
-<a id="more"></a>
+<span id="more"></span>
 <h2 id="之前提過">之前提過</h2>
 <p>systemtap與bpf就像是手術刀，可以看到很詳細的部分<br>
 但在在那之前我們還是要看原本的程式或是kernel的log</p>
@@ -270,7 +270,7 @@
 <ol>
 <li>開flag</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CONFIG_PSTORE&#x3D;y</span><br><span class="line">CONFIG_PSTORE_CONSOLE&#x3D;y</span><br><span class="line">CONFIG_PSTORE_FTRACE&#x3D;y</span><br><span class="line">CONFIG_PSTORE_RAM&#x3D;y</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CONFIG_PSTORE=y</span><br><span class="line">CONFIG_PSTORE_CONSOLE=y</span><br><span class="line">CONFIG_PSTORE_FTRACE=y</span><br><span class="line">CONFIG_PSTORE_RAM=y</span><br></pre></td></tr></table></figure>
 <ol start="2">
 <li><code>cat /sys/fs/pstore/console-ramoops</code></li>
 </ol>
@@ -284,7 +284,7 @@ debugfs: 讓userspace可以與kernelspace的物件交換資訊的filesystem</p>
 <h2 id="dynamic-debug">dynamic_debug</h2>
 <p>kernel有printk，但是開了就很難關，所以有dynamic_debug，可以指定要開哪一行，甚至是哪一個thread的哪一行</p>
 <p><code>match-spec* flags-spec</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">match-spec ::&#x3D; &#39;func&#39; string | # svc_tcp_accept, *recv*</span><br><span class="line">               &#39;file&#39; string |  # drivers&#x2F;usb&#x2F;*, inode.c:start_*, inode.c:1-100</span><br><span class="line">               &#39;module&#39; string | # drm*, nfsd</span><br><span class="line">               &#39;format&#39; string | # 一般的string search</span><br><span class="line">               &#39;line&#39; line-range</span><br><span class="line"></span><br><span class="line">line-range ::&#x3D; lineno |</span><br><span class="line">               &#39;-&#39;lineno |</span><br><span class="line">               lineno&#39;-&#39; |</span><br><span class="line">               lineno&#39;-&#39;lineno</span><br><span class="line"></span><br><span class="line">lineno ::&#x3D; unsigned-int</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">match-spec ::= &#x27;func&#x27; string | # svc_tcp_accept, *recv*</span><br><span class="line">               &#x27;file&#x27; string |  # drivers/usb/*, inode.c:start_*, inode.c:1-100</span><br><span class="line">               &#x27;module&#x27; string | # drm*, nfsd</span><br><span class="line">               &#x27;format&#x27; string | # 一般的string search</span><br><span class="line">               &#x27;line&#x27; line-range</span><br><span class="line"></span><br><span class="line">line-range ::= lineno |</span><br><span class="line">               &#x27;-&#x27;lineno |</span><br><span class="line">               lineno&#x27;-&#x27; |</span><br><span class="line">               lineno&#x27;-&#x27;lineno</span><br><span class="line"></span><br><span class="line">lineno ::= unsigned-int</span><br></pre></td></tr></table></figure>
 <p>用法</p>
 <ol>
 <li>先開debugfs</li>
@@ -294,7 +294,7 @@ debugfs: 讓userspace可以與kernelspace的物件交換資訊的filesystem</p>
 <p>systemtap與bpf，需要知道一定的語法與對probe的了解才能用<br>
 也需要對kernel的版本有要求，或是裝專門的軟體，換言之就是不太方便用</p>
 <p>之後會看strace與lstrace怎麼用</p>
-<h2 id="Ref">Ref</h2>
+<h2 id="Ref-93">Ref</h2>
 <p><span class="exturl" data-url="aHR0cDovL2l5b3VuaXguY29tLzIwMTgvMDMvMDMvQW5kcm9pZF9Ecml2ZXIvRHJpdmVyLyU1QkFuZHJvaWQ3LjElNUQlNUJSSzMzOTklNUQlMjAlRTQlQkQlQkYlRTclOTQlQTglMjByYW1vb3BzJTIwJUU2JTlDJUJBJUU1JTg4JUI2JUU2JTlGJUE1JUU3JTlDJThCJUU1JUJDJTgwJUU2JTlDJUJBJTIwS2VybmVsJTIwTG9nLw==">Android7.1 RK3399 使用 ramoops 机制查看开机 Kernel Log<i class="fa fa-external-link-alt"></i></span><br>
 <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3RvcnZhbGRzL2xpbnV4L2Jsb2IvbWFzdGVyL0RvY3VtZW50YXRpb24vYWRtaW4tZ3VpZGUvZHluYW1pYy1kZWJ1Zy1ob3d0by5yc3Q=">Dynamic debug<i class="fa fa-external-link-alt"></i></span><br>
 <span class="exturl" data-url="aHR0cHM6Ly9pdGhlbHAuaXRob21lLmNvbS50dy9hcnRpY2xlcy8xMDI4MTU2Mg==">Day29 procfs, sysfs, debugfs<i class="fa fa-external-link-alt"></i></span></p>
@@ -378,7 +378,7 @@ debugfs: 讓userspace可以與kernelspace的物件交換資訊的filesystem</p>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#之前提過"><span class="nav-number">2.</span> <span class="nav-text">之前提過</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ramoops"><span class="nav-number">3.</span> <span class="nav-text">ramoops</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#debugfs"><span class="nav-number">4.</span> <span class="nav-text">debugfs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dynamic-debug"><span class="nav-number">5.</span> <span class="nav-text">dynamic_debug</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#to-be-continued"><span class="nav-number">6.</span> <span class="nav-text">to be continued</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">7.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-369"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%8B%E5%89%8D%E6%8F%90%E9%81%8E"><span class="nav-number">2.</span> <span class="nav-text">之前提過</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ramoops"><span class="nav-number">3.</span> <span class="nav-text">ramoops</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#debugfs"><span class="nav-number">4.</span> <span class="nav-text">debugfs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dynamic-debug"><span class="nav-number">5.</span> <span class="nav-text">dynamic_debug</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#to-be-continued"><span class="nav-number">6.</span> <span class="nav-text">to be continued</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-93"><span class="nav-number">7.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -491,8 +491,6 @@ debugfs: 讓userspace可以與kernelspace的物件交換資訊的filesystem</p>
 
 
 
-
-  
 
   
 

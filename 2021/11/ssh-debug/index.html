@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 6.0.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 建ssh tunnel遇到的坑">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-11-21T14:06:18.000Z">
-<meta property="article:modified_time" content="2022-01-22T02:38:54.765Z">
+<meta property="article:modified_time" content="2022-01-30T06:31:02.334Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-22 10:38:54" itemprop="dateModified" datetime="2022-01-22T10:38:54+08:00">2022-01-22</time>
+                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -257,9 +257,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機">動機</h2>
+        <h2 id="動機-415">動機</h2>
 <p>建ssh tunnel遇到的坑</p>
-<a id="more"></a>
+<span id="more"></span>
 <h2 id="Host-key-verification-error">Host key verification error</h2>
 <p>ssh -vvv</p>
 <p>用vvv看才發現是開不了/dev/tty，但是最後的err msg卻只報 Host key verification error!!<br>
@@ -268,7 +268,7 @@
 <p>docker cli就是他媽的黑盒子<br>
 所以到底發了什麼http request</p>
 <h2 id="透過jump-host開ssh-tunnel">透過jump host開ssh tunnel</h2>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssh -o ControlPath&#x3D;&#x2F;tmp&#x2F;temp_ssh_tunnel -o ProxyCommand&#x3D;&quot;ssh -W %h:%p -o StrictHostKeyChecking&#x3D;no $&#123;SSH_BASHION_HOST&#125;&quot; -o StrictHostKeyChecking&#x3D;no -f -N -M -L 6000:127.0.0.1:5000 $&#123;SSH_REGISTRY_HOST&#125;</span><br><span class="line"></span><br><span class="line">ssh -o ControlPath&#x3D;&#x2F;tmp&#x2F;temp_ssh_tunnel -O exit -o ProxyCommand&#x3D;&quot;ssh -W %h:%p -o StrictHostKeyChecking&#x3D;no $&#123;SSH_BASHION_HOST&#125;&quot; $&#123;SSH_REGISTRY_HOST&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssh -o ControlPath=/tmp/temp_ssh_tunnel -o ProxyCommand=&quot;ssh -W %h:%p -o StrictHostKeyChecking=no $&#123;SSH_BASHION_HOST&#125;&quot; -o StrictHostKeyChecking=no -f -N -M -L 6000:127.0.0.1:5000 $&#123;SSH_REGISTRY_HOST&#125;</span><br><span class="line"></span><br><span class="line">ssh -o ControlPath=/tmp/temp_ssh_tunnel -O exit -o ProxyCommand=&quot;ssh -W %h:%p -o StrictHostKeyChecking=no $&#123;SSH_BASHION_HOST&#125;&quot; $&#123;SSH_REGISTRY_HOST&#125;</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -348,7 +348,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Host-key-verification-error"><span class="nav-number">2.</span> <span class="nav-text">Host key verification error</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#與之對比-docker-cli"><span class="nav-number">2.1.</span> <span class="nav-text">與之對比: docker cli</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#透過jump-host開ssh-tunnel"><span class="nav-number">3.</span> <span class="nav-text">透過jump host開ssh tunnel</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-415"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Host-key-verification-error"><span class="nav-number">2.</span> <span class="nav-text">Host key verification error</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%88%87%E4%B9%8B%E5%B0%8D%E6%AF%94-docker-cli"><span class="nav-number">2.1.</span> <span class="nav-text">與之對比: docker cli</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%8F%E9%81%8Ejump-host%E9%96%8Bssh-tunnel"><span class="nav-number">3.</span> <span class="nav-text">透過jump host開ssh tunnel</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -461,8 +461,6 @@
 
 
 
-
-  
 
   
 

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 6.0.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 之前面試莫名其妙被system design電到翻過去， 之後看了，system design primer，但還是出事，以為只要把system design的觀念記熟就好，之後要我計算有的沒的就起飛。 目前發現這個，看完發現，原來我之前只有準備一半啊 system design的面試其實有一定的程序要走，不是單純的QA 這個沒做過相關的分析，基本上應該很難當場想出來，我當初是能想到設計，但">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-07-03T18:45:06.000Z">
-<meta property="article:modified_time" content="2022-01-22T02:32:15.275Z">
+<meta property="article:modified_time" content="2022-01-30T06:31:02.322Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-22 10:32:15" itemprop="dateModified" datetime="2022-01-22T10:32:15+08:00">2022-01-22</time>
+                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -257,14 +257,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機">動機</h2>
+        <h2 id="動機-639">動機</h2>
 <p>之前面試莫名其妙被system design電到翻過去，<br>
 之後看了，system design primer，但還是出事，以為只要把system design的觀念記熟就好，之後要我計算有的沒的就起飛。</p>
 <p>目前發現<span class="exturl" data-url="aHR0cHM6Ly93d3cuanl0MDUzMi5jb20vMjAxNy8wMy8yNy9zeXN0ZW0tZGVzaWduLw==">這個<i class="fa fa-external-link-alt"></i></span>，看完發現，原來我之前只有準備一半啊</p>
 <p>system design的面試其實有一定的程序要走，不是單純的QA<br>
 這個沒做過相關的分析，基本上應該很難當場想出來，我當初是能想到設計，但沒辦法證明(do some math)這是可行的</p>
 <p>所以這篇，是要補完這點。</p>
-<a id="more"></a>
+<span id="more"></span>
 <h2 id="過程">過程</h2>
 <ol>
 <li>需求</li>
@@ -473,7 +473,7 @@
 像，與大小有關都是gb，時間都是sec</p>
 <p>查<span class="exturl" data-url="aHR0cHM6Ly9naXN0LmdpdGh1Yi5jb20vamJvbmVyLzI4NDE4MzI=">表<i class="fa fa-external-link-alt"></i></span>會發現，從mem讀1MB要250us(10^-6 secs)</p>
 <p>先換算，<code>250*10^-6</code></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">250</span>*<span class="number">10</span>^<span class="number">-6</span> &lt;= (<span class="number">30</span>*<span class="number">1000</span>)/<span class="number">10</span>*<span class="number">10</span>^<span class="number">6</span> * (core/ram)</span><br><span class="line"><span class="comment"># 化簡</span></span><br><span class="line"><span class="number">1</span> &lt;= <span class="number">12</span> * (core/ram)</span><br><span class="line"><span class="comment"># 4cores</span></span><br><span class="line">ram &lt;= <span class="number">12</span>*core = <span class="number">48</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">250</span>*<span class="number">10</span>^-<span class="number">6</span> &lt;= (<span class="number">30</span>*<span class="number">1000</span>)/<span class="number">10</span>*<span class="number">10</span>^<span class="number">6</span> * (core/ram)</span><br><span class="line"><span class="comment"># 化簡</span></span><br><span class="line"><span class="number">1</span> &lt;= <span class="number">12</span> * (core/ram)</span><br><span class="line"><span class="comment"># 4cores</span></span><br><span class="line">ram &lt;= <span class="number">12</span>*core = <span class="number">48</span></span><br></pre></td></tr></table></figure>
 <p>所以4cores，一台最多只能48gb<br>
 8cores，一台最多只能96gb</p>
 <p>照原本<span class="exturl" data-url="aHR0cHM6Ly93d3cuanl0MDUzMi5jb20vMjAxNy8wMy8yNy9zeXN0ZW0tZGVzaWduLw==">這裡<i class="fa fa-external-link-alt"></i></span>第一次給的spec，4cores與72gb會爆，但是4cores與32gb不會爆</p>
@@ -505,7 +505,7 @@
 <code>latency &lt;= (total_input/qps) * (core/ram)</code><br>
 配合<br>
 <code>host = total_input/ram</code></p>
-<h2 id="例子">例子</h2>
+<h2 id="例子-4">例子</h2>
 <p><span class="exturl" data-url="aHR0cHM6Ly93d3cuanl0MDUzMi5jb20vMjAxOS8xMi8wNS9kZXNpZ24tdGlueS11cmwv">這裡<i class="fa fa-external-link-alt"></i></span><br>
 <span class="exturl" data-url="aHR0cHM6Ly93d3cuanl0MDUzMi5jb20vMjAyMC8wMi8xMS9kZXNpZ24taW5zdGFncmFtLw==">這裡2<i class="fa fa-external-link-alt"></i></span></p>
 <p>一些技巧</p>
@@ -716,7 +716,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#過程"><span class="nav-number">2.</span> <span class="nav-text">過程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#需要多少機器"><span class="nav-number">3.</span> <span class="nav-text">需要多少機器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#要在設計之前要知道"><span class="nav-number">4.</span> <span class="nav-text">要在設計之前要知道</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#例子"><span class="nav-number">5.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#interviewBit"><span class="nav-number">6.</span> <span class="nav-text">interviewBit</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Sharding-a-Database"><span class="nav-number">6.1.</span> <span class="nav-text">Sharding a Database</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Highly-Available-Database"><span class="nav-number">6.2.</span> <span class="nav-text">Highly Available Database</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Highly-Consistent-Database"><span class="nav-number">6.3.</span> <span class="nav-text">Highly Consistent Database</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-639"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%8E%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">過程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9C%80%E8%A6%81%E5%A4%9A%E5%B0%91%E6%A9%9F%E5%99%A8"><span class="nav-number">3.</span> <span class="nav-text">需要多少機器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A6%81%E5%9C%A8%E8%A8%AD%E8%A8%88%E4%B9%8B%E5%89%8D%E8%A6%81%E7%9F%A5%E9%81%93"><span class="nav-number">4.</span> <span class="nav-text">要在設計之前要知道</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90-4"><span class="nav-number">5.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#interviewBit"><span class="nav-number">6.</span> <span class="nav-text">interviewBit</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Sharding-a-Database"><span class="nav-number">6.1.</span> <span class="nav-text">Sharding a Database</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Highly-Available-Database"><span class="nav-number">6.2.</span> <span class="nav-text">Highly Available Database</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Highly-Consistent-Database"><span class="nav-number">6.3.</span> <span class="nav-text">Highly Consistent Database</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -829,8 +829,6 @@
 
 
 
-
-  
 
   
 

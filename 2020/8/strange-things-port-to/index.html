@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 6.0.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 很多時候會需要把一些trace或是測試的程式放到舊平台或是其他平台運行 所以記一下遇過的坑">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-08-02T09:27:11.000Z">
-<meta property="article:modified_time" content="2022-01-21T19:17:10.477Z">
+<meta property="article:modified_time" content="2022-01-30T06:31:02.302Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-22 03:17:10" itemprop="dateModified" datetime="2022-01-22T03:17:10+08:00">2022-01-22</time>
+                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -257,10 +257,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機">動機</h2>
+        <h2 id="動機-87">動機</h2>
 <p>很多時候會需要把一些trace或是測試的程式放到舊平台或是其他平台運行<br>
 所以記一下遇過的坑</p>
-<a id="more"></a>
+<span id="more"></span>
 <h2 id="坑-shared-object">坑: shared object</h2>
 <p>就是在/usr/lib的so</p>
 <p>第一個情境是怎麼找需要的so?<br>
@@ -272,21 +272,21 @@
 一個是/usr/lib<br>
 不然就是用<code>LD_LIBRARY_PATH</code><br>
 像這樣</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LD_LIBRARY_PATH=<span class="string">"/path/you/want1:/path/you/want/2"</span> ./a.out</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LD_LIBRARY_PATH=<span class="string">&quot;/path/you/want1:/path/you/want/2&quot;</span> ./a.out</span><br></pre></td></tr></table></figure>
 <h2 id="坑-compile">坑: compile</h2>
 <p>如果真的只能compile，要注意當時的環境<br>
 最好用當時compiler的版本</p>
 <p>通常用新compiler去編舊程式都會報錯<br>
 大多時候都是像type對不起來的問題<br>
 但處理起來很煩</p>
-<h2 id="寫在後面">寫在後面</h2>
+<h2 id="寫在後面-2">寫在後面</h2>
 <p>順便記一下好用的trace工具</p>
 <ol>
 <li>strace: 追userspace程式的system call</li>
 <li>pstack: 追call stack</li>
 <li>systemtap: 追kernel的function call</li>
 </ol>
-<h2 id="Ref">Ref</h2>
+<h2 id="Ref-58">Ref</h2>
 <p><span class="exturl" data-url="aHR0cHM6Ly9saW51eHRvb2xzLXJzdC5yZWFkdGhlZG9jcy5pby96aF9DTi9sYXRlc3QvaW5kZXguaHRtbA==">good chinese linux tool refbook<i class="fa fa-external-link-alt"></i></span></p>
 
     </div>
@@ -368,7 +368,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#坑-shared-object"><span class="nav-number">2.</span> <span class="nav-text">坑: shared object</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#坑-compile"><span class="nav-number">3.</span> <span class="nav-text">坑: compile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#寫在後面"><span class="nav-number">4.</span> <span class="nav-text">寫在後面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">5.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-87"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9D%91-shared-object"><span class="nav-number">2.</span> <span class="nav-text">坑: shared object</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9D%91-compile"><span class="nav-number">3.</span> <span class="nav-text">坑: compile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%AB%E5%9C%A8%E5%BE%8C%E9%9D%A2-2"><span class="nav-number">4.</span> <span class="nav-text">寫在後面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-58"><span class="nav-number">5.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -481,8 +481,6 @@
 
 
 
-
-  
 
   
 

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 6.0.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 這題體現了二分法是一種藝術">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-11-06T18:40:45.000Z">
-<meta property="article:modified_time" content="2022-01-22T10:54:02.285Z">
+<meta property="article:modified_time" content="2022-01-30T06:31:02.298Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Array">
 <meta property="article:tag" content="Divide and Conquer">
@@ -233,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-22 18:54:02" itemprop="dateModified" datetime="2022-01-22T18:54:02+08:00">2022-01-22</time>
+                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -272,12 +272,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機">動機</h2>
+        <h2 id="動機-22">動機</h2>
 <p>這題體現了二分法是一種藝術</p>
-<a id="more"></a>
-<h2 id="Problem">Problem</h2>
+<span id="more"></span>
+<h2 id="Problem-9">Problem</h2>
 <p>Given two sorted arrays <code>nums1</code> and <code>nums2</code> of size <code>m</code> and <code>n</code> respectively, return <strong>the median</strong> of the two sorted arrays.</p><p>The overall run time complexity should be <code>O(log (m+n))</code>.</p><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input:</strong> nums1 = [1,3], nums2 = [2]<strong>Output:</strong> 2.00000<strong>Explanation:</strong> merged array = [1,2,3] and median is 2.</pre><p><strong>Example 2:</strong></p><pre><strong>Input:</strong> nums1 = [1,2], nums2 = [3,4]<strong>Output:</strong> 2.50000<strong>Explanation:</strong> merged array = [1,2,3,4] and median is (2 + 3) / 2 = 2.5.</pre><p><strong>Example 3:</strong></p><pre><strong>Input:</strong> nums1 = [0,0], nums2 = [0,0]<strong>Output:</strong> 0.00000</pre><p><strong>Example 4:</strong></p><pre><strong>Input:</strong> nums1 = [], nums2 = [1]<strong>Output:</strong> 1.00000</pre><p><strong>Example 5:</strong></p><pre><strong>Input:</strong> nums1 = [2], nums2 = []<strong>Output:</strong> 2.00000</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>nums1.length == m</code></li><li><code>nums2.length == n</code></li><li><code>0 <= m <= 1000</code></li><li><code>0 <= n <= 1000</code></li><li><code>1 <= m + n <= 2000</code></li><li><code>-10<sup>6</sup> <= nums1[i], nums2[i] <= 10<sup>6</sup></code></li></ul>
-<h2 id="Sol">Sol</h2>
+<h2 id="Sol-6">Sol</h2>
 <p>算中位數就是找中間的數，不然就是中間的兩個加起來除二，<br>
 但這裡我們沒辦法得到數字的座標，有沒有其他方法可以到中間?</p>
 <p>用merge去數，數到一半就好，<br>
@@ -301,11 +301,11 @@
 <p>這邊的思考方式是反覆挑一個array去出一半長度的array，因為每次都挑最小的，所以最後要的數字一定在某個array</p>
 <p>用<code>[0,3,5,7,9]</code>與<code>[2,2]</code>當例子，求中位數</p>
 <ul>
-<li>len:4 =&gt; 4//2 =&gt; <code>{2, 2}</code></li>
-<li>len:2 =&gt; 2//2 =&gt; <code>{2, 2, 0}</code></li>
+<li>len:4 =&gt; 4//2 =&gt; <code>&#123;2, 2&#125;</code></li>
+<li>len:2 =&gt; 2//2 =&gt; <code>&#123;2, 2, 0&#125;</code></li>
 <li>len:1 =&gt; 3</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getN</span><span class="params">(n,i)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> i &gt;= len(n):</span><br><span class="line">        <span class="keyword">return</span> <span class="number">999999</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> n[i]</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(n1,n2,k)</span>:</span></span><br><span class="line">    <span class="comment">#print(n1,n2,k)</span></span><br><span class="line">    <span class="keyword">if</span> len(n1) == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> getN(n2, k<span class="number">-1</span>)</span><br><span class="line">    <span class="keyword">elif</span> len(n2) == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> getN(n1, k<span class="number">-1</span>)</span><br><span class="line">    <span class="keyword">if</span> k == <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> min(getN(n1,k<span class="number">-1</span>), getN(n2,k<span class="number">-1</span>))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        a = getN(n1,k//<span class="number">2</span><span class="number">-1</span>)</span><br><span class="line">        b = getN(n2,k//<span class="number">2</span><span class="number">-1</span>)</span><br><span class="line">        <span class="comment">#print(a,b,k-k//2)</span></span><br><span class="line">        <span class="keyword">if</span> a &lt; b:</span><br><span class="line">            <span class="comment">#print('n1',n1[k//2:])</span></span><br><span class="line">            <span class="keyword">return</span> f(n1[k//<span class="number">2</span>:],n2,k-k//<span class="number">2</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="comment">#print('n2',n2[k//2:])</span></span><br><span class="line">            <span class="keyword">return</span> f(n1,n2[k//<span class="number">2</span>:],k-k//<span class="number">2</span>)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findMedianSortedArrays</span><span class="params">(self, n1: List[int], n2: List[int])</span> -&gt; float:</span></span><br><span class="line">        left = (len(n1)+len(n2)+<span class="number">1</span>)//<span class="number">2</span></span><br><span class="line">        right = (len(n1)+len(n2)+<span class="number">2</span>)//<span class="number">2</span></span><br><span class="line">        print(f(n1,n2,left), left)</span><br><span class="line">        print(f(n1,n2,right), right)</span><br><span class="line">        <span class="keyword">return</span> (f(n1,n2,left)+f(n1,n2,right))/<span class="number">2.0</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getN</span>(<span class="params">n,i</span>):</span></span><br><span class="line">    <span class="keyword">if</span> i &gt;= <span class="built_in">len</span>(n):</span><br><span class="line">        <span class="keyword">return</span> <span class="number">999999</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> n[i]</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span>(<span class="params">n1,n2,k</span>):</span></span><br><span class="line">    <span class="comment">#print(n1,n2,k)</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(n1) == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> getN(n2, k-<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">elif</span> <span class="built_in">len</span>(n2) == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> getN(n1, k-<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">if</span> k == <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">min</span>(getN(n1,k-<span class="number">1</span>), getN(n2,k-<span class="number">1</span>))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        a = getN(n1,k//<span class="number">2</span>-<span class="number">1</span>)</span><br><span class="line">        b = getN(n2,k//<span class="number">2</span>-<span class="number">1</span>)</span><br><span class="line">        <span class="comment">#print(a,b,k-k//2)</span></span><br><span class="line">        <span class="keyword">if</span> a &lt; b:</span><br><span class="line">            <span class="comment">#print(&#x27;n1&#x27;,n1[k//2:])</span></span><br><span class="line">            <span class="keyword">return</span> f(n1[k//<span class="number">2</span>:],n2,k-k//<span class="number">2</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="comment">#print(&#x27;n2&#x27;,n2[k//2:])</span></span><br><span class="line">            <span class="keyword">return</span> f(n1,n2[k//<span class="number">2</span>:],k-k//<span class="number">2</span>)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findMedianSortedArrays</span>(<span class="params">self, n1: <span class="type">List</span>[<span class="built_in">int</span>], n2: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">float</span>:</span></span><br><span class="line">        left = (<span class="built_in">len</span>(n1)+<span class="built_in">len</span>(n2)+<span class="number">1</span>)//<span class="number">2</span></span><br><span class="line">        right = (<span class="built_in">len</span>(n1)+<span class="built_in">len</span>(n2)+<span class="number">2</span>)//<span class="number">2</span></span><br><span class="line">        <span class="built_in">print</span>(f(n1,n2,left), left)</span><br><span class="line">        <span class="built_in">print</span>(f(n1,n2,right), right)</span><br><span class="line">        <span class="keyword">return</span> (f(n1,n2,left)+f(n1,n2,right))/<span class="number">2.0</span></span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -390,7 +390,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-22"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-9"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-6"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -503,8 +503,6 @@
 
 
 
-
-  
 
   
 

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 6.0.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -28,15 +28,15 @@
 <meta property="og:site_name" content="記事本">
 <meta property="og:description" content="動機 之前寫的很爛，居然還用到例外!? 所以重寫">
 <meta property="og:locale" content="zh_TW">
-<meta property="og:image" content="https://assets.leetcode.com/uploads/2020/10/03/reverse_ex1.jpg">
+<meta property="og:image" content="https://assets.leetcode.com/uploads/2020/10/03/reverse_ex1.jpg ">
 <meta property="og:image" content="https://assets.leetcode.com/uploads/2020/10/03/reverse_ex2.jpg">
 <meta property="article:published_time" content="2021-07-09T16:35:44.000Z">
-<meta property="article:modified_time" content="2022-01-22T10:54:02.295Z">
+<meta property="article:modified_time" content="2022-01-30T06:31:02.314Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Recursion">
 <meta property="article:tag" content="Linked List">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://assets.leetcode.com/uploads/2020/10/03/reverse_ex1.jpg">
+<meta name="twitter:image" content="https://assets.leetcode.com/uploads/2020/10/03/reverse_ex1.jpg ">
 
 <link rel="canonical" href="https://littlebees.github.io/2021/07/leetcode-25/">
 
@@ -235,7 +235,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-22 18:54:02" itemprop="dateModified" datetime="2022-01-22T18:54:02+08:00">2022-01-22</time>
+                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -266,16 +266,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機">動機</h2>
+        <h2 id="動機-521">動機</h2>
 <p>之前寫的很爛，居然還用到例外!?<br>
 所以重寫</p>
-<a id="more"></a>
-<h2 id="Problem">Problem</h2>
+<span id="more"></span>
+<h2 id="Problem-324">Problem</h2>
 <p>Given a linked list, reverse the nodes of a linked list <em>k</em> at a time and return its modified list.</p><p><em>k</em> is a positive integer and is less than or equal to the length of the linked list. If the number of nodes is not a multiple of <em>k</em> then left-out nodes, in the end, should remain as it is.</p><p>You may not alter the values in the list's nodes, only nodes themselves may be changed.</p><p> </p><p><strong>Example 1:</strong></p><img alt="" src="https://assets.leetcode.com/uploads/2020/10/03/reverse_ex1.jpg "style="width: 542px; height: 222px;" /><pre><strong>Input:</strong> head = [1,2,3,4,5], k = 2<strong>Output:</strong> [2,1,4,3,5]</pre><p><strong>Example 2:</strong></p><img alt="" src="https://assets.leetcode.com/uploads/2020/10/03/reverse_ex2.jpg" style="width: 542px; height: 222px;" /><pre><strong>Input:</strong> head = [1,2,3,4,5], k = 3<strong>Output:</strong> [3,2,1,4,5]</pre><p><strong>Example 3:</strong></p><pre><strong>Input:</strong> head = [1,2,3,4,5], k = 1<strong>Output:</strong> [1,2,3,4,5]</pre><p><strong>Example 4:</strong></p><pre><strong>Input:</strong> head = [1], k = 1<strong>Output:</strong> [1]</pre><p> </p><p><strong>Constraints:</strong></p><ul><li>The number of nodes in the list is in the range <code>sz</code>.</li><li><code>1 <= sz <= 5000</code></li><li><code>0 <= Node.val <= 1000</code></li><li><code>1 <= k <= sz</code></li></ul><p> </p><strong>Follow-up:</strong> Can you solve the problem in O(1) extra memory space?
-<h2 id="Sol">Sol</h2>
+<h2 id="Sol-304">Sol</h2>
 <p>這題其實把reverse，a到b的部分寫出來就幾乎完成了，可以看<a href="/2021/07/linked-list-faq">這裡</a>有解釋</p>
 <p>剩下就是把group的起終點找出來再丟到reverse就ok了</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reverseKGroup</span><span class="params">(self, head: ListNode, k: int)</span> -&gt; ListNode:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">rev</span><span class="params">(a,b)</span>:</span> <span class="comment"># [a,b)</span></span><br><span class="line">        ptr = a</span><br><span class="line">        ptr_next = a.next</span><br><span class="line">        a.next = <span class="literal">None</span></span><br><span class="line">        <span class="keyword">while</span> ptr_next <span class="keyword">is</span> <span class="keyword">not</span> b:</span><br><span class="line">            tmp = ptr_next.next</span><br><span class="line">            ptr_next.next = ptr</span><br><span class="line">            ptr = ptr_next</span><br><span class="line">            ptr_next = tmp</span><br><span class="line">        <span class="keyword">return</span> [ptr,a] <span class="comment"># head, tail</span></span><br><span class="line">    group_head = head</span><br><span class="line">    prev_group_tail = <span class="literal">None</span></span><br><span class="line">    ret = <span class="literal">None</span></span><br><span class="line">    <span class="keyword">while</span> group_head:</span><br><span class="line">        group_tail = group_head</span><br><span class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> range(k):</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> group_tail:</span><br><span class="line">                <span class="keyword">return</span> ret <span class="keyword">if</span> ret <span class="keyword">else</span> head</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                group_tail = group_tail.next</span><br><span class="line">        h,d = rev(group_head,group_tail)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> ret:</span><br><span class="line">            ret = h</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            prev_group_tail.next = h</span><br><span class="line">        d.next = group_tail</span><br><span class="line">        group_head = group_tail</span><br><span class="line">        prev_group_tail = d</span><br><span class="line">    <span class="keyword">return</span> ret</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reverseKGroup</span>(<span class="params">self, head: ListNode, k: <span class="built_in">int</span></span>) -&gt; ListNode:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">rev</span>(<span class="params">a,b</span>):</span> <span class="comment"># [a,b)</span></span><br><span class="line">        ptr = a</span><br><span class="line">        ptr_next = a.<span class="built_in">next</span></span><br><span class="line">        a.<span class="built_in">next</span> = <span class="literal">None</span></span><br><span class="line">        <span class="keyword">while</span> ptr_next <span class="keyword">is</span> <span class="keyword">not</span> b:</span><br><span class="line">            tmp = ptr_next.<span class="built_in">next</span></span><br><span class="line">            ptr_next.<span class="built_in">next</span> = ptr</span><br><span class="line">            ptr = ptr_next</span><br><span class="line">            ptr_next = tmp</span><br><span class="line">        <span class="keyword">return</span> [ptr,a] <span class="comment"># head, tail</span></span><br><span class="line">    group_head = head</span><br><span class="line">    prev_group_tail = <span class="literal">None</span></span><br><span class="line">    ret = <span class="literal">None</span></span><br><span class="line">    <span class="keyword">while</span> group_head:</span><br><span class="line">        group_tail = group_head</span><br><span class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(k):</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> group_tail:</span><br><span class="line">                <span class="keyword">return</span> ret <span class="keyword">if</span> ret <span class="keyword">else</span> head</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                group_tail = group_tail.<span class="built_in">next</span></span><br><span class="line">        h,d = rev(group_head,group_tail)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> ret:</span><br><span class="line">            ret = h</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            prev_group_tail.<span class="built_in">next</span> = h</span><br><span class="line">        d.<span class="built_in">next</span> = group_tail</span><br><span class="line">        group_head = group_tail</span><br><span class="line">        prev_group_tail = d</span><br><span class="line">    <span class="keyword">return</span> ret</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -359,7 +359,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-521"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-324"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-304"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -472,8 +472,6 @@
 
 
 
-
-  
 
   
 

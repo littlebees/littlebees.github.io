@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 6.0.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 寫寫std::move的筆記">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-12-26T04:53:07.000Z">
-<meta property="article:modified_time" content="2022-01-21T19:33:20.247Z">
+<meta property="article:modified_time" content="2022-01-30T06:31:02.298Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-22 03:33:20" itemprop="dateModified" datetime="2022-01-22T03:33:20+08:00">2022-01-22</time>
+                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -257,9 +257,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機">動機</h2>
+        <h2 id="動機-36">動機</h2>
 <p>寫寫std::move的筆記</p>
-<a id="more"></a>
+<span id="more"></span>
 <h2 id="value-type-reference-type">value type &amp; reference type</h2>
 <ul>
 <li>value type: 每個變數持有的都是獨立的資料</li>
@@ -277,7 +277,7 @@
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> *a = <span class="number">1</span>+<span class="number">2</span>;</span><br><span class="line"><span class="keyword">int</span> &amp;b = <span class="number">1</span>+<span class="number">2</span>;</span><br></pre></td></tr></table></figure>
 <p>就會出事，因為資料沒有被變數接住，就不能被指定到指標與參考，這十分不方便</p>
 <p>例子</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> &amp;a, <span class="keyword">int</span> &amp;b)</span></span></span><br><span class="line">  return a+b;</span><br><span class="line">&#125;</span><br><span class="line">add(<span class="number">1</span>+<span class="number">2</span>,<span class="number">1</span>+<span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> &amp;a, <span class="keyword">int</span> &amp;b)</span></span></span><br><span class="line"><span class="function">  <span class="keyword">return</span> a+b</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">add</span>(<span class="number">1</span>+<span class="number">2</span>,<span class="number">1</span>+<span class="number">2</span>);</span><br></pre></td></tr></table></figure>
 <p>遇到這種，就要先把資料assign到變數後才能用</p>
 <h2 id="std-move">std::move</h2>
 <p>所以cpp這次怎麼曲線救國?</p>
@@ -288,10 +288,10 @@
 而std::move就是把一個變數轉成說可以搬空我這樣</p>
 </blockquote>
 <p>整體std::move大概像</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static_cast</span>&lt;<span class="keyword">typename</span> <span class="built_in">std</span>::remove_reference&lt;T&gt;::type&amp;&amp;&gt;(t)</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static_cast</span>&lt;<span class="keyword">typename</span> std::remove_reference&lt;T&gt;::type&amp;&amp;&gt;(t)</span><br></pre></td></tr></table></figure>
 <h2 id="搬空">搬空?</h2>
 <p>見下面的例子</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">string</span> &#123;</span></span><br><span class="line">    <span class="keyword">char</span>* data</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="built_in">string</span> (<span class="keyword">const</span> <span class="keyword">char</span>* p) &#123;</span><br><span class="line">    <span class="keyword">size_t</span> size = <span class="built_in">std</span>::<span class="built_in">strlen</span>(p) + <span class="number">1</span>;</span><br><span class="line">    data = <span class="keyword">new</span> <span class="keyword">char</span>[size];</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">memcpy</span>(data, p, size);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">string</span> (<span class="built_in">string</span>&amp;&amp; rhs) &#123;</span><br><span class="line">    data = rhs.data;</span><br><span class="line">    rhs.data = <span class="literal">nullptr</span>; <span class="comment">// 搬空</span></span><br><span class="line">  &#125;</span><br><span class="line">  ~<span class="built_in">string</span>() &#123;</span><br><span class="line">      <span class="keyword">delete</span>[] data;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">string</span> &#123;</span></span><br><span class="line">    <span class="keyword">char</span>* data</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="built_in">string</span> (<span class="keyword">const</span> <span class="keyword">char</span>* p) &#123;</span><br><span class="line">    <span class="keyword">size_t</span> size = std::<span class="built_in">strlen</span>(p) + <span class="number">1</span>;</span><br><span class="line">    data = <span class="keyword">new</span> <span class="keyword">char</span>[size];</span><br><span class="line">    std::<span class="built_in">memcpy</span>(data, p, size);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">string</span> (string&amp;&amp; rhs) &#123;</span><br><span class="line">    data = rhs.data;</span><br><span class="line">    rhs.data = <span class="literal">nullptr</span>; <span class="comment">// 搬空</span></span><br><span class="line">  &#125;</span><br><span class="line">  ~<span class="built_in">string</span>() &#123;</span><br><span class="line">      <span class="keyword">delete</span>[] data;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <h2 id="頭好昏，在c好好的，怎麼到cpp就變這麼複雜了">頭好昏，在c好好的，怎麼到cpp就變這麼複雜了</h2>
 <ol>
 <li>(想要) cpp想讓複製物件，變成如同複製指標一樣 (躲掉多的deep copy，但是又不想多一個變數去接)</li>
@@ -302,7 +302,7 @@
 <p>因為cpp的語法讓複製資料與複製指標看起來一樣，但卻又在使用上把指標與資料區分開來</p>
 <p>在其他語言不論物件或是整數的賦值都是起來一樣，但是cpp遇到reference會把一般資料的賦值混在一起，</p>
 <p>就變成要再多一個case處理原本的複製資料，最後得到的就是現在的這些東西，還有更複雜的value category</p>
-<h2 id="Ref">Ref</h2>
+<h2 id="Ref-20">Ref</h2>
 <p><span class="exturl" data-url="aHR0cHM6Ly93d3cueWlud2FuZy5vcmcvYmxvZy1jbi8yMDE2LzA2LzA4L2phdmEtdmFsdWUtdHlwZQ==">Java 有值类型吗？<i class="fa fa-external-link-alt"></i></span><br>
 <span class="exturl" data-url="aHR0cHM6Ly9zdGFja292ZXJmbG93LmNvbS9xdWVzdGlvbnMvMzQxMzQ3MC93aGF0LWlzLXN0ZG1vdmUtYW5kLXdoZW4tc2hvdWxkLWl0LWJlLXVzZWQ=">What is std::move(), and when should it be used?<i class="fa fa-external-link-alt"></i></span></p>
 
@@ -385,7 +385,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#value-type-reference-type"><span class="nav-number">2.</span> <span class="nav-text">value type &amp; reference type</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pointer-in-C-reference-in-CPP"><span class="nav-number">3.</span> <span class="nav-text">pointer in C &amp; reference in CPP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#std-move"><span class="nav-number">4.</span> <span class="nav-text">std::move</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搬空"><span class="nav-number">5.</span> <span class="nav-text">搬空?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#頭好昏，在c好好的，怎麼到cpp就變這麼複雜了"><span class="nav-number">6.</span> <span class="nav-text">頭好昏，在c好好的，怎麼到cpp就變這麼複雜了</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">7.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-36"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#value-type-reference-type"><span class="nav-number">2.</span> <span class="nav-text">value type &amp; reference type</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pointer-in-C-reference-in-CPP"><span class="nav-number">3.</span> <span class="nav-text">pointer in C &amp; reference in CPP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#std-move"><span class="nav-number">4.</span> <span class="nav-text">std::move</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%90%AC%E7%A9%BA"><span class="nav-number">5.</span> <span class="nav-text">搬空?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A0%AD%E5%A5%BD%E6%98%8F%EF%BC%8C%E5%9C%A8c%E5%A5%BD%E5%A5%BD%E7%9A%84%EF%BC%8C%E6%80%8E%E9%BA%BC%E5%88%B0cpp%E5%B0%B1%E8%AE%8A%E9%80%99%E9%BA%BC%E8%A4%87%E9%9B%9C%E4%BA%86"><span class="nav-number">6.</span> <span class="nav-text">頭好昏，在c好好的，怎麼到cpp就變這麼複雜了</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-20"><span class="nav-number">7.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -498,8 +498,6 @@
 
 
 
-
-  
 
   
 

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 6.0.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-11-21T13:18:01.000Z">
-<meta property="article:modified_time" content="2022-01-22T10:58:43.255Z">
+<meta property="article:modified_time" content="2022-01-30T06:31:02.334Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-22 18:58:43" itemprop="dateModified" datetime="2022-01-22T18:58:43+08:00">2022-01-22</time>
+                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -257,8 +257,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機">動機</h2>
-<a id="more"></a>
+        <h2 id="動機-418">動機</h2>
+<span id="more"></span>
 <h2 id="Z-algo">Z algo</h2>
 <p><code>z[i]</code>是看這個位置i開始，與從0開始的string，有多長是一樣的</p>
 <p>所以可以把pattern接到要比對的字串最前面，之後產生z function，去找與pattern一樣長的位置</p>
@@ -269,7 +269,7 @@ z function是從i開始往前看，所以可以利用前面已經看過的<code>
 <li>看i是不是在範圍中，同時看利用之前的<code>z[i-l]</code>延伸出去，如果還在範圍，就抄答案</li>
 <li>不能抄答案就重新算</li>
 </ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mk_z</span><span class="params">(S)</span>:</span></span><br><span class="line">	z = [<span class="number">0</span>]*len(S)</span><br><span class="line">	l, r = <span class="number">0</span>, <span class="number">1</span></span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">extend</span><span class="params">(l, r)</span>:</span></span><br><span class="line">		<span class="keyword">while</span> r &lt;= len(S) <span class="keyword">and</span> S[r-l<span class="number">-1</span>] == S[r<span class="number">-1</span>]:</span><br><span class="line">			r += <span class="number">1</span></span><br><span class="line">		<span class="keyword">return</span> r</span><br><span class="line">	<span class="comment"># [l,r)</span></span><br><span class="line">	<span class="comment"># most examples use [i,r], which is closed range</span></span><br><span class="line">	<span class="comment"># I dont like closed range, so I use [l,r) to rewrite this prog</span></span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,len(S)):</span><br><span class="line">		<span class="comment"># ((l) ... i) ..z[i-l].. r</span></span><br><span class="line">		<span class="keyword">if</span> i &lt; r <span class="keyword">and</span> i+z[i-l] &lt; r<span class="number">-1</span>: <span class="comment"># i+z[i-l] is extended str, and this is in range</span></span><br><span class="line">			z[i] = z[i-l] <span class="comment"># so we can compute z[i] directly</span></span><br><span class="line">		<span class="keyword">else</span>: <span class="comment"># i is not in [l,r) or i+z[i-l] &gt;= r-1, so we need a new [l,r)</span></span><br><span class="line">			l = i <span class="comment"># new range</span></span><br><span class="line">			r = extend(l, i+<span class="number">1</span> <span class="keyword">if</span> i &gt;= r <span class="keyword">else</span> r) <span class="comment"># use new end &amp; extend</span></span><br><span class="line">			z[i] = r-l<span class="number">-1</span> <span class="comment"># new [l,r), new z[i] (compute)</span></span><br><span class="line">	<span class="keyword">return</span> z</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">z_algo</span><span class="params">(S,pat)</span>:</span></span><br><span class="line">	magic = <span class="string">f'<span class="subst">&#123;pat&#125;</span>.<span class="subst">&#123;S&#125;</span>'</span> <span class="comment"># '.' must not exist in S &amp; pat</span></span><br><span class="line">	z = mk_z(magic)</span><br><span class="line">	offset = len(pat)+<span class="number">1</span></span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> range(offset, len(magic)):</span><br><span class="line">		<span class="keyword">if</span> z[i] == len(pat):</span><br><span class="line">			<span class="keyword">return</span> <span class="string">f'found at <span class="subst">&#123;i-offset&#125;</span>'</span></span><br><span class="line">	<span class="keyword">return</span> <span class="string">'no found'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mk_z</span>(<span class="params">S</span>):</span></span><br><span class="line">	z = [<span class="number">0</span>]*<span class="built_in">len</span>(S)</span><br><span class="line">	l, r = <span class="number">0</span>, <span class="number">1</span></span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">extend</span>(<span class="params">l, r</span>):</span></span><br><span class="line">		<span class="keyword">while</span> r &lt;= <span class="built_in">len</span>(S) <span class="keyword">and</span> S[r-l-<span class="number">1</span>] == S[r-<span class="number">1</span>]:</span><br><span class="line">			r += <span class="number">1</span></span><br><span class="line">		<span class="keyword">return</span> r</span><br><span class="line">	<span class="comment"># [l,r)</span></span><br><span class="line">	<span class="comment"># most examples use [i,r], which is closed range</span></span><br><span class="line">	<span class="comment"># I dont like closed range, so I use [l,r) to rewrite this prog</span></span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="built_in">len</span>(S)):</span><br><span class="line">		<span class="comment"># ((l) ... i) ..z[i-l].. r</span></span><br><span class="line">		<span class="keyword">if</span> i &lt; r <span class="keyword">and</span> i+z[i-l] &lt; r-<span class="number">1</span>: <span class="comment"># i+z[i-l] is extended str, and this is in range</span></span><br><span class="line">			z[i] = z[i-l] <span class="comment"># so we can compute z[i] directly</span></span><br><span class="line">		<span class="keyword">else</span>: <span class="comment"># i is not in [l,r) or i+z[i-l] &gt;= r-1, so we need a new [l,r)</span></span><br><span class="line">			l = i <span class="comment"># new range</span></span><br><span class="line">			r = extend(l, i+<span class="number">1</span> <span class="keyword">if</span> i &gt;= r <span class="keyword">else</span> r) <span class="comment"># use new end &amp; extend</span></span><br><span class="line">			z[i] = r-l-<span class="number">1</span> <span class="comment"># new [l,r), new z[i] (compute)</span></span><br><span class="line">	<span class="keyword">return</span> z</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">z_algo</span>(<span class="params">S,pat</span>):</span></span><br><span class="line">	magic = <span class="string">f&#x27;<span class="subst">&#123;pat&#125;</span>.<span class="subst">&#123;S&#125;</span>&#x27;</span> <span class="comment"># &#x27;.&#x27; must not exist in S &amp; pat</span></span><br><span class="line">	z = mk_z(magic)</span><br><span class="line">	offset = <span class="built_in">len</span>(pat)+<span class="number">1</span></span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(offset, <span class="built_in">len</span>(magic)):</span><br><span class="line">		<span class="keyword">if</span> z[i] == <span class="built_in">len</span>(pat):</span><br><span class="line">			<span class="keyword">return</span> <span class="string">f&#x27;found at <span class="subst">&#123;i-offset&#125;</span>&#x27;</span></span><br><span class="line">	<span class="keyword">return</span> <span class="string">&#x27;no found&#x27;</span></span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -349,7 +349,7 @@ z function是從i開始往前看，所以可以利用前面已經看過的<code>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Z-algo"><span class="nav-number">2.</span> <span class="nav-text">Z algo</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-418"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Z-algo"><span class="nav-number">2.</span> <span class="nav-text">Z algo</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -462,8 +462,6 @@ z function是從i開始往前看，所以可以利用前面已經看過的<code>
 
 
 
-
-  
 
   
 

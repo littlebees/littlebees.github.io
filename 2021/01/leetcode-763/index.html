@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 6.0.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -29,12 +29,12 @@
 <meta property="og:description" content="動機 看到greedy解後恍然大悟">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-01-30T16:55:22.000Z">
-<meta property="article:modified_time" content="2022-01-22T10:54:02.305Z">
+<meta property="article:modified_time" content="2022-01-30T06:31:02.306Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="String">
 <meta property="article:tag" content="Two Pointers">
-<meta property="article:tag" content="Hash Table">
 <meta property="article:tag" content="Greedy">
+<meta property="article:tag" content="Hash Table">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://littlebees.github.io/2021/01/leetcode-763/">
@@ -234,7 +234,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-22 18:54:02" itemprop="dateModified" datetime="2022-01-22T18:54:02+08:00">2022-01-22</time>
+                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -265,17 +265,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機">動機</h2>
+        <h2 id="動機-161">動機</h2>
 <p>看到greedy解後恍然大悟</p>
-<a id="more"></a>
-<h2 id="Problem">Problem</h2>
+<span id="more"></span>
+<h2 id="Problem-87">Problem</h2>
 <p>You are given a string <code>s</code>. We want to partition the string into as many parts as possible so that each letter appears in at most one part.</p><p>Return <em>a list of integers representing the size of these parts</em>.</p><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input:</strong> s = ababcbacadefegdehijhklij<strong>Output:</strong> [9,7,8]<strong>Explanation:</strong>The partition is ababcbaca, defegde, hijhklij.This is a partition so that each letter appears in at most one part.A partition like ababcbacadefegde, hijhklij is incorrect, because it splits s into less parts.</pre><p><strong>Example 2:</strong></p><pre><strong>Input:</strong> s = eccbbbbdec<strong>Output:</strong> [10]</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>1 <= s.length <= 500</code></li><li><code>s</code> consists of lowercase English letters.</li></ul>
 <h2 id="Sol-stack">Sol: stack</h2>
 <p>把每個字元當成一個一個區塊，如果stack中有出現過的字元就做interval merge</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">partitionLabels</span><span class="params">(self, S: str)</span> -&gt; List[int]:</span></span><br><span class="line">        stk = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(S)):</span><br><span class="line">            j = len(stk)<span class="number">-1</span></span><br><span class="line">            <span class="keyword">while</span> j &gt;= <span class="number">0</span> <span class="keyword">and</span> S[i] <span class="keyword">not</span> <span class="keyword">in</span> stk[j][<span class="number">1</span>]:</span><br><span class="line">                j -= <span class="number">1</span></span><br><span class="line">                </span><br><span class="line">            <span class="keyword">if</span> j &lt; <span class="number">0</span>:</span><br><span class="line">                stk.append([<span class="number">1</span>,set([S[i]])])</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">for</span> _ <span class="keyword">in</span> range(len(stk)-j<span class="number">-1</span>):</span><br><span class="line">                    tmp = stk.pop()</span><br><span class="line">                    stk[<span class="number">-1</span>][<span class="number">0</span>] += tmp[<span class="number">0</span>]</span><br><span class="line">                    stk[<span class="number">-1</span>][<span class="number">1</span>] = stk[<span class="number">-1</span>][<span class="number">1</span>] | tmp[<span class="number">1</span>]</span><br><span class="line">                stk[<span class="number">-1</span>][<span class="number">0</span>] += <span class="number">1</span></span><br><span class="line">            <span class="comment">#print(stk,S[:i+1])</span></span><br><span class="line">        <span class="keyword">return</span> [seg[<span class="number">0</span>] <span class="keyword">for</span> seg <span class="keyword">in</span> stk]</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">partitionLabels</span>(<span class="params">self, S: <span class="built_in">str</span></span>) -&gt; <span class="type">List</span>[<span class="built_in">int</span>]:</span></span><br><span class="line">        stk = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(S)):</span><br><span class="line">            j = <span class="built_in">len</span>(stk)-<span class="number">1</span></span><br><span class="line">            <span class="keyword">while</span> j &gt;= <span class="number">0</span> <span class="keyword">and</span> S[i] <span class="keyword">not</span> <span class="keyword">in</span> stk[j][<span class="number">1</span>]:</span><br><span class="line">                j -= <span class="number">1</span></span><br><span class="line">                </span><br><span class="line">            <span class="keyword">if</span> j &lt; <span class="number">0</span>:</span><br><span class="line">                stk.append([<span class="number">1</span>,<span class="built_in">set</span>([S[i]])])</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(stk)-j-<span class="number">1</span>):</span><br><span class="line">                    tmp = stk.pop()</span><br><span class="line">                    stk[-<span class="number">1</span>][<span class="number">0</span>] += tmp[<span class="number">0</span>]</span><br><span class="line">                    stk[-<span class="number">1</span>][<span class="number">1</span>] = stk[-<span class="number">1</span>][<span class="number">1</span>] | tmp[<span class="number">1</span>]</span><br><span class="line">                stk[-<span class="number">1</span>][<span class="number">0</span>] += <span class="number">1</span></span><br><span class="line">            <span class="comment">#print(stk,S[:i+1])</span></span><br><span class="line">        <span class="keyword">return</span> [seg[<span class="number">0</span>] <span class="keyword">for</span> seg <span class="keyword">in</span> stk]</span><br></pre></td></tr></table></figure>
 <h2 id="Sol2-greedy">Sol2: greedy</h2>
 <p>如果能知道每個字元的最後位置(hash)，就能知道這個區塊的最後位置!!</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">partitionLabels</span><span class="params">(self, S)</span>:</span></span><br><span class="line">        last = &#123;c: i <span class="keyword">for</span> i, c <span class="keyword">in</span> enumerate(S)&#125;</span><br><span class="line">        end = start = <span class="number">0</span></span><br><span class="line">        ans = []</span><br><span class="line">        <span class="keyword">for</span> i, c <span class="keyword">in</span> enumerate(S):</span><br><span class="line">            end = max(end, last[c])</span><br><span class="line">            <span class="keyword">if</span> i == end:</span><br><span class="line">                ans.append(i - start + <span class="number">1</span>)</span><br><span class="line">                start = i + <span class="number">1</span></span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">partitionLabels</span>(<span class="params">self, S</span>):</span></span><br><span class="line">        last = &#123;c: i <span class="keyword">for</span> i, c <span class="keyword">in</span> <span class="built_in">enumerate</span>(S)&#125;</span><br><span class="line">        end = start = <span class="number">0</span></span><br><span class="line">        ans = []</span><br><span class="line">        <span class="keyword">for</span> i, c <span class="keyword">in</span> <span class="built_in">enumerate</span>(S):</span><br><span class="line">            end = <span class="built_in">max</span>(end, last[c])</span><br><span class="line">            <span class="keyword">if</span> i == end:</span><br><span class="line">                ans.append(i - start + <span class="number">1</span>)</span><br><span class="line">                start = i + <span class="number">1</span></span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -286,8 +286,8 @@
           <div class="post-tags">
               <a href="/tags/String/" rel="tag"># String</a>
               <a href="/tags/Two-Pointers/" rel="tag"># Two Pointers</a>
-              <a href="/tags/Hash-Table/" rel="tag"># Hash Table</a>
               <a href="/tags/Greedy/" rel="tag"># Greedy</a>
+              <a href="/tags/Hash-Table/" rel="tag"># Hash Table</a>
           </div>
 
         
@@ -361,7 +361,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-stack"><span class="nav-number">3.</span> <span class="nav-text">Sol: stack</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol2-greedy"><span class="nav-number">4.</span> <span class="nav-text">Sol2: greedy</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-161"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-87"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-stack"><span class="nav-number">3.</span> <span class="nav-text">Sol: stack</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol2-greedy"><span class="nav-number">4.</span> <span class="nav-text">Sol2: greedy</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -474,8 +474,6 @@
 
 
 
-
-  
 
   
 

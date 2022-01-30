@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 6.0.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 python與ruby上用thread必要面對的課題">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-10-04T16:08:26.000Z">
-<meta property="article:modified_time" content="2022-01-21T19:20:38.357Z">
+<meta property="article:modified_time" content="2022-01-30T06:31:02.294Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-22 03:20:38" itemprop="dateModified" datetime="2022-01-22T03:20:38+08:00">2022-01-22</time>
+                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -257,9 +257,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機">動機</h2>
+        <h2 id="動機-2">動機</h2>
 <p>python與ruby上用thread必要面對的課題</p>
- <a id="more"></a>
+ <span id="more"></span>
 <h2 id="GIL為什麼要存在">GIL為什麼要存在</h2>
 <ol>
 <li>省下替各個資料結構上鎖的煩惱</li>
@@ -273,7 +273,7 @@
 <li>使用OS級的thread卻沒有發揮OS級的thread的效能</li>
 <li>GIL怎麼被搶，是看各個interpreter的實作，完全不知道什麼時候、情況下發生(有的是時間，有的是bytecode太長)</li>
 </ol>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sheep = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="number">5</span>.times.map <span class="keyword">do</span></span><br><span class="line">  Thread.new <span class="keyword">do</span></span><br><span class="line">    <span class="keyword">unless</span> sheep</span><br><span class="line">      sheep = <span class="literal">true</span></span><br><span class="line">      print(<span class="string">"DONE"</span>)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span>.each(&amp;<span class="symbol">:join</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sheep = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="number">5</span>.times.map <span class="keyword">do</span></span><br><span class="line">  Thread.new <span class="keyword">do</span></span><br><span class="line">    <span class="keyword">unless</span> sheep</span><br><span class="line">      sheep = <span class="literal">true</span></span><br><span class="line">      print(<span class="string">&quot;DONE&quot;</span>)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span>.each(&amp;<span class="symbol">:join</span>)</span><br></pre></td></tr></table></figure>
 <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sheep = Sheep.new</span><br><span class="line"></span><br><span class="line"><span class="number">5</span>.times.map <span class="keyword">do</span></span><br><span class="line">  Thread.new <span class="keyword">do</span></span><br><span class="line">    <span class="keyword">unless</span> sheep.shorn?</span><br><span class="line">      sheep.shear!</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span>.each(&amp;<span class="symbol">:join</span>)</span><br></pre></td></tr></table></figure>
 <h2 id="如何相處">如何相處</h2>
 <ol>
@@ -281,7 +281,7 @@
 <li>在IO重的code上用thread，這正是唯一能享受到多線程好處的地方</li>
 <li>用fork… 或用 C…</li>
 </ol>
-<h2 id="Ref">Ref</h2>
+<h2 id="Ref-4">Ref</h2>
 <p><span class="exturl" data-url="aHR0cHM6Ly9ydWJ5LWNoaW5hLm9yZy90b3BpY3MvMjg0MTU=">Ruby 无人知晓的 GIL<i class="fa fa-external-link-alt"></i></span><br>
 <span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmxvdWllLmx1LzIwMTcvMDUvMTkvJUU2JUI3JUIxJUU1JTg1JUE1LWdpbC0lRTUlQTYlODIlRTQlQkQlOTUlRTUlQUYlQUIlRTUlODclQkElRTUlQkYlQUIlRTklODAlOUYlRTQlQjglOTQtdGhyZWFkLXNhZmUtJUU3JTlBJTg0LXB5dGhvbi1ncm9rLXRoZS1naWwtaG93LXRvLXdyaXRlLWZhc3QtYW5kLXRocmVhZC1zYWZlLXB5dGhvbi8=">深入 GIL: 如何寫出快速且 thread-safe 的 Python<i class="fa fa-external-link-alt"></i></span><br>
 <span class="exturl" data-url="aHR0cDovL2NlbmFsdWx1LmdpdGh1Yi5pby9weXRob24vZ2lsLWluLXB5dGhvbi8=">Python的GIL是什么鬼，多线程性能究竟如何<i class="fa fa-external-link-alt"></i></span><br>
@@ -366,7 +366,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GIL為什麼要存在"><span class="nav-number">2.</span> <span class="nav-text">GIL為什麼要存在</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缺點"><span class="nav-number">3.</span> <span class="nav-text">缺點</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何相處"><span class="nav-number">4.</span> <span class="nav-text">如何相處</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">5.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-2"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GIL%E7%82%BA%E4%BB%80%E9%BA%BC%E8%A6%81%E5%AD%98%E5%9C%A8"><span class="nav-number">2.</span> <span class="nav-text">GIL為什麼要存在</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%BA%E9%BB%9E"><span class="nav-number">3.</span> <span class="nav-text">缺點</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%9B%B8%E8%99%95"><span class="nav-number">4.</span> <span class="nav-text">如何相處</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-4"><span class="nav-number">5.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -479,8 +479,6 @@
 
 
 
-
-  
 
   
 

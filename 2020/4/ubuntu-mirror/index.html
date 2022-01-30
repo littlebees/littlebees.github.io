@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 6.0.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://i.imgur.com/3isrzCd.png">
 <meta property="og:image" content="https://i.imgur.com/gIM7Ntp.png">
 <meta property="article:published_time" content="2020-04-14T17:26:21.000Z">
-<meta property="article:modified_time" content="2022-01-21T19:04:17.027Z">
+<meta property="article:modified_time" content="2022-01-30T06:31:02.302Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://i.imgur.com/GiqTqH3.png">
@@ -235,7 +235,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-22 03:04:17" itemprop="dateModified" datetime="2022-01-22T03:04:17+08:00">2022-01-22</time>
+                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -263,9 +263,9 @@
 
       
         <p>灌了ubuntu第一件事，不是更新，是換一個快的mirror</p>
-<a id="more"></a>
+<span id="more"></span>
 <h2 id="script">script</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line"></span><br><span class="line">new=free.nchc.org.tw</span><br><span class="line">old=$(cat /etc/apt/sources.list | grep main | awk <span class="string">'&#123; print $2 &#125;'</span> | cut -d<span class="string">'/'</span> -f3 | sed -n <span class="string">'3P'</span>)</span><br><span class="line"></span><br><span class="line">sudo sed -i <span class="string">"s/<span class="variable">$old</span>/<span class="variable">$new</span>/g"</span> /etc/apt/sources.list</span><br><span class="line">sudo sed -i <span class="string">"s/security.ubuntu.com/<span class="variable">$new</span>/g"</span> /etc/apt/sources.list</span><br><span class="line">sudo apt update</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line"></span><br><span class="line">new=free.nchc.org.tw</span><br><span class="line">old=$(cat /etc/apt/sources.list | grep main | awk <span class="string">&#x27;&#123; print $2 &#125;&#x27;</span> | cut -d<span class="string">&#x27;/&#x27;</span> -f3 | sed -n <span class="string">&#x27;3P&#x27;</span>)</span><br><span class="line"></span><br><span class="line">sudo sed -i <span class="string">&quot;s/<span class="variable">$old</span>/<span class="variable">$new</span>/g&quot;</span> /etc/apt/sources.list</span><br><span class="line">sudo sed -i <span class="string">&quot;s/security.ubuntu.com/<span class="variable">$new</span>/g&quot;</span> /etc/apt/sources.list</span><br><span class="line">sudo apt update</span><br></pre></td></tr></table></figure>
 <h2 id="bash的複習-各種expansion">bash的複習: 各種expansion</h2>
 <p>給個變數</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hi=123</span><br></pre></td></tr></table></figure>
@@ -278,7 +278,7 @@
 <p><img src="https://i.imgur.com/3isrzCd.png" alt=""></p>
 <h3 id="Command-expansion">Command expansion</h3>
 <p><img src="https://i.imgur.com/gIM7Ntp.png" alt=""></p>
-<h2 id="Ref">Ref</h2>
+<h2 id="Ref-36">Ref</h2>
 <p><span class="exturl" data-url="aHR0cDovL3d3dy5jb21wY2l2Lm9yZy90b3BpY3MvYmFzaC92YXJpYWJsZXMtYW5kLXN1YnN0aXR1dGlvbi8=">bash的資料<i class="fa fa-external-link-alt"></i></span><br>
 <span class="exturl" data-url="aHR0cDovL25vdGUuZHJ4LnR3LzIwMTIvMDEvbWlycm9yLmh0bWw=">改mirror的資料<i class="fa fa-external-link-alt"></i></span></p>
 
@@ -361,7 +361,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#script"><span class="nav-number">1.</span> <span class="nav-text">script</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bash的複習-各種expansion"><span class="nav-number">2.</span> <span class="nav-text">bash的複習: 各種expansion</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Arithmetic-expansion"><span class="nav-number">2.1.</span> <span class="nav-text">Arithmetic expansion</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Variables-expansion"><span class="nav-number">2.2.</span> <span class="nav-text">Variables expansion</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#單雙引號不一樣"><span class="nav-number">2.2.1.</span> <span class="nav-text">單雙引號不一樣</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最通用的"><span class="nav-number">2.2.2.</span> <span class="nav-text">最通用的</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Command-expansion"><span class="nav-number">2.3.</span> <span class="nav-text">Command expansion</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">3.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#script"><span class="nav-number">1.</span> <span class="nav-text">script</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bash%E7%9A%84%E8%A4%87%E7%BF%92-%E5%90%84%E7%A8%AEexpansion"><span class="nav-number">2.</span> <span class="nav-text">bash的複習: 各種expansion</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Arithmetic-expansion"><span class="nav-number">2.1.</span> <span class="nav-text">Arithmetic expansion</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Variables-expansion"><span class="nav-number">2.2.</span> <span class="nav-text">Variables expansion</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%96%AE%E9%9B%99%E5%BC%95%E8%99%9F%E4%B8%8D%E4%B8%80%E6%A8%A3"><span class="nav-number">2.2.1.</span> <span class="nav-text">單雙引號不一樣</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%80%E9%80%9A%E7%94%A8%E7%9A%84"><span class="nav-number">2.2.2.</span> <span class="nav-text">最通用的</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Command-expansion"><span class="nav-number">2.3.</span> <span class="nav-text">Command expansion</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-36"><span class="nav-number">3.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -474,8 +474,6 @@
 
 
 
-
-  
 
   
 

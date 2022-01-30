@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 6.0.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://assets.leetcode.com/uploads/2019/02/14/116_sample.png">
 <meta property="article:published_time" content="2021-07-24T18:47:55.000Z">
-<meta property="article:modified_time" content="2022-01-22T10:54:02.295Z">
+<meta property="article:modified_time" content="2022-01-30T06:31:02.310Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Breadth-First Search">
 <meta property="article:tag" content="Depth-First Search">
@@ -236,7 +236,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-22 18:54:02" itemprop="dateModified" datetime="2022-01-22T18:54:02+08:00">2022-01-22</time>
+                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -271,18 +271,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機">動機</h2>
+        <h2 id="動機-457">動機</h2>
 <p>畫裡面那一個橢圓，很有趣</p>
-<a id="more"></a>
-<h2 id="Problem">Problem</h2>
+<span id="more"></span>
+<h2 id="Problem-260">Problem</h2>
 <p>You are given a <strong>perfect binary tree</strong> where all leaves are on the same level, and every parent has two children. The binary tree has the following definition:</p><pre>struct Node {  int val;  Node *left;  Node *right;  Node *next;}</pre><p>Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to <code>NULL</code>.</p><p>Initially, all next pointers are set to <code>NULL</code>.</p><p> </p><p><strong>Follow up:</strong></p><ul><li>You may only use constant extra space.</li><li>Recursive approach is fine, you may assume implicit stack space does not count as extra space for this problem.</li></ul><p> </p><p><strong>Example 1:</strong></p><p><img alt="" src="https://assets.leetcode.com/uploads/2019/02/14/116_sample.png" style="width: 640px; height: 218px;" /></p><pre><strong>Input:</strong> root = [1,2,3,4,5,6,7]<strong>Output:</strong> [1,#,2,3,#,4,5,6,7,#]<strong>Explanation: </strong>Given the above perfect binary tree (Figure A), your function should populate each next pointer to point to its next right node, just like in Figure B. The serialized output is in level order as connected by the next pointers, with '#' signifying the end of each level.</pre><p> </p><p><strong>Constraints:</strong></p><ul><li>The number of nodes in the given tree is less than <code>4096</code>.</li><li><code>-1000 <= node.val <= 1000</code></li></ul>
-<h2 id="Sol">Sol</h2>
+<h2 id="Sol-242">Sol</h2>
 <p>看root的</p>
 <ul>
 <li>右邊的左，之後一直左</li>
 <li>左邊的右，之後一直右</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">connect</span><span class="params">(self, r: <span class="string">'Node'</span>)</span> -&gt; 'Node':</span></span><br><span class="line">        <span class="keyword">if</span> r:</span><br><span class="line">            self.connect(r.left)</span><br><span class="line">            self.connect(r.right)</span><br><span class="line">            a, b = r.left, r.right</span><br><span class="line">            <span class="keyword">while</span> a:</span><br><span class="line">                a.next = b</span><br><span class="line">                a,b = a.right, b.left</span><br><span class="line">            <span class="keyword">return</span> r</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">connect</span>(<span class="params">self, r: <span class="string">&#x27;Node&#x27;</span></span>) -&gt; &#x27;Node&#x27;:</span></span><br><span class="line">        <span class="keyword">if</span> r:</span><br><span class="line">            self.connect(r.left)</span><br><span class="line">            self.connect(r.right)</span><br><span class="line">            a, b = r.left, r.right</span><br><span class="line">            <span class="keyword">while</span> a:</span><br><span class="line">                a.<span class="built_in">next</span> = b</span><br><span class="line">                a,b = a.right, b.left</span><br><span class="line">            <span class="keyword">return</span> r</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -368,7 +368,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-457"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-260"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-242"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -481,8 +481,6 @@
 
 
 
-
-  
 
   
 

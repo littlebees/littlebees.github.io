@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 6.0.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="http://arthurchiao.art/assets/img/deep-dive-into-iptables-netfilter/Netfilter-packet-flow.svg">
 <meta property="article:published_time" content="2020-07-19T04:39:42.000Z">
-<meta property="article:modified_time" content="2022-01-21T19:12:02.887Z">
+<meta property="article:modified_time" content="2022-01-30T06:31:02.302Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://arthurchiao.art/assets/img/deep-dive-into-iptables-netfilter/Netfilter-packet-flow.svg">
@@ -232,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-22 03:12:02" itemprop="dateModified" datetime="2022-01-22T03:12:02+08:00">2022-01-22</time>
+                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -259,12 +259,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機">動機</h2>
+        <h2 id="動機-72">動機</h2>
 <p>記錄下自己怎麼看待iptables</p>
 <p>iptables把firewall的功能與network stack緊緊地結合在一起<br>
 所以有的時候會看不懂到底發生甚麼事，也不好寫出自己想要的rule<br>
 故在此寫下自己的看法</p>
-<a id="more"></a>
+<span id="more"></span>
 <h2 id="table-something-like-java’s-interface">table : something like java’s interface</h2>
 <p>firewall的功能有二</p>
 <ol>
@@ -274,7 +274,7 @@
 <p>所以firewall會改pkt的內容(mangle,nat)，之後根據使用者的rule做接受/拒絕(filter)<br>
 最後再return (先不算中間直接離開的情況)</p>
 <p>整個流程大概像</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mangle -&gt; nat -&gt; filter &lt;&#x3D; 這段是進入</span><br><span class="line">		    |</span><br><span class="line">		   \ &#x2F;</span><br><span class="line">mangle &lt;- nat &lt;- filter &lt;&#x3D; 這段是出去</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mangle -&gt; nat -&gt; filter &lt;= 這段是進入</span><br><span class="line">		    |</span><br><span class="line">		   \ /</span><br><span class="line">mangle &lt;- nat &lt;- filter &lt;= 這段是出去</span><br></pre></td></tr></table></figure>
 <p>同樣都是修改pkt，因為nat太常用了就被獨立出來</p>
 <p>table可以當成pkt在firewall中是怎麼被處理的概述，很像OO的interface<br>
 pkt會被某種程度的改動 =&gt; mangle<br>
@@ -337,7 +337,7 @@ firewall的business rule =&gt; filter</p>
 <li>save-mark: 把mark寫到connmark</li>
 <li>restore-mark: 把connmark寫到mark</li>
 </ol>
-<h2 id="Ref">Ref</h2>
+<h2 id="Ref-48">Ref</h2>
 <p><span class="exturl" data-url="aHR0cDovL2FydGh1cmNoaWFvLmFydC9ibG9nL2RlZXAtZGl2ZS1pbnRvLWlwdGFibGVzLWFuZC1uZXRmaWx0ZXItYXJjaC16aC8=">十分詳細必看<i class="fa fa-external-link-alt"></i></span></p>
 
     </div>
@@ -419,7 +419,7 @@ firewall的business rule =&gt; filter</p>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#table-something-like-java’s-interface"><span class="nav-number">2.</span> <span class="nav-text">table : something like java’s interface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#chain"><span class="nav-number">3.</span> <span class="nav-text">chain</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#all-about-routing"><span class="nav-number">3.1.</span> <span class="nav-text">all about routing</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Netfilter-Hooks"><span class="nav-number">3.1.1.</span> <span class="nav-text">Netfilter Hooks</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#function-jump"><span class="nav-number">3.2.</span> <span class="nav-text">function &amp; jump</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DROP-REJECT"><span class="nav-number">3.2.1.</span> <span class="nav-text">DROP&#x2F;REJECT</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#connection-state"><span class="nav-number">4.</span> <span class="nav-text">connection state</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mark-custom-state"><span class="nav-number">5.</span> <span class="nav-text">mark: custom state</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">6.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-72"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#table-something-like-java%E2%80%99s-interface"><span class="nav-number">2.</span> <span class="nav-text">table : something like java’s interface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#chain"><span class="nav-number">3.</span> <span class="nav-text">chain</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#all-about-routing"><span class="nav-number">3.1.</span> <span class="nav-text">all about routing</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Netfilter-Hooks"><span class="nav-number">3.1.1.</span> <span class="nav-text">Netfilter Hooks</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#function-jump"><span class="nav-number">3.2.</span> <span class="nav-text">function &amp; jump</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DROP-REJECT"><span class="nav-number">3.2.1.</span> <span class="nav-text">DROP&#x2F;REJECT</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#connection-state"><span class="nav-number">4.</span> <span class="nav-text">connection state</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mark-custom-state"><span class="nav-number">5.</span> <span class="nav-text">mark: custom state</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-48"><span class="nav-number">6.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -532,8 +532,6 @@ firewall的business rule =&gt; filter</p>
 
 
 
-
-  
 
   
 

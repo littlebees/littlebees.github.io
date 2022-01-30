@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 6.0.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 二分搜怎麼那麼難搞">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-12-30T16:48:33.000Z">
-<meta property="article:modified_time" content="2022-01-22T10:54:02.285Z">
+<meta property="article:modified_time" content="2022-01-30T06:31:02.298Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Array">
 <meta property="article:tag" content="Binary Search">
@@ -232,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-22 18:54:02" itemprop="dateModified" datetime="2022-01-22T18:54:02+08:00">2022-01-22</time>
+                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -267,12 +267,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機">動機</h2>
+        <h2 id="動機-44">動機</h2>
 <p>二分搜怎麼那麼難搞</p>
-<a id="more"></a>
-<h2 id="Problem">Problem</h2>
+<span id="more"></span>
+<h2 id="Problem-16">Problem</h2>
 <p>A peak element is an element that is strictly greater than its neighbors.</p><p>Given an integer array <code>nums</code>, find a peak element, and return its index. If the array contains multiple peaks, return the index to <strong>any of the peaks</strong>.</p><p>You may imagine that <code>nums[-1] = nums[n] = -∞</code>.</p><p>You must write an algorithm that runs in <code>O(log n)</code> time.</p><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input:</strong> nums = [1,2,3,1]<strong>Output:</strong> 2<strong>Explanation:</strong> 3 is a peak element and your function should return the index number 2.</pre><p><strong>Example 2:</strong></p><pre><strong>Input:</strong> nums = [1,2,1,3,5,6,4]<strong>Output:</strong> 5<strong>Explanation:</strong> Your function can return either index number 1 where the peak element is 2, or index number 5 where the peak element is 6.</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>1 <= nums.length <= 1000</code></li><li><code>-2<sup>31</sup> <= nums[i] <= 2<sup>31</sup> - 1</code></li><li><code>nums[i] != nums[i + 1]</code> for all valid <code>i</code>.</li></ul>
-<h2 id="Sol">Sol</h2>
+<h2 id="Sol-11">Sol</h2>
 <p>根據bsearch的best practice，終止條件用左閉右合</p>
 <p>那搜尋區間怎麼給?<br>
 左邊給0，右邊給多少?<br>
@@ -288,7 +288,7 @@
 <li>小於: 把左邊拉過來，同時不看這個中點的值，<code>i=mid+1</code></li>
 <li>大於: 把右邊拉過來，同時保留(重合時就是這個值)這個中點的值，<code>j=mid</code></li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findPeakElement</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></span><br><span class="line">        nums = nums </span><br><span class="line">        i = <span class="number">0</span></span><br><span class="line">        j = len(nums)<span class="number">-1</span></span><br><span class="line">        <span class="comment"># len(nums)-1 重合時會等於的值</span></span><br><span class="line">        <span class="keyword">while</span> i &lt; j:</span><br><span class="line">            mid = i + (j-i)//<span class="number">2</span></span><br><span class="line">            print(mid)</span><br><span class="line">            <span class="keyword">if</span> nums[mid] &gt; nums[mid+<span class="number">1</span>]:</span><br><span class="line">                j = mid <span class="comment"># keep it</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                i = mid+<span class="number">1</span> <span class="comment"># drop it</span></span><br><span class="line">        <span class="keyword">return</span> i</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findPeakElement</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        nums = nums </span><br><span class="line">        i = <span class="number">0</span></span><br><span class="line">        j = <span class="built_in">len</span>(nums)-<span class="number">1</span></span><br><span class="line">        <span class="comment"># len(nums)-1 重合時會等於的值</span></span><br><span class="line">        <span class="keyword">while</span> i &lt; j:</span><br><span class="line">            mid = i + (j-i)//<span class="number">2</span></span><br><span class="line">            <span class="built_in">print</span>(mid)</span><br><span class="line">            <span class="keyword">if</span> nums[mid] &gt; nums[mid+<span class="number">1</span>]:</span><br><span class="line">                j = mid <span class="comment"># keep it</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                i = mid+<span class="number">1</span> <span class="comment"># drop it</span></span><br><span class="line">        <span class="keyword">return</span> i</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -372,7 +372,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-44"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-16"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-11"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -485,8 +485,6 @@
 
 
 
-
-  
 
   
 

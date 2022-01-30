@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 6.0.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 最近都在看log來找bug… 記下一些心得">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-09-30T15:09:58.000Z">
-<meta property="article:modified_time" content="2022-01-21T19:18:03.837Z">
+<meta property="article:modified_time" content="2022-01-30T06:31:02.302Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-22 03:18:03" itemprop="dateModified" datetime="2022-01-22T03:18:03+08:00">2022-01-22</time>
+                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -257,11 +257,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機">動機</h2>
+        <h2 id="動機-92">動機</h2>
 <p>最近都在看log來找bug…<br>
 記下一些心得</p>
-<a id="more"></a>
-<h2 id="心得">心得</h2>
+<span id="more"></span>
+<h2 id="心得-2">心得</h2>
 <ol>
 <li>
 <p>pid與tid很重要<br>
@@ -280,7 +280,7 @@ tid除了pthread有tid但是linux其實也有tid，但這個tid是可以區分pi
 </ol>
 <p>可以用其他logger，不過有遇到一個神奇的case是在ARM上，logger會在使用pthread_join或pthread_cancel的地方卡住，感覺是logger自己的mutex與pthread互撞</p>
 <p>下面有oops的地方都有因futex而卡住的可能性…</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">LOG(DEBUG) &lt;&lt; <span class="string">"Oops"</span>;</span><br><span class="line">pthread_cancel(...)</span><br><span class="line">LOG(DEBUG) &lt;&lt; <span class="string">"Oops"</span>;</span><br><span class="line">pthread_join(...)</span><br><span class="line">LOG(DEBUG) &lt;&lt; <span class="string">"Oops"</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">LOG</span>(DEBUG) &lt;&lt; <span class="string">&quot;Oops&quot;</span>;</span><br><span class="line"><span class="built_in">pthread_cancel</span>(...)</span><br><span class="line"><span class="built_in">LOG</span>(DEBUG) &lt;&lt; <span class="string">&quot;Oops&quot;</span>;</span><br><span class="line"><span class="built_in">pthread_join</span>(...)</span><br><span class="line"><span class="built_in">LOG</span>(DEBUG) &lt;&lt; <span class="string">&quot;Oops&quot;</span>;</span><br></pre></td></tr></table></figure>
 <p>所以用logger也有可能會出事，十分弔詭。<br>
 這個時候只能一步一步排除了…</p>
 
@@ -363,7 +363,7 @@ tid除了pthread有tid但是linux其實也有tid，但這個tid是可以區分pi
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#心得"><span class="nav-number">2.</span> <span class="nav-text">心得</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-92"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%83%E5%BE%97-2"><span class="nav-number">2.</span> <span class="nav-text">心得</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -476,8 +476,6 @@ tid除了pthread有tid但是linux其實也有tid，但這個tid是可以區分pi
 
 
 
-
-  
 
   
 

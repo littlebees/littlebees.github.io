@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 6.0.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://static.wixstatic.com/media/e1dde5_ec773358561b4d9597c8b1704fc1f6e0~mv2.png">
 <meta property="article:published_time" content="2021-10-15T14:37:45.000Z">
-<meta property="article:modified_time" content="2022-01-22T02:44:01.655Z">
+<meta property="article:modified_time" content="2022-01-30T06:31:02.330Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://static.wixstatic.com/media/e1dde5_ec773358561b4d9597c8b1704fc1f6e0~mv2.png">
@@ -232,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-22 10:44:01" itemprop="dateModified" datetime="2022-01-22T10:44:01+08:00">2022-01-22</time>
+                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -259,9 +259,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機">動機</h2>
+        <h2 id="動機-356">動機</h2>
 <p>最近常用，來整理一下</p>
-<a id="more"></a>
+<span id="more"></span>
 <h2 id="一次裝很多app">一次裝很多app</h2>
 <p>如果要裝就都放在name中</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">a</span> <span class="string">list</span> <span class="string">of</span> <span class="string">packages</span></span><br><span class="line">  <span class="attr">yum:</span></span><br><span class="line">    <span class="attr">name:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">nginx</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">postgresql</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">postgresql-server</span></span><br><span class="line">    <span class="attr">state:</span> <span class="string">present</span></span><br></pre></td></tr></table></figure>
@@ -270,27 +270,27 @@
 <h3 id="command與shell差在">command與shell差在?</h3>
 <p>command: 直接跑在<code>/bin/sh</code><br>
 shell: 看對面設定的shell是什麼</p>
-<h2 id="Strategy">Strategy</h2>
+<h2 id="Strategy-2">Strategy</h2>
 <p>Strategy就是在執行playbook時怎麼與其他主機協調<br>
 <img src="https://static.wixstatic.com/media/e1dde5_ec773358561b4d9597c8b1704fc1f6e0~mv2.png" alt=""></p>
 <p>一般是<code>linear</code>，會等大家都做完才會跑下一個<br>
 <code>free</code>，就是自己跑自己的</p>
 <p>加var到<code>ansible.cfg</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[defaults]</span><br><span class="line">strategy &#x3D; free</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[defaults]</span><br><span class="line">strategy = free</span><br></pre></td></tr></table></figure>
 <h2 id="forks">forks</h2>
 <p>如果主機很多就要一次多跑一點ansible，就要去調forks，預設只有5</p>
 <p>加var到<code>ansible.cfg</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[defaults]</span><br><span class="line">forks&#x3D;25</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[defaults]</span><br><span class="line">forks=25</span><br></pre></td></tr></table></figure>
 <h2 id="Async-tasks">Async tasks</h2>
 <p>一般來說ansible都會等對面的主機把task跑好，但有些task可以同時跑!!</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Execute</span> <span class="string">the</span> <span class="string">long</span> <span class="string">running</span> <span class="string">script</span></span><br><span class="line">    <span class="attr">shell:</span></span><br><span class="line">    <span class="string">"chmod a+x /tmp/longrunningscript.sh &amp;&amp; /tmp/my-longrunning-script.sh 60"</span> <span class="comment"># Run for 60 seconds </span></span><br><span class="line">    <span class="attr">async:</span> <span class="number">120</span> <span class="comment"># Maximum allowed time in Seconds</span></span><br><span class="line">    <span class="attr">poll:</span> <span class="number">05</span> <span class="comment"># Polling Interval in Seconds</span></span><br><span class="line">    </span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Some</span> <span class="string">non</span> <span class="string">dependent</span> <span class="string">task</span> <span class="string">I</span> <span class="string">want</span> <span class="string">to</span> <span class="string">run</span> <span class="string">even</span> <span class="string">if</span> <span class="string">the</span> <span class="string">script</span> <span class="string">is</span> <span class="string">still</span> <span class="string">running</span></span><br><span class="line">    <span class="attr">yum:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">httpd</span></span><br><span class="line">    <span class="attr">state:</span> <span class="string">present</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Execute</span> <span class="string">the</span> <span class="string">long</span> <span class="string">running</span> <span class="string">script</span></span><br><span class="line">    <span class="attr">shell:</span></span><br><span class="line">    <span class="string">&quot;chmod a+x /tmp/longrunningscript.sh &amp;&amp; /tmp/my-longrunning-script.sh 60&quot;</span> <span class="comment"># Run for 60 seconds </span></span><br><span class="line">    <span class="attr">async:</span> <span class="number">120</span> <span class="comment"># Maximum allowed time in Seconds</span></span><br><span class="line">    <span class="attr">poll:</span> <span class="number">05</span> <span class="comment"># Polling Interval in Seconds</span></span><br><span class="line">    </span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Some</span> <span class="string">non</span> <span class="string">dependent</span> <span class="string">task</span> <span class="string">I</span> <span class="string">want</span> <span class="string">to</span> <span class="string">run</span> <span class="string">even</span> <span class="string">if</span> <span class="string">the</span> <span class="string">script</span> <span class="string">is</span> <span class="string">still</span> <span class="string">running</span></span><br><span class="line">    <span class="attr">yum:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">httpd</span></span><br><span class="line">    <span class="attr">state:</span> <span class="string">present</span></span><br></pre></td></tr></table></figure>
 <h2 id="ssh-pipeline-Mitogen">ssh pipeline &amp; Mitogen</h2>
 <h3 id="ssh-pipeline">ssh pipeline</h3>
 <p>ansible提供的減少ssh通訊的方式</p>
 <ol>
 <li>加var到<code>ansible.cfg</code> 或是 <code>ANSIBLE_PIPELINING=True</code></li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[ssh_connection]</span><br><span class="line">pipelining &#x3D; True</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[ssh_connection]</span><br><span class="line">pipelining = True</span><br></pre></td></tr></table></figure>
 <ol start="2">
 <li>確保對面的<code>/etc/sudoers</code>中沒有<code>requiretty</code> (<span class="exturl" data-url="aHR0cHM6Ly90b3JvaWQub3JnL2Fuc2libGUtc3NoLXBpcGVsaW5pbmc=">據說<i class="fa fa-external-link-alt"></i></span>不用了，但文件寫要)</li>
 </ol>
@@ -300,18 +300,18 @@ shell: 看對面設定的shell是什麼</p>
 <li>載<span class="exturl" data-url="aHR0cHM6Ly9uZXR3b3JrZ2Vub21pY3MuY29tL3RyeS9taXRvZ2VuLTAuMi45LnRhci5neg==">mitogen-0.2.9.tar.gz<i class="fa fa-external-link-alt"></i></span>並unzip</li>
 <li>加var到<code>ansible.cfg</code></li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[defaults]</span><br><span class="line">strategy_plugins &#x3D; &#x2F;path&#x2F;to&#x2F;mitogen-0.2.9&#x2F;ansible_mitogen&#x2F;plugins&#x2F;strategy</span><br><span class="line">strategy &#x3D; mitogen_linear</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[defaults]</span><br><span class="line">strategy_plugins = /path/to/mitogen-0.2.9/ansible_mitogen/plugins/strategy</span><br><span class="line">strategy = mitogen_linear</span><br></pre></td></tr></table></figure>
 <h2 id="gather-fact">gather fact</h2>
 <h3 id="gather-facts很慢，能不用就不用">gather_facts很慢，能不用就不用</h3>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">hosts:</span> <span class="string">all</span></span><br><span class="line">  <span class="attr">gather_facts:</span> <span class="literal">no</span></span><br><span class="line">  <span class="attr">tasks:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">ping:</span></span><br></pre></td></tr></table></figure>
 <h3 id="不然就是同一台只跑一次-cache-fact">不然就是同一台只跑一次 (cache fact)</h3>
 <p>加var到<code>ansible.cfg</code>，把cache放到<code>/tmp</code>中</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[defaults]</span><br><span class="line">gathering &#x3D; smart</span><br><span class="line">fact_caching &#x3D; jsonfile</span><br><span class="line">fact_caching_connection &#x3D; &#x2F;tmp</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[defaults]</span><br><span class="line">gathering = smart</span><br><span class="line">fact_caching = jsonfile</span><br><span class="line">fact_caching_connection = /tmp</span><br></pre></td></tr></table></figure>
 <h2 id="profile">profile</h2>
 <p>在跑每個task時把花的時間print出來</p>
 <p>加var到<code>ansible.cfg</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[defaults]</span><br><span class="line">callback_whitelist &#x3D; profile_task</span><br></pre></td></tr></table></figure>
-<h2 id="Ref">Ref</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[defaults]</span><br><span class="line">callback_whitelist = profile_task</span><br></pre></td></tr></table></figure>
+<h2 id="Ref-86">Ref</h2>
 <p><span class="exturl" data-url="aHR0cHM6Ly93d3cudG9wdGVjaHNraWxscy5jb20vYW5zaWJsZS10dXRvcmlhbHMtY291cnNlcy9zcGVlZC11cC1hbnNpYmxlLXBsYXlib29rcy1waXBlbGluaW5nLW1pdG9nZW4v">How to Speed Up Your Ansible Playbooks Over 600%<i class="fa fa-external-link-alt"></i></span><br>
 <span class="exturl" data-url="aHR0cHM6Ly93d3cuc29rdWJlLmNoL3Bvc3QvaG93LXRvLXNwZWVkLXVwLWFuc2libGUtcGxheWJvb2tzLWRyYXN0aWNhbGx5LTE=">How to speed up Ansible playbooks drastically ?<i class="fa fa-external-link-alt"></i></span></p>
 
@@ -394,7 +394,7 @@ shell: 看對面設定的shell是什麼</p>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一次裝很多app"><span class="nav-number">2.</span> <span class="nav-text">一次裝很多app</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#盡量用module"><span class="nav-number">3.</span> <span class="nav-text">盡量用module</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#command與shell差在"><span class="nav-number">3.1.</span> <span class="nav-text">command與shell差在?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Strategy"><span class="nav-number">4.</span> <span class="nav-text">Strategy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#forks"><span class="nav-number">5.</span> <span class="nav-text">forks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Async-tasks"><span class="nav-number">6.</span> <span class="nav-text">Async tasks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ssh-pipeline-Mitogen"><span class="nav-number">7.</span> <span class="nav-text">ssh pipeline &amp; Mitogen</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ssh-pipeline"><span class="nav-number">7.1.</span> <span class="nav-text">ssh pipeline</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mitogen"><span class="nav-number">7.2.</span> <span class="nav-text">Mitogen</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gather-fact"><span class="nav-number">8.</span> <span class="nav-text">gather fact</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#gather-facts很慢，能不用就不用"><span class="nav-number">8.1.</span> <span class="nav-text">gather_facts很慢，能不用就不用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不然就是同一台只跑一次-cache-fact"><span class="nav-number">8.2.</span> <span class="nav-text">不然就是同一台只跑一次 (cache fact)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#profile"><span class="nav-number">9.</span> <span class="nav-text">profile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">10.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-356"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E6%AC%A1%E8%A3%9D%E5%BE%88%E5%A4%9Aapp"><span class="nav-number">2.</span> <span class="nav-text">一次裝很多app</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%A1%E9%87%8F%E7%94%A8module"><span class="nav-number">3.</span> <span class="nav-text">盡量用module</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#command%E8%88%87shell%E5%B7%AE%E5%9C%A8"><span class="nav-number">3.1.</span> <span class="nav-text">command與shell差在?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Strategy-2"><span class="nav-number">4.</span> <span class="nav-text">Strategy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#forks"><span class="nav-number">5.</span> <span class="nav-text">forks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Async-tasks"><span class="nav-number">6.</span> <span class="nav-text">Async tasks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ssh-pipeline-Mitogen"><span class="nav-number">7.</span> <span class="nav-text">ssh pipeline &amp; Mitogen</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ssh-pipeline"><span class="nav-number">7.1.</span> <span class="nav-text">ssh pipeline</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mitogen"><span class="nav-number">7.2.</span> <span class="nav-text">Mitogen</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gather-fact"><span class="nav-number">8.</span> <span class="nav-text">gather fact</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#gather-facts%E5%BE%88%E6%85%A2%EF%BC%8C%E8%83%BD%E4%B8%8D%E7%94%A8%E5%B0%B1%E4%B8%8D%E7%94%A8"><span class="nav-number">8.1.</span> <span class="nav-text">gather_facts很慢，能不用就不用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E7%84%B6%E5%B0%B1%E6%98%AF%E5%90%8C%E4%B8%80%E5%8F%B0%E5%8F%AA%E8%B7%91%E4%B8%80%E6%AC%A1-cache-fact"><span class="nav-number">8.2.</span> <span class="nav-text">不然就是同一台只跑一次 (cache fact)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#profile"><span class="nav-number">9.</span> <span class="nav-text">profile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-86"><span class="nav-number">10.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -507,8 +507,6 @@ shell: 看對面設定的shell是什麼</p>
 
 
 
-
-  
 
   
 

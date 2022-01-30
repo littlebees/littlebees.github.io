@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 6.0.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 之前有一題就是用左右兩邊的長度相乘算組合數，不過這題還要快速求出左右兩邊，所以就用了monotone stack monotone stack有兩個用途  previous less element next less element  詳細看這篇">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-08-15T17:27:48.000Z">
-<meta property="article:modified_time" content="2022-01-22T11:07:27.475Z">
+<meta property="article:modified_time" content="2022-01-30T06:31:02.326Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Dynamic Programming">
 <meta property="article:tag" content="Array">
@@ -234,7 +234,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-22 19:07:27" itemprop="dateModified" datetime="2022-01-22T19:07:27+08:00">2022-01-22</time>
+                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -261,7 +261,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機">動機</h2>
+        <h2 id="動機-284">動機</h2>
 <p>之前有一題就是用左右兩邊的長度相乘算組合數，不過這題還要快速求出左右兩邊，所以就用了monotone stack</p>
 <p>monotone stack有兩個用途</p>
 <ul>
@@ -269,17 +269,17 @@
 <li>next less element</li>
 </ul>
 <p><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvc3VtLW9mLXN1YmFycmF5LW1pbmltdW1zL2Rpc2N1c3MvMTc4ODc2L3N0YWNrLXNvbHV0aW9uLXdpdGgtdmVyeS1kZXRhaWxlZC1leHBsYW5hdGlvbi1zdGVwLWJ5LXN0ZXA=">詳細看這篇<i class="fa fa-external-link-alt"></i></span></p>
-<a id="more"></a>
-<h2 id="Problem">Problem</h2>
+<span id="more"></span>
+<h2 id="Problem-178">Problem</h2>
 <p>Given an array of integers arr, find the sum of <code>min(b)</code>, where <code>b</code> ranges over every (contiguous) subarray of <code>arr</code>. Since the answer may be large, return the answer <strong>modulo</strong> <code>10<sup>9</sup> + 7</code>.</p><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input:</strong> arr = [3,1,2,4]<strong>Output:</strong> 17<strong>Explanation:</strong> Subarrays are [3], [1], [2], [4], [3,1], [1,2], [2,4], [3,1,2], [1,2,4], [3,1,2,4]. Minimums are 3, 1, 2, 4, 1, 1, 2, 1, 1, 1.Sum is 17.</pre><p><strong>Example 2:</strong></p><pre><strong>Input:</strong> arr = [11,81,94,43,3]<strong>Output:</strong> 444</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>1 <= arr.length <= 3 * 10<sup>4</sup></code></li><li><code>1 <= arr[i] <= 3 * 10<sup>4</sup></code></li></ul>
-<h2 id="Sol">Sol</h2>
+<h2 id="Sol-149">Sol</h2>
 <p>出左右兩邊，再一次組合起來</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sumSubarrayMins</span><span class="params">(self, arr: List[int])</span> -&gt; int:</span></span><br><span class="line">        left = []</span><br><span class="line">        stk = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(arr)):</span><br><span class="line">            count = <span class="number">1</span></span><br><span class="line">            <span class="keyword">while</span> stk <span class="keyword">and</span> stk[<span class="number">-1</span>][<span class="number">0</span>] &gt; arr[i]:</span><br><span class="line">                num, cnt = stk.pop()</span><br><span class="line">                count += cnt</span><br><span class="line">            left.append(count)</span><br><span class="line">            stk.append([arr[i],count])</span><br><span class="line">        right = []</span><br><span class="line">        stk = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> reversed(range(len(arr))):</span><br><span class="line">            count = <span class="number">1</span></span><br><span class="line">            <span class="keyword">while</span> stk <span class="keyword">and</span> stk[<span class="number">-1</span>][<span class="number">0</span>] &gt;= arr[i]:</span><br><span class="line">                num, cnt = stk.pop()</span><br><span class="line">                count += cnt</span><br><span class="line">            right.append(count)</span><br><span class="line">            stk.append([arr[i],count])</span><br><span class="line">        <span class="keyword">return</span> sum([l*a*r <span class="keyword">for</span> l,a,r <span class="keyword">in</span> zip(left,arr,right[::<span class="number">-1</span>])]) % (<span class="number">10</span>**<span class="number">9</span> + <span class="number">7</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sumSubarrayMins</span>(<span class="params">self, arr: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        left = []</span><br><span class="line">        stk = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(arr)):</span><br><span class="line">            count = <span class="number">1</span></span><br><span class="line">            <span class="keyword">while</span> stk <span class="keyword">and</span> stk[-<span class="number">1</span>][<span class="number">0</span>] &gt; arr[i]:</span><br><span class="line">                num, cnt = stk.pop()</span><br><span class="line">                count += cnt</span><br><span class="line">            left.append(count)</span><br><span class="line">            stk.append([arr[i],count])</span><br><span class="line">        right = []</span><br><span class="line">        stk = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">reversed</span>(<span class="built_in">range</span>(<span class="built_in">len</span>(arr))):</span><br><span class="line">            count = <span class="number">1</span></span><br><span class="line">            <span class="keyword">while</span> stk <span class="keyword">and</span> stk[-<span class="number">1</span>][<span class="number">0</span>] &gt;= arr[i]:</span><br><span class="line">                num, cnt = stk.pop()</span><br><span class="line">                count += cnt</span><br><span class="line">            right.append(count)</span><br><span class="line">            stk.append([arr[i],count])</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">sum</span>([l*a*r <span class="keyword">for</span> l,a,r <span class="keyword">in</span> <span class="built_in">zip</span>(left,arr,right[::-<span class="number">1</span>])]) % (<span class="number">10</span>**<span class="number">9</span> + <span class="number">7</span>)</span><br></pre></td></tr></table></figure>
 <p>再整理stack時，可以直接算!!<br>
 因為stack下一個index就是左，現在比較大的就是右</p>
 <p>不過要處理邊界問題，這裡用<code>[0]+A+[0]</code><br>
 很神奇!!</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sumSubarrayMins</span><span class="params">(self, A)</span>:</span></span><br><span class="line">        res = <span class="number">0</span></span><br><span class="line">        s = []</span><br><span class="line">        <span class="keyword">for</span> i, x <span class="keyword">in</span> enumerate(A):</span><br><span class="line">            <span class="keyword">while</span> s <span class="keyword">and</span> A[s[<span class="number">-1</span>]] &gt; x:</span><br><span class="line">                j = s.pop()</span><br><span class="line">                k = s[<span class="number">-1</span>] <span class="keyword">if</span> s <span class="keyword">else</span> <span class="number">-1</span></span><br><span class="line">                res += A[j] * (i - j) * (j - k)</span><br><span class="line">            s.append(i)</span><br><span class="line">        <span class="keyword">return</span> res % (<span class="number">10</span>**<span class="number">9</span> + <span class="number">7</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sumSubarrayMins</span>(<span class="params">self, A</span>):</span></span><br><span class="line">        res = <span class="number">0</span></span><br><span class="line">        s = []</span><br><span class="line">        <span class="keyword">for</span> i, x <span class="keyword">in</span> <span class="built_in">enumerate</span>(A):</span><br><span class="line">            <span class="keyword">while</span> s <span class="keyword">and</span> A[s[-<span class="number">1</span>]] &gt; x:</span><br><span class="line">                j = s.pop()</span><br><span class="line">                k = s[-<span class="number">1</span>] <span class="keyword">if</span> s <span class="keyword">else</span> -<span class="number">1</span></span><br><span class="line">                res += A[j] * (i - j) * (j - k)</span><br><span class="line">            s.append(i)</span><br><span class="line">        <span class="keyword">return</span> res % (<span class="number">10</span>**<span class="number">9</span> + <span class="number">7</span>)</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -365,7 +365,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-284"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-178"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-149"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -478,8 +478,6 @@
 
 
 
-
-  
 
   
 

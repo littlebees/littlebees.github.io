@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 6.0.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -228,7 +228,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-22 10:53:46" itemprop="dateModified" datetime="2022-01-22T10:53:46+08:00">2022-01-22</time>
+                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -255,7 +255,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="動機">動機</h2>
+          <h2 id="動機-61">動機</h2>
 <p>之前為了從log中找出遺失的pid，所以找到了講怎麼用bash做set operation</p>
 <p>超實用，紀錄一下</p>
           <!--noindex-->
@@ -315,7 +315,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-22 03:31:25" itemprop="dateModified" datetime="2022-01-22T03:31:25+08:00">2022-01-22</time>
+                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -342,7 +342,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="動機">動機</h2>
+          <h2 id="動機-31">動機</h2>
 <p>想到就來寫一寫</p>
 <h2 id="promise-is-monad">promise is monad</h2>
 <p>promise是從callback hell來的，而每個callback都有接callback的變數，所以可以用<a href="/2020/05/monad-derive">之前寫過的方式</a>來把它簡化</p>
@@ -352,11 +352,11 @@
 而 bind 是從monad中取值，再包成monad</p>
 <p>對應到 Promise就是</p>
 <ul>
-<li><code>then(() =&gt; {})</code>: bind</li>
+<li><code>then(() =&gt; &#123;&#125;)</code>: bind</li>
 <li><code>Promise.resolve(val)</code>: return</li>
 </ul>
 <p>但是寫<code>Promise.resolve(val)</code>配function有點長，所以有了async<br>
-寫<code>then((x) =&gt; { return x})</code>只是為了取個值也很煩，所以有了await</p>
+寫<code>then((x) =&gt; &#123; return x&#125;)</code>只是為了取個值也很煩，所以有了await</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/12/await-async-promise/#more" rel="contents">
@@ -414,7 +414,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-22 03:39:33" itemprop="dateModified" datetime="2022-01-22T03:39:33+08:00">2022-01-22</time>
+                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -441,7 +441,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="動機">動機</h2>
+          <h2 id="動機-57">動機</h2>
 <p>雖是說在react中如何處理css其實就是看如何處理css的封裝，<br>
 同時如何在封裝的基礎上重用code，最後如何動態決定css</p>
           <!--noindex-->
@@ -501,7 +501,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-22 03:42:54" itemprop="dateModified" datetime="2022-01-22T03:42:54+08:00">2022-01-22</time>
+                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -528,7 +528,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="動機">動機</h2>
+          <h2 id="動機-63">動機</h2>
 <p>html終於可以抽象成一個tag了</p>
           <!--noindex-->
             <div class="post-button">
@@ -587,7 +587,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-22 03:33:20" itemprop="dateModified" datetime="2022-01-22T03:33:20+08:00">2022-01-22</time>
+                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -614,7 +614,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="動機">動機</h2>
+          <h2 id="動機-36">動機</h2>
 <p>寫寫std::move的筆記</p>
           <!--noindex-->
             <div class="post-button">
@@ -673,7 +673,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-22 18:58:43" itemprop="dateModified" datetime="2022-01-22T18:58:43+08:00">2022-01-22</time>
+                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -700,7 +700,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="動機">動機</h2>
+          <h2 id="動機-58">動機</h2>
 <p>分治也是可以重複走的</p>
           <!--noindex-->
             <div class="post-button">
@@ -759,7 +759,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-22 18:58:43" itemprop="dateModified" datetime="2022-01-22T18:58:43+08:00">2022-01-22</time>
+                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -786,7 +786,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="動機">動機</h2>
+          <h2 id="動機-56">動機</h2>
 <p>記錄用</p>
           <!--noindex-->
             <div class="post-button">
@@ -845,7 +845,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-22 18:58:43" itemprop="dateModified" datetime="2022-01-22T18:58:43+08:00">2022-01-22</time>
+                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -872,7 +872,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="動機">動機</h2>
+          <h2 id="動機-60">動機</h2>
 <p>leetcode時被弄過，所以記錄下來</p>
           <!--noindex-->
             <div class="post-button">
@@ -931,7 +931,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-22 03:33:02" itemprop="dateModified" datetime="2022-01-22T03:33:02+08:00">2022-01-22</time>
+                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -958,7 +958,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="動機">動機</h2>
+          <h2 id="動機-643">動機</h2>
 <p>整理一些之前的問題</p>
           <!--noindex-->
             <div class="post-button">
@@ -1017,7 +1017,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-22 03:33:35" itemprop="dateModified" datetime="2022-01-22T03:33:35+08:00">2022-01-22</time>
+                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1044,7 +1044,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="動機">動機</h2>
+          <h2 id="動機-37">動機</h2>
 <p>一切的<span class="exturl" data-url="aHR0cHM6Ly9zdGFja292ZXJmbG93LmNvbS9xdWVzdGlvbnMvODU0MjU5MS9jMTEtcmV2ZXJzZS1yYW5nZS1iYXNlZC1mb3ItbG9vcA==">開始<i class="fa fa-external-link-alt"></i></span>，只是想要個reversed而已，就順便把tmp補完</p>
           <!--noindex-->
             <div class="post-button">
@@ -1236,8 +1236,6 @@
 
 
 
-
-  
 
   
 

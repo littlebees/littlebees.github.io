@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 6.0.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 這裡是研究(自己的觀察與猜測)dockerfile的語意啦 docker的container就是應用程式 只不過每個container都有自己的  網路空間 儲存空間">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-08-09T03:56:21.000Z">
-<meta property="article:modified_time" content="2022-01-21T19:14:07.257Z">
+<meta property="article:modified_time" content="2022-01-30T06:31:02.302Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-22 03:14:07" itemprop="dateModified" datetime="2022-01-22T03:14:07+08:00">2022-01-22</time>
+                <time title="Modified: 2022-01-30 14:31:02" itemprop="dateModified" datetime="2022-01-30T14:31:02+08:00">2022-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -257,7 +257,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機">動機</h2>
+        <h2 id="動機-79">動機</h2>
 <p>這裡是研究(自己的觀察與猜測)dockerfile的語意啦</p>
 <p>docker的container就是應用程式<br>
 只不過每個container都有自己的</p>
@@ -265,7 +265,7 @@
 <li>網路空間</li>
 <li>儲存空間</li>
 </ol>
-<a id="more"></a>
+<span id="more"></span>
 <h2 id="ENTRYPOINT-CMD">ENTRYPOINT &amp; CMD</h2>
 <p>一般在網路上會看到ENTRYPOINT &amp; CMD在不同form下會有不同的效果<br>
 在官方文件上有以下的表格</p>
@@ -293,7 +293,7 @@ ENTRYPOINT與CMD都看不到</p>
 <h2 id="exec-form-shell-form">exec form &amp; shell form</h2>
 <p>那執行期時ARG與ENV在exec form與shell form有什麼不同嗎?<br>
 直接跑跑看!!</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">Sending build context to Docker daemon  2.048kB</span><br><span class="line">Step 1&#x2F;9 : FROM alpine</span><br><span class="line">latest: Pulling from library&#x2F;alpine</span><br><span class="line">df20fa9351a1: Pull complete</span><br><span class="line">Digest: sha256:185518070891758909c9f839cf4ca393ee977ac378609f700f60a771a2dfe321</span><br><span class="line">Status: Downloaded newer image for alpine:latest</span><br><span class="line"> ---&gt; a24bb4013296</span><br><span class="line">Step 2&#x2F;9 : ARG hi&#x3D;1</span><br><span class="line"> ---&gt; Running in 81dac0cde5c5</span><br><span class="line">Removing intermediate container 81dac0cde5c5</span><br><span class="line"> ---&gt; 0a224d4f46ce</span><br><span class="line">Step 3&#x2F;9 : ENV wow&#x3D;2</span><br><span class="line"> ---&gt; Running in 6c54e59b4201</span><br><span class="line">Removing intermediate container 6c54e59b4201</span><br><span class="line"> ---&gt; 6a008ef31f84</span><br><span class="line">Step 4&#x2F;9 : RUN echo $hi</span><br><span class="line"> ---&gt; Running in 69eec389ae0d</span><br><span class="line">1</span><br><span class="line">Removing intermediate container 69eec389ae0d</span><br><span class="line"> ---&gt; a025a3789730</span><br><span class="line">Step 5&#x2F;9 : RUN [&quot;echo&quot;, &quot;$hi&quot;]</span><br><span class="line"> ---&gt; Running in ecf7cc563edf</span><br><span class="line">$hi</span><br><span class="line">Removing intermediate container ecf7cc563edf</span><br><span class="line"> ---&gt; c3f8c7e3d843</span><br><span class="line">Step 6&#x2F;9 : RUN echo $wow</span><br><span class="line"> ---&gt; Running in 0a47051aeaa0</span><br><span class="line">2</span><br><span class="line">Removing intermediate container 0a47051aeaa0</span><br><span class="line"> ---&gt; f0ec803da2d4</span><br><span class="line">Step 7&#x2F;9 : RUN [&quot;echo&quot;, &quot;$wow&quot;]</span><br><span class="line"> ---&gt; Running in 7b443431db18</span><br><span class="line">$wow</span><br><span class="line">Removing intermediate container 7b443431db18</span><br><span class="line"> ---&gt; 91902d5a74b1</span><br><span class="line">Step 8&#x2F;9 : RUN [&quot;&#x2F;bin&#x2F;sh&quot;, &quot;-c&quot;, &quot;echo&quot;, &quot;$hi&quot;]</span><br><span class="line"> ---&gt; Running in 865729798cb8</span><br><span class="line"></span><br><span class="line">Removing intermediate container 865729798cb8</span><br><span class="line"> ---&gt; e709f7ba52dd</span><br><span class="line">Step 9&#x2F;9 : RUN [&quot;&#x2F;bin&#x2F;sh&quot;, &quot;-c&quot;, &quot;echo&quot;, &quot;$wow&quot;]</span><br><span class="line"> ---&gt; Running in 9897c8732ca2</span><br><span class="line"></span><br><span class="line">Removing intermediate container 9897c8732ca2</span><br><span class="line"> ---&gt; aaa72c558553</span><br><span class="line">Successfully built aaa72c558553</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">Sending build context to Docker daemon  2.048kB</span><br><span class="line">Step 1/9 : FROM alpine</span><br><span class="line">latest: Pulling from library/alpine</span><br><span class="line">df20fa9351a1: Pull complete</span><br><span class="line">Digest: sha256:185518070891758909c9f839cf4ca393ee977ac378609f700f60a771a2dfe321</span><br><span class="line">Status: Downloaded newer image for alpine:latest</span><br><span class="line"> ---&gt; a24bb4013296</span><br><span class="line">Step 2/9 : ARG hi=1</span><br><span class="line"> ---&gt; Running in 81dac0cde5c5</span><br><span class="line">Removing intermediate container 81dac0cde5c5</span><br><span class="line"> ---&gt; 0a224d4f46ce</span><br><span class="line">Step 3/9 : ENV wow=2</span><br><span class="line"> ---&gt; Running in 6c54e59b4201</span><br><span class="line">Removing intermediate container 6c54e59b4201</span><br><span class="line"> ---&gt; 6a008ef31f84</span><br><span class="line">Step 4/9 : RUN echo $hi</span><br><span class="line"> ---&gt; Running in 69eec389ae0d</span><br><span class="line">1</span><br><span class="line">Removing intermediate container 69eec389ae0d</span><br><span class="line"> ---&gt; a025a3789730</span><br><span class="line">Step 5/9 : RUN [&quot;echo&quot;, &quot;$hi&quot;]</span><br><span class="line"> ---&gt; Running in ecf7cc563edf</span><br><span class="line">$hi</span><br><span class="line">Removing intermediate container ecf7cc563edf</span><br><span class="line"> ---&gt; c3f8c7e3d843</span><br><span class="line">Step 6/9 : RUN echo $wow</span><br><span class="line"> ---&gt; Running in 0a47051aeaa0</span><br><span class="line">2</span><br><span class="line">Removing intermediate container 0a47051aeaa0</span><br><span class="line"> ---&gt; f0ec803da2d4</span><br><span class="line">Step 7/9 : RUN [&quot;echo&quot;, &quot;$wow&quot;]</span><br><span class="line"> ---&gt; Running in 7b443431db18</span><br><span class="line">$wow</span><br><span class="line">Removing intermediate container 7b443431db18</span><br><span class="line"> ---&gt; 91902d5a74b1</span><br><span class="line">Step 8/9 : RUN [&quot;/bin/sh&quot;, &quot;-c&quot;, &quot;echo&quot;, &quot;$hi&quot;]</span><br><span class="line"> ---&gt; Running in 865729798cb8</span><br><span class="line"></span><br><span class="line">Removing intermediate container 865729798cb8</span><br><span class="line"> ---&gt; e709f7ba52dd</span><br><span class="line">Step 9/9 : RUN [&quot;/bin/sh&quot;, &quot;-c&quot;, &quot;echo&quot;, &quot;$wow&quot;]</span><br><span class="line"> ---&gt; Running in 9897c8732ca2</span><br><span class="line"></span><br><span class="line">Removing intermediate container 9897c8732ca2</span><br><span class="line"> ---&gt; aaa72c558553</span><br><span class="line">Successfully built aaa72c558553</span><br></pre></td></tr></table></figure>
 <p>如果用exec form，不會置換，<br>
 shell form會置換</p>
 <p>所以只有shell form才會看到Dockerfile的變數<br>
@@ -302,9 +302,9 @@ shell form會置換</p>
 shell form是統一跑在Dockerfile自己開的shell(像/bin/sh)<br>
 exec form就是直接用像是execl之類的東西直接去跑，把所有東西當成字串</p>
 <p>那麼應該可以猜shell的展開大概會像</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">envs = <span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> (k,v) <span class="keyword">in</span> ENVS: <span class="comment"># env的所有pair，與arg的pair(如果可以的話)</span></span><br><span class="line">    envs += <span class="string">"&#123;&#125;=&#123;&#125; "</span>.format(k,v)</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> <span class="string">"/bin/sh -c &#123;&#125; &#123;CMD&#125;"</span>.format(envs,cmd)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">envs = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> (k,v) <span class="keyword">in</span> ENVS: <span class="comment"># env的所有pair，與arg的pair(如果可以的話)</span></span><br><span class="line">    envs += <span class="string">&quot;&#123;&#125;=&#123;&#125; &quot;</span>.<span class="built_in">format</span>(k,v)</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> <span class="string">&quot;/bin/sh -c &#123;&#125; &#123;CMD&#125;&quot;</span>.<span class="built_in">format</span>(envs,cmd)</span><br></pre></td></tr></table></figure>
 <p>exec的話就是</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">system(<span class="string">' '</span>.join(input_array))</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">system(<span class="string">&#x27; &#x27;</span>.join(input_array))</span><br></pre></td></tr></table></figure>
 <h2 id="等等，那為什麼CMD可以執行指令，在沒有ENTRYPOINT的時候">等等，那為什麼CMD可以執行指令，在沒有ENTRYPOINT的時候</h2>
 <p>如果沒有ENTRYPOINT就可以看成</p>
 <p><code>&quot;&quot; + &lt;expanded CMD&gt;</code></p>
@@ -320,7 +320,7 @@ exec form就是直接用像是execl之類的東西直接去跑，把所有東西
 <li>build phase: 生成Image的時候，ARG+RUN+ENV</li>
 <li>run phase: 跑container的時候，ENTRYPOINT+CMD+ENV</li>
 </ol>
-<h2 id="Ref">Ref</h2>
+<h2 id="Ref-51">Ref</h2>
 <p><span class="exturl" data-url="aHR0cHM6Ly9kb2NzLmRvY2tlci5jb20vZW5naW5lL3JlZmVyZW5jZS9idWlsZGVyLw==">官方文件<i class="fa fa-external-link-alt"></i></span></p>
 
     </div>
@@ -402,7 +402,7 @@ exec form就是直接用像是execl之類的東西直接去跑，把所有東西
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#動機"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ENTRYPOINT-CMD"><span class="nav-number">2.</span> <span class="nav-text">ENTRYPOINT &amp; CMD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ARG-ENV"><span class="nav-number">3.</span> <span class="nav-text">ARG &amp; ENV</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#exec-form-shell-form"><span class="nav-number">4.</span> <span class="nav-text">exec form &amp; shell form</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#等等，那為什麼CMD可以執行指令，在沒有ENTRYPOINT的時候"><span class="nav-number">5.</span> <span class="nav-text">等等，那為什麼CMD可以執行指令，在沒有ENTRYPOINT的時候</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#等等，那為什麼ENTRYPOINT的shell-form會忽略CMD"><span class="nav-number">6.</span> <span class="nav-text">等等，那為什麼ENTRYPOINT的shell form會忽略CMD??</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-phases"><span class="nav-number">7.</span> <span class="nav-text">2 phases</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">8.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-79"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ENTRYPOINT-CMD"><span class="nav-number">2.</span> <span class="nav-text">ENTRYPOINT &amp; CMD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ARG-ENV"><span class="nav-number">3.</span> <span class="nav-text">ARG &amp; ENV</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#exec-form-shell-form"><span class="nav-number">4.</span> <span class="nav-text">exec form &amp; shell form</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AD%89%E7%AD%89%EF%BC%8C%E9%82%A3%E7%82%BA%E4%BB%80%E9%BA%BCCMD%E5%8F%AF%E4%BB%A5%E5%9F%B7%E8%A1%8C%E6%8C%87%E4%BB%A4%EF%BC%8C%E5%9C%A8%E6%B2%92%E6%9C%89ENTRYPOINT%E7%9A%84%E6%99%82%E5%80%99"><span class="nav-number">5.</span> <span class="nav-text">等等，那為什麼CMD可以執行指令，在沒有ENTRYPOINT的時候</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AD%89%E7%AD%89%EF%BC%8C%E9%82%A3%E7%82%BA%E4%BB%80%E9%BA%BCENTRYPOINT%E7%9A%84shell-form%E6%9C%83%E5%BF%BD%E7%95%A5CMD"><span class="nav-number">6.</span> <span class="nav-text">等等，那為什麼ENTRYPOINT的shell form會忽略CMD??</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-phases"><span class="nav-number">7.</span> <span class="nav-text">2 phases</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-51"><span class="nav-number">8.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -515,8 +515,6 @@ exec form就是直接用像是execl之類的東西直接去跑，把所有東西
 
 
 
-
-  
 
   
 
