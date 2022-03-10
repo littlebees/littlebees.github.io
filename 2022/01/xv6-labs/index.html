@@ -34,6 +34,7 @@
 <meta property="og:image" content="https://i.imgur.com/sZBLA3r.png">
 <meta property="og:image" content="https://i.imgur.com/wtcbDS1.png">
 <meta property="og:image" content="https://i.imgur.com/tbYvEDJ.png">
+<meta property="og:image" content="https://i.imgur.com/wtcbDS1.png">
 <meta property="og:image" content="https://i.imgur.com/yBoV986.png">
 <meta property="og:image" content="https://i.imgur.com/RcwxOmm.png">
 <meta property="og:image" content="https://i.imgur.com/pczpVz4.png">
@@ -42,7 +43,7 @@
 <meta property="og:image" content="https://i.imgur.com/sAWGPwO.png">
 <meta property="og:image" content="https://i.imgur.com/nok1IuY.png">
 <meta property="article:published_time" content="2022-01-21T03:27:50.000Z">
-<meta property="article:modified_time" content="2022-01-30T07:29:16.208Z">
+<meta property="article:modified_time" content="2022-03-10T13:32:03.535Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://i.imgur.com/dKztkKG.png">
@@ -244,7 +245,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-30 15:29:16" itemprop="dateModified" datetime="2022-01-30T15:29:16+08:00">2022-01-30</time>
+                <time title="Modified: 2022-03-10 21:32:03" itemprop="dateModified" datetime="2022-03-10T21:32:03+08:00">2022-03-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1125,6 +1126,13 @@ value: pa，真實mem的addr</p>
 <h4 id="如何把va換成pa-walk">如何把va換成pa: walk</h4>
 <p>就是模擬在table跳的過程，一層一層換pte，到最後就可以用kalloc拿pa，利用pa設定對應的pte<br>
 之後回傳對應的pa</p>
+<p>那怎麼從va拿pte?<br>
+再看回去這張圖<br>
+<img src="https://i.imgur.com/wtcbDS1.png" alt=""></p>
+<p>注意到va最右手邊就是12個offset，之後看到pte的右手邊是10位flag，所以轉成pte就是把12位拿掉再把10位補回去</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PA2PTE(pa) ((((uint64)pa) &gt;&gt; 12) &lt;&lt; 10)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PTE2PA(pte) (((pte) &gt;&gt; 10) &lt;&lt; 12)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PTE_FLAGS(pte) ((pte) &amp; 0x3FF)</span></span><br></pre></td></tr></table></figure>
+<p>剩下就是walk三層table了</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// extract the three 9-bit page table indices from a virtual address.</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PXMASK          0x1FF <span class="comment">// 9 bits</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PXSHIFT(level)  (PGSHIFT+(9*(level)))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PX(level, va) ((((uint64) (va)) &gt;&gt; PXSHIFT(level)) &amp; PXMASK)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Return the address of the PTE in page table pagetable</span></span><br><span class="line"><span class="comment">// that corresponds to virtual address va.  If alloc!=0,</span></span><br><span class="line"><span class="comment">// create any required page-table pages.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// The risc-v Sv39 scheme has three levels of page-table</span></span><br><span class="line"><span class="comment">// pages. A page-table page contains 512 64-bit PTEs.</span></span><br><span class="line"><span class="comment">// A 64-bit virtual address is split into five fields:</span></span><br><span class="line"><span class="comment">//   39..63 -- must be zero.</span></span><br><span class="line"><span class="comment">//   30..38 -- 9 bits of level-2 index.</span></span><br><span class="line"><span class="comment">//   21..29 -- 9 bits of level-1 index.</span></span><br><span class="line"><span class="comment">//   12..20 -- 9 bits of level-0 index.</span></span><br><span class="line"><span class="comment">//    0..11 -- 12 bits of byte offset within the page.</span></span><br><span class="line"><span class="function"><span class="keyword">pte_t</span> *</span></span><br><span class="line"><span class="function"><span class="title">walk</span><span class="params">(<span class="keyword">pagetable_t</span> pagetable, uint64 va, <span class="keyword">int</span> alloc)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(va &gt;= MAXVA)</span><br><span class="line">    panic(<span class="string">&quot;walk&quot;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> level = <span class="number">2</span>; level &gt; <span class="number">0</span>; level--) &#123;</span><br><span class="line">    <span class="keyword">pte_t</span> *pte = &amp;pagetable[PX(level, va)];</span><br><span class="line">    <span class="keyword">if</span>(*pte &amp; PTE_V) &#123;</span><br><span class="line">      pagetable = (<span class="keyword">pagetable_t</span>)PTE2PA(*pte);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">if</span>(!alloc || (pagetable = (<span class="keyword">pde_t</span>*)kalloc()) == <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">      <span class="built_in">memset</span>(pagetable, <span class="number">0</span>, PGSIZE);</span><br><span class="line">      *pte = PA2PTE(pagetable) | PTE_V;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> &amp;pagetable[PX(<span class="number">0</span>, va)];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="如何map-mappages">如何map: mappages</h4>
 <p>mappages就是walk很多次，一次一個page</p>
 <p>如果完成map就可以用c的*做操作!!<br>

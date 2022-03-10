@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 終於用了factorybot，記下一些使用心得">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-12-06T09:08:58.000Z">
-<meta property="article:modified_time" content="2022-01-30T07:29:16.172Z">
+<meta property="article:modified_time" content="2022-03-10T13:32:03.507Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-30 15:29:16" itemprop="dateModified" datetime="2022-01-30T15:29:16+08:00">2022-01-30</time>
+                <time title="Modified: 2022-03-10 21:32:03" itemprop="dateModified" datetime="2022-03-10T21:32:03+08:00">2022-03-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -257,7 +257,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-40">動機</h2>
+        <h2 id="動機-20">動機</h2>
 <p>終於用了factorybot，記下一些使用心得</p>
 <span id="more"></span>
 <h2 id="描述欄位">描述欄位</h2>
@@ -284,7 +284,7 @@ transient就是 factory的參數</p>
 <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">before &#123; patch <span class="string">&quot;/reader/borrow&quot;</span>, <span class="symbol">headers:</span> who, <span class="symbol">params:</span> &#123; <span class="symbol">copy_id:</span> copy.id, <span class="symbol">reader_id:</span> a_reader.id &#125;, <span class="symbol">as:</span> <span class="symbol">:json</span> &#125;</span><br><span class="line">    </span><br><span class="line">context <span class="string">&#x27;is reader&#x27;</span> <span class="keyword">do</span></span><br><span class="line">  let(<span class="symbol">:who</span>) &#123; reader_header &#125;</span><br><span class="line">  <span class="comment"># ...</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">context <span class="string">&#x27;not reader&#x27;</span> <span class="keyword">do</span></span><br><span class="line">  let(<span class="symbol">:who</span>) &#123; base_header &#125;</span><br><span class="line">  <span class="comment"># ...</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 <p>這樣before的who會吃到不一樣的header，這就是dynamic scope，變數是依據當下執行的環境。<br>
 這跑起來很方便，但是很不好trace</p>
-<h2 id="Ref-23">Ref</h2>
+<h2 id="Ref-18">Ref</h2>
 <p><span class="exturl" data-url="aHR0cHM6Ly9waGlsY2FsY2Fkby5jb20vMjAxMi8wNy8wMS9hbm5veWluZ19yc3BlY19keW5hbWljX3Njb3BpbmdfaW5fZXhhbXBsZV9ncm91cHMuaHRtbA==">rspec is dynamic scope<i class="fa fa-external-link-alt"></i></span></p>
 
     </div>
@@ -366,7 +366,7 @@ transient就是 factory的參數</p>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-40"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%8F%E8%BF%B0%E6%AC%84%E4%BD%8D"><span class="nav-number">2.</span> <span class="nav-text">描述欄位</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#trait-transient"><span class="nav-number">2.1.</span> <span class="nav-text">trait &amp; transient</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sequence"><span class="nav-number">2.2.</span> <span class="nav-text">sequence</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#build-create-build-stubbed"><span class="nav-number">3.</span> <span class="nav-text">build &amp; create &amp; build_stubbed</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#create-list"><span class="nav-number">4.</span> <span class="nav-text">create_list</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#let-in-rspec-create"><span class="nav-number">5.</span> <span class="nav-text">let! in rspec &amp; create</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#rspec-is-dynamic-scope"><span class="nav-number">5.1.</span> <span class="nav-text">rspec is dynamic scope</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-23"><span class="nav-number">6.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-20"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%8F%E8%BF%B0%E6%AC%84%E4%BD%8D"><span class="nav-number">2.</span> <span class="nav-text">描述欄位</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#trait-transient"><span class="nav-number">2.1.</span> <span class="nav-text">trait &amp; transient</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sequence"><span class="nav-number">2.2.</span> <span class="nav-text">sequence</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#build-create-build-stubbed"><span class="nav-number">3.</span> <span class="nav-text">build &amp; create &amp; build_stubbed</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#create-list"><span class="nav-number">4.</span> <span class="nav-text">create_list</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#let-in-rspec-create"><span class="nav-number">5.</span> <span class="nav-text">let! in rspec &amp; create</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#rspec-is-dynamic-scope"><span class="nav-number">5.1.</span> <span class="nav-text">rspec is dynamic scope</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-18"><span class="nav-number">6.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

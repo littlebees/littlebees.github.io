@@ -29,10 +29,10 @@
 <meta property="og:description" content="動機 經典的dp">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-11-02T15:56:35.000Z">
-<meta property="article:modified_time" content="2022-01-30T07:29:16.168Z">
+<meta property="article:modified_time" content="2022-03-10T13:32:03.503Z">
 <meta property="article:author" content="zhengcf">
-<meta property="article:tag" content="Dynamic Programming">
 <meta property="article:tag" content="Array">
+<meta property="article:tag" content="Dynamic Programming">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://littlebees.github.io/2020/11/leetcode-120/">
@@ -232,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-30 15:29:16" itemprop="dateModified" datetime="2022-01-30T15:29:16+08:00">2022-01-30</time>
+                <time title="Modified: 2022-03-10 21:32:03" itemprop="dateModified" datetime="2022-03-10T21:32:03+08:00">2022-03-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -259,12 +259,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-15">動機</h2>
+        <h2 id="動機-54">動機</h2>
 <p>經典的dp</p>
 <span id="more"></span>
-<h2 id="Problem-2">Problem</h2>
+<h2 id="Problem-17">Problem</h2>
 <p>Given a <code>triangle</code> array, return <em>the minimum path sum from top to bottom</em>.</p><p>For each step, you may move to an adjacent number of the row below. More formally, if you are on index <code>i</code> on the current row, you may move to either index <code>i</code> or index <code>i + 1</code> on the next row.</p><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input:</strong> triangle = [[2],[3,4],[6,5,7],[4,1,8,3]]<strong>Output:</strong> 11<strong>Explanation:</strong> The triangle looks like:   <u>2</u>  <u>3</u> 4 6 <u>5</u> 74 <u>1</u> 8 3The minimum path sum from top to bottom is 2 + 3 + 5 + 1 = 11 (underlined above).</pre><p><strong>Example 2:</strong></p><pre><strong>Input:</strong> triangle = [[-10]]<strong>Output:</strong> -10</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>1 <= triangle.length <= 200</code></li><li><code>triangle[0].length == 1</code></li><li><code>triangle[i].length == triangle[i - 1].length + 1</code></li><li><code>-10<sup>4</sup> <= triangle[i][j] <= 10<sup>4</sup></code></li></ul><p> </p><strong>Follow up:</strong> Could you do this using only <code>O(n)</code> extra space, where <code>n</code> is the total number of rows in the triangle?
-<h2 id="Sol-2">Sol</h2>
+<h2 id="Sol-12">Sol</h2>
 <p>每個點都是由上面的兩個點的總和構成，遞迴<br>
 每個點都是index，dp</p>
 <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">legal</span><span class="params">(i,len)</span></span></span><br><span class="line">   i &gt;= <span class="number">0</span> &amp;&amp; i &lt; len </span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">minimum_total</span><span class="params">(tri)</span></span></span><br><span class="line">    i = <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> i &lt; tri.size</span><br><span class="line">        tri[i].each_with_index <span class="keyword">do</span> <span class="params">|n,j|</span></span><br><span class="line">            maxN = Float::INFINITY</span><br><span class="line">            maxN = [maxN, tri[i-<span class="number">1</span>][j]].min   <span class="keyword">if</span> legal(j  ,tri[i-<span class="number">1</span>].size)</span><br><span class="line">            maxN = [maxN, tri[i-<span class="number">1</span>][j-<span class="number">1</span>]].min <span class="keyword">if</span> legal(j-<span class="number">1</span>,tri[i-<span class="number">1</span>].size)</span><br><span class="line">            tri[i][j] += maxN</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        <span class="comment">#p tri[i]</span></span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    tri[-<span class="number">1</span>].min</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
@@ -276,8 +276,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Dynamic-Programming/" rel="tag"># Dynamic Programming</a>
               <a href="/tags/Array/" rel="tag"># Array</a>
+              <a href="/tags/Dynamic-Programming/" rel="tag"># Dynamic Programming</a>
           </div>
 
         
@@ -351,7 +351,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-15"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-2"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-2"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-54"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-17"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-12"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
