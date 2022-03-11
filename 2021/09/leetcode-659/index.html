@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 跟patch array一樣很有魔法的題目">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-09-14T08:34:43.000Z">
-<meta property="article:modified_time" content="2022-03-11T15:25:53.596Z">
+<meta property="article:modified_time" content="2022-03-11T18:50:15.895Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Array">
 <meta property="article:tag" content="Heap (Priority Queue)">
@@ -234,7 +234,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-11 23:25:53" itemprop="dateModified" datetime="2022-03-11T23:25:53+08:00">2022-03-11</time>
+                <time title="Modified: 2022-03-12 02:50:15" itemprop="dateModified" datetime="2022-03-12T02:50:15+08:00">2022-03-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -261,12 +261,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-544">動機</h2>
+        <h2 id="動機-543">動機</h2>
 <p>跟patch array一樣很有魔法的題目</p>
 <span id="more"></span>
-<h2 id="Problem-418">Problem</h2>
+<h2 id="Problem-417">Problem</h2>
 <p>You are given an integer array <code>nums</code> that is <strong>sorted in non-decreasing order</strong>.</p><p>Determine if it is possible to split <code>nums</code> into <strong>one or more subsequences</strong> such that <strong>both</strong> of the following conditions are true:</p><ul><li>Each subsequence is a <strong>consecutive increasing sequence</strong> (i.e. each integer is <strong>exactly one</strong> more than the previous integer).</li><li>All subsequences have a length of <code>3</code><strong> or more</strong>.</li></ul><p>Return <code>true</code><em> if you can split </em><code>nums</code><em> according to the above conditions, or </em><code>false</code><em> otherwise</em>.</p><p>A <strong>subsequence</strong> of an array is a new array that is formed from the original array by deleting some (can be none) of the elements without disturbing the relative positions of the remaining elements. (i.e., <code>[1,3,5]</code> is a subsequence of <code>[<u>1</u>,2,<u>3</u>,4,<u>5</u>]</code> while <code>[1,3,2]</code> is not).</p><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input:</strong> nums = [1,2,3,3,4,5]<strong>Output:</strong> true<strong>Explanation:</strong> nums can be split into the following subsequences:[<strong><u>1</u></strong>,<strong><u>2</u></strong>,<strong><u>3</u></strong>,3,4,5] --> 1, 2, 3[1,2,3,<strong><u>3</u></strong>,<strong><u>4</u></strong>,<strong><u>5</u></strong>] --> 3, 4, 5</pre><p><strong>Example 2:</strong></p><pre><strong>Input:</strong> nums = [1,2,3,3,4,4,5,5]<strong>Output:</strong> true<strong>Explanation:</strong> nums can be split into the following subsequences:[<strong><u>1</u></strong>,<strong><u>2</u></strong>,<strong><u>3</u></strong>,3,<strong><u>4</u></strong>,4,<strong><u>5</u></strong>,5] --> 1, 2, 3, 4, 5[1,2,3,<strong><u>3</u></strong>,4,<strong><u>4</u></strong>,5,<strong><u>5</u></strong>] --> 3, 4, 5</pre><p><strong>Example 3:</strong></p><pre><strong>Input:</strong> nums = [1,2,3,4,4,5]<strong>Output:</strong> false<strong>Explanation:</strong> It is impossible to split nums into consecutive increasing subsequences of length 3 or more.</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>1 <= nums.length <= 10<sup>4</sup></code></li><li><code>-1000 <= nums[i] <= 1000</code></li><li><code>nums</code> is sorted in <strong>non-decreasing</strong> order.</li></ul>
-<h2 id="Sol-385">Sol</h2>
+<h2 id="Sol-384">Sol</h2>
 <p>追蹤以此點為結尾的list長度，那list有兩種產生方式</p>
 <ol>
 <li>加到尾巴: <code>... n-1</code> + <code>n</code></li>
@@ -358,7 +358,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-544"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-418"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-385"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-543"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-417"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-384"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
