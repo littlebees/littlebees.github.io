@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="AEpTGuQAkxnTOlmfF4INDna3S660LxrkyZ4BQzVbRSw">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"littlebees.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="動機 下面紀錄做lab遇到的坑 我做完6.824的所有lab時，他們還在上課，所以code不能貼">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mit 6.824 2022 實驗筆記">
+<meta property="og:url" content="https://littlebees.github.io/2022/03/6-824-lab-notes/index.html">
+<meta property="og:site_name" content="記事本">
+<meta property="og:description" content="動機 下面紀錄做lab遇到的坑 我做完6.824的所有lab時，他們還在上課，所以code不能貼">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2022-03-11T15:25:39.000Z">
+<meta property="article:modified_time" content="2022-03-11T15:25:53.604Z">
+<meta property="article:author" content="zhengcf">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://littlebees.github.io/2022/03/6-824-lab-notes/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>mit 6.824 2022 實驗筆記 | 記事本</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">記事本</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">寫下來，不然會忘</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2022/03/6-824-lab-notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhengcf">
+      <meta itemprop="description" content="想到什麼就寫什麼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="記事本">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          mit 6.824 2022 實驗筆記
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-03-11 23:25:39 / Modified: 23:25:53" itemprop="dateCreated datePublished" datetime="2022-03-11T23:25:39+08:00">2022-03-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/System/" itemprop="url" rel="index"><span itemprop="name">System</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/System/Distributed/" itemprop="url" rel="index"><span itemprop="name">Distributed</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="動機-641">動機</h2>
+<p>下面紀錄做lab遇到的坑</p>
+<p>我做完6.824的所有lab時，他們還在上課，所以code不能貼</p>
+<span id="more"></span>
+<h2 id="能得到什麼">能得到什麼</h2>
+<ol>
+<li>怎麼用lock</li>
+<li>分散式系統怎麼設計</li>
+<li>怎麼設計log要印什麼與用log去debug</li>
+<li>面對絕望的勇氣與滿滿的成就感</li>
+</ol>
+<h2 id="這堂課好在哪">這堂課好在哪</h2>
+<ol>
+<li>所有材料都在網路上，連同所有測試</li>
+<li>有可以參考的code與心得 (但網路上的code真的就是參考而已，因為有的也沒有實現好或是實現得異常複雜)</li>
+</ol>
+<h2 id="lab1">lab1</h2>
+<p>實現一個單機版的mapreduce，這個基本上就是給大家練習golang的</p>
+<p>可以不用任何一個lock完成這個lab</p>
+<p>重點是知道mapper與reducer到底要做什麼<br>
+mapper把資料對到一個reducer(可以當成一個shard)，reducer做接下來的事</p>
+<h2 id="lab2">lab2</h2>
+<p>實現一個有基本功能、log compaction、log fast back的raft</p>
+<p>細節十分多，十分可怕</p>
+<p>下面是一些整體的重點</p>
+<ol>
+<li>先用一個lock就好
+<ul>
+<li>之後會引入其他lock，要嚴格遵守拿lock的order</li>
+<li>引入lock後method互相call可能會call到有lock的，要自己定義那些method需要lock那些不需要</li>
+<li>lock與unlock可以用method包裝，之後如果有deadlock會很好trace</li>
+</ul>
+</li>
+<li>不要提早切太細分成很多struct與method (除了log的操作!!)
+<ul>
+<li>之後上lock會把自己搞死，除了deadlock還是deadlock</li>
+<li>debug的log也會很難看 (會不知道是哪台server做的)</li>
+</ul>
+</li>
+<li>思考為什麼raft不會錯，不是只有為什麼會對
+<ul>
+<li>正確性的來源是?
+<ul>
+<li>投票與log的關係是?</li>
+<li>term的意義是?</li>
+</ul>
+</li>
+<li>為什麼只需要persist那3項資料就好?
+<ul>
+<li>raft怎麼意識到時間流逝(事件發生)</li>
+</ul>
+</li>
+<li>persist的資料與正確性的關係是?</li>
+<li>fig 2的描述怎麼實現(保持)正確性?</li>
+</ul>
+</li>
+<li>log要把所有狀態與自己是誰print出來
+<ul>
+<li>之後debug就是透過自己replay log來完成，沒有gdb，沒有</li>
+<li>print可以直接用<code>%v</code></li>
+</ul>
+</li>
+<li>去看student guide與lab hint</li>
+</ol>
+<h3 id="lab2a">lab2a</h3>
+<p>這是實現投票的part(RequestVote rpc)，很簡單，也是惡夢的開始!!</p>
+<p>因為這個不涉及log，導致隨便寫都能過test，但投票才是確保log會是最新的重要條件!!</p>
+<h3 id="lab2b">lab2b</h3>
+<p>這是實現log的part(AppendEntries rpc)，情況變得複雜起來，要處理log與apply</p>
+<p>這裡就會把前面lab2a沒寫好的部分暴露出來</p>
+<ol>
+<li>要確認所謂的at least up-to-date是什麼意思 (log比較長 或是 一樣長但是last log的term比較大或等於)</li>
+<li>有沒有處理term不對要變成follower (有人說可以只讓leader變成follower就好，但我試了之後會報錯)</li>
+</ol>
+<p>接著就是AppendEntries，</p>
+<ol>
+<li>heartbeat不特別!! 如果你看到你的code有<code>if len(entries) == 0</code>有很高的機率你的code是錯的
+<ul>
+<li>在client push東西後其實可以只透過heartbeat去更新log (但是很慢)</li>
+</ul>
+</li>
+<li>candidate或是leader要變成follower，也只能是follower</li>
+<li>有沒有處理term不對要變成follower</li>
+<li>有沒有正確的trim log與merge entries</li>
+</ol>
+<p>apply log到client的時候，</p>
+<ol>
+<li>要確認是不是自己的term</li>
+<li>commit index夠不夠大 (其實只要有更新commit index就可以試著apply了，不用讓另一個thread去monitor commit index的變化)</li>
+</ol>
+<h3 id="lab2c">lab2c</h3>
+<p>這是實現log fast back與persist的部分</p>
+<p>persist不難，只要記得，只在persisting state變動時做persist!!</p>
+<p>log fast back有很多版本，可以去看教授的也可以做conflict index</p>
+<p>聽起來都還好，但是這裡的test多的unreliable，也就是network partition、restart都加進來測，所以</p>
+<ol>
+<li>test花的時間變多了</li>
+<li>test會過不代表你的code是對的，有可能只是幸運
+<ul>
+<li>有一次是跑50次在第49次fail其他都pass…</li>
+</ul>
+</li>
+</ol>
+<p>這裡整理一下遇過的錯</p>
+<ul>
+<li>apply error: 同一個index上傳了不同的log
+<ul>
+<li>你的RequestVote或AppendEntries或apply log寫錯了，要回去看fig 2</li>
+</ul>
+</li>
+<li>fail to reach agreement(livelock): 怎麼沒有leader或是一直有candidate跳出來
+<ul>
+<li>你的RequestVote與AppendEntries寫錯了</li>
+<li>election&amp;heartbeat timer有沒有在對的時候reset
+<ul>
+<li>term不對要變成follower時要reset (這邊fig 2沒有寫但是要)</li>
+</ul>
+</li>
+<li>heartbeat timer的時間太長 或 election timer太短</li>
+</ul>
+</li>
+<li>deadlock
+<ul>
+<li>看看你的method有沒有用到lock</li>
+</ul>
+</li>
+</ul>
+<h3 id="lab2d">lab2d</h3>
+<p>這是實現log compaction，原本是在lab3b，但現在搬來這裡</p>
+<p>要做InstallSnapshot，這不難，把前面的rpc拿來改，這裡的重點是</p>
+<ul>
+<li>怎麼處理被trim過的log</li>
+<li>同時，前面的code也要能動</li>
+</ul>
+<p>當初就是在這邊把apply log改成appiler的，因為</p>
+<ul>
+<li>因為tester的channel沒有buffer，不這樣做就等於在raft的lock中拿另一個lock，之後就會deadlock</li>
+</ul>
+<h3 id="前往lab3之前">前往lab3之前</h3>
+<p>要先大量測試你的raft都會過所有test，在這邊查出的問題越多之後的問題越少<br>
+只會剩下性能問題</p>
+<h2 id="lab3">lab3</h2>
+<p>利用你的raft建立一個容錯、線性一致的key-value db</p>
+<p>這裡要注意的就是如果遇到重複、過期的request要怎麼處理?<br>
+引入序列號，這裡要client與server定義怎麼處理序列號，之後server就是照序列號一個一個處理上去</p>
+<p>還有要處理如果leader壞了，之前commit的東西其實要重新丟一次(index與term對不上，可以看student guide的Re-appearing indices)</p>
+<p>這裡還會對kv db做performance test，如果太慢要回去看raft!!<br>
+像我是之前raft做persist太多次，時間花太久</p>
+<p>還有get要放到raft中同步給大家，不然不會有線性一致</p>
+<h2 id="lab4">lab4</h2>
+<p>現在把kv db拆成一個一個shard，分散在不同的raft group中，shard會在不同的raft group中移來移去</p>
+<h3 id="lab4a">lab4a</h3>
+<p>產生每個shard對應到哪個group的configuration</p>
+<p>這裡就是把lab3拿來改就好，把put/get換成join/leave，但要注意的是產生config的演算法一定要determinstic<br>
+不能同一個input之後每台server產生的config不一樣 (go的map走訪是undeterminstic)</p>
+<h3 id="lab4b">lab4b</h3>
+<p>要做提供kv db與shard migration的server</p>
+<p>這裡要處理shard migration，也是當初卡最久的地方，因為要自己設計這一塊，不像raft還有paper可以參考<br>
+同時也可以把challenge 1與2一起考慮進去</p>
+<p>shard migration有兩種方式一個是主動push或是自己pull，兩種都差不多，但要注意的是<br>
+只有在所有shard都完成migrate才能使用新的config，不然會看到兩個一樣的shard同時在服務或是shard去不到該去的地方!!</p>
+<p>另外有人提到要做no-op，因為raft的leader只能commit自己term的log，之後前面沒有commit的log也會被一起commit (詳情見raft paper的fig 8)<br>
+所以可能有一種情況是在前一個leader commit之前就壞了，之後選出新leader，但是client沒有塞任何東西，導致raft不apply log以及client等不到commit<br>
+所以no-op就是在新leader產生時可以丟一個沒有任何意義的commit出去，把前面還沒commit的給commit上去 (但6.824的lab沒做也是pass)</p>
+<p>在確定shard migration的設計之後遇到的bug是shard deletion (challenge 1)明明會pass但是因為花太久時間變成fail<br>
+這裡試過</p>
+<ol>
+<li>shard migration從一次一塊變成一次一個group</li>
+<li>把大lock分成shard與pusher一人一個
+<ul>
+<li>在處理的時候發現慢慢code變回OOP的樣子，很奇妙</li>
+</ul>
+</li>
+<li>從存一整個configuration變成只存用的到的部分</li>
+<li>get的結果不用raft傳回來</li>
+</ol>
+<p>但頂多從330秒變成318秒而已 (還有看到有人用zlib，wow)</p>
+<p>最後是把timeout重試的時間調短(從3秒變成500ms)，大概60秒就做完了，wow</p>
+<h2 id="所有lab之後">所有lab之後</h2>
+<p>6.824其實沒有把每個用的分散式系統用到的手法的名字在課堂上介紹，反而是每堂課就是一篇paper看別人怎麼設計與遇到的困難是什麼，所以有人說6.824沒有什麼架構</p>
+<p>但其實這些手法在做lab時就會被實現出來，但lab沒有涉及到transaction的部分，還有那些手法的名字還是可以認識一下，所以可以去讀data-driven internsive application</p>
+<p>還有raft其實與實際用的差很多，工業的raft有許多優化手段，像readIndex或lease read，許多工業級的raft都可以看看</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/03/6-824-notes/" rel="prev" title="mit 6.824筆記">
+      <i class="fa fa-chevron-left"></i> mit 6.824筆記
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-641"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%BD%E5%BE%97%E5%88%B0%E4%BB%80%E9%BA%BC"><span class="nav-number">2.</span> <span class="nav-text">能得到什麼</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%99%E5%A0%82%E8%AA%B2%E5%A5%BD%E5%9C%A8%E5%93%AA"><span class="nav-number">3.</span> <span class="nav-text">這堂課好在哪</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lab1"><span class="nav-number">4.</span> <span class="nav-text">lab1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lab2"><span class="nav-number">5.</span> <span class="nav-text">lab2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#lab2a"><span class="nav-number">5.1.</span> <span class="nav-text">lab2a</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lab2b"><span class="nav-number">5.2.</span> <span class="nav-text">lab2b</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lab2c"><span class="nav-number">5.3.</span> <span class="nav-text">lab2c</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lab2d"><span class="nav-number">5.4.</span> <span class="nav-text">lab2d</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E5%BE%80lab3%E4%B9%8B%E5%89%8D"><span class="nav-number">5.5.</span> <span class="nav-text">前往lab3之前</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lab3"><span class="nav-number">6.</span> <span class="nav-text">lab3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lab4"><span class="nav-number">7.</span> <span class="nav-text">lab4</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#lab4a"><span class="nav-number">7.1.</span> <span class="nav-text">lab4a</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lab4b"><span class="nav-number">7.2.</span> <span class="nav-text">lab4b</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%80%E6%9C%89lab%E4%B9%8B%E5%BE%8C"><span class="nav-number">8.</span> <span class="nav-text">所有lab之後</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">zhengcf</p>
+  <div class="site-description" itemprop="description">想到什麼就寫什麼</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">686</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhengcf</span>
+</div>
+  <div class="powered-by">Powered by <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl theme-link" data-url="aHR0cHM6Ly9tdXNlLnRoZW1lLW5leHQub3Jn">NexT.Muse</span>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 1000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://littlebees.github.io/2022/03/6-824-lab-notes/',]
+      });
+      });
+  </script>
+
+</body>
+</html>
