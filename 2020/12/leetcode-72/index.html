@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 insert是最難想的部分">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-12-06T15:21:26.000Z">
-<meta property="article:modified_time" content="2022-03-10T13:32:03.507Z">
+<meta property="article:modified_time" content="2022-03-11T15:24:09.677Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Dynamic Programming">
 <meta property="article:tag" content="String">
@@ -232,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-10 21:32:03" itemprop="dateModified" datetime="2022-03-10T21:32:03+08:00">2022-03-10</time>
+                <time title="Modified: 2022-03-11 23:24:09" itemprop="dateModified" datetime="2022-03-11T23:24:09+08:00">2022-03-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -267,12 +267,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-35">動機</h2>
+        <h2 id="動機-55">動機</h2>
 <p>insert是最難想的部分</p>
 <span id="more"></span>
-<h2 id="Problem-15">Problem</h2>
+<h2 id="Problem-27">Problem</h2>
 <p>Given two strings <code>word1</code> and <code>word2</code>, return <em>the minimum number of operations required to convert <code>word1</code> to <code>word2</code></em>.</p><p>You have the following three operations permitted on a word:</p><ul><li>Insert a character</li><li>Delete a character</li><li>Replace a character</li></ul><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input:</strong> word1 = horse, word2 = ros<strong>Output:</strong> 3<strong>Explanation:</strong> horse -> rorse (replace 'h' with 'r')rorse -> rose (remove 'r')rose -> ros (remove 'e')</pre><p><strong>Example 2:</strong></p><pre><strong>Input:</strong> word1 = intention, word2 = execution<strong>Output:</strong> 5<strong>Explanation:</strong> intention -> inention (remove 't')inention -> enention (replace 'i' with 'e')enention -> exention (replace 'n' with 'x')exention -> exection (replace 'n' with 'c')exection -> execution (insert 'u')</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>0 <= word1.length, word2.length <= 500</code></li><li><code>word1</code> and <code>word2</code> consist of lowercase English letters.</li></ul>
-<h2 id="Sol-10">Sol</h2>
+<h2 id="Sol-19">Sol</h2>
 <p>用兩個index表示比到哪裡，如果一樣就一起後退<br>
 不一樣就要經歷insert, replace, 或 delete</p>
 <p>replace很好理解，就是換成一樣的，這樣兩個就一起後退</p>
@@ -364,7 +364,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-35"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-15"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-10"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-55"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-27"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-19"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -378,7 +378,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">684</span>
+          <span class="site-state-item-count">685</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

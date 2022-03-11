@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 用load_and_authorize_resource去load變數時遇到的坑">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-12-06T07:21:26.000Z">
-<meta property="article:modified_time" content="2022-03-10T13:32:03.507Z">
+<meta property="article:modified_time" content="2022-03-11T15:24:09.673Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-10 21:32:03" itemprop="dateModified" datetime="2022-03-10T21:32:03+08:00">2022-03-10</time>
+                <time title="Modified: 2022-03-11 23:24:09" itemprop="dateModified" datetime="2022-03-11T23:24:09+08:00">2022-03-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -257,7 +257,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-15">動機</h2>
+        <h2 id="動機-35">動機</h2>
 <p>用load_and_authorize_resource去load變數時遇到的坑</p>
 <span id="more"></span>
 <h2 id="cancancan怎麼認權限">cancancan怎麼認權限?</h2>
@@ -296,7 +296,7 @@
 <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">authorize_resource <span class="symbol">:signup</span>, <span class="class"><span class="keyword">class</span>: <span class="title">false</span></span></span><br></pre></td></tr></table></figure>
 <p>在ability中，寫成</p>
 <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">can <span class="symbol">:manage</span>, <span class="symbol">:signup</span> <span class="comment">#不是class，是symbol</span></span><br></pre></td></tr></table></figure>
-<h2 id="Ref-14">Ref</h2>
+<h2 id="Ref-19">Ref</h2>
 <p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0NhbkNhbkNvbW11bml0eS9jYW5jYW5jYW4vYmxvYi9kZXZlbG9wL2xpYi9jYW5jYW4vY29udHJvbGxlcl9hZGRpdGlvbnMucmI=">官方文件<i class="fa fa-external-link-alt"></i></span></p>
 
     </div>
@@ -378,7 +378,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-15"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cancancan%E6%80%8E%E9%BA%BC%E8%AA%8D%E6%AC%8A%E9%99%90"><span class="nav-number">2.</span> <span class="nav-text">cancancan怎麼認權限?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cancancan%E6%9C%80%E9%9B%A3%E7%94%A8%E7%9A%84%E5%9C%B0%E6%96%B9%E6%98%AF"><span class="nav-number">3.</span> <span class="nav-text">cancancan最難用的地方是?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8A%B1%E5%BC%8Fload%E8%B3%87%E6%BA%90%E6%99%82%E7%94%A8%E5%88%B0%E7%9A%84options"><span class="nav-number">4.</span> <span class="nav-text">花式load資源時用到的options</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#parent"><span class="nav-number">4.1.</span> <span class="nav-text">parent</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#through"><span class="nav-number">4.2.</span> <span class="nav-text">through</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E5%80%8Bparameter%E5%88%B0%E5%BA%95%E6%98%AF%E8%A6%81%E4%BB%80%E9%BA%BC%E6%9D%B1%E8%A5%BF"><span class="nav-number">4.2.1.</span> <span class="nav-text">第一個parameter到底是要什麼東西</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B2%92%E6%9C%89model%E4%BD%86%E4%B9%9F%E6%83%B3authorize"><span class="nav-number">5.</span> <span class="nav-text">沒有model但也想authorize</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-14"><span class="nav-number">6.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-35"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cancancan%E6%80%8E%E9%BA%BC%E8%AA%8D%E6%AC%8A%E9%99%90"><span class="nav-number">2.</span> <span class="nav-text">cancancan怎麼認權限?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cancancan%E6%9C%80%E9%9B%A3%E7%94%A8%E7%9A%84%E5%9C%B0%E6%96%B9%E6%98%AF"><span class="nav-number">3.</span> <span class="nav-text">cancancan最難用的地方是?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8A%B1%E5%BC%8Fload%E8%B3%87%E6%BA%90%E6%99%82%E7%94%A8%E5%88%B0%E7%9A%84options"><span class="nav-number">4.</span> <span class="nav-text">花式load資源時用到的options</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#parent"><span class="nav-number">4.1.</span> <span class="nav-text">parent</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#through"><span class="nav-number">4.2.</span> <span class="nav-text">through</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E5%80%8Bparameter%E5%88%B0%E5%BA%95%E6%98%AF%E8%A6%81%E4%BB%80%E9%BA%BC%E6%9D%B1%E8%A5%BF"><span class="nav-number">4.2.1.</span> <span class="nav-text">第一個parameter到底是要什麼東西</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B2%92%E6%9C%89model%E4%BD%86%E4%B9%9F%E6%83%B3authorize"><span class="nav-number">5.</span> <span class="nav-text">沒有model但也想authorize</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-19"><span class="nav-number">6.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -392,7 +392,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">684</span>
+          <span class="site-state-item-count">685</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

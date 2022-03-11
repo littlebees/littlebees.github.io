@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 想把bash的某個字串轉成大寫，但因為bash太舊，所以不能用substitution來做，只能用awk 所以來整理一下，在bash做字串處理的方式">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-12-26T17:40:57.000Z">
-<meta property="article:modified_time" content="2022-03-10T13:32:03.507Z">
+<meta property="article:modified_time" content="2022-03-11T15:24:09.673Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-10 21:32:03" itemprop="dateModified" datetime="2022-03-10T21:32:03+08:00">2022-03-10</time>
+                <time title="Modified: 2022-03-11 23:24:09" itemprop="dateModified" datetime="2022-03-11T23:24:09+08:00">2022-03-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -257,7 +257,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-12">動機</h2>
+        <h2 id="動機-32">動機</h2>
 <p>想把bash的某個字串轉成大寫，但因為bash太舊，所以不能用substitution來做，只能用awk</p>
 <p>所以來整理一下，在bash做字串處理的方式</p>
 <span id="more"></span>
@@ -322,7 +322,7 @@
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> string_functions(localvar, arr) &#123;</span><br><span class="line"></span><br><span class="line">    localvar = <span class="string">&quot;fooooobar&quot;</span>;</span><br><span class="line">    sub(<span class="string">&quot;fo+&quot;</span>, <span class="string">&quot;Meet me at the &quot;</span>, localvar); <span class="comment"># localvar =&gt; &quot;Meet me at the bar&quot;</span></span><br><span class="line">    gsub(<span class="string">&quot;e+&quot;</span>, <span class="string">&quot;.&quot;</span>, localvar); <span class="comment"># localvar =&gt; &quot;m..t m. at th. bar&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Search for a string that matches a regular expression</span></span><br><span class="line">    <span class="comment"># index() does the same thing, but doesn&#x27;t allow a regular expression</span></span><br><span class="line">    match(localvar, <span class="string">&quot;t&quot;</span>); <span class="comment"># =&gt; 4, since the &#x27;t&#x27; is the fourth character</span></span><br><span class="line"></span><br><span class="line">    sprintf(<span class="string">&quot;%s %d %d %d&quot;</span>, <span class="string">&quot;Testing&quot;</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>); <span class="comment"># =&gt; &quot;Testing 1 2 3&quot;</span></span><br><span class="line">    substr(<span class="string">&quot;foobar&quot;</span>, <span class="number">2</span>, <span class="number">3</span>); <span class="comment"># =&gt; &quot;oob&quot;</span></span><br><span class="line">    substr(<span class="string">&quot;foobar&quot;</span>, <span class="number">4</span>); <span class="comment"># =&gt; &quot;bar&quot;</span></span><br><span class="line">    length(<span class="string">&quot;foo&quot;</span>); <span class="comment"># =&gt; 3</span></span><br><span class="line">    tolower(<span class="string">&quot;FOO&quot;</span>); <span class="comment"># =&gt; &quot;foo&quot;</span></span><br><span class="line">    toupper(<span class="string">&quot;foo&quot;</span>); <span class="comment"># =&gt; &quot;FOO&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># /^fo+bar$/</span></span><br><span class="line"><span class="comment"># a &gt; 0 (boolean exp)</span></span><br><span class="line"><span class="variable">$0</span> ~ <span class="regexp">/^fo+bar$/</span> &#123;</span><br><span class="line">  <span class="comment"># Inside here, we have access to a number of useful variables, already</span></span><br><span class="line">  <span class="comment"># pre-loaded for us:</span></span><br><span class="line">  <span class="comment"># $0 is the entire line</span></span><br><span class="line">  <span class="comment"># $3 is the third field, the age, which is what we&#x27;re interested in here</span></span><br><span class="line">  <span class="comment"># NF is the number of fields, which should be 3</span></span><br><span class="line">  <span class="comment"># NR is the number of records (lines) seen so far</span></span><br><span class="line">  <span class="comment"># FILENAME is the name of the file being processed</span></span><br><span class="line">  <span class="comment"># FS is the field separator being used, which is &quot; &quot; here</span></span><br><span class="line">  <span class="comment"># $NF =&gt; $3</span></span><br><span class="line"></span><br><span class="line">  multidim[<span class="number">0</span>,<span class="number">0</span>] = <span class="string">&quot;foo&quot;</span>;</span><br><span class="line">  assoc[<span class="string">&quot;foo&quot;</span>] = <span class="string">&quot;bar&quot;</span>;</span><br><span class="line">  n = split(<span class="string">&quot;foo:bar:baz&quot;</span>, arr, <span class="string">&quot;:&quot;</span>); <span class="regexp">/* arr = [&quot;foo&quot;, &quot;bar&quot;, &quot;baz&quot;] */</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="string">&quot;foo&quot;</span> <span class="keyword">in</span> assoc)</span><br><span class="line">        print <span class="string">&quot;Fooey!&quot;</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (key <span class="keyword">in</span> assoc)</span><br><span class="line">      print assoc[key];</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">delete</span> arr[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">  string_functions(assoc, multidim);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>用<code>someletters_12345_moreleters.ext</code>只取12345當例子<br>
 <code>awk 'BEGIN&#123;FS=&quot;_&quot;&#125; &#123;print $2&#125;'</code></p>
-<h2 id="Ref-12">Ref</h2>
+<h2 id="Ref-17">Ref</h2>
 <p><span class="exturl" data-url="aHR0cHM6Ly93d3cuY3liZXJjaXRpLmJpei90aXBzL2Jhc2gtc2hlbGwtcGFyYW1ldGVyLXN1YnN0aXR1dGlvbi0yLmh0bWw=">How To Use Bash Parameter Substitution Like A Pro<i class="fa fa-external-link-alt"></i></span><br>
 <span class="exturl" data-url="aHR0cHM6Ly9sZWFybnhpbnltaW51dGVzLmNvbS9kb2NzL2F3ay8=">awk in x minutes<i class="fa fa-external-link-alt"></i></span></p>
 
@@ -405,7 +405,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-12"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bash-substitution"><span class="nav-number">2.</span> <span class="nav-text">bash substitution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cut"><span class="nav-number">3.</span> <span class="nav-text">cut</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#awk"><span class="nav-number">4.</span> <span class="nav-text">awk</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-12"><span class="nav-number">5.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-32"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bash-substitution"><span class="nav-number">2.</span> <span class="nav-text">bash substitution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cut"><span class="nav-number">3.</span> <span class="nav-text">cut</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#awk"><span class="nav-number">4.</span> <span class="nav-text">awk</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-17"><span class="nav-number">5.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -419,7 +419,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">684</span>
+          <span class="site-state-item-count">685</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
