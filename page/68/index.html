@@ -197,6 +197,112 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2020/5/sass-survey/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhengcf">
+      <meta itemprop="description" content="想到什麼就寫什麼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="記事本">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/5/sass-survey/" class="post-title-link" itemprop="url">sass的簡單語法整理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-05-04 23:54:28" itemprop="dateCreated datePublished" datetime="2020-05-04T23:54:28+08:00">2020-05-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-03-13 16:08:55" itemprop="dateModified" datetime="2022-03-13T16:08:55+08:00">2022-03-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CSS/" itemprop="url" rel="index"><span itemprop="name">CSS</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CSS/Tips/" itemprop="url" rel="index"><span itemprop="name">Tips</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ul>
+<li>Mixins =&gt; macro</li>
+<li>Functions =&gt; 算出sass的資料 (是一級函數，用法類似common lisp)</li>
+<li>Extends =&gt; 共用同一塊code，繼承關係</li>
+<li>Nesting =&gt; 表明父子關係</li>
+</ul>
+<h2 id="operator">operator</h2>
+<ul>
+<li><code>@</code> =&gt; built-in operator</li>
+<li><code>%</code> =&gt; 類似html的template，for extended css code</li>
+<li><code>$</code> =&gt; var</li>
+<li><code>#&#123;...&#125;</code> =&gt; Interpolation <code>#&#123;$property&#125;: $value;</code></li>
+<li><code>&amp;</code> =&gt; reference to parent class, nesting</li>
+<li>math operator</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">ul, ol &#123;</span><br><span class="line">  text-align: left;</span><br><span class="line"></span><br><span class="line">  &amp; &amp; &#123;</span><br><span class="line">    padding: &#123;</span><br><span class="line">      bottom: 0;</span><br><span class="line">      left: 0;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ul, ol &#123;</span><br><span class="line">  text-align: left;</span><br><span class="line">&#125;</span><br><span class="line">ul ul, ol ol &#123;</span><br><span class="line">  padding-bottom: 0;</span><br><span class="line">  padding-left: 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="special-datatype">special datatype</h2>
+<h3 id="color">color</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@debug #f2ece4; // #f2ece4</span><br><span class="line">@debug #b37399aa; // rgba(179, 115, 153, 67%)</span><br><span class="line">@debug midnightblue; // #191970</span><br><span class="line">@debug rgb(204, 102, 153); // #c69</span><br><span class="line">@debug rgba(107, 113, 127, 0.8); // rgba(107, 113, 127, 0.8)</span><br><span class="line">@debug hsl(228, 7%, 86%); // #dadbdf</span><br><span class="line">@debug hsla(20, 20%, 85%, 0.7); // rgb(225, 215, 210, 0.7)</span><br></pre></td></tr></table></figure>
+<h3 id="list-map">list &amp; map</h3>
+<h4 id="map-2">map</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$font-weights: (&quot;regular&quot;: 400, &quot;medium&quot;: 500, &quot;bold&quot;: 700);</span><br><span class="line"></span><br><span class="line">@debug map.get($font-weights, &quot;medium&quot;);</span><br><span class="line">// immutable!!</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/5/sass-survey/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
     <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2020/5/useful-featrue-es6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -228,7 +334,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-12 02:50:15" itemprop="dateModified" datetime="2022-03-12T02:50:15+08:00">2022-03-12</time>
+                <time title="Modified: 2022-03-13 16:08:55" itemprop="dateModified" datetime="2022-03-13T16:08:55+08:00">2022-03-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -322,7 +428,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-12 02:50:15" itemprop="dateModified" datetime="2022-03-12T02:50:15+08:00">2022-03-12</time>
+                <time title="Modified: 2022-03-13 16:08:55" itemprop="dateModified" datetime="2022-03-13T16:08:55+08:00">2022-03-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -424,7 +530,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-12 02:50:15" itemprop="dateModified" datetime="2022-03-12T02:50:15+08:00">2022-03-12</time>
+                <time title="Modified: 2022-03-13 16:08:55" itemprop="dateModified" datetime="2022-03-13T16:08:55+08:00">2022-03-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -523,7 +629,7 @@ A: 保證人能找到更強的保證人來擔保</p>
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-12 02:50:15" itemprop="dateModified" datetime="2022-03-12T02:50:15+08:00">2022-03-12</time>
+                <time title="Modified: 2022-03-13 16:08:55" itemprop="dateModified" datetime="2022-03-13T16:08:55+08:00">2022-03-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -619,7 +725,7 @@ A: 保證人能找到更強的保證人來擔保</p>
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-12 02:50:15" itemprop="dateModified" datetime="2022-03-12T02:50:15+08:00">2022-03-12</time>
+                <time title="Modified: 2022-03-13 16:08:55" itemprop="dateModified" datetime="2022-03-13T16:08:55+08:00">2022-03-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -704,7 +810,7 @@ A: 保證人能找到更強的保證人來擔保</p>
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-12 02:50:15" itemprop="dateModified" datetime="2022-03-12T02:50:15+08:00">2022-03-12</time>
+                <time title="Modified: 2022-03-13 16:08:55" itemprop="dateModified" datetime="2022-03-13T16:08:55+08:00">2022-03-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -798,7 +904,7 @@ A: 保證人能找到更強的保證人來擔保</p>
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-12 02:50:15" itemprop="dateModified" datetime="2022-03-12T02:50:15+08:00">2022-03-12</time>
+                <time title="Modified: 2022-03-13 16:08:55" itemprop="dateModified" datetime="2022-03-13T16:08:55+08:00">2022-03-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -907,7 +1013,7 @@ BL則是對象與想像都具體呈現在眼前</p>
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-12 02:50:15" itemprop="dateModified" datetime="2022-03-12T02:50:15+08:00">2022-03-12</time>
+                <time title="Modified: 2022-03-13 16:08:55" itemprop="dateModified" datetime="2022-03-13T16:08:55+08:00">2022-03-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -996,7 +1102,7 @@ BL則是對象與想像都具體呈現在眼前</p>
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-12 02:50:15" itemprop="dateModified" datetime="2022-03-12T02:50:15+08:00">2022-03-12</time>
+                <time title="Modified: 2022-03-13 16:08:55" itemprop="dateModified" datetime="2022-03-13T16:08:55+08:00">2022-03-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1037,99 +1143,6 @@ BL則是對象與想像都具體呈現在眼前</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/4/auto-replace-post-created-time/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2020/4/TSS/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="zhengcf">
-      <meta itemprop="description" content="想到什麼就寫什麼">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="記事本">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/4/TSS/" class="post-title-link" itemprop="url">The Seasoned Schemer讀後筆記</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-04-15 23:58:57" itemprop="dateCreated datePublished" datetime="2020-04-15T23:58:57+08:00">2020-04-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-12 02:50:15" itemprop="dateModified" datetime="2022-03-12T02:50:15+08:00">2022-03-12</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Lisp/" itemprop="url" rel="index"><span itemprop="name">Lisp</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Lisp/Reading/" itemprop="url" rel="index"><span itemprop="name">Reading</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="前言">前言</h2>
-<p>The Seasoned Schemer(TSS)的目的是補完TLS中沒有提及的狀態。<br>
-這篇筆記同樣不依照章節順序，用主題式的方式，把我心中的這本書呈現出來。</p>
-<h2 id="行前須知">行前須知</h2>
-<p>知道什麼是?</p>
-<ul>
-<li>Scheme</li>
-<li>遞迴</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/4/TSS/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -1218,7 +1231,7 @@ BL則是對象與想像都具體呈現在眼前</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">686</span>
+          <span class="site-state-item-count">687</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="AEpTGuQAkxnTOlmfF4INDna3S660LxrkyZ4BQzVbRSw">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"littlebees.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="動機">
+<meta property="og:type" content="article">
+<meta property="og:title" content="paxos-raft-zab">
+<meta property="og:url" content="https://littlebees.github.io/2022/03/paxos-raft-zab/index.html">
+<meta property="og:site_name" content="記事本">
+<meta property="og:description" content="動機">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2022-03-13T08:08:37.000Z">
+<meta property="article:modified_time" content="2022-03-13T08:08:55.095Z">
+<meta property="article:author" content="zhengcf">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://littlebees.github.io/2022/03/paxos-raft-zab/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>paxos-raft-zab | 記事本</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">記事本</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">寫下來，不然會忘</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2022/03/paxos-raft-zab/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhengcf">
+      <meta itemprop="description" content="想到什麼就寫什麼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="記事本">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          paxos-raft-zab
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-03-13 16:08:37 / Modified: 16:08:55" itemprop="dateCreated datePublished" datetime="2022-03-13T16:08:37+08:00">2022-03-13</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="動機-642">動機</h2>
+<span id="more"></span>
+<h2 id="總體而言">總體而言</h2>
+<p><strong>在任何時間點，於不能反悔的情況下維持共識</strong></p>
+<p>paxos與其他共識演算法都是在保護上面假設</p>
+<p>實際如何執行?</p>
+<ul>
+<li>不能反悔 (資料保持最新 &amp; 承認時間流逝)
+<ul>
+<li>遞增</li>
+<li>暮等</li>
+<li>immutation</li>
+</ul>
+</li>
+<li>共識
+<ul>
+<li>多數決</li>
+<li>單一來源</li>
+</ul>
+</li>
+<li>描述時間
+<ul>
+<li>序列號</li>
+</ul>
+</li>
+</ul>
+<p>下面根據paper的時間線來看</p>
+<ul>
+<li>basic paxos</li>
+<li>multi-paxos</li>
+<li>zab</li>
+<li>raft</li>
+</ul>
+<h2 id="basic-paxos">basic paxos</h2>
+<p>有兩個角色，proposer與accepter<br>
+(對應到raft是leader與follower)</p>
+<p>之後與raft不同的是paxos可以<strong>同時管理好幾個app的狀態</strong>(所以paxos可以接受不連續的log，因為log不用遞增)<br>
+在paxos就是value去區分，每個value都會帶有一個只能遞增的id</p>
+<p>paxos的proposer是任何人都能當的，但要怎麼確認自己的提案會不會被接受?<br>
+所以要先問過半的accepter的最大id(prepare)</p>
+<p>(假設還有其他資料，像是log，就要再額外sync，見zab，不過basic paxos沒有所以這段上括號)</p>
+<p>之後才傳資料(accept)。</p>
+<p>另外paxos這樣可能會產生livelock，只要有兩個proposer打同一個value就會產生，所以要區隔時間(raft的election timer)</p>
+<h3 id="正確性">正確性</h3>
+<p><em>value的id</em>保證不反悔app狀態同時代表時間點<br>
+<em>先問過半的accepter的最大id</em>確保app狀態共識</p>
+<h2 id="multi-paxos">multi-paxos</h2>
+<p>如果說每次都要同步log才能傳資料就很麻煩另外還有livelock的風險<br>
+所以把proposer定成一個這樣就能省下同步log的步驟</p>
+<h3 id="正確性-2">正確性</h3>
+<p>proposer只要有最新的id，之後就可以commit到acceptor，等commit完成後就proposer又會有最新的id (遞迴)</p>
+<h2 id="zab">zab</h2>
+<p>就是multi-paxos + 選leader</p>
+<p>但這樣打太短要補一點東西</p>
+<p>zab分成4個階段</p>
+<ol>
+<li>election</li>
+</ol>
+<ul>
+<li>透過zxid來選其實就是
+<ul>
+<li>term (這裡叫epoch)</li>
+<li>id (就是paxos的id)</li>
+</ul>
+</li>
+<li>之後記住自己投給誰</li>
+</ul>
+<ol start="2">
+<li>discovery (prepare)</li>
+<li>sync (sync log)</li>
+<li>braodcast (accept)</li>
+</ol>
+<h3 id="選leader的正確性">選leader的正確性</h3>
+<p>leader會壞怎麼辦?</p>
+<ul>
+<li>選leader也要<strong>在任何時間點，於不能反悔的情況下維持共識</strong>
+<ul>
+<li>所以多了term與voteFor，term表示時間、voreFor就是資料</li>
+</ul>
+</li>
+</ul>
+<h2 id="raft">raft</h2>
+<p>如果只有一個app要管而已，可以簡化設計嗎?</p>
+<ol>
+<li>只放一個log，那可以直接用log遞增取代id</li>
+<li>只有一個log，可以在選leader直接認最新log的為leader<br>
+- 也因此，同步log的時機與paxos不同
+<ul>
+<li>paxos因為任何人都可以當proposer，所以一開始就要sync log</li>
+<li>raft是在成為leader之後才透過appendEntries同步log
+<ul>
+<li>但可能有不一致的log，所以才有figure 8</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>整個dataflow可以看成<br>
+leader -&gt; log</p>
+<p>因為leader要過半，所以是共識；<br>
+認leader自然imply認log； (appendEntries)<br>
+接著就是認leader不能反悔；<br>
+最後就是commit出去的不能變，所以有過半才能commit；</p>
+<p>但是只有這樣會產生figure 8的問題，所以要多一個條件<br>
+<strong>只能在同一個term完成同一個term的事件</strong></p>
+<p>因為只有在完成appendEntrries之後才能確認，follower的log與leader同步，而唯一能讓leader發appendEntrries只有新log或是heartbeat。</p>
+<h3 id="正確性-3">正確性</h3>
+<ol>
+<li>不能反悔</li>
+</ol>
+<ul>
+<li>term只能遞增
+<ul>
+<li>只能在同一個term完成同一個term的事件 (第一個處理亂序與crash的手法)</li>
+</ul>
+</li>
+<li>leader的log只能遞增</li>
+</ul>
+<ol start="2">
+<li>共識</li>
+</ol>
+<ul>
+<li>每個term的leader最多一個
+<ul>
+<li>用誰的log比較新決定leader
+<ul>
+<li>認term與log對不對得起來</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>leader持有夠新的log且過半(一樣新或是比較舊)
+<ul>
+<li>log最新的log會過半
+<ul>
+<li>有新log會reject其他candidate</li>
+<li>follower會與leader的log同步
+<ul>
+<li>merge相符但是比較短的entries (第二個處理亂序的手法)</li>
+<li>砍掉開始不一樣的log</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>過半才做下一個步驟
+<ul>
+<li>成為leader (leader最多一個)</li>
+<li>commit log上去 (確定新的log占多數)</li>
+</ul>
+</li>
+</ul>
+<ol start="3">
+<li>在同一個term完成同一個term的事件 (raft獨有)</li>
+</ol>
+<ul>
+<li>figure 8
+<ul>
+<li>因為是等到appendEntrries才sync log (類似lazy eval)</li>
+<li>變成只能在自己的term才能確認log是對的
+<ul>
+<li>但是只要確認就能利用 multi-paxos的遞迴 確認前面的log也是對的!!</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/03/6-824-lab-notes/" rel="prev" title="mit 6.824 2022 實驗筆記">
+      <i class="fa fa-chevron-left"></i> mit 6.824 2022 實驗筆記
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-642"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B8%BD%E9%AB%94%E8%80%8C%E8%A8%80"><span class="nav-number">2.</span> <span class="nav-text">總體而言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#basic-paxos"><span class="nav-number">3.</span> <span class="nav-text">basic paxos</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E7%A2%BA%E6%80%A7"><span class="nav-number">3.1.</span> <span class="nav-text">正確性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#multi-paxos"><span class="nav-number">4.</span> <span class="nav-text">multi-paxos</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E7%A2%BA%E6%80%A7-2"><span class="nav-number">4.1.</span> <span class="nav-text">正確性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#zab"><span class="nav-number">5.</span> <span class="nav-text">zab</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%81%B8leader%E7%9A%84%E6%AD%A3%E7%A2%BA%E6%80%A7"><span class="nav-number">5.1.</span> <span class="nav-text">選leader的正確性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#raft"><span class="nav-number">6.</span> <span class="nav-text">raft</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E7%A2%BA%E6%80%A7-3"><span class="nav-number">6.1.</span> <span class="nav-text">正確性</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">zhengcf</p>
+  <div class="site-description" itemprop="description">想到什麼就寫什麼</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">687</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhengcf</span>
+</div>
+  <div class="powered-by">Powered by <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl theme-link" data-url="aHR0cHM6Ly9tdXNlLnRoZW1lLW5leHQub3Jn">NexT.Muse</span>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 1000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://littlebees.github.io/2022/03/paxos-raft-zab/',]
+      });
+      });
+  </script>
+
+</body>
+</html>
