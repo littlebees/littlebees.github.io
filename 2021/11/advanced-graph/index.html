@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 tarjan的dfs好強!!">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-11-20T13:49:24.000Z">
-<meta property="article:modified_time" content="2022-03-13T08:08:55.087Z">
+<meta property="article:modified_time" content="2022-03-13T14:24:14.263Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-13 16:08:55" itemprop="dateModified" datetime="2022-03-13T16:08:55+08:00">2022-03-13</time>
+                <time title="Modified: 2022-03-13 22:24:14" itemprop="dateModified" datetime="2022-03-13T22:24:14+08:00">2022-03-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -257,7 +257,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-604">動機</h2>
+        <h2 id="動機-602">動機</h2>
 <p>tarjan的dfs好強!!</p>
 <span id="more"></span>
 <h2 id="Articulation-point-tarjan的dfs">Articulation point (tarjan的dfs)</h2>
@@ -480,7 +480,7 @@ dfs，所以earliest是透過dfs遞迴定義，但還有back edge要處理</p>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-604"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Articulation-point-tarjan%E7%9A%84dfs"><span class="nav-number">2.</span> <span class="nav-text">Articulation point (tarjan的dfs)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bridge-2"><span class="nav-number">3.</span> <span class="nav-text">Bridge</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Connected-Components"><span class="nav-number">4.</span> <span class="nav-text">Connected Components</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Strongly-Connected-Components"><span class="nav-number">5.</span> <span class="nav-text">Strongly Connected Components</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cycle"><span class="nav-number">6.</span> <span class="nav-text">Cycle</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bipartite"><span class="nav-number">7.</span> <span class="nav-text">Bipartite</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Maximum-Bipartite-Matching"><span class="nav-number">7.1.</span> <span class="nav-text">Maximum Bipartite Matching</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-SAT"><span class="nav-number">8.</span> <span class="nav-text">2-SAT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Eulerian-path"><span class="nav-number">9.</span> <span class="nav-text">Eulerian path</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tree%E7%9A%84%E5%90%8C%E6%A7%8B"><span class="nav-number">10.</span> <span class="nav-text">tree的同構</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-113"><span class="nav-number">11.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-602"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Articulation-point-tarjan%E7%9A%84dfs"><span class="nav-number">2.</span> <span class="nav-text">Articulation point (tarjan的dfs)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bridge-2"><span class="nav-number">3.</span> <span class="nav-text">Bridge</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Connected-Components"><span class="nav-number">4.</span> <span class="nav-text">Connected Components</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Strongly-Connected-Components"><span class="nav-number">5.</span> <span class="nav-text">Strongly Connected Components</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cycle"><span class="nav-number">6.</span> <span class="nav-text">Cycle</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bipartite"><span class="nav-number">7.</span> <span class="nav-text">Bipartite</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Maximum-Bipartite-Matching"><span class="nav-number">7.1.</span> <span class="nav-text">Maximum Bipartite Matching</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-SAT"><span class="nav-number">8.</span> <span class="nav-text">2-SAT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Eulerian-path"><span class="nav-number">9.</span> <span class="nav-text">Eulerian path</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tree%E7%9A%84%E5%90%8C%E6%A7%8B"><span class="nav-number">10.</span> <span class="nav-text">tree的同構</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-113"><span class="nav-number">11.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

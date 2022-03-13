@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://assets.leetcode.com/uploads/2021/01/18/uniquebstn3.jpg">
 <meta property="article:published_time" content="2021-07-23T17:27:28.000Z">
-<meta property="article:modified_time" content="2022-03-13T08:08:55.079Z">
+<meta property="article:modified_time" content="2022-03-13T14:24:14.255Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Dynamic Programming">
 <meta property="article:tag" content="Math">
@@ -237,7 +237,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-13 16:08:55" itemprop="dateModified" datetime="2022-03-13T16:08:55+08:00">2022-03-13</time>
+                <time title="Modified: 2022-03-13 22:24:14" itemprop="dateModified" datetime="2022-03-13T22:24:14+08:00">2022-03-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -268,12 +268,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-393">動機</h2>
+        <h2 id="動機-392">動機</h2>
 <p>當成range，就可以去二分了</p>
 <span id="more"></span>
-<h2 id="Problem-285">Problem</h2>
+<h2 id="Problem-284">Problem</h2>
 <p>Given an integer <code>n</code>, return <em>the number of structurally unique <strong>BST'</strong>s (binary search trees) which has exactly </em><code>n</code><em> nodes of unique values from</em> <code>1</code> <em>to</em> <code>n</code>.</p><p> </p><p><strong>Example 1:</strong></p><img alt="" src="https://assets.leetcode.com/uploads/2021/01/18/uniquebstn3.jpg" style="width: 600px; height: 148px;" /><pre><strong>Input:</strong> n = 3<strong>Output:</strong> 5</pre><p><strong>Example 2:</strong></p><pre><strong>Input:</strong> n = 1<strong>Output:</strong> 1</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>1 <= n <= 19</code></li></ul>
-<h2 id="Sol-251">Sol</h2>
+<h2 id="Sol-250">Sol</h2>
 <p>分成左右兩邊，如果範圍長度只有1就是一個node，非法範圍就是沒node，但這兩個都是一個組合數</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">numTrees</span>(<span class="params">self, n: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line"><span class="meta">        @cache</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">dp</span>(<span class="params">i,j</span>):</span></span><br><span class="line">            <span class="keyword">if</span> i &gt;= j <span class="keyword">or</span> j-i == <span class="number">1</span>: <span class="comment"># single node or empty node</span></span><br><span class="line">                <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="built_in">sum</span>([dp(i,k) * dp(k+<span class="number">1</span>,j) <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(i,j)])</span><br><span class="line">        <span class="keyword">return</span> dp(<span class="number">1</span>,n+<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
     </div>
@@ -362,7 +362,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-393"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-285"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-251"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-392"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-284"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-250"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

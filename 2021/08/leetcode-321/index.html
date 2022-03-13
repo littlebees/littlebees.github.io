@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 沒有魔法的一題 但要怎麼看出沒有魔法?">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-08-19T14:55:55.000Z">
-<meta property="article:modified_time" content="2022-03-13T08:08:55.083Z">
+<meta property="article:modified_time" content="2022-03-13T14:24:14.255Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Stack">
 <meta property="article:tag" content="Greedy">
@@ -233,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-13 16:08:55" itemprop="dateModified" datetime="2022-03-13T16:08:55+08:00">2022-03-13</time>
+                <time title="Modified: 2022-03-13 22:24:14" itemprop="dateModified" datetime="2022-03-13T22:24:14+08:00">2022-03-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -260,13 +260,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-433">動機</h2>
+        <h2 id="動機-432">動機</h2>
 <p>沒有魔法的一題</p>
 <p>但要怎麼看出沒有魔法?</p>
 <span id="more"></span>
-<h2 id="Problem-313">Problem</h2>
+<h2 id="Problem-312">Problem</h2>
 <p>You are given two integer arrays <code>nums1</code> and <code>nums2</code> of lengths <code>m</code> and <code>n</code> respectively. <code>nums1</code> and <code>nums2</code> represent the digits of two numbers. You are also given an integer <code>k</code>.</p><p>Create the maximum number of length <code>k <= m + n</code> from digits of the two numbers. The relative order of the digits from the same array must be preserved.</p><p>Return an array of the <code>k</code> digits representing the answer.</p><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input:</strong> nums1 = [3,4,6,5], nums2 = [9,1,2,5,8,3], k = 5<strong>Output:</strong> [9,8,6,5,3]</pre><p><strong>Example 2:</strong></p><pre><strong>Input:</strong> nums1 = [6,7], nums2 = [6,0,4], k = 5<strong>Output:</strong> [6,7,6,0,4]</pre><p><strong>Example 3:</strong></p><pre><strong>Input:</strong> nums1 = [3,9], nums2 = [8,9], k = 3<strong>Output:</strong> [9,8,9]</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>m == nums1.length</code></li><li><code>n == nums2.length</code></li><li><code>1 <= m, n <= 500</code></li><li><code>0 <= nums1[i], nums2[i] <= 9</code></li><li><code>1 <= k <= m + n</code></li></ul>
-<h2 id="Sol-280">Sol</h2>
+<h2 id="Sol-279">Sol</h2>
 <p>如果只是要字典序最大，用monotonic stack就好</p>
 <p>接著就是merge，要看字典序大小去merge</p>
 <p>最後就是try所有組合</p>
@@ -355,7 +355,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-433"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-313"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-280"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-432"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-312"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-279"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

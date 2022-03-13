@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 有趣的一題">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-08-05T13:26:31.000Z">
-<meta property="article:modified_time" content="2022-03-13T08:08:55.083Z">
+<meta property="article:modified_time" content="2022-03-13T14:24:14.259Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Stack">
 <meta property="article:tag" content="Design">
@@ -234,7 +234,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-13 16:08:55" itemprop="dateModified" datetime="2022-03-13T16:08:55+08:00">2022-03-13</time>
+                <time title="Modified: 2022-03-13 22:24:14" itemprop="dateModified" datetime="2022-03-13T22:24:14+08:00">2022-03-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -265,12 +265,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-488">動機</h2>
+        <h2 id="動機-487">動機</h2>
 <p>有趣的一題</p>
 <span id="more"></span>
-<h2 id="Problem-368">Problem</h2>
+<h2 id="Problem-367">Problem</h2>
 <p>Design a stack-like data structure to push elements to the stack and pop the most frequent element from the stack.</p><p>Implement the <code>FreqStack</code> class:</p><ul><li><code>FreqStack()</code> constructs an empty frequency stack.</li><li><code>void push(int val)</code> pushes an integer <code>val</code> onto the top of the stack.</li><li><code>int pop()</code> removes and returns the most frequent element in the stack.<ul><li>If there is a tie for the most frequent element, the element closest to the stack's top is removed and returned.</li></ul></li></ul><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input</strong>[FreqStack, push, push, push, push, push, push, pop, pop, pop, pop][[], [5], [7], [5], [7], [4], [5], [], [], [], []]<strong>Output</strong>[null, null, null, null, null, null, null, 5, 7, 5, 4]<strong>Explanation</strong>FreqStack freqStack = new FreqStack();freqStack.push(5); // The stack is [5]freqStack.push(7); // The stack is [5,7]freqStack.push(5); // The stack is [5,7,5]freqStack.push(7); // The stack is [5,7,5,7]freqStack.push(4); // The stack is [5,7,5,7,4]freqStack.push(5); // The stack is [5,7,5,7,4,5]freqStack.pop();   // return 5, as 5 is the most frequent. The stack becomes [5,7,5,7,4].freqStack.pop();   // return 7, as 5 and 7 is the most frequent, but 7 is closest to the top. The stack becomes [5,7,5,4].freqStack.pop();   // return 5, as 5 is the most frequent. The stack becomes [5,7,4].freqStack.pop();   // return 4, as 4, 5 and 7 is the most frequent, but 4 is closest to the top. The stack becomes [5,7].</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>0 <= val <= 10<sup>9</sup></code></li><li>At most <code>2 * 10<sup>4</sup></code> calls will be made to <code>push</code> and <code>pop</code>.</li><li>It is guaranteed that there will be at least one element in the stack before calling <code>pop</code>.</li></ul>
-<h2 id="Sol-335">Sol</h2>
+<h2 id="Sol-334">Sol</h2>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FreqStack</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.stks = defaultdict(<span class="built_in">list</span>)</span><br><span class="line">        self.v2l = defaultdict(<span class="built_in">int</span>)</span><br><span class="line">        self.max_len = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">push</span>(<span class="params">self, val: <span class="built_in">int</span></span>) -&gt; <span class="literal">None</span>:</span></span><br><span class="line">        self.v2l[val] += <span class="number">1</span></span><br><span class="line">        self.stks[self.v2l[val]].append(val)</span><br><span class="line">        self.max_len = <span class="built_in">max</span>(self.max_len, self.v2l[val])</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pop</span>(<span class="params">self</span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        val = self.stks[self.max_len].pop()</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> self.stks[self.max_len]:</span><br><span class="line">            self.max_len -= <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        self.v2l[val] -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> val</span><br></pre></td></tr></table></figure>
     </div>
 
@@ -357,7 +357,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-488"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-368"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-335"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-487"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-367"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-334"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
