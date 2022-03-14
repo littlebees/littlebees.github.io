@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 python與ruby上用thread必要面對的課題">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-10-04T16:08:26.000Z">
-<meta property="article:modified_time" content="2022-03-14T07:21:31.907Z">
+<meta property="article:modified_time" content="2022-03-14T07:22:31.098Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-14 15:21:31" itemprop="dateModified" datetime="2022-03-14T15:21:31+08:00">2022-03-14</time>
+                <time title="Modified: 2022-03-14 15:22:31" itemprop="dateModified" datetime="2022-03-14T15:22:31+08:00">2022-03-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -257,7 +257,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-3">動機</h2>
+        <h2 id="動機-2">動機</h2>
 <p>python與ruby上用thread必要面對的課題</p>
  <span id="more"></span>
 <h2 id="GIL為什麼要存在">GIL為什麼要存在</h2>
@@ -281,7 +281,7 @@
 <li>在IO重的code上用thread，這正是唯一能享受到多線程好處的地方</li>
 <li>用fork… 或用 C…</li>
 </ol>
-<h2 id="Ref-5">Ref</h2>
+<h2 id="Ref-4">Ref</h2>
 <p><span class="exturl" data-url="aHR0cHM6Ly9ydWJ5LWNoaW5hLm9yZy90b3BpY3MvMjg0MTU=">Ruby 无人知晓的 GIL<i class="fa fa-external-link-alt"></i></span><br>
 <span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmxvdWllLmx1LzIwMTcvMDUvMTkvJUU2JUI3JUIxJUU1JTg1JUE1LWdpbC0lRTUlQTYlODIlRTQlQkQlOTUlRTUlQUYlQUIlRTUlODclQkElRTUlQkYlQUIlRTklODAlOUYlRTQlQjglOTQtdGhyZWFkLXNhZmUtJUU3JTlBJTg0LXB5dGhvbi1ncm9rLXRoZS1naWwtaG93LXRvLXdyaXRlLWZhc3QtYW5kLXRocmVhZC1zYWZlLXB5dGhvbi8=">深入 GIL: 如何寫出快速且 thread-safe 的 Python<i class="fa fa-external-link-alt"></i></span><br>
 <span class="exturl" data-url="aHR0cDovL2NlbmFsdWx1LmdpdGh1Yi5pby9weXRob24vZ2lsLWluLXB5dGhvbi8=">Python的GIL是什么鬼，多线程性能究竟如何<i class="fa fa-external-link-alt"></i></span><br>
@@ -366,7 +366,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-3"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GIL%E7%82%BA%E4%BB%80%E9%BA%BC%E8%A6%81%E5%AD%98%E5%9C%A8"><span class="nav-number">2.</span> <span class="nav-text">GIL為什麼要存在</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%BA%E9%BB%9E"><span class="nav-number">3.</span> <span class="nav-text">缺點</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%9B%B8%E8%99%95"><span class="nav-number">4.</span> <span class="nav-text">如何相處</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-5"><span class="nav-number">5.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-2"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GIL%E7%82%BA%E4%BB%80%E9%BA%BC%E8%A6%81%E5%AD%98%E5%9C%A8"><span class="nav-number">2.</span> <span class="nav-text">GIL為什麼要存在</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%BA%E9%BB%9E"><span class="nav-number">3.</span> <span class="nav-text">缺點</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%9B%B8%E8%99%95"><span class="nav-number">4.</span> <span class="nav-text">如何相處</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-4"><span class="nav-number">5.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -380,7 +380,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">687</span>
+          <span class="site-state-item-count">688</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

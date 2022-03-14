@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 寫寫ruby奇妙的繼承 但原本寫好的metaclass的文居然失蹤了!!! 我找不到… 之後會補…">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-10-04T16:50:22.000Z">
-<meta property="article:modified_time" content="2022-03-14T07:21:31.907Z">
+<meta property="article:modified_time" content="2022-03-14T07:22:31.098Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-14 15:21:31" itemprop="dateModified" datetime="2022-03-14T15:21:31+08:00">2022-03-14</time>
+                <time title="Modified: 2022-03-14 15:22:31" itemprop="dateModified" datetime="2022-03-14T15:22:31+08:00">2022-03-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -257,7 +257,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-6">動機</h2>
+        <h2 id="動機-5">動機</h2>
 <p>寫寫ruby奇妙的繼承</p>
 <p>但原本寫好的metaclass的文居然失蹤了!!!</p>
 <p>我找不到…</p>
@@ -284,7 +284,7 @@ singleton method是 _meta 的 _m_env</p>
 <p>extend就是擴充該實體instance的class的meta中的m-env (class method)<br>
 include就是擴充該實體instance的m-env (instance method)</p>
 <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">module</span> <span class="title">InstanceMethods</span></span></span><br><span class="line">  def <span class="keyword">self</span>.A</span><br><span class="line">    <span class="string">&quot;in A&quot;</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">an_instance_method</span></span></span><br><span class="line">    <span class="string">&quot;You called an_instance_method on <span class="subst">#&#123;<span class="keyword">self</span>.<span class="keyword">class</span>&#125;</span>&quot;</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  def <span class="keyword">self</span>.included(base)</span><br><span class="line">    p <span class="string">&quot;from include&quot;</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">module</span> <span class="title">ClassMethods</span></span></span><br><span class="line">  def <span class="keyword">self</span>.B</span><br><span class="line">    <span class="string">&quot;in B&quot;</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">a_class_method</span></span></span><br><span class="line">    <span class="string">&quot;You called a_class_method_from_module on <span class="subst">#&#123;<span class="keyword">self</span>&#125;</span>&quot;</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  def <span class="keyword">self</span>.extended(base)</span><br><span class="line">    p <span class="string">&quot;from extend&quot;</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span></span></span><br><span class="line">  <span class="keyword">include</span> InstanceMethods</span><br><span class="line">  extend ClassMethods</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">my_class = MyClass.new</span><br><span class="line">puts my_class.an_instance_method <span class="comment"># &gt;&gt; You called an_instance_method on MyClass</span></span><br><span class="line"><span class="comment">#puts my_class.A</span></span><br><span class="line"><span class="comment">#puts my_class.B</span></span><br><span class="line">puts MyClass.a_class_method      <span class="comment"># &gt;&gt; You called a_class_method on MyClass</span></span><br><span class="line"><span class="comment">#puts MyClass.A</span></span><br><span class="line"><span class="comment">#puts MyClass.B</span></span><br><span class="line"></span><br><span class="line">obj = Object.new</span><br><span class="line">obj.extend InstanceMethods</span><br><span class="line">puts obj.an_instance_method</span><br></pre></td></tr></table></figure>
-<h2 id="Ref-8">Ref</h2>
+<h2 id="Ref-7">Ref</h2>
 <p><span class="exturl" data-url="aHR0cHM6Ly9tYWNvdXJub3llci53b3JkcHJlc3MuY29tLzIwMDcvMDcvMDYvZXh0ZW5kaW5nLXlvdXItaW5jbHVkZS1rbm93bGVkZ2Utb2YtcnVieS8=">Extending your include knowledge of Ruby<i class="fa fa-external-link-alt"></i></span><br>
 <span class="exturl" data-url="aHR0cHM6Ly93d3cua2FwcGFjcy5jb20vcnVieS1zdWItY2xhc3Nlcy1pbmhlcml0YW5jZS1pbmNsdWRlLWV4dGVuZC8=">Ruby Sub-Classes/Inheritance, Include, And Extend<i class="fa fa-external-link-alt"></i></span></p>
 
@@ -367,7 +367,7 @@ include就是擴充該實體instance的m-env (instance method)</p>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-6"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%A0%E7%82%BA%E5%8E%9F%E6%9C%AC%E5%AF%ABmetaclass%E7%9A%84%E6%96%87%E7%AB%A0%E4%B8%8D%E8%A6%8B%E4%BA%86%EF%BC%8C%E6%89%80%E4%BB%A5%E5%8F%AA%E5%A5%BD%E8%87%A8%E6%99%82%E8%A3%9C%E4%B8%80%E5%80%8B%E4%BE%86%E8%AA%AA%E6%98%8Emetaclass"><span class="nav-number">2.</span> <span class="nav-text">因為原本寫metaclass的文章不見了，所以只好臨時補一個來說明metaclass</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#inheritance"><span class="nav-number">3.</span> <span class="nav-text">inheritance</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#include-extend"><span class="nav-number">4.</span> <span class="nav-text">include &amp; extend</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-8"><span class="nav-number">5.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-5"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%A0%E7%82%BA%E5%8E%9F%E6%9C%AC%E5%AF%ABmetaclass%E7%9A%84%E6%96%87%E7%AB%A0%E4%B8%8D%E8%A6%8B%E4%BA%86%EF%BC%8C%E6%89%80%E4%BB%A5%E5%8F%AA%E5%A5%BD%E8%87%A8%E6%99%82%E8%A3%9C%E4%B8%80%E5%80%8B%E4%BE%86%E8%AA%AA%E6%98%8Emetaclass"><span class="nav-number">2.</span> <span class="nav-text">因為原本寫metaclass的文章不見了，所以只好臨時補一個來說明metaclass</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#inheritance"><span class="nav-number">3.</span> <span class="nav-text">inheritance</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#include-extend"><span class="nav-number">4.</span> <span class="nav-text">include &amp; extend</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-7"><span class="nav-number">5.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -381,7 +381,7 @@ include就是擴充該實體instance的m-env (instance method)</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">687</span>
+          <span class="site-state-item-count">688</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 雖然說是netns筆記，但其實主要是說linux的虛擬網路裝置…">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-10-17T14:25:33.000Z">
-<meta property="article:modified_time" content="2022-03-14T07:21:31.907Z">
+<meta property="article:modified_time" content="2022-03-14T07:22:31.098Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-14 15:21:31" itemprop="dateModified" datetime="2022-03-14T15:21:31+08:00">2022-03-14</time>
+                <time title="Modified: 2022-03-14 15:22:31" itemprop="dateModified" datetime="2022-03-14T15:22:31+08:00">2022-03-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -257,7 +257,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-4">動機</h2>
+        <h2 id="動機-3">動機</h2>
 <p>雖然說是netns筆記，但其實主要是說linux的虛擬網路裝置…</p>
 <span id="more"></span>
 <h2 id="TUN-TAP">TUN/TAP</h2>
@@ -305,7 +305,7 @@
 <p>可以用<code>brctl</code>改相關設定，像stp之類的</p>
 <p>下面是用bridge配合veth pair把兩個netns連起來</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># add the namespaces</span></span><br><span class="line">ip netns add ns1</span><br><span class="line">ip netns add ns2</span><br><span class="line"><span class="comment"># create the switch</span></span><br><span class="line">BRIDGE=br-test</span><br><span class="line">brctl addbr <span class="variable">$BRIDGE</span></span><br><span class="line">brctl stp   <span class="variable">$BRIDGE</span> off</span><br><span class="line">ip link <span class="built_in">set</span> dev <span class="variable">$BRIDGE</span> up</span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#### PORT 1</span></span><br><span class="line"><span class="comment"># create a port pair</span></span><br><span class="line">ip link add tap1 <span class="built_in">type</span> veth peer name br-tap1</span><br><span class="line"><span class="comment"># attach one side to linuxbridge</span></span><br><span class="line">brctl addif br-test br-tap1 </span><br><span class="line"><span class="comment"># attach the other side to namespace</span></span><br><span class="line">ip link <span class="built_in">set</span> tap1 netns ns1</span><br><span class="line"><span class="comment"># set the ports to up</span></span><br><span class="line">ip netns <span class="built_in">exec</span> ns1 ip link <span class="built_in">set</span> dev tap1 up</span><br><span class="line">ip link <span class="built_in">set</span> dev br-tap1 up</span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#### PORT 2</span></span><br><span class="line"><span class="comment"># create a port pair</span></span><br><span class="line">ip link add tap2 <span class="built_in">type</span> veth peer name br-tap2</span><br><span class="line"><span class="comment"># attach one side to linuxbridge</span></span><br><span class="line">brctl addif br-test br-tap2</span><br><span class="line"><span class="comment"># attach the other side to namespace</span></span><br><span class="line">ip link <span class="built_in">set</span> tap2 netns ns2</span><br><span class="line"><span class="comment"># set the ports to up</span></span><br><span class="line">ip netns <span class="built_in">exec</span> ns2 ip link <span class="built_in">set</span> dev tap2 up</span><br><span class="line">ip link <span class="built_in">set</span> dev br-tap2 up</span><br><span class="line"><span class="comment"># add ip</span></span><br><span class="line">ip netns <span class="built_in">exec</span> ns1 ip a add 192.168.123.1/24 dev tap1</span><br><span class="line">ip netns <span class="built_in">exec</span> ns2 ip a add 192.168.123.2/24 dev tap2</span><br></pre></td></tr></table></figure>
-<h2 id="Ref-6">Ref</h2>
+<h2 id="Ref-5">Ref</h2>
 <p><span class="exturl" data-url="aHR0cHM6Ly93d3cuY25ibG9ncy5jb20vYmFrYXJpL3AvMTA0NzQ2MDAuaHRtbA==">利用 Linux tap/tun 虚拟设备写一个 ICMP echo 程序<i class="fa fa-external-link-alt"></i></span><br>
 <span class="exturl" data-url="aHR0cHM6Ly93d3cuY25ibG9ncy5jb20vbWVua2V5aS9wLzExMzc0MDIzLmh0bWw=">Macvlan 和 IPvlan<i class="fa fa-external-link-alt"></i></span><br>
 <span class="exturl" data-url="aHR0cHM6Ly96aG91eGkuaW8vYmxvZy9wb3N0L3pob3V4aS9MaW51eCVFNyVCRCU5MSVFNyVCQiU5QyVFOCU5OSU5QSVFNiU4QiU5RiVFNSU4QyU5NiVFNyU5QiVCOCVFNSU4NSVCMyVFNyU5QSU4NCVFOCU5OSU5QSVFNiU4QiU5RiVFNyVCRCU5MSVFNSU4RCVBMS1WRVRILU1BQ1ZMQU4tTUFDVlRBUC1JUFZMQU4=">Linux网络虚拟化相关的虚拟网卡-VETH/MACVLAN/MACVTAP/IPVLAN(转载)<i class="fa fa-external-link-alt"></i></span><br>
@@ -392,7 +392,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-4"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TUN-TAP"><span class="nav-number">2.</span> <span class="nav-text">TUN&#x2F;TAP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#veth-pair-bridge"><span class="nav-number">3.</span> <span class="nav-text">veth-pair &amp; bridge</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#macvlan"><span class="nav-number">4.</span> <span class="nav-text">macvlan</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ipvlan"><span class="nav-number">5.</span> <span class="nav-text">ipvlan</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#macvtap-ipvtap"><span class="nav-number">6.</span> <span class="nav-text">macvtap&#x2F;ipvtap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bridge"><span class="nav-number">7.</span> <span class="nav-text">bridge</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-6"><span class="nav-number">8.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-3"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TUN-TAP"><span class="nav-number">2.</span> <span class="nav-text">TUN&#x2F;TAP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#veth-pair-bridge"><span class="nav-number">3.</span> <span class="nav-text">veth-pair &amp; bridge</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#macvlan"><span class="nav-number">4.</span> <span class="nav-text">macvlan</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ipvlan"><span class="nav-number">5.</span> <span class="nav-text">ipvlan</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#macvtap-ipvtap"><span class="nav-number">6.</span> <span class="nav-text">macvtap&#x2F;ipvtap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bridge"><span class="nav-number">7.</span> <span class="nav-text">bridge</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-5"><span class="nav-number">8.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -406,7 +406,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">687</span>
+          <span class="site-state-item-count">688</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
