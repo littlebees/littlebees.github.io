@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://morsmachine.dk/syscall.jpg">
 <meta property="article:published_time" content="2021-06-23T07:41:46.000Z">
-<meta property="article:modified_time" content="2022-03-13T14:24:14.243Z">
+<meta property="article:modified_time" content="2022-03-14T07:21:31.919Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://morsmachine.dk/syscall.jpg">
@@ -232,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-13 22:24:14" itemprop="dateModified" datetime="2022-03-13T22:24:14+08:00">2022-03-13</time>
+                <time title="Modified: 2022-03-14 15:21:31" itemprop="dateModified" datetime="2022-03-14T15:21:31+08:00">2022-03-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -259,7 +259,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-179">動機</h2>
+        <h2 id="動機-180">動機</h2>
 <p>偶然找到<span class="exturl" data-url="aHR0cHM6Ly9jOXgubWUvYXJ0aWNsZXMvZ3RocmVhZHMvaW50cm8uaHRtbA==">Green Threads Explained<i class="fa fa-external-link-alt"></i></span>很讚，做點筆記</p>
 <span id="more"></span>
 <h2 id="thread要有">thread要有?</h2>
@@ -357,7 +357,7 @@
 <p>since it is invoked implicitly in the code e.g. during sleep or channel wait, the compile only needs to safe/restore the registers which are alive at these points.<br>
 In Go, this means only 3 registers i.e. PC, SP and DX (Data Registers) being updated during context switch rather than all registers</p>
 </blockquote>
-<h2 id="Ref-76">Ref</h2>
+<h2 id="Ref-77">Ref</h2>
 <p><span class="exturl" data-url="aHR0cHM6Ly9tb3JzbWFjaGluZS5kay9nby1zY2hlZHVsZXI=">The Go scheduler<i class="fa fa-external-link-alt"></i></span><br>
 <span class="exturl" data-url="aHR0cHM6Ly9jb2RlYnVyc3QuaW8vd2h5LWdvcm91dGluZXMtYXJlLW5vdC1saWdodHdlaWdodC10aHJlYWRzLTdjNDYwYzFmMTU1ZiMzOTZi">Why goroutines are not lightweight threads?<i class="fa fa-external-link-alt"></i></span></p>
 
@@ -440,7 +440,7 @@ In Go, this means only 3 registers i.e. PC, SP and DX (Data Registers) being upd
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-179"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#thread%E8%A6%81%E6%9C%89"><span class="nav-number">2.</span> <span class="nav-text">thread要有?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%A6%E4%BD%9C"><span class="nav-number">3.</span> <span class="nav-text">實作?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#struct-gt"><span class="nav-number">3.1.</span> <span class="nav-text">struct gt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#context-switch"><span class="nav-number">3.2.</span> <span class="nav-text">context switch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B4%E9%AB%94%E9%82%8F%E8%BC%AF"><span class="nav-number">3.3.</span> <span class="nav-text">整體邏輯</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Goroutines"><span class="nav-number">4.</span> <span class="nav-text">Goroutines</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Goroutines%E6%B2%92%E6%9C%89yield"><span class="nav-number">4.1.</span> <span class="nav-text">Goroutines沒有yield</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#syscall%E4%B8%8D%E6%9C%83block%E5%85%B6%E4%BB%96thread%E3%84%9F"><span class="nav-number">4.2.</span> <span class="nav-text">syscall不會block其他threadㄟ</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Goroutines%E7%9A%84context-switch%E6%AF%94%E8%BC%83%E5%BF%AB"><span class="nav-number">4.3.</span> <span class="nav-text">Goroutines的context switch比較快?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-76"><span class="nav-number">5.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-180"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#thread%E8%A6%81%E6%9C%89"><span class="nav-number">2.</span> <span class="nav-text">thread要有?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%A6%E4%BD%9C"><span class="nav-number">3.</span> <span class="nav-text">實作?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#struct-gt"><span class="nav-number">3.1.</span> <span class="nav-text">struct gt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#context-switch"><span class="nav-number">3.2.</span> <span class="nav-text">context switch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B4%E9%AB%94%E9%82%8F%E8%BC%AF"><span class="nav-number">3.3.</span> <span class="nav-text">整體邏輯</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Goroutines"><span class="nav-number">4.</span> <span class="nav-text">Goroutines</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Goroutines%E6%B2%92%E6%9C%89yield"><span class="nav-number">4.1.</span> <span class="nav-text">Goroutines沒有yield</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#syscall%E4%B8%8D%E6%9C%83block%E5%85%B6%E4%BB%96thread%E3%84%9F"><span class="nav-number">4.2.</span> <span class="nav-text">syscall不會block其他threadㄟ</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Goroutines%E7%9A%84context-switch%E6%AF%94%E8%BC%83%E5%BF%AB"><span class="nav-number">4.3.</span> <span class="nav-text">Goroutines的context switch比較快?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-77"><span class="nav-number">5.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

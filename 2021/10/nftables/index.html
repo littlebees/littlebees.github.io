@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://cryptsus.com/blog/nftables-tcpip-model.jpg">
 <meta property="article:published_time" content="2021-10-22T13:41:30.000Z">
-<meta property="article:modified_time" content="2022-03-13T14:24:14.263Z">
+<meta property="article:modified_time" content="2022-03-14T07:21:31.939Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cryptsus.com/blog/nftables-tcpip-model.jpg">
@@ -232,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-13 22:24:14" itemprop="dateModified" datetime="2022-03-13T22:24:14+08:00">2022-03-13</time>
+                <time title="Modified: 2022-03-14 15:21:31" itemprop="dateModified" datetime="2022-03-14T15:21:31+08:00">2022-03-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -259,7 +259,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-580">動機</h2>
+        <h2 id="動機-583">動機</h2>
 <p>記錄用</p>
 <span id="more"></span>
 <h2 id="基本概念">基本概念</h2>
@@ -405,7 +405,7 @@ elements: initialize the set with some elements in it</p>
 <h3 id="其他有用的資料結構">其他有用的資料結構</h3>
 <p>flow table: 可以跳過linux stack的table，做offload<br>
 Conntrack helpers: 依據Conntrack去控制rule</p>
-<h2 id="Ref-102">Ref</h2>
+<h2 id="Ref-103">Ref</h2>
 <p><span class="exturl" data-url="aHR0cHM6Ly93aWtpLm5mdGFibGVzLm9yZy93aWtpLW5mdGFibGVzL2luZGV4LnBocC9NYWluX1BhZ2U=">nftables Main page<i class="fa fa-external-link-alt"></i></span><br>
 <span class="exturl" data-url="aHR0cHM6Ly9jcnlwdHN1cy5jb20vYmxvZy9zZXR0aW5nLXVwLW5mdGFibGVzLWZpcmV3YWxsLmh0bWw=">Setting up nftables Firewall<i class="fa fa-external-link-alt"></i></span><br>
 <span class="exturl" data-url="aHR0cHM6Ly93aWtpLm5mdGFibGVzLm9yZy93aWtpLW5mdGFibGVzL2luZGV4LnBocC9RdWlja19yZWZlcmVuY2UtbmZ0YWJsZXNfaW5fMTBfbWludXRlcw==">Quick reference-nftables in 10 minutes<i class="fa fa-external-link-alt"></i></span></p>
@@ -489,7 +489,7 @@ Conntrack helpers: 依據Conntrack去控制rule</p>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-580"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">2.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-number">3.</span> <span class="nav-text">基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E5%88%A5%E6%B3%A8%E6%84%8F"><span class="nav-number">3.1.</span> <span class="nav-text">特別注意!!</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E8%A6%8F%E5%89%87"><span class="nav-number">4.</span> <span class="nav-text">加規則</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#data-structrue"><span class="nav-number">5.</span> <span class="nav-text">data structrue</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#symbol-var"><span class="nav-number">5.1.</span> <span class="nav-text">symbol var</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#set-3"><span class="nav-number">5.2.</span> <span class="nav-text">set</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#attributes"><span class="nav-number">5.2.1.</span> <span class="nav-text">attributes</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#type-typeof"><span class="nav-number">5.2.1.1.</span> <span class="nav-text">type &amp; typeof</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#flags"><span class="nav-number">5.2.1.2.</span> <span class="nav-text">flags</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#meter"><span class="nav-number">5.2.1.2.1.</span> <span class="nav-text">meter</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#etc"><span class="nav-number">5.2.1.3.</span> <span class="nav-text">etc</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#map-5"><span class="nav-number">5.3.</span> <span class="nav-text">map</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Verdict-Maps"><span class="nav-number">5.3.1.</span> <span class="nav-text">Verdict Maps</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Concatenations-tuple"><span class="nav-number">5.4.</span> <span class="nav-text">Concatenations (tuple)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E6%9C%89%E7%94%A8%E7%9A%84%E8%B3%87%E6%96%99%E7%B5%90%E6%A7%8B"><span class="nav-number">5.5.</span> <span class="nav-text">其他有用的資料結構</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-102"><span class="nav-number">6.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-583"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">2.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-number">3.</span> <span class="nav-text">基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E5%88%A5%E6%B3%A8%E6%84%8F"><span class="nav-number">3.1.</span> <span class="nav-text">特別注意!!</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E8%A6%8F%E5%89%87"><span class="nav-number">4.</span> <span class="nav-text">加規則</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#data-structrue"><span class="nav-number">5.</span> <span class="nav-text">data structrue</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#symbol-var"><span class="nav-number">5.1.</span> <span class="nav-text">symbol var</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#set-3"><span class="nav-number">5.2.</span> <span class="nav-text">set</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#attributes"><span class="nav-number">5.2.1.</span> <span class="nav-text">attributes</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#type-typeof"><span class="nav-number">5.2.1.1.</span> <span class="nav-text">type &amp; typeof</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#flags"><span class="nav-number">5.2.1.2.</span> <span class="nav-text">flags</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#meter"><span class="nav-number">5.2.1.2.1.</span> <span class="nav-text">meter</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#etc"><span class="nav-number">5.2.1.3.</span> <span class="nav-text">etc</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#map-5"><span class="nav-number">5.3.</span> <span class="nav-text">map</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Verdict-Maps"><span class="nav-number">5.3.1.</span> <span class="nav-text">Verdict Maps</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Concatenations-tuple"><span class="nav-number">5.4.</span> <span class="nav-text">Concatenations (tuple)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E6%9C%89%E7%94%A8%E7%9A%84%E8%B3%87%E6%96%99%E7%B5%90%E6%A7%8B"><span class="nav-number">5.5.</span> <span class="nav-text">其他有用的資料結構</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-103"><span class="nav-number">6.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

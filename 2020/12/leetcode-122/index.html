@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機  列舉十分可怕 不要拘泥於題目 新看法: 把資料畫成座標圖">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-12-28T14:20:52.000Z">
-<meta property="article:modified_time" content="2022-03-13T14:24:14.231Z">
+<meta property="article:modified_time" content="2022-03-14T07:21:31.907Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Dynamic Programming">
 <meta property="article:tag" content="Array">
@@ -233,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-13 22:24:14" itemprop="dateModified" datetime="2022-03-13T22:24:14+08:00">2022-03-13</time>
+                <time title="Modified: 2022-03-14 15:21:31" itemprop="dateModified" datetime="2022-03-14T15:21:31+08:00">2022-03-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -268,7 +268,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-42">動機</h2>
+        <h2 id="動機-43">動機</h2>
 <ol>
 <li>列舉十分可怕</li>
 <li>不要拘泥於題目</li>
@@ -291,7 +291,7 @@
 </ol>
 <p>所以，只要把所有利潤加起來就好，除了會覆蓋到最地道最高的case還有，還有中間震盪的case</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxProfit</span>(<span class="params">self, prices: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        ans = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="built_in">len</span>(prices)-<span class="number">1</span>):</span><br><span class="line">            <span class="keyword">if</span> prices[i] &lt; prices[i+<span class="number">1</span>]:</span><br><span class="line">                ans += prices[i+<span class="number">1</span>]-prices[i]</span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
-<h2 id="Ref-24">Ref</h2>
+<h2 id="Ref-25">Ref</h2>
 <p><span class="exturl" data-url="aHR0cHM6Ly9ob21lLmdhbWVyLmNvbS50dy9jcmVhdGlvbkRldGFpbC5waHA/c249NDg5MTMzMg==">因為這位大大的圖我才懂為什麼是加總<i class="fa fa-external-link-alt"></i></span></p>
 
     </div>
@@ -378,7 +378,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-42"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-14"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol1-TLE"><span class="nav-number">3.</span> <span class="nav-text">Sol1: TLE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol2-AC"><span class="nav-number">4.</span> <span class="nav-text">Sol2: AC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-24"><span class="nav-number">5.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-43"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-14"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol1-TLE"><span class="nav-number">3.</span> <span class="nav-text">Sol1: TLE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol2-AC"><span class="nav-number">4.</span> <span class="nav-text">Sol2: AC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-25"><span class="nav-number">5.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

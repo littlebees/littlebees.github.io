@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機  乖乖sort 用到整數除法注意奇數">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-08-11T07:34:17.000Z">
-<meta property="article:modified_time" content="2022-03-13T14:24:14.259Z">
+<meta property="article:modified_time" content="2022-03-14T07:21:31.935Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Array">
 <meta property="article:tag" content="Greedy">
@@ -234,7 +234,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-13 22:24:14" itemprop="dateModified" datetime="2022-03-13T22:24:14+08:00">2022-03-13</time>
+                <time title="Modified: 2022-03-14 15:21:31" itemprop="dateModified" datetime="2022-03-14T15:21:31+08:00">2022-03-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -261,15 +261,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-495">動機</h2>
+        <h2 id="動機-497">動機</h2>
 <ol>
 <li>乖乖sort</li>
 <li>用到整數除法注意奇數</li>
 </ol>
 <span id="more"></span>
-<h2 id="Problem-375">Problem</h2>
+<h2 id="Problem-376">Problem</h2>
 <p>Given an array of integers <code>arr</code> of even length, return <code>true</code> if and only if it is possible to reorder it such that <code>arr[2 * i + 1] = 2 * arr[2 * i]</code> for every <code>0 <= i < len(arr) / 2</code>.</p><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input:</strong> arr = [3,1,3,6]<strong>Output:</strong> false</pre><p><strong>Example 2:</strong></p><pre><strong>Input:</strong> arr = [2,1,2,6]<strong>Output:</strong> false</pre><p><strong>Example 3:</strong></p><pre><strong>Input:</strong> arr = [4,-2,2,-4]<strong>Output:</strong> true<strong>Explanation:</strong> We can take two groups, [-2,-4] and [2,4] to form [-2,-4,2,4] or [2,4,-2,-4].</pre><p><strong>Example 4:</strong></p><pre><strong>Input:</strong> arr = [1,2,4,16,8,4]<strong>Output:</strong> false</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>0 <= arr.length <= 3 * 10<sup>4</sup></code></li><li><code>arr.length</code> is even.</li><li><code>-10<sup>5</sup> <= arr[i] <= 10<sup>5</sup></code></li></ul>
-<h2 id="Sol-342">Sol</h2>
+<h2 id="Sol-343">Sol</h2>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">canReorderDoubled</span>(<span class="params">self, arr: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">bool</span>:</span></span><br><span class="line">        cnts = Counter(arr)</span><br><span class="line">        </span><br><span class="line">        ks = <span class="built_in">sorted</span>(<span class="built_in">list</span>(cnts.keys()))</span><br><span class="line">        <span class="keyword">for</span> k <span class="keyword">in</span> ks:</span><br><span class="line">            <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(cnts[k]):</span><br><span class="line">                <span class="keyword">for</span> n <span class="keyword">in</span> ([k*<span class="number">2</span>,k//<span class="number">2</span>] <span class="keyword">if</span> k % <span class="number">2</span> == <span class="number">0</span> <span class="keyword">else</span> [k*<span class="number">2</span>]):</span><br><span class="line">                    <span class="keyword">if</span> n <span class="keyword">in</span> cnts:</span><br><span class="line">                        <span class="keyword">if</span> cnts[n] == <span class="number">1</span>:</span><br><span class="line">                            <span class="keyword">del</span> cnts[n]</span><br><span class="line">                        <span class="keyword">else</span>:</span><br><span class="line">                            cnts[n] -= <span class="number">1</span></span><br><span class="line">                        <span class="keyword">if</span> cnts[k] == <span class="number">1</span>:</span><br><span class="line">                            <span class="keyword">del</span> cnts[k]</span><br><span class="line">                        <span class="keyword">else</span>:</span><br><span class="line">                            cnts[k] -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">not</span> cnts</span><br></pre></td></tr></table></figure>
     </div>
 
@@ -356,7 +356,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-495"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-375"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-342"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-497"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-376"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-343"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

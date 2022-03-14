@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 之前面試題目有遇過bit trick的考題，用到lowBit!! 所以來記錄一下 這篇不記錄要table或是常數的做法，這裡只記錄用bit operation與負號就能用的手法，如果需要看這裡">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-07-05T09:08:26.000Z">
-<meta property="article:modified_time" content="2022-03-13T14:24:14.243Z">
+<meta property="article:modified_time" content="2022-03-14T07:21:31.919Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-13 22:24:14" itemprop="dateModified" datetime="2022-03-13T22:24:14+08:00">2022-03-13</time>
+                <time title="Modified: 2022-03-14 15:21:31" itemprop="dateModified" datetime="2022-03-14T15:21:31+08:00">2022-03-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -257,7 +257,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-195">動機</h2>
+        <h2 id="動機-196">動機</h2>
 <p>之前面試題目有遇過bit trick的考題，用到lowBit!!<br>
 所以來記錄一下</p>
 <p>這篇不記錄要table或是常數的做法，這裡只記錄用bit operation與負號就能用的手法，如果需要看<span class="exturl" data-url="aHR0cHM6Ly9ncmFwaGljcy5zdGFuZm9yZC5lZHUvfnNlYW5kZXIvYml0aGFja3MuaHRtbCNDb25kaXRpb25hbFNldE9yQ2xlYXJCaXRzV2l0aG91dEJyYW5jaGluZw==">這裡<i class="fa fa-external-link-alt"></i></span></p>
@@ -320,7 +320,7 @@
 9: <code>1111</code></p>
 <p>所以可以看兩位是不是都是1來看是不是整除3</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">divide3</span><span class="params">(<span class="keyword">int</span> a)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(a)&#123;</span><br><span class="line">        ans += a&amp;<span class="number">1</span>;</span><br><span class="line">        a&gt;&gt;=<span class="number">1</span>;</span><br><span class="line">        ans -= a&amp;<span class="number">1</span>;</span><br><span class="line">        a&gt;&gt;=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> !(ans);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Ref-84">Ref</h2>
+<h2 id="Ref-85">Ref</h2>
 <p><span class="exturl" data-url="aHR0cHM6Ly93d3cuZ2Vla3Nmb3JnZWVrcy5vcmcvYml0LXRyaWNrcy1jb21wZXRpdGl2ZS1wcm9ncmFtbWluZy8=">Bit Tricks for Competitive Programming<i class="fa fa-external-link-alt"></i></span><br>
 <span class="exturl" data-url="aHR0cHM6Ly93d3cuZ2Vla3Nmb3JnZWVrcy5vcmcvYml0d2lzZS1oYWNrcy1mb3ItY29tcGV0aXRpdmUtcHJvZ3JhbW1pbmcv">Bitwise Hacks for Competitive Programming<i class="fa fa-external-link-alt"></i></span><br>
 <span class="exturl" data-url="aHR0cHM6Ly9ncmFwaGljcy5zdGFuZm9yZC5lZHUvfnNlYW5kZXIvYml0aGFja3MuaHRtbCNDb25kaXRpb25hbFNldE9yQ2xlYXJCaXRzV2l0aG91dEJyYW5jaGluZw==">Bit Twiddling Hacks<i class="fa fa-external-link-alt"></i></span></p>
@@ -404,7 +404,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-195"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9C%80%E8%A6%81%E5%B7%A5%E5%85%B7-2"><span class="nav-number">2.</span> <span class="nav-text">需要工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E6%96%B9%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">思考方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%95%B6%E6%88%90array"><span class="nav-number">4.</span> <span class="nav-text">當成array</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%BE%E5%80%8Bbits%E8%A2%ABset"><span class="nav-number">4.1.</span> <span class="nav-text">幾個bits被set</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reverse-2"><span class="nav-number">4.2.</span> <span class="nav-text">reverse</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E9%9D%A0%E5%B7%A6%E7%9A%841"><span class="nav-number">5.</span> <span class="nav-text">最靠左的1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E9%A4%98%E6%95%B8"><span class="nav-number">6.</span> <span class="nav-text">算餘數</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%A7%E5%B0%8F%E5%AF%AB"><span class="nav-number">7.</span> <span class="nav-text">大小寫</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%98%AF%E4%B8%8D%E6%98%AF2%E7%9A%84%E6%AC%A1%E6%96%B9%E6%95%B8"><span class="nav-number">8.</span> <span class="nav-text">是不是2的次方數</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A2%AB3%E6%95%B4%E9%99%A4"><span class="nav-number">9.</span> <span class="nav-text">被3整除?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-84"><span class="nav-number">10.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-196"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9C%80%E8%A6%81%E5%B7%A5%E5%85%B7-2"><span class="nav-number">2.</span> <span class="nav-text">需要工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E6%96%B9%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">思考方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%95%B6%E6%88%90array"><span class="nav-number">4.</span> <span class="nav-text">當成array</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%BE%E5%80%8Bbits%E8%A2%ABset"><span class="nav-number">4.1.</span> <span class="nav-text">幾個bits被set</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reverse-2"><span class="nav-number">4.2.</span> <span class="nav-text">reverse</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E9%9D%A0%E5%B7%A6%E7%9A%841"><span class="nav-number">5.</span> <span class="nav-text">最靠左的1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E9%A4%98%E6%95%B8"><span class="nav-number">6.</span> <span class="nav-text">算餘數</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%A7%E5%B0%8F%E5%AF%AB"><span class="nav-number">7.</span> <span class="nav-text">大小寫</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%98%AF%E4%B8%8D%E6%98%AF2%E7%9A%84%E6%AC%A1%E6%96%B9%E6%95%B8"><span class="nav-number">8.</span> <span class="nav-text">是不是2的次方數</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A2%AB3%E6%95%B4%E9%99%A4"><span class="nav-number">9.</span> <span class="nav-text">被3整除?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-85"><span class="nav-number">10.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

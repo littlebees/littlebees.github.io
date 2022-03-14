@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 寫寫std::move的筆記">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-12-26T04:53:07.000Z">
-<meta property="article:modified_time" content="2022-03-13T14:24:14.231Z">
+<meta property="article:modified_time" content="2022-03-14T07:21:31.907Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-13 22:24:14" itemprop="dateModified" datetime="2022-03-13T22:24:14+08:00">2022-03-13</time>
+                <time title="Modified: 2022-03-14 15:21:31" itemprop="dateModified" datetime="2022-03-14T15:21:31+08:00">2022-03-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -257,7 +257,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-36">動機</h2>
+        <h2 id="動機-37">動機</h2>
 <p>寫寫std::move的筆記</p>
 <span id="more"></span>
 <h2 id="value-type-reference-type">value type &amp; reference type</h2>
@@ -302,7 +302,7 @@
 <p>因為cpp的語法讓複製資料與複製指標看起來一樣，但卻又在使用上把指標與資料區分開來</p>
 <p>在其他語言不論物件或是整數的賦值都是起來一樣，但是cpp遇到reference會把一般資料的賦值混在一起，</p>
 <p>就變成要再多一個case處理原本的複製資料，最後得到的就是現在的這些東西，還有更複雜的value category</p>
-<h2 id="Ref-20">Ref</h2>
+<h2 id="Ref-21">Ref</h2>
 <p><span class="exturl" data-url="aHR0cHM6Ly93d3cueWlud2FuZy5vcmcvYmxvZy1jbi8yMDE2LzA2LzA4L2phdmEtdmFsdWUtdHlwZQ==">Java 有值类型吗？<i class="fa fa-external-link-alt"></i></span><br>
 <span class="exturl" data-url="aHR0cHM6Ly9zdGFja292ZXJmbG93LmNvbS9xdWVzdGlvbnMvMzQxMzQ3MC93aGF0LWlzLXN0ZG1vdmUtYW5kLXdoZW4tc2hvdWxkLWl0LWJlLXVzZWQ=">What is std::move(), and when should it be used?<i class="fa fa-external-link-alt"></i></span></p>
 
@@ -385,7 +385,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-36"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#value-type-reference-type"><span class="nav-number">2.</span> <span class="nav-text">value type &amp; reference type</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pointer-in-C-reference-in-CPP"><span class="nav-number">3.</span> <span class="nav-text">pointer in C &amp; reference in CPP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#std-move"><span class="nav-number">4.</span> <span class="nav-text">std::move</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%90%AC%E7%A9%BA"><span class="nav-number">5.</span> <span class="nav-text">搬空?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A0%AD%E5%A5%BD%E6%98%8F%EF%BC%8C%E5%9C%A8c%E5%A5%BD%E5%A5%BD%E7%9A%84%EF%BC%8C%E6%80%8E%E9%BA%BC%E5%88%B0cpp%E5%B0%B1%E8%AE%8A%E9%80%99%E9%BA%BC%E8%A4%87%E9%9B%9C%E4%BA%86"><span class="nav-number">6.</span> <span class="nav-text">頭好昏，在c好好的，怎麼到cpp就變這麼複雜了</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-20"><span class="nav-number">7.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-37"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#value-type-reference-type"><span class="nav-number">2.</span> <span class="nav-text">value type &amp; reference type</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pointer-in-C-reference-in-CPP"><span class="nav-number">3.</span> <span class="nav-text">pointer in C &amp; reference in CPP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#std-move"><span class="nav-number">4.</span> <span class="nav-text">std::move</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%90%AC%E7%A9%BA"><span class="nav-number">5.</span> <span class="nav-text">搬空?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A0%AD%E5%A5%BD%E6%98%8F%EF%BC%8C%E5%9C%A8c%E5%A5%BD%E5%A5%BD%E7%9A%84%EF%BC%8C%E6%80%8E%E9%BA%BC%E5%88%B0cpp%E5%B0%B1%E8%AE%8A%E9%80%99%E9%BA%BC%E8%A4%87%E9%9B%9C%E4%BA%86"><span class="nav-number">6.</span> <span class="nav-text">頭好昏，在c好好的，怎麼到cpp就變這麼複雜了</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-21"><span class="nav-number">7.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

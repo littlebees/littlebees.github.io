@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 超越NFA的regex，酷!!">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-12-07T18:11:35.000Z">
-<meta property="article:modified_time" content="2022-03-13T14:24:14.231Z">
+<meta property="article:modified_time" content="2022-03-14T07:21:31.907Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-13 22:24:14" itemprop="dateModified" datetime="2022-03-13T22:24:14+08:00">2022-03-13</time>
+                <time title="Modified: 2022-03-14 15:21:31" itemprop="dateModified" datetime="2022-03-14T15:21:31+08:00">2022-03-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -257,7 +257,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-30">動機</h2>
+        <h2 id="動機-31">動機</h2>
 <p>超越NFA的regex，酷!!</p>
 <span id="more"></span>
 <h2 id="從NFA開始">從NFA開始</h2>
@@ -289,7 +289,7 @@ non-capturing group: pattern不放到regex engine的變數(stack)中 <code>(?:&l
 <p>Recursion: 再複製一次pattern，再跑一次match，在Turing Machine可以當成把指針移到pattern的開頭 <code>?n OR ?R</code></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">regex.search(<span class="string">r&quot;^(\((?1)*\))(?1)*$&quot;</span>, <span class="string">&quot;()()&quot;</span>)</span><br><span class="line">regex.search(<span class="string">r&quot;(\w)((?R)|(\w?))\1&quot;</span>, <span class="string">&quot;kayak&quot;</span>)</span><br></pre></td></tr></table></figure>
 <p>還有condition，但暫時搞不懂怎麼用，先放著</p>
-<h2 id="Ref-16">Ref</h2>
+<h2 id="Ref-17">Ref</h2>
 <p><span class="exturl" data-url="aHR0cHM6Ly9jaGVhdG9ncmFwaHkuY29tL2RhdmVjaGlsZC9jaGVhdC1zaGVldHMvcmVndWxhci1leHByZXNzaW9ucy8=">great cheatsheet<i class="fa fa-external-link-alt"></i></span><br>
 <span class="exturl" data-url="aHR0cHM6Ly93d3cuc21hc2hpbmdtYWdhemluZS5jb20vMjAwOS8wNS9pbnRyb2R1Y3Rpb24tdG8tYWR2YW5jZWQtcmVndWxhci1leHByZXNzaW9ucy8=">concepts in advanced regex<i class="fa fa-external-link-alt"></i></span><br>
 <span class="exturl" data-url="aHR0cDovL3JhY2hiZWxhaWQuY29tL3JlY3Vyc2l2ZS1yZWd1bGFyLWV4cGVyZXNzaW9uLw==">Recursive Regular Expression<i class="fa fa-external-link-alt"></i></span></p>
@@ -373,7 +373,7 @@ non-capturing group: pattern不放到regex engine的變數(stack)中 <code>(?:&l
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-30"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%9ENFA%E9%96%8B%E5%A7%8B"><span class="nav-number">2.</span> <span class="nav-text">從NFA開始</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%9ENFA%E5%88%B0PDA"><span class="nav-number">3.</span> <span class="nav-text">從NFA到PDA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%9EPDA%E5%88%B0Turing-Machine"><span class="nav-number">4.</span> <span class="nav-text">從PDA到Turing Machine</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-16"><span class="nav-number">5.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-31"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%9ENFA%E9%96%8B%E5%A7%8B"><span class="nav-number">2.</span> <span class="nav-text">從NFA開始</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%9ENFA%E5%88%B0PDA"><span class="nav-number">3.</span> <span class="nav-text">從NFA到PDA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%9EPDA%E5%88%B0Turing-Machine"><span class="nav-number">4.</span> <span class="nav-text">從PDA到Turing Machine</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-17"><span class="nav-number">5.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

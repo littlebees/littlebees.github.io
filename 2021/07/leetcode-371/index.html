@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 當初是自幹加法器與2補數… 該學會用bit operation了，這操作太神啦!!">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-07-20T16:07:27.000Z">
-<meta property="article:modified_time" content="2022-03-13T14:24:14.251Z">
+<meta property="article:modified_time" content="2022-03-14T07:21:31.927Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Math">
 <meta property="article:tag" content="Bit Manipulation">
@@ -232,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-13 22:24:14" itemprop="dateModified" datetime="2022-03-13T22:24:14+08:00">2022-03-13</time>
+                <time title="Modified: 2022-03-14 15:21:31" itemprop="dateModified" datetime="2022-03-14T15:21:31+08:00">2022-03-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -267,11 +267,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-311">動機</h2>
+        <h2 id="動機-313">動機</h2>
 <p>當初是自幹加法器與2補數…<br>
 該學會用bit operation了，這操作太神啦!!</p>
 <span id="more"></span>
-<h2 id="Problem-203">Problem</h2>
+<h2 id="Problem-204">Problem</h2>
 <p>Given two integers <code>a</code> and <code>b</code>, return <em>the sum of the two integers without using the operators</em> <code>+</code> <em>and</em> <code>-</code>.</p><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input:</strong> a = 1, b = 2<strong>Output:</strong> 3</pre><p><strong>Example 2:</strong></p><pre><strong>Input:</strong> a = 2, b = 3<strong>Output:</strong> 5</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>-1000 <= a, b <= 1000</code></li></ul>
 <h2 id="2的補數">2的補數</h2>
 <p>就是讓 <code>n + ?? = 0</code><br>
@@ -285,7 +285,7 @@
 <code>?? + ?? = (1)0000</code><br>
 <code>??</code>等於<code>1000</code>，也就是<code>2^bits-1</code></p>
 <p>所以如果遇到大於等於<code>2^bits-1</code>的數字要轉成負數，<code>val-2^bits</code></p>
-<h2 id="Sol-170">Sol</h2>
+<h2 id="Sol-171">Sol</h2>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">twos_complement</span>(<span class="params">val, nbits</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;Compute the 2&#x27;s complement of int value val&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> val &lt; <span class="number">0</span>:</span><br><span class="line">        val = (<span class="number">1</span> &lt;&lt; nbits) + val</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">if</span> (val &amp; (<span class="number">1</span> &lt;&lt; (nbits - <span class="number">1</span>))) != <span class="number">0</span>:</span><br><span class="line">            <span class="comment"># If sign bit is set.</span></span><br><span class="line">            <span class="comment"># compute negative value.</span></span><br><span class="line">            val = val - (<span class="number">1</span> &lt;&lt; nbits)</span><br><span class="line">    <span class="keyword">return</span> val</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">adder</span>(<span class="params">a,b</span>):</span></span><br><span class="line">    a = <span class="built_in">int</span>(a)</span><br><span class="line">    b = <span class="built_in">int</span>(b)</span><br><span class="line">    <span class="keyword">return</span> [a ^ b, a &amp; b]</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getSum</span>(<span class="params">self, a: <span class="built_in">int</span>, b: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        a = twos_complement(a,<span class="number">33</span>)</span><br><span class="line">        b = twos_complement(b,<span class="number">33</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment">#print(format(a,&#x27;b&#x27;).zfill(33),format(b,&#x27;b&#x27;).zfill(33))</span></span><br><span class="line">        a = <span class="built_in">iter</span>(<span class="built_in">reversed</span>(<span class="built_in">list</span>(<span class="built_in">format</span>(a,<span class="string">&#x27;b&#x27;</span>).zfill(<span class="number">33</span>))))</span><br><span class="line">        b = <span class="built_in">iter</span>(<span class="built_in">reversed</span>(<span class="built_in">list</span>(<span class="built_in">format</span>(b,<span class="string">&#x27;b&#x27;</span>).zfill(<span class="number">33</span>))))</span><br><span class="line">        </span><br><span class="line">        c = []</span><br><span class="line">        carry = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">33</span>):</span><br><span class="line">            aa = <span class="built_in">next</span>(a)</span><br><span class="line">            bb = <span class="built_in">next</span>(b)</span><br><span class="line">            tmp, cc1 = adder(aa,bb)</span><br><span class="line">            s, cc2 = adder(tmp, carry)</span><br><span class="line">            carry = cc1 | cc2</span><br><span class="line">            c.append(s)</span><br><span class="line">        c.reverse()</span><br><span class="line">        <span class="comment">#print(c)</span></span><br><span class="line">        c = <span class="string">&#x27;&#x27;</span>.join(<span class="built_in">str</span>(tmp) <span class="keyword">for</span> tmp <span class="keyword">in</span> c)</span><br><span class="line">        <span class="comment">#print(c)</span></span><br><span class="line">        c = twos_complement(<span class="built_in">int</span>(c,<span class="number">2</span>),<span class="number">33</span>)</span><br><span class="line">        <span class="keyword">return</span> c</span><br></pre></td></tr></table></figure>
 <h2 id="Case-Study">Case Study</h2>
 <p>1與1相會要進位，用and加左移來模擬<br>
@@ -375,7 +375,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-311"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-203"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E7%9A%84%E8%A3%9C%E6%95%B8"><span class="nav-number">3.</span> <span class="nav-text">2的補數</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-170"><span class="nav-number">4.</span> <span class="nav-text">Sol</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Case-Study"><span class="nav-number">5.</span> <span class="nav-text">Case Study</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-313"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-204"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E7%9A%84%E8%A3%9C%E6%95%B8"><span class="nav-number">3.</span> <span class="nav-text">2的補數</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-171"><span class="nav-number">4.</span> <span class="nav-text">Sol</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Case-Study"><span class="nav-number">5.</span> <span class="nav-text">Case Study</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

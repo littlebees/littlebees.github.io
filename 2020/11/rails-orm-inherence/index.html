@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 整理一下，因為剛好有用到">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-11-22T07:21:55.000Z">
-<meta property="article:modified_time" content="2022-03-13T14:24:14.231Z">
+<meta property="article:modified_time" content="2022-03-14T07:21:31.907Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-13 22:24:14" itemprop="dateModified" datetime="2022-03-13T22:24:14+08:00">2022-03-13</time>
+                <time title="Modified: 2022-03-14 15:21:31" itemprop="dateModified" datetime="2022-03-14T15:21:31+08:00">2022-03-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -257,7 +257,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-29">動機</h2>
+        <h2 id="動機-30">動機</h2>
 <p>整理一下，因為剛好有用到</p>
 <span id="more"></span>
 <h2 id="整理">整理</h2>
@@ -303,7 +303,7 @@
 </ol>
 <h3 id="usage-3">usage</h3>
 <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> &lt; ActiveRecord::Base</span></span><br><span class="line">  belongs_to <span class="symbol">:part_of_A</span>, <span class="symbol">polymorphic:</span> <span class="literal">true</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">eat</span></span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> &lt; Animal</span></span><br><span class="line">  has_one <span class="symbol">:a</span>, <span class="symbol">as:</span> <span class="symbol">:part_of_A</span></span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">fly</span></span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span> &lt; Animal</span></span><br><span class="line">  has_many <span class="symbol">:as</span>, <span class="symbol">as:</span> <span class="symbol">:part_of_A</span></span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">run</span></span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<h2 id="Ref-15">Ref</h2>
+<h2 id="Ref-16">Ref</h2>
 <p><span class="exturl" data-url="aHR0cHM6Ly9tZWRpdW0uY29tL0BVc2VyMzE0MTU5Mi93aGVuLXRvLXVzZS1zaW5nbGUtdGFibGUtaW5oZXJpdGFuY2UtdnMtbXVsdGlwbGUtdGFibGUtaW5oZXJpdGFuY2UtZGI3ZTk3MzNhZTJl">When To Use Single Table Inheritance vs Multiple Table Inheritance<i class="fa fa-external-link-alt"></i></span><br>
 <span class="exturl" data-url="aHR0cHM6Ly9pdGhlbHAuaXRob21lLmNvbS50dy9hcnRpY2xlcy8xMDE4NjcwMA==">淺談delegate<i class="fa fa-external-link-alt"></i></span><br>
 <span class="exturl" data-url="aHR0cHM6Ly9pdGhlbHAuaXRob21lLmNvbS50dy9hcnRpY2xlcy8xMDE4NTUxMQ==">STI , MTI 與多型關聯<i class="fa fa-external-link-alt"></i></span><br>
@@ -388,7 +388,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-29"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B4%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">整理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Single-Table-Inheritance%E7%94%A8%E8%99%95"><span class="nav-number">3.</span> <span class="nav-text">Single Table Inheritance用處</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#usage"><span class="nav-number">3.1.</span> <span class="nav-text">usage</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Multiple-Table-Inheritance%E7%94%A8%E8%99%95"><span class="nav-number">4.</span> <span class="nav-text">Multiple Table Inheritance用處</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#usage-2"><span class="nav-number">4.1.</span> <span class="nav-text">usage</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Polymorphic-Association%E7%94%A8%E8%99%95"><span class="nav-number">5.</span> <span class="nav-text">Polymorphic Association用處</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#usage-3"><span class="nav-number">5.1.</span> <span class="nav-text">usage</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-15"><span class="nav-number">6.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-30"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B4%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">整理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Single-Table-Inheritance%E7%94%A8%E8%99%95"><span class="nav-number">3.</span> <span class="nav-text">Single Table Inheritance用處</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#usage"><span class="nav-number">3.1.</span> <span class="nav-text">usage</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Multiple-Table-Inheritance%E7%94%A8%E8%99%95"><span class="nav-number">4.</span> <span class="nav-text">Multiple Table Inheritance用處</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#usage-2"><span class="nav-number">4.1.</span> <span class="nav-text">usage</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Polymorphic-Association%E7%94%A8%E8%99%95"><span class="nav-number">5.</span> <span class="nav-text">Polymorphic Association用處</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#usage-3"><span class="nav-number">5.1.</span> <span class="nav-text">usage</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-16"><span class="nav-number">6.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

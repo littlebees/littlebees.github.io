@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://assets.leetcode.com/uploads/2021/05/14/domino.png">
 <meta property="article:published_time" content="2021-09-16T15:21:09.000Z">
-<meta property="article:modified_time" content="2022-03-13T14:24:14.259Z">
+<meta property="article:modified_time" content="2022-03-14T07:21:31.935Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Array">
 <meta property="article:tag" content="Greedy">
@@ -234,7 +234,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-13 22:24:14" itemprop="dateModified" datetime="2022-03-13T22:24:14+08:00">2022-03-13</time>
+                <time title="Modified: 2022-03-14 15:21:31" itemprop="dateModified" datetime="2022-03-14T15:21:31+08:00">2022-03-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -261,12 +261,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-507">動機</h2>
+        <h2 id="動機-509">動機</h2>
 <p>lee215的解法依舊漂亮</p>
 <span id="more"></span>
-<h2 id="Problem-381">Problem</h2>
+<h2 id="Problem-382">Problem</h2>
 <p>In a row of dominoes, <code>tops[i]</code> and <code>bottoms[i]</code> represent the top and bottom halves of the <code>i<sup>th</sup></code> domino. (A domino is a tile with two numbers from 1 to 6 - one on each half of the tile.)</p><p>We may rotate the <code>i<sup>th</sup></code> domino, so that <code>tops[i]</code> and <code>bottoms[i]</code> swap values.</p><p>Return the minimum number of rotations so that all the values in <code>tops</code> are the same, or all the values in <code>bottoms</code> are the same.</p><p>If it cannot be done, return <code>-1</code>.</p><p> </p><p><strong>Example 1:</strong></p><img alt="" src="https://assets.leetcode.com/uploads/2021/05/14/domino.png" style="height: 300px; width: 421px;" /><pre><strong>Input:</strong> tops = [2,1,2,4,2,2], bottoms = [5,2,6,2,3,2]<strong>Output:</strong> 2<strong>Explanation:</strong> The first figure represents the dominoes as given by tops and bottoms: before we do any rotations.If we rotate the second and fourth dominoes, we can make every value in the top row equal to 2, as indicated by the second figure.</pre><p><strong>Example 2:</strong></p><pre><strong>Input:</strong> tops = [3,5,1,2,3], bottoms = [3,6,3,3,4]<strong>Output:</strong> -1<strong>Explanation:</strong> In this case, it is not possible to rotate the dominoes to make one row of values equal.</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>2 <= tops.length <= 2 * 10<sup>4</sup></code></li><li><code>bottoms.length == tops.length</code></li><li><code>1 <= tops[i], bottoms[i] <= 6</code></li></ul>
-<h2 id="Sol-348">Sol</h2>
+<h2 id="Sol-349">Sol</h2>
 <p>就六個數字就是看有沒有就好</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">minDominoRotations</span>(<span class="params">self, tops: <span class="type">List</span>[<span class="built_in">int</span>], bottoms: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        <span class="keyword">for</span> n <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">7</span>):</span><br><span class="line">            good = <span class="literal">True</span></span><br><span class="line">            lhs = rhs = <span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> a,b <span class="keyword">in</span> <span class="built_in">zip</span>(tops,bottoms):</span><br><span class="line">                <span class="keyword">if</span> n <span class="keyword">not</span> <span class="keyword">in</span> (a,b):</span><br><span class="line">                    good = <span class="literal">False</span></span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">                <span class="keyword">elif</span> n == a <span class="keyword">and</span> n != b:</span><br><span class="line">                    lhs += <span class="number">1</span></span><br><span class="line">                <span class="keyword">elif</span> n == b <span class="keyword">and</span> n != a:</span><br><span class="line">                    rhs += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> good:</span><br><span class="line">                <span class="keyword">return</span> <span class="built_in">min</span>(lhs, rhs)</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span></span><br></pre></td></tr></table></figure>
     </div>
@@ -352,7 +352,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-507"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-381"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-348"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-509"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-382"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-349"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

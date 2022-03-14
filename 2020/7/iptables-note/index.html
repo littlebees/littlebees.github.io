@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="http://arthurchiao.art/assets/img/deep-dive-into-iptables-netfilter/Netfilter-packet-flow.svg">
 <meta property="article:published_time" content="2020-07-19T04:39:42.000Z">
-<meta property="article:modified_time" content="2022-03-13T14:24:14.235Z">
+<meta property="article:modified_time" content="2022-03-14T07:21:31.911Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://arthurchiao.art/assets/img/deep-dive-into-iptables-netfilter/Netfilter-packet-flow.svg">
@@ -232,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-13 22:24:14" itemprop="dateModified" datetime="2022-03-13T22:24:14+08:00">2022-03-13</time>
+                <time title="Modified: 2022-03-14 15:21:31" itemprop="dateModified" datetime="2022-03-14T15:21:31+08:00">2022-03-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -259,7 +259,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-72">動機</h2>
+        <h2 id="動機-73">動機</h2>
 <p>記錄下自己怎麼看待iptables</p>
 <p>iptables把firewall的功能與network stack緊緊地結合在一起<br>
 所以有的時候會看不懂到底發生甚麼事，也不好寫出自己想要的rule<br>
@@ -337,7 +337,7 @@ firewall的business rule =&gt; filter</p>
 <li>save-mark: 把mark寫到connmark</li>
 <li>restore-mark: 把connmark寫到mark</li>
 </ol>
-<h2 id="Ref-48">Ref</h2>
+<h2 id="Ref-49">Ref</h2>
 <p><span class="exturl" data-url="aHR0cDovL2FydGh1cmNoaWFvLmFydC9ibG9nL2RlZXAtZGl2ZS1pbnRvLWlwdGFibGVzLWFuZC1uZXRmaWx0ZXItYXJjaC16aC8=">十分詳細必看<i class="fa fa-external-link-alt"></i></span></p>
 
     </div>
@@ -419,7 +419,7 @@ firewall的business rule =&gt; filter</p>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-72"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#table-something-like-java%E2%80%99s-interface"><span class="nav-number">2.</span> <span class="nav-text">table : something like java’s interface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#chain"><span class="nav-number">3.</span> <span class="nav-text">chain</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#all-about-routing"><span class="nav-number">3.1.</span> <span class="nav-text">all about routing</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Netfilter-Hooks"><span class="nav-number">3.1.1.</span> <span class="nav-text">Netfilter Hooks</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#function-jump"><span class="nav-number">3.2.</span> <span class="nav-text">function &amp; jump</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DROP-REJECT"><span class="nav-number">3.2.1.</span> <span class="nav-text">DROP&#x2F;REJECT</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#connection-state"><span class="nav-number">4.</span> <span class="nav-text">connection state</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mark-custom-state"><span class="nav-number">5.</span> <span class="nav-text">mark: custom state</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-48"><span class="nav-number">6.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-73"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#table-something-like-java%E2%80%99s-interface"><span class="nav-number">2.</span> <span class="nav-text">table : something like java’s interface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#chain"><span class="nav-number">3.</span> <span class="nav-text">chain</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#all-about-routing"><span class="nav-number">3.1.</span> <span class="nav-text">all about routing</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Netfilter-Hooks"><span class="nav-number">3.1.1.</span> <span class="nav-text">Netfilter Hooks</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#function-jump"><span class="nav-number">3.2.</span> <span class="nav-text">function &amp; jump</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DROP-REJECT"><span class="nav-number">3.2.1.</span> <span class="nav-text">DROP&#x2F;REJECT</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#connection-state"><span class="nav-number">4.</span> <span class="nav-text">connection state</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mark-custom-state"><span class="nav-number">5.</span> <span class="nav-text">mark: custom state</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-49"><span class="nav-number">6.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
