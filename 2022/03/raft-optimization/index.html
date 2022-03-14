@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="AEpTGuQAkxnTOlmfF4INDna3S660LxrkyZ4BQzVbRSw">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"littlebees.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="動機 raft有一些優化，這邊記錄一些 主要出自raft作者的博論">
+<meta property="og:type" content="article">
+<meta property="og:title" content="raft優化">
+<meta property="og:url" content="https://littlebees.github.io/2022/03/raft-optimization/index.html">
+<meta property="og:site_name" content="記事本">
+<meta property="og:description" content="動機 raft有一些優化，這邊記錄一些 主要出自raft作者的博論">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/wJyYFw1.png">
+<meta property="og:image" content="https://i.imgur.com/luqV6Sz.png">
+<meta property="article:published_time" content="2022-03-14T14:20:42.000Z">
+<meta property="article:modified_time" content="2022-03-14T14:21:02.617Z">
+<meta property="article:author" content="zhengcf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/wJyYFw1.png">
+
+<link rel="canonical" href="https://littlebees.github.io/2022/03/raft-optimization/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>raft優化 | 記事本</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">記事本</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">寫下來，不然會忘</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2022/03/raft-optimization/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhengcf">
+      <meta itemprop="description" content="想到什麼就寫什麼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="記事本">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          raft優化
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-03-14 22:20:42 / Modified: 22:21:02" itemprop="dateCreated datePublished" datetime="2022-03-14T22:20:42+08:00">2022-03-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/System/" itemprop="url" rel="index"><span itemprop="name">System</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/System/Distributed/" itemprop="url" rel="index"><span itemprop="name">Distributed</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="動機-643">動機</h2>
+<p>raft有一些優化，這邊記錄一些<br>
+主要出自raft作者的博論</p>
+<span id="more"></span>
+<h2 id="Batching">Batching</h2>
+<p>AppendEntries可以一次累積多一點log再丟出去，把latency往下壓</p>
+<h2 id="Pipelining">Pipelining</h2>
+<p>因為raft的log一定是遞增，所以raft實際上可以根據任何順序丟log出去，也就是說不用依據follower實際上的最後一位去丟<br>
+直接看netxIndex多少去丟就好，甚至還可以實作reorder</p>
+<h2 id="prevote">prevote</h2>
+<p>有人經歷network partiotion，這樣他的log一定不會是最新的(不會是leader)<br>
+但是，他的term會異常大!!</p>
+<p>這樣其他人會因為看到這超大的term，被迫變成follower，但因為log的緣故也絕對不會是他當leader，這樣其實很浪費。<br>
+所以，可以多一個階段，prevote，類似zab，先投出一個leader，之後sync log才把epoch(term)推上去，但這裡是先丟自己的log出去，問其他人要不要投，有過半就開啟正式的投票。</p>
+<h2 id="read-index">read index</h2>
+<p>之前lab3與4的read都要過raft，這真的很慢。</p>
+<p>所以利用leader的log一定有所有commit log的特性。</p>
+<ol>
+<li>先丟no-op (確認log與把前面的都commit)</li>
+<li>記下當下的index為readIndex</li>
+<li>等收到過半的reply(其實是要等lastApplied更新)</li>
+<li>之後只要read的指令的index沒有超過readIndex就可以直接回</li>
+</ol>
+<p>follower就可以去問leader當前的readIndex，之後等lastApplied大於這個readIndex，就可以直接回了</p>
+<h2 id="lease-read">lease read</h2>
+<p>有沒有辦法不丟no-op只透過heartbeat更新?</p>
+<p><strong>如果能保證每台機器的時間都是一致的</strong></p>
+<p>收到過半的heartbeat，當成直到election timer啟動前都是leader(所以說要保證時間一致，想想如果leader被pause的話…)<br>
+<img src="https://i.imgur.com/wJyYFw1.png" alt=""></p>
+<p>只要確認自己是leader且log有同步(過了appendEntries)，就可以直接回</p>
+<h2 id="發log同時persist">發log同時persist</h2>
+<p><img src="https://i.imgur.com/luqV6Sz.png" alt=""></p>
+<p>raft是看過半來決定要不要commit，所以</p>
+<ol>
+<li>有過，先寫到disk就賺到</li>
+<li>沒過，沒差之後會被其他appenEntries修掉</li>
+</ol>
+<h2 id="profile-hdd效能-test">profile, hdd效能, test</h2>
+<p>這邊是列出dragonboat作者的文章，比起上面的優化，這邊都是屬於實作上的細節，值得一看。</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly96aHVhbmxhbi56aGlodS5jb20vcC81NTY1ODE2NA==">从共识算法开谈 - 硬盘性能的最大几个误解<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly96aHVhbmxhbi56aGlodS5jb20vcC81MjYwMDYzNg==">百亿次的锤炼 - 带逛Dragonboat的各类测试<i class="fa fa-external-link-alt"></i></span> &lt;= 其實6.824的lab3,4都有用到!!<br>
+<span class="exturl" data-url="aHR0cHM6Ly96aHVhbmxhbi56aGlodS5jb20vcC81MzI4NDY0OQ==">大规模Go项目几乎必踏的几个坑 - Dragonboat为例<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly96aHVhbmxhbi56aGlodS5jb20vcC82MDA0MjU2Nw==">Go系统性能绕坑工具与方法 - 基于实例的带逛<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly96aHVhbmxhbi56aGlodS5jb20vcC81MjYyMDY1Nw==">让Raft变快100倍 - Dragonboat的写优化<i class="fa fa-external-link-alt"></i></span></p>
+<h2 id="Ref-137">Ref</h2>
+<p><span class="exturl" data-url="aHR0cHM6Ly93ZWIuc3RhbmZvcmQuZWR1L35vdXN0ZXIvY2dpLWJpbi9wYXBlcnMvT25nYXJvUGhELnBkZg==">博論<i class="fa fa-external-link-alt"></i></span></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/03/rendezvous-hash-consistent-hash/" rel="prev" title="rendezvous hash與consistent hash">
+      <i class="fa fa-chevron-left"></i> rendezvous hash與consistent hash
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-643"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Batching"><span class="nav-number">2.</span> <span class="nav-text">Batching</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pipelining"><span class="nav-number">3.</span> <span class="nav-text">Pipelining</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#prevote"><span class="nav-number">4.</span> <span class="nav-text">prevote</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#read-index"><span class="nav-number">5.</span> <span class="nav-text">read index</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lease-read"><span class="nav-number">6.</span> <span class="nav-text">lease read</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%99%BClog%E5%90%8C%E6%99%82persist"><span class="nav-number">7.</span> <span class="nav-text">發log同時persist</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#profile-hdd%E6%95%88%E8%83%BD-test"><span class="nav-number">8.</span> <span class="nav-text">profile, hdd效能, test</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-137"><span class="nav-number">9.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">zhengcf</p>
+  <div class="site-description" itemprop="description">想到什麼就寫什麼</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">689</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhengcf</span>
+</div>
+  <div class="powered-by">Powered by <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl theme-link" data-url="aHR0cHM6Ly9tdXNlLnRoZW1lLW5leHQub3Jn">NexT.Muse</span>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 1000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://littlebees.github.io/2022/03/raft-optimization/',]
+      });
+      });
+  </script>
+
+</body>
+</html>
