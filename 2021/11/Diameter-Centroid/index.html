@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 紀錄">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-11-18T17:33:20.000Z">
-<meta property="article:modified_time" content="2022-03-15T03:47:03.695Z">
+<meta property="article:modified_time" content="2022-03-15T03:56:44.292Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-15 11:47:03" itemprop="dateModified" datetime="2022-03-15T11:47:03+08:00">2022-03-15</time>
+                <time title="Modified: 2022-03-15 11:56:44" itemprop="dateModified" datetime="2022-03-15T11:56:44+08:00">2022-03-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -295,7 +295,8 @@
 <p>之後就是走訪，先看有沒有heavy，有就先走，並assign到同一條鏈(head)<br>
 沒有heavy就開新的鏈</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">heads = defaultdict(<span class="keyword">lambda</span> x: <span class="literal">None</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">decompose</span>(<span class="params">root, head</span>):</span></span><br><span class="line">  heads[root] = head</span><br><span class="line">  <span class="keyword">if</span> heavy[root]:</span><br><span class="line">    decompose(heavy[root], head)</span><br><span class="line">  isNotInHeavy = <span class="keyword">lambda</span> child: child <span class="keyword">is</span> <span class="keyword">not</span> fas[root] <span class="keyword">and</span> child <span class="keyword">is</span> <span class="keyword">not</span> heavy[root]</span><br><span class="line">  <span class="keyword">for</span> child <span class="keyword">in</span> [child <span class="keyword">for</span> child <span class="keyword">in</span> root.children <span class="keyword">if</span> isNotInHeavy(child)]:</span><br><span class="line">      decompose(child, child)</span><br></pre></td></tr></table></figure>
-<p>TODO: 這能幹嘛?</p>
+<p>Q: 這能幹嘛?<br>
+A: <span class="exturl" data-url="aHR0cHM6Ly91c2Fjby5ndWlkZS9wbGF0L2hsZD9sYW5nPXB5">這裡<i class="fa fa-external-link-alt"></i></span></p>
 <h2 id="圖">圖</h2>
 <h3 id="直徑-2">直徑</h3>
 <p>偏心距: 以最短路徑長度當作距離，找出離此點最遠的一點的距離<br>
