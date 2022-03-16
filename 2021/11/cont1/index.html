@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 整理continuation與CPS轉換">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-11-01T16:24:06.000Z">
-<meta property="article:modified_time" content="2022-03-16T02:54:33.056Z">
+<meta property="article:modified_time" content="2022-03-16T03:41:21.938Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-16 10:54:33" itemprop="dateModified" datetime="2022-03-16T10:54:33+08:00">2022-03-16</time>
+                <time title="Modified: 2022-03-16 11:41:21" itemprop="dateModified" datetime="2022-03-16T11:41:21+08:00">2022-03-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -265,7 +265,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-609">動機</h2>
+        <h2 id="動機-401">動機</h2>
 <p>整理continuation與CPS轉換</p>
 <span id="more"></span>
 <h2 id="用法-3">用法</h2>
@@ -325,7 +325,7 @@
 <p>說老實話，其實是為了這個才把這篇打出來的</p>
 <p>另外如果有人說，學遞迴要用trace實際執行過程，直接丟這個給他看，看他怎麼trace<br>
 或是說遞迴可以轉成loop，也是丟這個，看他怎麼轉</p>
-<h3 id="naive-2">naive</h3>
+<h3 id="naive">naive</h3>
 <p>先是base case，變數與lambda，這裡base case叫atomic<br>
 變數直接回傳，lambda要幫他開一個洞，把值傳回去</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">(define (M expr)</span><br><span class="line">  (match expr</span><br><span class="line">    [`(λ (,var) ,expr)</span><br><span class="line">      (define $k (gensym &#x27;$k))</span><br><span class="line">     `(λ (,var ,$k) ,(T expr $k))]</span><br><span class="line">    [(? symbol?)</span><br><span class="line">      expr]))</span><br></pre></td></tr></table></figure>
@@ -384,7 +384,7 @@
 <p>delimit cont<br>
 據說cooperative的thread加macro可以變成preemptive!<br>
 <span class="exturl" data-url="aHR0cHM6Ly9tYXR0Lm1pZ2h0Lm5ldC9hcnRpY2xlcy9jbG9zdXJlLWNvbnZlcnNpb24v">Closure conversion: How to compile lambda<i class="fa fa-external-link-alt"></i></span></p>
-<h2 id="Ref-116">Ref</h2>
+<h2 id="Ref-111">Ref</h2>
 <p><span class="exturl" data-url="aHR0cHM6Ly9tYXR0Lm1pZ2h0Lm5ldC9hcnRpY2xlcy9wcm9ncmFtbWluZy13aXRoLWNvbnRpbnVhdGlvbnMtLWV4Y2VwdGlvbnMtYmFja3RyYWNraW5nLXNlYXJjaC10aHJlYWRzLWdlbmVyYXRvcnMtY29yb3V0aW5lcy8=">Continuations by example: Exceptions, time-traveling search, generators, threads, and coroutines<i class="fa fa-external-link-alt"></i></span><br>
 <span class="exturl" data-url="aHR0cHM6Ly93d3cuY3MuaG1jLmVkdS9+ZmxlY2svZW52aXNpb24vc2NoZW1lNDgvbWVldGluZy9ub2RlNy5odG1s">Appendix: An implementation of dynamic-wind<i class="fa fa-external-link-alt"></i></span><br>
 <span class="exturl" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3F1ZXN0aW9uLzIxOTU0MjM4">如何解释 Lisp 中 call/cc 的概念？<i class="fa fa-external-link-alt"></i></span><br>
@@ -470,7 +470,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-609"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%B3%95-3"><span class="nav-number">2.</span> <span class="nav-text">用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%87%89%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">應用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#dynamic-wind"><span class="nav-number">3.1.</span> <span class="nav-text">dynamic-wind</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exception"><span class="nav-number">3.2.</span> <span class="nav-text">exception</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#non-determing-computing"><span class="nav-number">3.3.</span> <span class="nav-text">non-determing computing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#generator"><span class="nav-number">3.4.</span> <span class="nav-text">generator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#thread"><span class="nav-number">3.5.</span> <span class="nav-text">thread</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cont-monad-2"><span class="nav-number">4.</span> <span class="nav-text">cont monad</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%82%8F%E8%BC%AF%E4%B8%8A%E7%9A%84%E9%97%9C%E8%81%AF-callcc%E7%9A%84type%E6%98%AF"><span class="nav-number">5.</span> <span class="nav-text">邏輯上的關聯: callcc的type是?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CPS-conversion"><span class="nav-number">6.</span> <span class="nav-text">CPS conversion</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#naive-2"><span class="nav-number">6.1.</span> <span class="nav-text">naive</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#high-order"><span class="nav-number">6.2.</span> <span class="nav-text">high-order</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B7%E5%90%88"><span class="nav-number">6.3.</span> <span class="nav-text">混合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#partition"><span class="nav-number">6.4.</span> <span class="nav-text">partition</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TODO-4"><span class="nav-number">7.</span> <span class="nav-text">TODO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-116"><span class="nav-number">8.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-401"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%B3%95-3"><span class="nav-number">2.</span> <span class="nav-text">用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%87%89%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">應用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#dynamic-wind"><span class="nav-number">3.1.</span> <span class="nav-text">dynamic-wind</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exception"><span class="nav-number">3.2.</span> <span class="nav-text">exception</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#non-determing-computing"><span class="nav-number">3.3.</span> <span class="nav-text">non-determing computing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#generator"><span class="nav-number">3.4.</span> <span class="nav-text">generator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#thread"><span class="nav-number">3.5.</span> <span class="nav-text">thread</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cont-monad-2"><span class="nav-number">4.</span> <span class="nav-text">cont monad</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%82%8F%E8%BC%AF%E4%B8%8A%E7%9A%84%E9%97%9C%E8%81%AF-callcc%E7%9A%84type%E6%98%AF"><span class="nav-number">5.</span> <span class="nav-text">邏輯上的關聯: callcc的type是?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CPS-conversion"><span class="nav-number">6.</span> <span class="nav-text">CPS conversion</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#naive"><span class="nav-number">6.1.</span> <span class="nav-text">naive</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#high-order"><span class="nav-number">6.2.</span> <span class="nav-text">high-order</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B7%E5%90%88"><span class="nav-number">6.3.</span> <span class="nav-text">混合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#partition"><span class="nav-number">6.4.</span> <span class="nav-text">partition</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TODO-4"><span class="nav-number">7.</span> <span class="nav-text">TODO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-111"><span class="nav-number">8.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

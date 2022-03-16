@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://assets.leetcode.com/uploads/2020/08/17/mat1.jpg">
 <meta property="og:image" content="https://assets.leetcode.com/uploads/2020/08/17/mat2.jpg">
 <meta property="article:published_time" content="2021-07-20T15:37:39.000Z">
-<meta property="article:modified_time" content="2022-03-16T02:54:33.044Z">
+<meta property="article:modified_time" content="2022-03-16T03:41:21.926Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Array">
 <meta property="article:tag" content="Matrix">
@@ -236,7 +236,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-16 10:54:33" itemprop="dateModified" datetime="2022-03-16T10:54:33+08:00">2022-03-16</time>
+                <time title="Modified: 2022-03-16 11:41:21" itemprop="dateModified" datetime="2022-03-16T11:41:21+08:00">2022-03-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -279,15 +279,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-365">動機</h2>
+        <h2 id="動機-608">動機</h2>
 <p>讓題我想起多allocate一塊記憶體去當dummy的手法<br>
 但是這裡不用多allocate，而是利用matrix的第一列與第一排</p>
 <p>而如果第一列與第一排原本就該被處理的話，就用變數存狀態!!</p>
 <p>這裡的教訓是<em>狀態與被處理的資料勢必要分開</em>，就像loop會看cond會不會收斂，有關的index會不會收斂，遞迴的變數會不會往base case靠近，是設計時的規則!!</p>
 <span id="more"></span>
-<h2 id="Problem-257">Problem</h2>
+<h2 id="Problem-407">Problem</h2>
 <p>Given an <code>m x n</code> integer matrix <code>matrix</code>, if an element is <code>0</code>, set its entire row and column to <code>0</code>'s, and return <em>the matrix</em>.</p><p>You must do it <span class="exturl" data-url="aHR0cHM6Ly9lbi53aWtpcGVkaWEub3JnL3dpa2kvSW4tcGxhY2VfYWxnb3JpdGht">in place<i class="fa fa-external-link-alt"></i></span>.</p><p> </p><p><strong>Example 1:</strong></p><img alt="" src="https://assets.leetcode.com/uploads/2020/08/17/mat1.jpg" style="width: 450px; height: 169px;" /><pre><strong>Input:</strong> matrix = [[1,1,1],[1,0,1],[1,1,1]]<strong>Output:</strong> [[1,0,1],[0,0,0],[1,0,1]]</pre><p><strong>Example 2:</strong></p><img alt="" src="https://assets.leetcode.com/uploads/2020/08/17/mat2.jpg" style="width: 450px; height: 137px;" /><pre><strong>Input:</strong> matrix = [[0,1,2,0],[3,4,5,2],[1,3,1,5]]<strong>Output:</strong> [[0,0,0,0],[0,4,5,0],[0,3,1,0]]</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>m == matrix.length</code></li><li><code>n == matrix[0].length</code></li><li><code>1 <= m, n <= 200</code></li><li><code>-2<sup>31</sup> <= matrix[i][j] <= 2<sup>31</sup> - 1</code></li></ul><p> </p><p><strong>Follow up:</strong></p><ul><li>A straightforward solution using <code>O(mn)</code> space is probably a bad idea.</li><li>A simple improvement uses <code>O(m + n)</code> space, but still not the best solution.</li><li>Could you devise a constant space solution?</li></ul>
-<h2 id="Sol-224">Sol</h2>
+<h2 id="Sol-386">Sol</h2>
 <p>如果不追求記憶體用量的話，其實記下所有有0的點就好</p>
 <p>如果不想用其他記憶體，就要有地方放mark，區分這是原本的0還是後面加的，所以在python之類的語言可以用<code>None</code>之類的去區分</p>
 <p>但像c之類的就沒辦法，這時需要別的方法<br>
@@ -378,7 +378,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-365"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-257"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-224"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-608"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-407"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-386"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

@@ -29,12 +29,12 @@
 <meta property="og:description" content="動機 複習dfs 話說原來有擋修是這麼麻煩的事">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-07-20T17:55:53.000Z">
-<meta property="article:modified_time" content="2022-03-16T02:54:33.040Z">
+<meta property="article:modified_time" content="2022-03-16T03:41:21.922Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Breadth-First Search">
 <meta property="article:tag" content="Depth-First Search">
-<meta property="article:tag" content="Graph">
 <meta property="article:tag" content="Topological Sort">
+<meta property="article:tag" content="Graph">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://littlebees.github.io/2021/07/leetcode-207/">
@@ -234,7 +234,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-16 10:54:33" itemprop="dateModified" datetime="2022-03-16T10:54:33+08:00">2022-03-16</time>
+                <time title="Modified: 2022-03-16 11:41:21" itemprop="dateModified" datetime="2022-03-16T11:41:21+08:00">2022-03-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -277,13 +277,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-259">動機</h2>
+        <h2 id="動機-502">動機</h2>
 <p>複習dfs<br>
 話說原來有擋修是這麼麻煩的事</p>
 <span id="more"></span>
-<h2 id="Problem-151">Problem</h2>
+<h2 id="Problem-301">Problem</h2>
 <p>There are a total of <code>numCourses</code> courses you have to take, labeled from <code>0</code> to <code>numCourses - 1</code>. You are given an array <code>prerequisites</code> where <code>prerequisites[i] = [a<sub>i</sub>, b<sub>i</sub>]</code> indicates that you <strong>must</strong> take course <code>b<sub>i</sub></code> first if you want to take course <code>a<sub>i</sub></code>.</p><ul><li>For example, the pair <code>[0, 1]</code>, indicates that to take course <code>0</code> you have to first take course <code>1</code>.</li></ul><p>Return <code>true</code> if you can finish all courses. Otherwise, return <code>false</code>.</p><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input:</strong> numCourses = 2, prerequisites = [[1,0]]<strong>Output:</strong> true<strong>Explanation:</strong> There are a total of 2 courses to take. To take course 1 you should have finished course 0. So it is possible.</pre><p><strong>Example 2:</strong></p><pre><strong>Input:</strong> numCourses = 2, prerequisites = [[1,0],[0,1]]<strong>Output:</strong> false<strong>Explanation:</strong> There are a total of 2 courses to take. To take course 1 you should have finished course 0, and to take course 0 you should also have finished course 1. So it is impossible.</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>1 <= numCourses <= 10<sup>5</sup></code></li><li><code>0 <= prerequisites.length <= 5000</code></li><li><code>prerequisites[i].length == 2</code></li><li><code>0 <= a<sub>i</sub>, b<sub>i</sub> < numCourses</code></li><li>All the pairs prerequisites[i] are <strong>unique</strong>.</li></ul>
-<h2 id="Sol-120">Sol</h2>
+<h2 id="Sol-282">Sol</h2>
 <p>區分每堂課為</p>
 <ol>
 <li>ok可以上</li>
@@ -302,8 +302,8 @@
           <div class="post-tags">
               <a href="/tags/Breadth-First-Search/" rel="tag"># Breadth-First Search</a>
               <a href="/tags/Depth-First-Search/" rel="tag"># Depth-First Search</a>
-              <a href="/tags/Graph/" rel="tag"># Graph</a>
               <a href="/tags/Topological-Sort/" rel="tag"># Topological Sort</a>
+              <a href="/tags/Graph/" rel="tag"># Graph</a>
           </div>
 
         
@@ -377,7 +377,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-259"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-151"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-120"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-502"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-301"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-282"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

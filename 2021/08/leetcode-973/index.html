@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://assets.leetcode.com/uploads/2021/03/03/closestplane1.jpg">
 <meta property="article:published_time" content="2021-08-01T07:01:00.000Z">
-<meta property="article:modified_time" content="2022-03-16T02:54:33.052Z">
+<meta property="article:modified_time" content="2022-03-16T03:41:21.934Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Array">
 <meta property="article:tag" content="Math">
@@ -239,7 +239,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-16 10:54:33" itemprop="dateModified" datetime="2022-03-16T10:54:33+08:00">2022-03-16</time>
+                <time title="Modified: 2022-03-16 11:41:21" itemprop="dateModified" datetime="2022-03-16T11:41:21+08:00">2022-03-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -270,12 +270,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-497">動機</h2>
+        <h2 id="動機-289">動機</h2>
 <p>sort與heap差在一個能插入，另一個不能</p>
 <span id="more"></span>
-<h2 id="Problem-377">Problem</h2>
+<h2 id="Problem-183">Problem</h2>
 <p>Given an array of <code>points</code> where <code>points[i] = [x<sub>i</sub>, y<sub>i</sub>]</code> represents a point on the <strong>X-Y</strong> plane and an integer <code>k</code>, return the <code>k</code> closest points to the origin <code>(0, 0)</code>.</p><p>The distance between two points on the <strong>X-Y</strong> plane is the Euclidean distance (i.e., <code>√(x<sub>1</sub> - x<sub>2</sub>)<sup>2</sup> + (y<sub>1</sub> - y<sub>2</sub>)<sup>2</sup></code>).</p><p>You may return the answer in <strong>any order</strong>. The answer is <strong>guaranteed</strong> to be <strong>unique</strong> (except for the order that it is in).</p><p> </p><p><strong>Example 1:</strong></p><img alt="" src="https://assets.leetcode.com/uploads/2021/03/03/closestplane1.jpg" style="width: 400px; height: 400px;" /><pre><strong>Input:</strong> points = [[1,3],[-2,2]], k = 1<strong>Output:</strong> [[-2,2]]<strong>Explanation:</strong>The distance between (1, 3) and the origin is sqrt(10).The distance between (-2, 2) and the origin is sqrt(8).Since sqrt(8) < sqrt(10), (-2, 2) is closer to the origin.We only want the closest k = 1 points from the origin, so the answer is just [[-2,2]].</pre><p><strong>Example 2:</strong></p><pre><strong>Input:</strong> points = [[3,3],[5,-1],[-2,4]], k = 2<strong>Output:</strong> [[3,3],[-2,4]]<strong>Explanation:</strong> The answer [[-2,4],[3,3]] would also be accepted.</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>1 <= k <= points.length <= 10<sup>4</sup></code></li><li><code>-10<sup>4</sup> < x<sub>i</sub>, y<sub>i</sub> < 10<sup>4</sup></code></li></ul>
-<h2 id="Sol-344">Sol</h2>
+<h2 id="Sol-154">Sol</h2>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">kClosest</span>(<span class="params">self, ps: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]], k: <span class="built_in">int</span></span>) -&gt; <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]]:</span></span><br><span class="line">        ps.sort(key=<span class="keyword">lambda</span> p: p[<span class="number">0</span>]**<span class="number">2</span>+p[<span class="number">1</span>]**<span class="number">2</span>)</span><br><span class="line">        <span class="keyword">return</span> ps[:k]</span><br></pre></td></tr></table></figure>
     </div>
 
@@ -365,7 +365,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-497"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-377"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-344"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-289"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-183"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-154"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 solution總是會有有趣的解法，rotate之後的string一定是原string相接中的substring">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-07-27T08:59:52.000Z">
-<meta property="article:modified_time" content="2022-03-16T02:54:33.044Z">
+<meta property="article:modified_time" content="2022-03-16T03:41:21.926Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="String">
 <meta property="article:tag" content="String Matching">
@@ -232,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-16 10:54:33" itemprop="dateModified" datetime="2022-03-16T10:54:33+08:00">2022-03-16</time>
+                <time title="Modified: 2022-03-16 11:41:21" itemprop="dateModified" datetime="2022-03-16T11:41:21+08:00">2022-03-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -263,12 +263,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-374">動機</h2>
+        <h2 id="動機-617">動機</h2>
 <p>solution總是會有有趣的解法，rotate之後的string一定是原string相接中的substring</p>
 <span id="more"></span>
-<h2 id="Problem-266">Problem</h2>
+<h2 id="Problem-416">Problem</h2>
 <p>Given two strings <code>s</code> and <code>goal</code>, return <code>true</code> <em>if and only if</em> <code>s</code> <em>can become</em> <code>goal</code> <em>after some number of <strong>shifts</strong> on</em> <code>s</code>.</p><p>A <strong>shift</strong> on <code>s</code> consists of moving the leftmost character of <code>s</code> to the rightmost position.</p><ul><li>For example, if <code>s = abcde</code>, then it will be <code>bcdea</code> after one shift.</li></ul><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input:</strong> s = abcde, goal = cdeab<strong>Output:</strong> true</pre><p><strong>Example 2:</strong></p><pre><strong>Input:</strong> s = abcde, goal = abced<strong>Output:</strong> false</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>1 <= s.length, goal.length <= 100</code></li><li><code>s</code> and <code>goal</code> consist of lowercase English letters.</li></ul>
-<h2 id="Sol-233">Sol</h2>
+<h2 id="Sol-395">Sol</h2>
 <p>其實string長度不長，所以可以直接比</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">rotateString</span>(<span class="params">self, s: <span class="built_in">str</span>, goal: <span class="built_in">str</span></span>) -&gt; <span class="built_in">bool</span>:</span></span><br><span class="line">        <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(s)):</span><br><span class="line">            <span class="keyword">if</span> s[k:]+s[:k] == goal:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
 <p>這邊要提一下有趣的解法</p>
@@ -356,7 +356,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-374"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-266"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-233"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-617"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-416"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-395"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

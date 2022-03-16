@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機  忘了bucket sort 在python用[0]*n通常下場都不好，要改用dict sort還是比較厲害">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-07-28T15:31:37.000Z">
-<meta property="article:modified_time" content="2022-03-16T02:54:33.040Z">
+<meta property="article:modified_time" content="2022-03-16T03:41:21.922Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Array">
 <meta property="article:tag" content="Sorting">
@@ -234,7 +234,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-16 10:54:33" itemprop="dateModified" datetime="2022-03-16T10:54:33+08:00">2022-03-16</time>
+                <time title="Modified: 2022-03-16 11:41:21" itemprop="dateModified" datetime="2022-03-16T11:41:21+08:00">2022-03-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -261,16 +261,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-244">動機</h2>
+        <h2 id="動機-487">動機</h2>
 <ul>
 <li>忘了bucket sort</li>
 <li>在python用<code>[0]*n</code>通常下場都不好，要改用dict</li>
 <li>sort還是比較厲害</li>
 </ul>
 <span id="more"></span>
-<h2 id="Problem-136">Problem</h2>
+<h2 id="Problem-286">Problem</h2>
 <p>Given an integer array <code>nums</code>, return <em>the maximum difference between two successive elements in its sorted form</em>. If the array contains less than two elements, return <code>0</code>.</p><p>You must write an algorithm that runs in linear time and uses linear extra space.</p><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input:</strong> nums = [3,6,9,1]<strong>Output:</strong> 3<strong>Explanation:</strong> The sorted form of the array is [1,3,6,9], either (3,6) or (6,9) has the maximum difference 3.</pre><p><strong>Example 2:</strong></p><pre><strong>Input:</strong> nums = [10]<strong>Output:</strong> 0<strong>Explanation:</strong> The array contains less than 2 elements, therefore return 0.</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>1 <= nums.length <= 10<sup>5</sup></code></li><li><code>0 <= nums[i] <= 10<sup>9</sup></code></li></ul>
-<h2 id="Sol-105">Sol</h2>
+<h2 id="Sol-267">Sol</h2>
 <p>bucket sort就是把list，分堆，放到bucket中</p>
 <p>所以這裡要根據數字的範圍，分到array的孔去，就是下面的B_len<br>
 但要注意可能是0，像<code>[1,1,1]</code></p>
@@ -360,7 +360,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-244"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-136"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-105"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-487"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-286"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-267"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
