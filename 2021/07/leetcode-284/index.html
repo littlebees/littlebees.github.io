@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 要多翻一格">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-07-28T10:57:30.000Z">
-<meta property="article:modified_time" content="2022-03-16T03:41:21.926Z">
+<meta property="article:modified_time" content="2022-03-16T03:42:39.471Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Array">
 <meta property="article:tag" content="Design">
@@ -233,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-16 11:41:21" itemprop="dateModified" datetime="2022-03-16T11:41:21+08:00">2022-03-16</time>
+                <time title="Modified: 2022-03-16 11:42:39" itemprop="dateModified" datetime="2022-03-16T11:42:39+08:00">2022-03-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -260,12 +260,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-533">動機</h2>
+        <h2 id="動機-290">動機</h2>
 <p>要多翻一格</p>
 <span id="more"></span>
-<h2 id="Problem-332">Problem</h2>
+<h2 id="Problem-182">Problem</h2>
 <p>Design an iterator that supports the <code>peek</code> operation on a list in addition to the <code>hasNext</code> and the <code>next</code> operations.</p><p>Implement the <code>PeekingIterator</code> class:</p><ul><li><code>PeekingIterator(int[] nums)</code> Initializes the object with the given integer array <code>nums</code>.</li><li><code>int next()</code> Returns the next element in the array and moves the pointer to the next element.</li><li><code>bool hasNext()</code> Returns <code>true</code> if there are still elements in the array.</li><li><code>int peek()</code> Returns the next element in the array <strong>without</strong> moving the pointer.</li></ul><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input</strong>[PeekingIterator, next, peek, next, next, hasNext][[[1, 2, 3]], [], [], [], [], []]<strong>Output</strong>[null, 1, 2, 2, 3, false]<strong>Explanation</strong>PeekingIterator peekingIterator = new PeekingIterator([1, 2, 3]); // [<u><strong>1</strong></u>,2,3]peekingIterator.next();    // return 1, the pointer moves to the next element [1,<u><strong>2</strong></u>,3].peekingIterator.peek();    // return 2, the pointer does not move [1,<u><strong>2</strong></u>,3].peekingIterator.next();    // return 2, the pointer moves to the next element [1,2,<u><strong>3</strong></u>]peekingIterator.next();    // return 3, the pointer moves to the next element [1,2,3]peekingIterator.hasNext(); // return False</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>1 <= nums.length <= 1000</code></li><li><code>1 <= nums[i] <= 1000</code></li><li>All the calls to <code>next</code> and <code>peek</code> are valid.</li><li>At most <code>1000</code> calls will be made to <code>next</code>, <code>hasNext</code>, and <code>peek</code>.</li></ul><p> </p><strong>Follow up:</strong> How would you extend your design to be generic and work with all types, not just integer?
-<h2 id="Sol-312">Sol</h2>
+<h2 id="Sol-150">Sol</h2>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PeekingIterator</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, iterator</span>):</span></span><br><span class="line">        self.l = iterator</span><br><span class="line">        self.prev,self.now = <span class="literal">None</span>, self.l.<span class="built_in">next</span>()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">peek</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self.now</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">next</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">if</span> self.l.hasNext():</span><br><span class="line">            self.prev, self.now = self.now, self.l.<span class="built_in">next</span>()</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            self.prev, self.now = self.now, <span class="literal">None</span></span><br><span class="line">        <span class="keyword">return</span> self.prev</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">hasNext</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self.now <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span></span><br></pre></td></tr></table></figure>
     </div>
 
@@ -351,7 +351,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-533"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-332"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-312"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-290"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-182"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-150"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

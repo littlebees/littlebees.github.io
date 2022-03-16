@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 就硬幹">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-09-26T16:16:12.000Z">
-<meta property="article:modified_time" content="2022-03-16T03:41:21.934Z">
+<meta property="article:modified_time" content="2022-03-16T03:42:39.483Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="String">
 <meta property="article:tag" content="Hash Table">
@@ -233,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-16 11:41:21" itemprop="dateModified" datetime="2022-03-16T11:41:21+08:00">2022-03-16</time>
+                <time title="Modified: 2022-03-16 11:42:39" itemprop="dateModified" datetime="2022-03-16T11:42:39+08:00">2022-03-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -260,12 +260,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-320">動機</h2>
+        <h2 id="動機-528">動機</h2>
 <p>就硬幹</p>
 <span id="more"></span>
-<h2 id="Problem-208">Problem</h2>
+<h2 id="Problem-402">Problem</h2>
 <p>You are playing the <strong><span class="exturl" data-url="aHR0cHM6Ly9lbi53aWtpcGVkaWEub3JnL3dpa2kvQnVsbHNfYW5kX0Nvd3M=">Bulls and Cows<i class="fa fa-external-link-alt"></i></span></strong> game with your friend.</p><p>You write down a secret number and ask your friend to guess what the number is. When your friend makes a guess, you provide a hint with the following info:</p><ul><li>The number of "bulls", which are digits in the guess that are in the correct position.</li><li>The number of "cows", which are digits in the guess that are in your secret number but are located in the wrong position. Specifically, the non-bull digits in the guess that could be rearranged such that they become bulls.</li></ul><p>Given the secret number <code>secret</code> and your friend's guess <code>guess</code>, return <em>the hint for your friend's guess</em>.</p><p>The hint should be formatted as <code>"xAyB"</code>, where <code>x</code> is the number of bulls and <code>y</code> is the number of cows. Note that both <code>secret</code> and <code>guess</code> may contain duplicate digits.</p><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input:</strong> secret = "1807", guess = "7810"<strong>Output:</strong> "1A3B"<strong>Explanation:</strong> Bulls are connected with a '|' and cows are underlined:"1807"  |"<u>7</u>8<u>10</u>"</pre><p><strong>Example 2:</strong></p><pre><strong>Input:</strong> secret = "1123", guess = "0111"<strong>Output:</strong> "1A1B"<strong>Explanation:</strong> Bulls are connected with a '|' and cows are underlined:"1123"        "1123"  |      or     |"01<u>1</u>1"        "011<u>1</u>"Note that only one of the two unmatched 1s is counted as a cow since the non-bull digits can only be rearranged to allow one 1 to be a bull.</pre><p><strong>Example 3:</strong></p><pre><strong>Input:</strong> secret = "1", guess = "0"<strong>Output:</strong> "0A0B"</pre><p><strong>Example 4:</strong></p><pre><strong>Input:</strong> secret = "1", guess = "1"<strong>Output:</strong> "1A0B"</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>1 <= secret.length, guess.length <= 1000</code></li><li><code>secret.length == guess.length</code></li><li><code>secret</code> and <code>guess</code> consist of digits only.</li></ul>
-<h2 id="Sol-179">Sol</h2>
+<h2 id="Sol-369">Sol</h2>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getHint</span>(<span class="params">self, secret: <span class="built_in">str</span>, guess: <span class="built_in">str</span></span>) -&gt; <span class="built_in">str</span>:</span></span><br><span class="line">        bulls = <span class="built_in">sum</span>(a == b <span class="keyword">for</span> a,b <span class="keyword">in</span> <span class="built_in">zip</span>(secret, guess))</span><br><span class="line">        strs = [(a,b) <span class="keyword">for</span> a,b <span class="keyword">in</span> <span class="built_in">zip</span>(secret, guess) <span class="keyword">if</span> a != b]</span><br><span class="line">        a, b = Counter(a <span class="keyword">for</span> a,b <span class="keyword">in</span> strs), Counter(b <span class="keyword">for</span> a,b <span class="keyword">in</span> strs)</span><br><span class="line">        cows = <span class="built_in">sum</span>(<span class="built_in">min</span>(a[x],b[x]) <span class="keyword">for</span> x <span class="keyword">in</span> a.keys() <span class="keyword">if</span> x <span class="keyword">in</span> b)</span><br><span class="line">        <span class="keyword">return</span> <span class="string">f&#x27;<span class="subst">&#123;bulls&#125;</span>A<span class="subst">&#123;cows&#125;</span>B&#x27;</span></span><br></pre></td></tr></table></figure>
     </div>
 
@@ -351,7 +351,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-320"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-208"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-179"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-528"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-402"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-369"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

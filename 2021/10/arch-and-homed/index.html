@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 這是更新上次安裝arch的流程  用systemd-boot 用systemd-networkd 用systemd-homed 用doas 優化pacman">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-10-04T16:11:49.000Z">
-<meta property="article:modified_time" content="2022-03-16T03:41:21.934Z">
+<meta property="article:modified_time" content="2022-03-16T03:42:39.487Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-16 11:41:21" itemprop="dateModified" datetime="2022-03-16T11:41:21+08:00">2022-03-16</time>
+                <time title="Modified: 2022-03-16 11:42:39" itemprop="dateModified" datetime="2022-03-16T11:42:39+08:00">2022-03-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -257,7 +257,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-357">動機</h2>
+        <h2 id="動機-565">動機</h2>
 <p>這是更新上次安裝arch的流程</p>
 <ol>
 <li>用systemd-boot</li>
@@ -417,7 +417,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-357"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#systemd-boot"><span class="nav-number">2.</span> <span class="nav-text">systemd-boot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#systemd-networkd"><span class="nav-number">3.</span> <span class="nav-text">systemd-networkd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#systemd-homed"><span class="nav-number">4.</span> <span class="nav-text">systemd-homed</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%B5%E5%B8%B3%E8%99%9F%E5%BE%88%E7%97%9B%E8%8B%A6"><span class="nav-number">4.1.</span> <span class="nav-text">創帳號很痛苦</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ssh%E6%B2%92%E6%9C%89%E5%95%9F%E5%8B%95%E7%9A%84%E5%B8%B3%E8%99%9F"><span class="nav-number">4.2.</span> <span class="nav-text">ssh沒有啟動的帳號</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#su%E4%B8%8D%E7%B5%A6%E7%94%A8"><span class="nav-number">4.3.</span> <span class="nav-text">su不給用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#doas"><span class="nav-number">5.</span> <span class="nav-text">doas</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#doas-conf"><span class="nav-number">5.1.</span> <span class="nav-text">doas conf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#doas-auto-complete"><span class="nav-number">5.2.</span> <span class="nav-text">doas auto-complete</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%84%AA%E5%8C%96pacman"><span class="nav-number">6.</span> <span class="nav-text">優化pacman</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#reflector%E6%80%AA%E6%80%AA%E7%9A%84"><span class="nav-number">6.1.</span> <span class="nav-text">reflector怪怪的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pacman%E5%B9%B3%E8%A1%8C%E5%8C%96"><span class="nav-number">6.2.</span> <span class="nav-text">pacman平行化</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-565"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#systemd-boot"><span class="nav-number">2.</span> <span class="nav-text">systemd-boot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#systemd-networkd"><span class="nav-number">3.</span> <span class="nav-text">systemd-networkd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#systemd-homed"><span class="nav-number">4.</span> <span class="nav-text">systemd-homed</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%B5%E5%B8%B3%E8%99%9F%E5%BE%88%E7%97%9B%E8%8B%A6"><span class="nav-number">4.1.</span> <span class="nav-text">創帳號很痛苦</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ssh%E6%B2%92%E6%9C%89%E5%95%9F%E5%8B%95%E7%9A%84%E5%B8%B3%E8%99%9F"><span class="nav-number">4.2.</span> <span class="nav-text">ssh沒有啟動的帳號</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#su%E4%B8%8D%E7%B5%A6%E7%94%A8"><span class="nav-number">4.3.</span> <span class="nav-text">su不給用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#doas"><span class="nav-number">5.</span> <span class="nav-text">doas</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#doas-conf"><span class="nav-number">5.1.</span> <span class="nav-text">doas conf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#doas-auto-complete"><span class="nav-number">5.2.</span> <span class="nav-text">doas auto-complete</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%84%AA%E5%8C%96pacman"><span class="nav-number">6.</span> <span class="nav-text">優化pacman</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#reflector%E6%80%AA%E6%80%AA%E7%9A%84"><span class="nav-number">6.1.</span> <span class="nav-text">reflector怪怪的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pacman%E5%B9%B3%E8%A1%8C%E5%8C%96"><span class="nav-number">6.2.</span> <span class="nav-text">pacman平行化</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
