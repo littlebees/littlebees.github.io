@@ -197,6 +197,97 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2021/01/system-design-primer-note2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhengcf">
+      <meta itemprop="description" content="想到什麼就寫什麼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="記事本">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/system-design-primer-note2/" class="post-title-link" itemprop="url">system design primer筆記 設計流程與估算篇</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-07 23:27:53" itemprop="dateCreated datePublished" datetime="2021-01-07T23:27:53+08:00">2021-01-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-03-17 11:03:01" itemprop="dateModified" datetime="2022-03-17T11:03:01+08:00">2022-03-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/System/" itemprop="url" rel="index"><span itemprop="name">System</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/System/System-Design/" itemprop="url" rel="index"><span itemprop="name">System Design</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="動機-164">動機</h2>
+<p>這次是設計流程與估算</p>
+<p>設計系統，要先做出評估與假設</p>
+<p>分成user與system</p>
+<p>user部分要問，誰會用、怎麼用、多少人</p>
+<p>對system而言，會先收到request，之後變成data，之後要io</p>
+<p>所以system部分要問，做什麼、input/output是、每秒處理多少request、希望處理多少資料、預期的讀、寫比例</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/01/system-design-primer-note2/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
     <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2021/01/system-design-primer-note/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -228,7 +319,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-17 00:48:47" itemprop="dateModified" datetime="2022-03-17T00:48:47+08:00">2022-03-17</time>
+                <time title="Modified: 2022-03-17 11:03:01" itemprop="dateModified" datetime="2022-03-17T11:03:01+08:00">2022-03-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -255,7 +346,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="動機-650">動機</h2>
+          <h2 id="動機-651">動機</h2>
 <p>會知道system design primer是因為某場面試，原本以為system design在網路上沒有什麼資料</p>
 <p>結果是很多資料，但是system design資料會多，很大一部分是system design包含的面向很廣</p>
 <p>所以來整理一下，作為了解的開始</p>
@@ -319,7 +410,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-17 00:48:47" itemprop="dateModified" datetime="2022-03-17T00:48:47+08:00">2022-03-17</time>
+                <time title="Modified: 2022-03-17 11:03:01" itemprop="dateModified" datetime="2022-03-17T11:03:01+08:00">2022-03-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -407,7 +498,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-17 00:48:47" itemprop="dateModified" datetime="2022-03-17T00:48:47+08:00">2022-03-17</time>
+                <time title="Modified: 2022-03-17 11:03:01" itemprop="dateModified" datetime="2022-03-17T11:03:01+08:00">2022-03-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -509,7 +600,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-17 00:48:47" itemprop="dateModified" datetime="2022-03-17T00:48:47+08:00">2022-03-17</time>
+                <time title="Modified: 2022-03-17 11:03:01" itemprop="dateModified" datetime="2022-03-17T11:03:01+08:00">2022-03-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -603,7 +694,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-17 00:48:47" itemprop="dateModified" datetime="2022-03-17T00:48:47+08:00">2022-03-17</time>
+                <time title="Modified: 2022-03-17 11:03:01" itemprop="dateModified" datetime="2022-03-17T11:03:01+08:00">2022-03-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -693,7 +784,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-17 00:48:47" itemprop="dateModified" datetime="2022-03-17T00:48:47+08:00">2022-03-17</time>
+                <time title="Modified: 2022-03-17 11:03:01" itemprop="dateModified" datetime="2022-03-17T11:03:01+08:00">2022-03-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -791,7 +882,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-17 00:48:47" itemprop="dateModified" datetime="2022-03-17T00:48:47+08:00">2022-03-17</time>
+                <time title="Modified: 2022-03-17 11:03:01" itemprop="dateModified" datetime="2022-03-17T11:03:01+08:00">2022-03-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -877,7 +968,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-17 00:48:47" itemprop="dateModified" datetime="2022-03-17T00:48:47+08:00">2022-03-17</time>
+                <time title="Modified: 2022-03-17 11:03:01" itemprop="dateModified" datetime="2022-03-17T11:03:01+08:00">2022-03-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -971,7 +1062,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-17 00:48:47" itemprop="dateModified" datetime="2022-03-17T00:48:47+08:00">2022-03-17</time>
+                <time title="Modified: 2022-03-17 11:03:01" itemprop="dateModified" datetime="2022-03-17T11:03:01+08:00">2022-03-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1002,96 +1093,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/01/leetcode-678/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2021/01/leetcode-45/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="zhengcf">
-      <meta itemprop="description" content="想到什麼就寫什麼">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="記事本">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/01/leetcode-45/" class="post-title-link" itemprop="url">leetcode-45 - Jump Game II</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-01-01 14:55:58" itemprop="dateCreated datePublished" datetime="2021-01-01T14:55:58+08:00">2021-01-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-17 00:48:47" itemprop="dateModified" datetime="2022-03-17T00:48:47+08:00">2022-03-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/Leetcode/" itemprop="url" rel="index"><span itemprop="name">Leetcode</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/Leetcode/Top-100-Liked-Questions/" itemprop="url" rel="index"><span itemprop="name">Top 100 Liked Questions</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="動機-146">動機</h2>
-<p>簡單一點也不是壞事，至少算index到找到一個完整的方式去處理之前</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/01/leetcode-45/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -1180,7 +1181,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">689</span>
+          <span class="site-state-item-count">690</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
