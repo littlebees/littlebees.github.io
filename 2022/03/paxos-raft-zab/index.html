@@ -35,7 +35,7 @@
 <meta property="og:image" content="https://blog.openacid.com/post-res/paxos/slide-imgs/paxos-38.jpg">
 <meta property="og:image" content="https://blog.openacid.com/post-res/paxos/slide-imgs/paxos-40.jpg">
 <meta property="article:published_time" content="2022-03-13T08:08:37.000Z">
-<meta property="article:modified_time" content="2022-03-28T16:38:23.655Z">
+<meta property="article:modified_time" content="2022-03-29T06:48:55.536Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://blog.openacid.com/post-res/paxos/slide-imgs/paxos-20.jpg">
@@ -237,7 +237,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-29 00:38:23" itemprop="dateModified" datetime="2022-03-29T00:38:23+08:00">2022-03-29</time>
+                <time title="Modified: 2022-03-29 14:48:55" itemprop="dateModified" datetime="2022-03-29T14:48:55+08:00">2022-03-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -318,6 +318,19 @@
 <p>另外paxos這樣可能會產生livelock，只要有兩個proposer打同一個value就會產生，所以要區隔時間(raft的election timer)</p>
 <p>到此，classic paxos可以看成quorum + 2 phase commit<br>
 原本的2 phase commit要所有人確認，但因為這是共識只要quorum到就好</p>
+<h3 id="定義quorum">定義quorum</h3>
+<p>為什麼要到quorum?<br>
+因為這樣可以確保任意讀與寫至少都會有一個有對的資料</p>
+<p>如果只是要符合&quot;至少都會有一個有對的資料&quot;，這樣一定要過半嗎?<br>
+不用，像是</p>
+<ul>
+<li>要求每個quorum都包含一個特定點</li>
+<li>分階層，要求quorum至少要跨一行與跨一欄</li>
+<li>只有兩行，要求包含第一行的majority, 或在每一行都包含一个majority</li>
+</ul>
+<p>這樣有什麼好處與壞處?<br>
+好處: 可以以較少的數量達成quorum，如此一來可以選近的 或是 發少一點rpc<br>
+壞處: 犧牲avaibility，像是只要是包含的那個唯一的點壞了就出事了；但過半可以讓另一半壞了也ok</p>
 <h3 id="正確性">正確性</h3>
 <p><em>value的rnd</em>保證不反悔app狀態同時代表時間點<br>
 <em>先問過半的accepter的最大id</em>確保app狀態共識</p>
@@ -455,7 +468,8 @@ leader -&gt; log</p>
 <p>把前面的手法從頭走一遍，很有趣，有時間來看看<br>
 <span class="exturl" data-url="aHR0cHM6Ly9ibG9nLm9wZW5hY2lkLmNvbS9hbGdvL2Fic3RyYWN0LXBheG9zLw==">将 paxos 和 raft 统一到一个协议下: abstract-paxos<i class="fa fa-external-link-alt"></i></span></p>
 <h2 id="Ref-137">Ref</h2>
-<p><span class="exturl" data-url="aHR0cHM6Ly9ibG9nLm9wZW5hY2lkLmNvbS9hbGdvL3BheG9zLw==">可靠分布式系统-paxos的直观解释<i class="fa fa-external-link-alt"></i></span></p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9ibG9nLm9wZW5hY2lkLmNvbS9hbGdvL3BheG9zLw==">可靠分布式系统-paxos的直观解释<i class="fa fa-external-link-alt"></i></span><br>
+<span class="exturl" data-url="aHR0cHM6Ly9ibG9nLm9wZW5hY2lkLmNvbS9hbGdvL3F1b3J1bS8=">后分布式时代: 多数派读写的’少数派’实现<i class="fa fa-external-link-alt"></i></span></p>
 
     </div>
 
@@ -536,7 +550,7 @@ leader -&gt; log</p>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-643"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B8%BD%E9%AB%94%E8%80%8C%E8%A8%80"><span class="nav-number">2.</span> <span class="nav-text">總體而言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#basic-paxos"><span class="nav-number">3.</span> <span class="nav-text">basic paxos</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E7%A2%BA%E6%80%A7"><span class="nav-number">3.1.</span> <span class="nav-text">正確性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#multi-paxos"><span class="nav-number">4.</span> <span class="nav-text">multi-paxos</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E7%A2%BA%E6%80%A7-2"><span class="nav-number">4.1.</span> <span class="nav-text">正確性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fast-paxos"><span class="nav-number">5.</span> <span class="nav-text">fast paxos</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#zab"><span class="nav-number">6.</span> <span class="nav-text">zab</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%81%B8leader%E7%9A%84%E6%AD%A3%E7%A2%BA%E6%80%A7"><span class="nav-number">6.1.</span> <span class="nav-text">選leader的正確性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#raft-2"><span class="nav-number">7.</span> <span class="nav-text">raft</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E7%A2%BA%E6%80%A7-3"><span class="nav-number">7.1.</span> <span class="nav-text">正確性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#abstract-paxos"><span class="nav-number">8.</span> <span class="nav-text">abstract-paxos</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-137"><span class="nav-number">9.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-643"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B8%BD%E9%AB%94%E8%80%8C%E8%A8%80"><span class="nav-number">2.</span> <span class="nav-text">總體而言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#basic-paxos"><span class="nav-number">3.</span> <span class="nav-text">basic paxos</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E7%BE%A9quorum"><span class="nav-number">3.1.</span> <span class="nav-text">定義quorum</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E7%A2%BA%E6%80%A7"><span class="nav-number">3.2.</span> <span class="nav-text">正確性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#multi-paxos"><span class="nav-number">4.</span> <span class="nav-text">multi-paxos</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E7%A2%BA%E6%80%A7-2"><span class="nav-number">4.1.</span> <span class="nav-text">正確性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fast-paxos"><span class="nav-number">5.</span> <span class="nav-text">fast paxos</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#zab"><span class="nav-number">6.</span> <span class="nav-text">zab</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%81%B8leader%E7%9A%84%E6%AD%A3%E7%A2%BA%E6%80%A7"><span class="nav-number">6.1.</span> <span class="nav-text">選leader的正確性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#raft-2"><span class="nav-number">7.</span> <span class="nav-text">raft</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E7%A2%BA%E6%80%A7-3"><span class="nav-number">7.1.</span> <span class="nav-text">正確性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#abstract-paxos"><span class="nav-number">8.</span> <span class="nav-text">abstract-paxos</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-137"><span class="nav-number">9.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
