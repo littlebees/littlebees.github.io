@@ -197,6 +197,111 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2021/07/leetcode-73/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhengcf">
+      <meta itemprop="description" content="想到什麼就寫什麼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="記事本">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/07/leetcode-73/" class="post-title-link" itemprop="url">leetcode-73 - Set Matrix Zeroes</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-07-20 23:37:39" itemprop="dateCreated datePublished" datetime="2021-07-20T23:37:39+08:00">2021-07-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-03-31 10:45:14" itemprop="dateModified" datetime="2022-03-31T10:45:14+08:00">2022-03-31</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/Leetcode/" itemprop="url" rel="index"><span itemprop="name">Leetcode</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/Leetcode/Top-Interview-Questions/" itemprop="url" rel="index"><span itemprop="name">Top Interview Questions</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/Leetcode/seanprashad/" itemprop="url" rel="index"><span itemprop="name">seanprashad</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/Leetcode/CTCI-COMPLETE-LIST/" itemprop="url" rel="index"><span itemprop="name">CTCI-COMPLETE-LIST</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/Leetcode/Blind-Curated-75/" itemprop="url" rel="index"><span itemprop="name">Blind Curated 75</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="動機-365">動機</h2>
+<p>讓題我想起多allocate一塊記憶體去當dummy的手法<br>
+但是這裡不用多allocate，而是利用matrix的第一列與第一排</p>
+<p>而如果第一列與第一排原本就該被處理的話，就用變數存狀態!!</p>
+<p>這裡的教訓是<em>狀態與被處理的資料勢必要分開</em>，就像loop會看cond會不會收斂，有關的index會不會收斂，遞迴的變數會不會往base case靠近，是設計時的規則!!</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/07/leetcode-73/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
     <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2021/07/leetcode-235/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -228,7 +333,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-31 10:37:43" itemprop="dateModified" datetime="2022-03-31T10:37:43+08:00">2022-03-31</time>
+                <time title="Modified: 2022-03-31 10:45:14" itemprop="dateModified" datetime="2022-03-31T10:45:14+08:00">2022-03-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -322,7 +427,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-31 10:37:43" itemprop="dateModified" datetime="2022-03-31T10:37:43+08:00">2022-03-31</time>
+                <time title="Modified: 2022-03-31 10:45:14" itemprop="dateModified" datetime="2022-03-31T10:45:14+08:00">2022-03-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -424,7 +529,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-31 10:37:43" itemprop="dateModified" datetime="2022-03-31T10:37:43+08:00">2022-03-31</time>
+                <time title="Modified: 2022-03-31 10:45:14" itemprop="dateModified" datetime="2022-03-31T10:45:14+08:00">2022-03-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -522,7 +627,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-31 10:37:43" itemprop="dateModified" datetime="2022-03-31T10:37:43+08:00">2022-03-31</time>
+                <time title="Modified: 2022-03-31 10:45:14" itemprop="dateModified" datetime="2022-03-31T10:45:14+08:00">2022-03-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -640,7 +745,7 @@ debug的輸出與解答的輸出混在一起，十分痛苦</p>
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-31 10:37:43" itemprop="dateModified" datetime="2022-03-31T10:37:43+08:00">2022-03-31</time>
+                <time title="Modified: 2022-03-31 10:45:14" itemprop="dateModified" datetime="2022-03-31T10:45:14+08:00">2022-03-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -738,7 +843,7 @@ debug的輸出與解答的輸出混在一起，十分痛苦</p>
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-31 10:37:43" itemprop="dateModified" datetime="2022-03-31T10:37:43+08:00">2022-03-31</time>
+                <time title="Modified: 2022-03-31 10:45:14" itemprop="dateModified" datetime="2022-03-31T10:45:14+08:00">2022-03-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -844,7 +949,7 @@ debug的輸出與解答的輸出混在一起，十分痛苦</p>
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-31 10:37:43" itemprop="dateModified" datetime="2022-03-31T10:37:43+08:00">2022-03-31</time>
+                <time title="Modified: 2022-03-31 10:45:14" itemprop="dateModified" datetime="2022-03-31T10:45:14+08:00">2022-03-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -938,7 +1043,7 @@ debug的輸出與解答的輸出混在一起，十分痛苦</p>
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-31 10:37:43" itemprop="dateModified" datetime="2022-03-31T10:37:43+08:00">2022-03-31</time>
+                <time title="Modified: 2022-03-31 10:45:14" itemprop="dateModified" datetime="2022-03-31T10:45:14+08:00">2022-03-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1040,7 +1145,7 @@ debug的輸出與解答的輸出混在一起，十分痛苦</p>
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-31 10:37:43" itemprop="dateModified" datetime="2022-03-31T10:37:43+08:00">2022-03-31</time>
+                <time title="Modified: 2022-03-31 10:45:14" itemprop="dateModified" datetime="2022-03-31T10:45:14+08:00">2022-03-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1111,108 +1216,10 @@ debug的輸出與解答的輸出混在一起，十分痛苦</p>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2021/07/leetcode-153/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="zhengcf">
-      <meta itemprop="description" content="想到什麼就寫什麼">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="記事本">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/leetcode-153/" class="post-title-link" itemprop="url">leetcode-153 - Find Minimum in Rotated Sorted Array</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-07-20 03:05:44" itemprop="dateCreated datePublished" datetime="2021-07-20T03:05:44+08:00">2021-07-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-31 10:37:43" itemprop="dateModified" datetime="2022-03-31T10:37:43+08:00">2022-03-31</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/Leetcode/" itemprop="url" rel="index"><span itemprop="name">Leetcode</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/Leetcode/60-questions-to-solve/" itemprop="url" rel="index"><span itemprop="name">60 questions to solve</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/Leetcode/seanprashad/" itemprop="url" rel="index"><span itemprop="name">seanprashad</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/Leetcode/Blind-Curated-75/" itemprop="url" rel="index"><span itemprop="name">Blind Curated 75</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="動機-240">動機</h2>
-<p>這題可以與<a href="/2021/07/leetcode-33">33</a>一起看，會有新的理解</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/07/leetcode-153/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/39/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/39/">39</a><span class="page-number current">40</span><a class="page-number" href="/page/41/">41</a><span class="space">&hellip;</span><a class="page-number" href="/page/69/">69</a><a class="extend next" rel="next" href="/page/41/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/39/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/39/">39</a><span class="page-number current">40</span><a class="page-number" href="/page/41/">41</a><span class="space">&hellip;</span><a class="page-number" href="/page/70/">70</a><a class="extend next" rel="next" href="/page/41/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1278,7 +1285,7 @@ debug的輸出與解答的輸出混在一起，十分痛苦</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">690</span>
+          <span class="site-state-item-count">691</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
