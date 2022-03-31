@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 接著說說strace與ltrace">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-10-22T12:37:55.000Z">
-<meta property="article:modified_time" content="2022-03-30T15:16:00.450Z">
+<meta property="article:modified_time" content="2022-03-31T01:27:44.861Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-30 23:16:00" itemprop="dateModified" datetime="2022-03-30T23:16:00+08:00">2022-03-30</time>
+                <time title="Modified: 2022-03-31 09:27:44" itemprop="dateModified" datetime="2022-03-31T09:27:44+08:00">2022-03-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -238,11 +238,15 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                  <a href="/categories/System/" itemprop="url" rel="index"><span itemprop="name">System</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/Tips/" itemprop="url" rel="index"><span itemprop="name">Tips</span></a>
+                  <a href="/categories/System/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/System/Linux/Tips/" itemprop="url" rel="index"><span itemprop="name">Tips</span></a>
                 </span>
             </span>
 
@@ -257,7 +261,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-579">動機</h2>
+        <h2 id="動機-578">動機</h2>
 <p>接著說說strace與ltrace</p>
 <span id="more"></span>
 <h2 id="strace-ltrace">strace &amp; ltrace</h2>
@@ -437,7 +441,7 @@ strace與ltrace是透過ptrace讓發生事件時讓process停下來</p>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-579"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#strace-ltrace"><span class="nav-number">2.</span> <span class="nav-text">strace &amp; ltrace</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ptrace"><span class="nav-number">3.</span> <span class="nav-text">ptrace</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PTRACE-ATTACH"><span class="nav-number">3.1.</span> <span class="nav-text">PTRACE_ATTACH</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#PTRACE-SEIZE"><span class="nav-number">3.1.1.</span> <span class="nav-text">PTRACE_SEIZE</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PTRACE-SYSCALL"><span class="nav-number">3.2.</span> <span class="nav-text">PTRACE_SYSCALL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#call-system-call%E4%BA%86"><span class="nav-number">3.3.</span> <span class="nav-text">call system call了</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ltrace-interrupt-3"><span class="nav-number">4.</span> <span class="nav-text">ltrace &amp; interrupt 3</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#interrupt-3-software-breakpoint"><span class="nav-number">4.1.</span> <span class="nav-text">interrupt 3 (software breakpoint)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PTRACE-POKETEXT-the-Procedure-Linkage-Table-PLT-and-the-Global-Offset-Table-GOT"><span class="nav-number">4.2.</span> <span class="nav-text">PTRACE_POKETEXT &amp; the Procedure Linkage Table (PLT) and the Global Offset Table (GOT)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ltrace-irq-3-PTRACE-POKETEXT"><span class="nav-number">4.3.</span> <span class="nav-text">ltrace &#x3D; irq 3 + PTRACE_POKETEXT</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-99"><span class="nav-number">5.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-578"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#strace-ltrace"><span class="nav-number">2.</span> <span class="nav-text">strace &amp; ltrace</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ptrace"><span class="nav-number">3.</span> <span class="nav-text">ptrace</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PTRACE-ATTACH"><span class="nav-number">3.1.</span> <span class="nav-text">PTRACE_ATTACH</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#PTRACE-SEIZE"><span class="nav-number">3.1.1.</span> <span class="nav-text">PTRACE_SEIZE</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PTRACE-SYSCALL"><span class="nav-number">3.2.</span> <span class="nav-text">PTRACE_SYSCALL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#call-system-call%E4%BA%86"><span class="nav-number">3.3.</span> <span class="nav-text">call system call了</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ltrace-interrupt-3"><span class="nav-number">4.</span> <span class="nav-text">ltrace &amp; interrupt 3</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#interrupt-3-software-breakpoint"><span class="nav-number">4.1.</span> <span class="nav-text">interrupt 3 (software breakpoint)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PTRACE-POKETEXT-the-Procedure-Linkage-Table-PLT-and-the-Global-Offset-Table-GOT"><span class="nav-number">4.2.</span> <span class="nav-text">PTRACE_POKETEXT &amp; the Procedure Linkage Table (PLT) and the Global Offset Table (GOT)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ltrace-irq-3-PTRACE-POKETEXT"><span class="nav-number">4.3.</span> <span class="nav-text">ltrace &#x3D; irq 3 + PTRACE_POKETEXT</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-99"><span class="nav-number">5.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -458,7 +462,7 @@ strace與ltrace是透過ptrace讓發生事件時讓process停下來</p>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-count">82</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
