@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 沒看清楚功能要求吃了3個WA">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-07-30T17:12:37.000Z">
-<meta property="article:modified_time" content="2022-03-31T02:52:02.999Z">
+<meta property="article:modified_time" content="2022-03-31T02:56:40.003Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="String">
 <meta property="article:tag" content="Design">
@@ -234,7 +234,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-31 10:52:02" itemprop="dateModified" datetime="2022-03-31T10:52:02+08:00">2022-03-31</time>
+                <time title="Modified: 2022-03-31 10:56:40" itemprop="dateModified" datetime="2022-03-31T10:56:40+08:00">2022-03-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -261,12 +261,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-362">動機</h2>
+        <h2 id="動機-358">動機</h2>
 <p>沒看清楚功能要求吃了3個WA</p>
 <span id="more"></span>
-<h2 id="Problem-254">Problem</h2>
+<h2 id="Problem-250">Problem</h2>
 <p>Design a map that allows you to do the following:</p><ul><li>Maps a string key to a given value.</li><li>Returns the sum of the values that have a key with a prefix equal to a given string.</li></ul><p>Implement the <code>MapSum</code> class:</p><ul><li><code>MapSum()</code> Initializes the <code>MapSum</code> object.</li><li><code>void insert(String key, int val)</code> Inserts the <code>key-val</code> pair into the map. If the <code>key</code> already existed, the original <code>key-value</code> pair will be overridden to the new one.</li><li><code>int sum(string prefix)</code> Returns the sum of all the pairs' value whose <code>key</code> starts with the <code>prefix</code>.</li></ul><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input</strong>[MapSum, insert, sum, insert, sum][[], [apple, 3], [ap], [app, 2], [ap]]<strong>Output</strong>[null, null, 3, null, 5]<strong>Explanation</strong>MapSum mapSum = new MapSum();mapSum.insert(apple, 3);  mapSum.sum(ap);           // return 3 (<u>ap</u>ple = 3)mapSum.insert(app, 2);    mapSum.sum(ap);           // return 5 (<u>ap</u>ple + <u>ap</u>p = 3 + 2 = 5)</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>1 <= key.length, prefix.length <= 50</code></li><li><code>key</code> and <code>prefix</code> consist of only lowercase English letters.</li><li><code>1 <= val <= 1000</code></li><li>At most <code>50</code> calls will be made to <code>insert</code> and <code>sum</code>.</li></ul>
-<h2 id="Sol-221">Sol</h2>
+<h2 id="Sol-217">Sol</h2>
 <p>就是Trie，但是要有特別的dfs</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Trie</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.chars = &#123;&#125;</span><br><span class="line">        self.val = <span class="number">0</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">insert</span>(<span class="params">self,s,v</span>):</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> s:</span><br><span class="line">            self.val = v</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">if</span> s[<span class="number">0</span>] <span class="keyword">not</span> <span class="keyword">in</span> self.chars:</span><br><span class="line">                self.chars[s[<span class="number">0</span>]] = Trie()</span><br><span class="line">            self.chars[s[<span class="number">0</span>]].insert(s[<span class="number">1</span>:], v)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pxsum</span>(<span class="params">self,px,acc=<span class="number">0</span></span>):</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> px:</span><br><span class="line">            <span class="keyword">return</span> acc+<span class="built_in">sum</span>([self.chars[k].pxsum(<span class="string">&quot;&quot;</span>)+self.chars[k].val <span class="keyword">for</span> k <span class="keyword">in</span> self.chars],<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">elif</span> px[<span class="number">0</span>] <span class="keyword">in</span> self.chars:</span><br><span class="line">            <span class="keyword">return</span> self.chars[px[<span class="number">0</span>]].pxsum(px[<span class="number">1</span>:],acc+self.chars[px[<span class="number">0</span>]].val <span class="keyword">if</span> <span class="built_in">len</span>(px) == <span class="number">1</span> <span class="keyword">else</span> <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MapSum</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.trie = Trie()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">insert</span>(<span class="params">self, key: <span class="built_in">str</span>, val: <span class="built_in">int</span></span>) -&gt; <span class="literal">None</span>:</span></span><br><span class="line">        self.trie.insert(key,val)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sum</span>(<span class="params">self, prefix: <span class="built_in">str</span></span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.trie.pxsum(prefix)</span><br></pre></td></tr></table></figure>
     </div>
@@ -354,7 +354,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-362"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-254"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-221"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-358"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-250"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-217"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -368,7 +368,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">693</span>
+          <span class="site-state-item-count">694</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

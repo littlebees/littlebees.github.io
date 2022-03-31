@@ -197,6 +197,109 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2020/5/header-security/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhengcf">
+      <meta itemprop="description" content="想到什麼就寫什麼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="記事本">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/5/header-security/" class="post-title-link" itemprop="url">有趣的資安header</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-05-04 23:43:11" itemprop="dateCreated datePublished" datetime="2020-05-04T23:43:11+08:00">2020-05-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-03-31 10:56:39" itemprop="dateModified" datetime="2022-03-31T10:56:39+08:00">2022-03-31</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/" itemprop="url" rel="index"><span itemprop="name">Web</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/Rails/" itemprop="url" rel="index"><span itemprop="name">Rails</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/Rails/FAQ/" itemprop="url" rel="index"><span itemprop="name">FAQ</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Content-Security-Policy-CSP">Content Security Policy(CSP)</h2>
+<p>列白名單，限制script, style, img, iframe的使用<br>
+defult就是沒有提到的功能</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Content-Security-Policy: </span><br><span class="line">default-src ‘self’; </span><br><span class="line">script-src ‘self’ http://js.devco.re; </span><br><span class="line">style-src ‘self’ http://css.devco.re; </span><br><span class="line">img-src ‘self’ data:; </span><br><span class="line">frame-src ‘none’</span><br></pre></td></tr></table></figure>
+<h3 id="Ref-40">Ref</h3>
+<p><span class="exturl" data-url="aHR0cHM6Ly9kZXZjby5yZS9ibG9nLzIwMTQvMDQvMDgvc2VjdXJpdHktaXNzdWVzLW9mLWh0dHAtaGVhZGVycy0yLWNvbnRlbnQtc2VjdXJpdHktcG9saWN5Lw==">source<i class="fa fa-external-link-alt"></i></span></p>
+<h2 id="HTTPS">HTTPS</h2>
+<p>就是加密資料與證明之後收到的資料是來自對的server</p>
+<p>Q: 加密的部分相對好理解，但是要怎麼證明收到的資料是來自對的server?<br>
+A: 只要在資料上留下簽名(數位憑證)就好</p>
+<p>Q: 要怎麼證明簽名是對的?<br>
+A: 找保證人(值得信任的人)<br>
+數位憑證認證機構（Certificate Authority，CA）</p>
+<p>Q: 要怎麼證明保證人值得信任?<br>
+A: 保證人能找到更強的保證人來擔保</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/5/header-security/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
     <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2020/5/css-bem/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -228,7 +331,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-31 10:52:02" itemprop="dateModified" datetime="2022-03-31T10:52:02+08:00">2022-03-31</time>
+                <time title="Modified: 2022-03-31 10:56:39" itemprop="dateModified" datetime="2022-03-31T10:56:39+08:00">2022-03-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -328,7 +431,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-31 10:52:02" itemprop="dateModified" datetime="2022-03-31T10:52:02+08:00">2022-03-31</time>
+                <time title="Modified: 2022-03-31 10:56:39" itemprop="dateModified" datetime="2022-03-31T10:56:39+08:00">2022-03-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -417,7 +520,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-31 10:52:02" itemprop="dateModified" datetime="2022-03-31T10:52:02+08:00">2022-03-31</time>
+                <time title="Modified: 2022-03-31 10:56:39" itemprop="dateModified" datetime="2022-03-31T10:56:39+08:00">2022-03-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -515,7 +618,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-31 10:52:02" itemprop="dateModified" datetime="2022-03-31T10:52:02+08:00">2022-03-31</time>
+                <time title="Modified: 2022-03-31 10:56:39" itemprop="dateModified" datetime="2022-03-31T10:56:39+08:00">2022-03-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -628,7 +731,7 @@ BL則是對象與想像都具體呈現在眼前</p>
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-31 10:52:02" itemprop="dateModified" datetime="2022-03-31T10:52:02+08:00">2022-03-31</time>
+                <time title="Modified: 2022-03-31 10:56:39" itemprop="dateModified" datetime="2022-03-31T10:56:39+08:00">2022-03-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -721,7 +824,7 @@ BL則是對象與想像都具體呈現在眼前</p>
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-31 10:52:02" itemprop="dateModified" datetime="2022-03-31T10:52:02+08:00">2022-03-31</time>
+                <time title="Modified: 2022-03-31 10:56:39" itemprop="dateModified" datetime="2022-03-31T10:56:39+08:00">2022-03-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -816,7 +919,7 @@ BL則是對象與想像都具體呈現在眼前</p>
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-31 10:52:02" itemprop="dateModified" datetime="2022-03-31T10:52:02+08:00">2022-03-31</time>
+                <time title="Modified: 2022-03-31 10:56:39" itemprop="dateModified" datetime="2022-03-31T10:56:39+08:00">2022-03-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -913,7 +1016,7 @@ BL則是對象與想像都具體呈現在眼前</p>
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-31 10:52:02" itemprop="dateModified" datetime="2022-03-31T10:52:02+08:00">2022-03-31</time>
+                <time title="Modified: 2022-03-31 10:56:39" itemprop="dateModified" datetime="2022-03-31T10:56:39+08:00">2022-03-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1016,7 +1119,7 @@ BL則是對象與想像都具體呈現在眼前</p>
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-31 10:52:02" itemprop="dateModified" datetime="2022-03-31T10:52:02+08:00">2022-03-31</time>
+                <time title="Modified: 2022-03-31 10:56:39" itemprop="dateModified" datetime="2022-03-31T10:56:39+08:00">2022-03-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1056,108 +1159,6 @@ BL則是對象與想像都具體呈現在眼前</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/4/auto-deploy-blog-with-travisCI/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2020/4/hexo-blog-and-github-page/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="zhengcf">
-      <meta itemprop="description" content="想到什麼就寫什麼">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="記事本">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/4/hexo-blog-and-github-page/" class="post-title-link" itemprop="url">hexo-blog-and-github-page</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-04-15 02:19:41" itemprop="dateCreated datePublished" datetime="2020-04-15T02:19:41+08:00">2020-04-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-31 10:52:02" itemprop="dateModified" datetime="2022-03-31T10:52:02+08:00">2022-03-31</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Utils/" itemprop="url" rel="index"><span itemprop="name">Utils</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Small-project/" itemprop="url" rel="index"><span itemprop="name">Small project</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Utils/CI/" itemprop="url" rel="index"><span itemprop="name">CI</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Utils/CI/Tips/" itemprop="url" rel="index"><span itemprop="name">Tips</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="Install-nodejs">Install nodejs</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -</span><br><span class="line">sudo apt-get install -y nodejs</span><br></pre></td></tr></table></figure>
-<h3 id="Use-custom-node-moudle-to-avoid-access-denied">Use custom node_moudle to avoid access denied</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir ~/.npm-global</span><br><span class="line">npm config <span class="built_in">set</span> prefix <span class="string">&#x27;~/.npm-global&#x27;</span></span><br><span class="line"><span class="built_in">export</span> PATH=~/.npm-global/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
-<h3 id="Install-Hexo">Install Hexo</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br></pre></td></tr></table></figure>
-<h3 id="Init-blog">Init blog</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init blog</span><br></pre></td></tr></table></figure>
-<h3 id="Theme-NexT">Theme :NexT</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/theme-next/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/4/hexo-blog-and-github-page/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -1246,7 +1247,7 @@ BL則是對象與想像都具體呈現在眼前</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">693</span>
+          <span class="site-state-item-count">694</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
