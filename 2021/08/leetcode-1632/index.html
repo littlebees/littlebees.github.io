@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://assets.leetcode.com/uploads/2020/10/18/rank3.jpg">
 <meta property="og:image" content="https://assets.leetcode.com/uploads/2020/10/18/rank4.jpg">
 <meta property="article:published_time" content="2021-08-09T07:35:07.000Z">
-<meta property="article:modified_time" content="2022-04-05T15:33:30.041Z">
+<meta property="article:modified_time" content="2022-04-09T16:11:21.560Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Array">
 <meta property="article:tag" content="Matrix">
@@ -241,7 +241,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-05 23:33:30" itemprop="dateModified" datetime="2022-04-05T23:33:30+08:00">2022-04-05</time>
+                <time title="Modified: 2022-04-10 00:11:21" itemprop="dateModified" datetime="2022-04-10T00:11:21+08:00">2022-04-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -268,12 +268,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-425">動機</h2>
+        <h2 id="動機-545">動機</h2>
 <p>1331變成2維</p>
 <span id="more"></span>
-<h2 id="Problem-305">Problem</h2>
+<h2 id="Problem-419">Problem</h2>
 <p>Given an <code>m x n</code> <code>matrix</code>, return <em>a new matrix </em><code>answer</code><em> where </em><code>answer[row][col]</code><em> is the </em><em><strong>rank</strong> of </em><code>matrix[row][col]</code>.</p><p>The <strong>rank</strong> is an <strong>integer</strong> that represents how large an element is compared to other elements. It is calculated using the following rules:</p><ul>t<li>The rank is an integer starting from <code>1</code>.</li>t<li>If two elements <code>p</code> and <code>q</code> are in the <strong>same row or column</strong>, then:t<ul>tt<li>If <code>p < q</code> then <code>rank(p) < rank(q)</code></li>tt<li>If <code>p == q</code> then <code>rank(p) == rank(q)</code></li>tt<li>If <code>p > q</code> then <code>rank(p) > rank(q)</code></li>t</ul>t</li>t<li>The <strong>rank</strong> should be as <strong>small</strong> as possible.</li></ul><p>It is guaranteed that <code>answer</code> is unique under the given rules.</p><p> </p><p><strong>Example 1:</strong></p><img alt="" src="https://assets.leetcode.com/uploads/2020/10/18/rank1.jpg" style="width: 442px; height: 162px;" /><pre><strong>Input:</strong> matrix = [[1,2],[3,4]]<strong>Output:</strong> [[1,2],[2,3]]<strong>Explanation:</strong>The rank of matrix[0][0] is 1 because it is the smallest integer in its row and column.The rank of matrix[0][1] is 2 because matrix[0][1] > matrix[0][0] and matrix[0][0] is rank 1.The rank of matrix[1][0] is 2 because matrix[1][0] > matrix[0][0] and matrix[0][0] is rank 1.The rank of matrix[1][1] is 3 because matrix[1][1] > matrix[0][1], matrix[1][1] > matrix[1][0], and both matrix[0][1] and matrix[1][0] are rank 2.</pre><p><strong>Example 2:</strong></p><img alt="" src="https://assets.leetcode.com/uploads/2020/10/18/rank2.jpg" style="width: 442px; height: 162px;" /><pre><strong>Input:</strong> matrix = [[7,7],[7,7]]<strong>Output:</strong> [[1,1],[1,1]]</pre><p><strong>Example 3:</strong></p><img alt="" src="https://assets.leetcode.com/uploads/2020/10/18/rank3.jpg" style="width: 601px; height: 322px;" /><pre><strong>Input:</strong> matrix = [[20,-21,14],[-19,4,19],[22,-47,24],[-19,4,19]]<strong>Output:</strong> [[4,2,3],[1,3,4],[5,1,6],[1,3,4]]</pre><p><strong>Example 4:</strong></p><img alt="" src="https://assets.leetcode.com/uploads/2020/10/18/rank4.jpg" style="width: 601px; height: 242px;" /><pre><strong>Input:</strong> matrix = [[7,3,6],[1,4,5],[9,8,2]]<strong>Output:</strong> [[5,1,4],[1,2,3],[6,3,1]]</pre><p> </p><p><strong>Constraints:</strong></p><ul>t<li><code>m == matrix.length</code></li>t<li><code>n == matrix[i].length</code></li>t<li><code>1 <= m, n <= 500</code></li>t<li><code>-10<sup>9</sup> <= matrix[row][col] <= 10<sup>9</sup></code></li></ul>
-<h2 id="Sol-272">Sol</h2>
+<h2 id="Sol-386">Sol</h2>
 <p>數字的自己的行與列的rank都是一樣的</p>
 <p>所以需要一個方式記錄目前該行與該列最小的rank，之後取大的<br>
 同時，因為前面提到<em>數字的自己的行與列的rank都是一樣的</em>，所以同一行列的最小rank會因為這格被<em>串</em>在一起</p>
@@ -366,7 +366,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-425"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-305"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-272"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-545"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-419"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-386"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -380,7 +380,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">695</span>
+          <span class="site-state-item-count">696</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
