@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 看解答時是跪著的，能理解為什麼有人看到解答就想打錢過去了">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-08-03T16:47:17.000Z">
-<meta property="article:modified_time" content="2022-04-09T16:11:21.564Z">
+<meta property="article:modified_time" content="2022-04-11T09:59:21.056Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Dynamic Programming">
 <meta property="article:tag" content="String">
@@ -232,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-10 00:11:21" itemprop="dateModified" datetime="2022-04-10T00:11:21+08:00">2022-04-10</time>
+                <time title="Modified: 2022-04-11 17:59:21" itemprop="dateModified" datetime="2022-04-11T17:59:21+08:00">2022-04-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -263,12 +263,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-481">動機</h2>
+        <h2 id="動機-482">動機</h2>
 <p>看解答時是跪著的，能理解為什麼有人看到解答就想打錢過去了</p>
 <span id="more"></span>
-<h2 id="Problem-361">Problem</h2>
+<h2 id="Problem-362">Problem</h2>
 <p>Let's define a function <code>countUniqueChars(s)</code> that returns the number of unique characters on <code>s</code>.</p><ul><li>For example if <code>s = LEETCODE</code> then <code>L</code>, <code>T</code>, <code>C</code>, <code>O</code>, <code>D</code> are the unique characters since they appear only once in <code>s</code>, therefore <code>countUniqueChars(s) = 5</code>.</li></ul><p>Given a string <code>s</code>, return the sum of <code>countUniqueChars(t)</code> where <code>t</code> is a substring of s.</p><p>Notice that some substrings can be repeated so in this case you have to count the repeated ones too.</p><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input:</strong> s = ABC<strong>Output:</strong> 10<strong>Explanation: </strong>All possible substrings are: A,B,C,AB,BC and ABC.Evey substring is composed with only unique letters.Sum of lengths of all substring is 1 + 1 + 1 + 2 + 2 + 3 = 10</pre><p><strong>Example 2:</strong></p><pre><strong>Input:</strong> s = ABA<strong>Output:</strong> 8<strong>Explanation: </strong>The same as example 1, except <code>countUniqueChars</code>(ABA) = 1.</pre><p><strong>Example 3:</strong></p><pre><strong>Input:</strong> s = LEETCODE<strong>Output:</strong> 92</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>1 <= s.length <= 10</code><sup>5</sup></li><li><code>s</code> consists of uppercase English letters only.</li></ul>
-<h2 id="Sol-328">Sol</h2>
+<h2 id="Sol-329">Sol</h2>
 <p><code>AXXXAXXA</code> =&gt; 左邊的A到中間的A有4個洞，另一邊有3的洞，所以可以生12個<em>只</em>包含A的string</p>
 <p>超神奇，在大家想著怎麼處理重複的substring時，lee215直接把組合算出來，直接加，dp什麼的不用不用</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">uniqueLetterString</span>(<span class="params">self, s: <span class="built_in">str</span></span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        tbl = defaultdict(<span class="keyword">lambda</span> : [-<span class="number">1</span>,-<span class="number">1</span>])</span><br><span class="line">        ret = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (j,c) <span class="keyword">in</span> <span class="built_in">enumerate</span>(s):</span><br><span class="line">            i,k = tbl[c]</span><br><span class="line">            ret += (k-i)*(j-k)</span><br><span class="line">            tbl[c] = [k,j]</span><br><span class="line">        <span class="keyword">for</span> (i,k) <span class="keyword">in</span> tbl.values():</span><br><span class="line">            ret += (<span class="built_in">len</span>(s)-k)*(k-i)</span><br><span class="line">        <span class="keyword">return</span> ret</span><br></pre></td></tr></table></figure>
@@ -355,7 +355,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-481"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-361"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-328"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-482"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-362"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-329"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

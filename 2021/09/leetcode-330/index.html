@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 有點魔法的一題">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-09-14T08:11:00.000Z">
-<meta property="article:modified_time" content="2022-04-09T16:11:21.564Z">
+<meta property="article:modified_time" content="2022-04-11T09:59:21.060Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Array">
 <meta property="article:tag" content="Greedy">
@@ -232,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-10 00:11:21" itemprop="dateModified" datetime="2022-04-10T00:11:21+08:00">2022-04-10</time>
+                <time title="Modified: 2022-04-11 17:59:21" itemprop="dateModified" datetime="2022-04-11T17:59:21+08:00">2022-04-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -259,12 +259,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-529">動機</h2>
+        <h2 id="動機-530">動機</h2>
 <p>有點魔法的一題</p>
 <span id="more"></span>
-<h2 id="Problem-403">Problem</h2>
+<h2 id="Problem-404">Problem</h2>
 <p>Given a sorted integer array <code>nums</code> and an integer <code>n</code>, add/patch elements to the array such that any number in the range <code>[1, n]</code> inclusive can be formed by the sum of some elements in the array.</p><p>Return <em>the minimum number of patches required</em>.</p><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input:</strong> nums = [1,3], n = 6<strong>Output:</strong> 1Explanation:Combinations of nums are [1], [3], [1,3], which form possible sums of: 1, 3, 4.Now if we add/patch 2 to nums, the combinations are: [1], [2], [3], [1,3], [2,3], [1,2,3].Possible sums are 1, 2, 3, 4, 5, 6, which now covers the range [1, 6].So we only need 1 patch.</pre><p><strong>Example 2:</strong></p><pre><strong>Input:</strong> nums = [1,5,10], n = 20<strong>Output:</strong> 2Explanation: The two patches can be [2, 4].</pre><p><strong>Example 3:</strong></p><pre><strong>Input:</strong> nums = [1,2,2], n = 5<strong>Output:</strong> 0</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>1 <= nums.length <= 1000</code></li><li><code>1 <= nums[i] <= 10<sup>4</sup></code></li><li><code>nums</code> is sorted in <strong>ascending order</strong>.</li><li><code>1 <= n <= 2<sup>31</sup> - 1</code></li></ul>
-<h2 id="Sol-370">Sol</h2>
+<h2 id="Sol-371">Sol</h2>
 <p>假設現在可以組合出的數字是<code>1~miss</code>，所以有兩個case<br>
 如果目前的數字在可以組合出的範圍中，就直接加上去<br>
 如果不在，就是加最大的數字，miss</p>
@@ -352,7 +352,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-529"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-403"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-370"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-530"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-404"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-371"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
