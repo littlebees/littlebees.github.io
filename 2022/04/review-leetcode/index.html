@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 要複習怎麼用C++做leetcode">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2022-04-11T17:38:21.000Z">
-<meta property="article:modified_time" content="2022-04-12T02:41:46.677Z">
+<meta property="article:modified_time" content="2022-04-12T06:30:58.450Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 
@@ -224,7 +224,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-04-12 01:38:21 / Modified: 10:41:46" itemprop="dateCreated datePublished" datetime="2022-04-12T01:38:21+08:00">2022-04-12</time>
+              <time title="Created: 2022-04-12 01:38:21 / Modified: 14:30:58" itemprop="dateCreated datePublished" datetime="2022-04-12T01:38:21+08:00">2022-04-12</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -355,6 +355,121 @@ return就是<code>a</code></p>
 </ul>
 <p>除非要求，不然用bfs比較好，因為cycle只要看bfs結束時in_degree的表還有沒有東西就好<br>
 dfs要另外處理cycle還要管理中間走過的點，如果是python就算了，用c++真的很痛苦，同時還要reverse結果…</p>
+<h2 id="mono-stack">mono stack</h2>
+<ul>
+<li>根據關注點不同有不同的看法
+<ul>
+<li>排序，留下最後的字典序 (stk是重點)
+<ul>
+<li><code>1 3 7 2</code></li>
+<li><code>1 2</code>
+<ul>
+<li>可以看成<code>2</code>把3,7吃了，只留下該範圍最小的，這也是字典序的由來</li>
+</ul>
+</li>
+<li>內容物:
+<ul>
+<li>節點</li>
+<li>區塊</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>夾出區間，中間是最大或是最小 (被pop的資料是重點)
+<ul>
+<li><code>while stk and stk[-1] &lt;= n</code>
+<ul>
+<li><code>7 3 2 ..left.. 1 ..right.. 2</code>
+<ul>
+<li>right的所有數字都會小於1</li>
+<li>left的所有數字都會等於1</li>
+<li>1是這個區間(去頭尾)<strong>最大的</strong>，含頭尾的區間中的<strong>最小的</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>while stk and stk[-1] &gt;= n</code>
+<ul>
+<li><code>1 2 3 ..left.. 7 ..right.. 2</code>
+<ul>
+<li>right的所有數字都會大於7</li>
+<li>left的所有數字都會等於7</li>
+<li>7是這個區間<strong>最小的</strong>，含頭尾的區間中的<strong>最大的</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>這樣就可以用<code>stk[-2]</code>與<code>n</code>，做出一個閉區間</li>
+<li>記得處理沒有stk的case</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>&lt;=</code>與<code>&gt;=</code>怎麼用?
+<ul>
+<li>看資料是遞增(<code>&gt;=</code>)還是遞減(<code>&lt;=</code>)</li>
+<li>箭頭指向最低的地方</li>
+</ul>
+</li>
+<li>在需要保持原本的順序、字典序、前面的資料會被後面的蓋掉時就可以老慮用用看</li>
+</ul>
+<h3 id="84-Largest-Rectangle-in-Histogram">84. Largest Rectangle in Histogram</h3>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">largestRectangleArea</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; hs)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="keyword">int</span>&gt; stk;</span><br><span class="line">        <span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">        hs.<span class="built_in">push_back</span>(<span class="number">0</span>); <span class="comment">// 留一個最低的把stack都壓出來</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;hs.<span class="built_in">size</span>();i++) &#123;</span><br><span class="line">            <span class="keyword">while</span> (!stk.<span class="built_in">empty</span>() &amp;&amp; hs[stk.<span class="built_in">back</span>()] &gt;= hs[i]) &#123; <span class="comment">// not &lt;=</span></span><br><span class="line">                <span class="keyword">if</span> (stk.<span class="built_in">size</span>() &gt; <span class="number">1</span>)</span><br><span class="line">                    ret = <span class="built_in">max</span>(ret, hs[stk.<span class="built_in">back</span>()]*(i-stk[stk.<span class="built_in">size</span>()<span class="number">-2</span>]<span class="number">-1</span>)); <span class="comment">// not +1</span></span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    ret = <span class="built_in">max</span>(ret, hs[stk.<span class="built_in">back</span>()]*i);</span><br><span class="line">                stk.<span class="built_in">pop_back</span>();</span><br><span class="line">            &#125;</span><br><span class="line">            stk.<span class="built_in">push_back</span>(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="sliding-windows">sliding windows</h2>
+<p>用<em>閉區間</em>做</p>
+<p>列舉起點</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">b = <span class="number">0</span></span><br><span class="line">win = []</span><br><span class="line"><span class="keyword">for</span> a <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(fs)):</span><br><span class="line">    <span class="keyword">while</span> b &lt; <span class="built_in">len</span>(fs) <span class="keyword">and</span> when_win_is_legal():</span><br><span class="line">        update_ret()</span><br><span class="line">        expand_win()</span><br><span class="line">    shrink_win()</span><br><span class="line"><span class="keyword">return</span> ret</span><br></pre></td></tr></table></figure>
+<p>列舉終點</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">0</span></span><br><span class="line">win = []</span><br><span class="line"><span class="keyword">for</span> b <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(fs)):</span><br><span class="line">    update_win()</span><br><span class="line">    <span class="keyword">while</span> a &lt;= b <span class="keyword">and</span> when_win_is_illegal():</span><br><span class="line">        shrink_win()</span><br><span class="line">    update_ret()</span><br><span class="line"><span class="keyword">return</span> ret</span><br></pre></td></tr></table></figure>
+<p>atMost</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">atmost</span>(<span class="params">bound</span>):</span></span><br><span class="line">    ret = i = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> j,n <span class="keyword">in</span> <span class="built_in">enumerate</span>(nums):</span><br><span class="line">        update_win()</span><br><span class="line">        <span class="keyword">while</span> i &lt;= j <span class="keyword">and</span> when_win_is_illegal():</span><br><span class="line">            shrink_win()</span><br><span class="line">        ret += j-i+<span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> ret</span><br></pre></td></tr></table></figure>
+<h2 id="prefix-sum">prefix sum</h2>
+<ul>
+<li>算區間和</li>
+<li>和
+<ul>
+<li>從a~b的總和</li>
+<li>如果有負數，可以代表偏離原點多遠</li>
+</ul>
+</li>
+<li>一般來說，通常第一個會是0代表沒有加任何東西的狀態</li>
+<li>所以index從1開始，代表從<code>arr[0]~arr[i-1]</code></li>
+</ul>
+<h3 id="static-index-sum">static (index -&gt; sum)</h3>
+<ul>
+<li><code>list(accumulate(nums, initial=0))</code></li>
+<li>LC209
+<ul>
+<li>因為arr只有正數
+<ul>
+<li>可以用sliding window，去收縮大小</li>
+<li>可以用prefix sum，在prefix sum做binary search
+<ul>
+<li>我們會先列舉起點到終點</li>
+<li>所以prefix sum也是從起點去往後找終點</li>
+<li>TODO: LC209與LC525為什麼一個是從後面一個從前面</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="in-fly-sum-count-or-index">in fly (sum -&gt; count or [index])</h3>
+<ul>
+<li>LC560
+<ul>
+<li>基本款</li>
+</ul>
+</li>
+<li>LC525
+<ul>
+<li>與LC209不同這裡是每加一個都會產生變化</li>
+<li>所以可以用in fly一邊建prefix sum，再找有沒有符合的</li>
+<li>注意同一個sum我們只要<em>最前面</em>的</li>
+</ul>
+</li>
+</ul>
 
     </div>
 
@@ -435,7 +550,7 @@ dfs要另外處理cycle還要管理中間走過的點，如果是python就算了
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-652"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%BE%9C%E5%85%94%E8%B3%BD%E8%B7%91"><span class="nav-number">2.</span> <span class="nav-text">龜兔賽跑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#142-Linked-List-Cycle-II"><span class="nav-number">2.1.</span> <span class="nav-text">142. Linked List Cycle II</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#287-Find-the-Duplicate-Number"><span class="nav-number">2.2.</span> <span class="nav-text">287. Find the Duplicate Number</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#160-Intersection-of-Two-Linked-Lists"><span class="nav-number">2.3.</span> <span class="nav-text">160. Intersection of Two Linked Lists</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#matrix%E7%BF%BB%E7%BF%BB%E6%A8%82"><span class="nav-number">3.</span> <span class="nav-text">matrix翻翻樂</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#48-Rotate-Image"><span class="nav-number">3.1.</span> <span class="nav-text">48. Rotate Image</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#54-Spiral-Matrix"><span class="nav-number">3.2.</span> <span class="nav-text">54. Spiral Matrix</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#binary-search-2"><span class="nav-number">4.</span> <span class="nav-text">binary search</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#287-Find-the-Duplicate-Number-2"><span class="nav-number">4.1.</span> <span class="nav-text">287. Find the Duplicate Number</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#33-Search-in-Rotated-Sorted-Array"><span class="nav-number">4.2.</span> <span class="nav-text">33. Search in Rotated Sorted Array</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#162-Find-Peak-Element"><span class="nav-number">4.3.</span> <span class="nav-text">162. Find Peak Element</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#34-Find-First-and-Last-Position-of-Element-in-Sorted-Array"><span class="nav-number">4.4.</span> <span class="nav-text">34. Find First and Last Position of Element in Sorted Array</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#154-Find-Minimum-in-Rotated-Sorted-Array-II"><span class="nav-number">4.5.</span> <span class="nav-text">154. Find Minimum in Rotated Sorted Array II</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#topo-sort"><span class="nav-number">5.</span> <span class="nav-text">topo sort</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-652"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%BE%9C%E5%85%94%E8%B3%BD%E8%B7%91"><span class="nav-number">2.</span> <span class="nav-text">龜兔賽跑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#142-Linked-List-Cycle-II"><span class="nav-number">2.1.</span> <span class="nav-text">142. Linked List Cycle II</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#287-Find-the-Duplicate-Number"><span class="nav-number">2.2.</span> <span class="nav-text">287. Find the Duplicate Number</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#160-Intersection-of-Two-Linked-Lists"><span class="nav-number">2.3.</span> <span class="nav-text">160. Intersection of Two Linked Lists</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#matrix%E7%BF%BB%E7%BF%BB%E6%A8%82"><span class="nav-number">3.</span> <span class="nav-text">matrix翻翻樂</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#48-Rotate-Image"><span class="nav-number">3.1.</span> <span class="nav-text">48. Rotate Image</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#54-Spiral-Matrix"><span class="nav-number">3.2.</span> <span class="nav-text">54. Spiral Matrix</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#binary-search-2"><span class="nav-number">4.</span> <span class="nav-text">binary search</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#287-Find-the-Duplicate-Number-2"><span class="nav-number">4.1.</span> <span class="nav-text">287. Find the Duplicate Number</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#33-Search-in-Rotated-Sorted-Array"><span class="nav-number">4.2.</span> <span class="nav-text">33. Search in Rotated Sorted Array</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#162-Find-Peak-Element"><span class="nav-number">4.3.</span> <span class="nav-text">162. Find Peak Element</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#34-Find-First-and-Last-Position-of-Element-in-Sorted-Array"><span class="nav-number">4.4.</span> <span class="nav-text">34. Find First and Last Position of Element in Sorted Array</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#154-Find-Minimum-in-Rotated-Sorted-Array-II"><span class="nav-number">4.5.</span> <span class="nav-text">154. Find Minimum in Rotated Sorted Array II</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#topo-sort"><span class="nav-number">5.</span> <span class="nav-text">topo sort</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mono-stack"><span class="nav-number">6.</span> <span class="nav-text">mono stack</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#84-Largest-Rectangle-in-Histogram"><span class="nav-number">6.1.</span> <span class="nav-text">84. Largest Rectangle in Histogram</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sliding-windows"><span class="nav-number">7.</span> <span class="nav-text">sliding windows</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#prefix-sum"><span class="nav-number">8.</span> <span class="nav-text">prefix sum</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#static-index-sum"><span class="nav-number">8.1.</span> <span class="nav-text">static (index -&gt; sum)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#in-fly-sum-count-or-index"><span class="nav-number">8.2.</span> <span class="nav-text">in fly (sum -&gt; count or [index])</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
