@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="AEpTGuQAkxnTOlmfF4INDna3S660LxrkyZ4BQzVbRSw">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"littlebees.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="動機">
+<meta property="og:type" content="article">
+<meta property="og:title" content="條件變數與原子性">
+<meta property="og:url" content="https://littlebees.github.io/2022/04/cond-var-atomic/index.html">
+<meta property="og:site_name" content="記事本">
+<meta property="og:description" content="動機">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2022-04-13T15:06:34.000Z">
+<meta property="article:modified_time" content="2022-04-13T15:06:59.487Z">
+<meta property="article:author" content="zhengcf">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://littlebees.github.io/2022/04/cond-var-atomic/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>條件變數與原子性 | 記事本</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">記事本</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">寫下來，不然會忘</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2022/04/cond-var-atomic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhengcf">
+      <meta itemprop="description" content="想到什麼就寫什麼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="記事本">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          條件變數與原子性
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-04-13 23:06:34 / Modified: 23:06:59" itemprop="dateCreated datePublished" datetime="2022-04-13T23:06:34+08:00">2022-04-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/System/" itemprop="url" rel="index"><span itemprop="name">System</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="動機-650">動機</h2>
+<span id="more"></span>
+<h2 id="從一個cond-var的bug開始">從一個cond var的bug開始</h2>
+<p>之前有一個程式是會開兩個thread之後其中一條會卡死，所以利用cond var通知main thread去kill另一條</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> f = []() &#123;</span><br><span class="line">  <span class="comment">// something...</span></span><br><span class="line">  <span class="built_in">cond_notify</span>();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">lk.<span class="built_in">lock</span>()</span><br><span class="line"><span class="built_in">create_thread</span>()</span><br><span class="line"><span class="built_in">create_thread</span>()</span><br><span class="line"><span class="built_in">cond_wait</span>(&amp;lk)</span><br></pre></td></tr></table></figure>
+<p>之後就有lost wakeup signal，其實很簡單，因為thread結束的時間可能比到達wait還快<br>
+解法就是把lock上回去，利用lock確保，notify一定會被看到</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> f = []() &#123;</span><br><span class="line">  <span class="comment">// something...</span></span><br><span class="line">  lk.<span class="built_in">lock</span>();</span><br><span class="line">  <span class="built_in">cond_notify</span>();</span><br><span class="line">  lk.<span class="built_in">unlock</span>();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">lk.<span class="built_in">lock</span>()</span><br><span class="line"><span class="built_in">create_thread</span>()</span><br><span class="line"><span class="built_in">create_thread</span>()</span><br><span class="line"><span class="built_in">cond_wait</span>(&amp;lk)</span><br></pre></td></tr></table></figure>
+<h2 id="虛假喚醒">虛假喚醒</h2>
+<p>上面看起來是ok了，但是cond其實可能在任何時刻喚醒，所以有可以能喚醒了但是thread根本沒做事<br>
+所以要加條件</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> f = []() &#123;</span><br><span class="line">  <span class="comment">// something...</span></span><br><span class="line">  lk.<span class="built_in">lock</span>();</span><br><span class="line">  flag = <span class="literal">true</span>;</span><br><span class="line">  <span class="built_in">cond_notify</span>();</span><br><span class="line">  lk.<span class="built_in">unlock</span>();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">lk.<span class="built_in">lock</span>()</span><br><span class="line"><span class="built_in">create_thread</span>()</span><br><span class="line"><span class="built_in">create_thread</span>()</span><br><span class="line"><span class="keyword">while</span> (!flag)</span><br><span class="line">  <span class="built_in">cond_wait</span>(&amp;lk)</span><br></pre></td></tr></table></figure>
+<h2 id="xv6的sleep">xv6的sleep</h2>
+<p>xv6的wakeup需要吃一個鎖，裡面的理由與上面的一樣，為了看到對的資料(atomic)</p>
+<p>下面是xv6中的sleep lock，這裡有個問題在<code>s-&gt;count == 0</code>為true時還沒到sleep時如果有人做wakeup就會lost wakeupsignal</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span></span></span><br><span class="line"><span class="function"><span class="title">V</span><span class="params">(struct semaphore *s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  acquire(&amp;s-&gt;lock);</span><br><span class="line">  s-&gt;count += <span class="number">1</span>;</span><br><span class="line">  wakeup(s);</span><br><span class="line">  release(&amp;s-&gt;lock);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span></span></span><br><span class="line"><span class="function"><span class="title">P</span><span class="params">(struct semaphore *s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(s-&gt;count == <span class="number">0</span>)</span><br><span class="line">    sleep(s);</span><br><span class="line">  acquire(&amp;s-&gt;lock);</span><br><span class="line">  s-&gt;count -= <span class="number">1</span>;</span><br><span class="line">  release(&amp;s-&gt;lock);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但這裡不能直接把P的lock往前拉，這樣就直接deadlock<br>
+P做了sleep之後想要V就會出事</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span></span></span><br><span class="line"><span class="function"><span class="title">V</span><span class="params">(struct semaphore *s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  acquire(&amp;s-&gt;lock);</span><br><span class="line">  s-&gt;count += <span class="number">1</span>;</span><br><span class="line">  wakeup(s);</span><br><span class="line">  release(&amp;s-&gt;lock);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span></span></span><br><span class="line"><span class="function"><span class="title">P</span><span class="params">(struct semaphore *s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  acquire(&amp;s-&gt;lock);</span><br><span class="line">  <span class="keyword">while</span>(s-&gt;count == <span class="number">0</span>)</span><br><span class="line">    sleep(s);</span><br><span class="line">  s-&gt;count -= <span class="number">1</span>;</span><br><span class="line">  release(&amp;s-&gt;lock);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>所以在sleep的同時必須同時解鎖<br>
+這個與pthread的cond var一樣，同時也是分布式鎖要注意的地方，上鎖與設定timeout要同時</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span></span></span><br><span class="line"><span class="function"><span class="title">V</span><span class="params">(struct semaphore *s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  acquire(&amp;s-&gt;lock);</span><br><span class="line">  s-&gt;count += <span class="number">1</span>;</span><br><span class="line">  wakeup(s);</span><br><span class="line">  release(&amp;s-&gt;lock);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span></span></span><br><span class="line"><span class="function"><span class="title">P</span><span class="params">(struct semaphore *s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  acquire(&amp;s-&gt;lock);</span><br><span class="line">  <span class="keyword">while</span>(s-&gt;count == <span class="number">0</span>)</span><br><span class="line">    sleep(s, &amp;s-&gt;lock);</span><br><span class="line">  s-&gt;count -= <span class="number">1</span>;</span><br><span class="line">  release(&amp;s-&gt;lock);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="如果不是同一個鎖-4-way-deadlock">如果不是同一個鎖? 4-way deadlock</h2>
+<p>之前寫raft遇到的，直接借助教的code</p>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(a *App)</span> <span class="title">RPC</span><span class="params">(args <span class="keyword">interface</span>&#123;&#125;, reply <span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    a.mutex.Lock()</span><br><span class="line">    i := a.raft.Start(args)</span><br><span class="line">    <span class="comment">// update some data structure so that apply knows to poke us later</span></span><br><span class="line">    a.mutex.Unlock()</span><br><span class="line">    <span class="comment">// wait for apply to poke us</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r *Raft)</span> <span class="title">Start</span><span class="params">(cmd <span class="keyword">interface</span>&#123;&#125;)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    r.mutex.Lock()</span><br><span class="line">    <span class="comment">// do things to start agreement on this new command</span></span><br><span class="line">    <span class="comment">// store index in the log where cmd was placed</span></span><br><span class="line">    r.mutex.Unlock()</span><br><span class="line">    <span class="keyword">return</span> index</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(a *App)</span> <span class="title">apply</span><span class="params">(index <span class="keyword">int</span>, cmd <span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">    a.mutex.Lock()</span><br><span class="line">    <span class="keyword">switch</span> cmd := cmd.(<span class="keyword">type</span>) &#123;</span><br><span class="line">    <span class="keyword">case</span> GetArgs:</span><br><span class="line">        <span class="comment">// do the get</span></span><br><span class="line">    <span class="comment">// see who was listening for this index</span></span><br><span class="line">    <span class="comment">// poke them all with the result of the operation</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">    a.mutex.Unlock()</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r *Raft)</span> <span class="title">AppendEntries</span><span class="params">(...)</span></span> &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    r.mutex.Lock()</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="keyword">for</span> r.lastApplied &lt; r.commitIndex &#123;</span><br><span class="line">      r.lastApplied++</span><br><span class="line">      r.app.apply(r.lastApplied, r.log[r.lastApplied])</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    r.mutex.Unlock()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>在AppendEntries中，想做apply</li>
+<li>APP透過RPC做Start</li>
+</ol>
+<p>這樣就deadlock</p>
+<ol>
+<li>AppendEntries拿著raft的鎖，想要app的鎖</li>
+<li>RPC拿著app的鎖，想要raft的鎖(Start)</li>
+</ol>
+<p>我之前的raft是直接透過channel做apply，但是tester的channel是unbuffered!!<br>
+所以滿了會block</p>
+<p>tester想start，raft想塞，就deadlock<br>
+最後直接多一個buffered channel放要commit的訊息，讓另一個thread去commit</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/04/leetcode-1315/" rel="prev" title="leetcode-1315 - Sum of Nodes with Even-Valued Grandparent">
+      <i class="fa fa-chevron-left"></i> leetcode-1315 - Sum of Nodes with Even-Valued Grandparent
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-650"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%9E%E4%B8%80%E5%80%8Bcond-var%E7%9A%84bug%E9%96%8B%E5%A7%8B"><span class="nav-number">2.</span> <span class="nav-text">從一個cond var的bug開始</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%99%9B%E5%81%87%E5%96%9A%E9%86%92"><span class="nav-number">3.</span> <span class="nav-text">虛假喚醒</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#xv6%E7%9A%84sleep"><span class="nav-number">4.</span> <span class="nav-text">xv6的sleep</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E6%9E%9C%E4%B8%8D%E6%98%AF%E5%90%8C%E4%B8%80%E5%80%8B%E9%8E%96-4-way-deadlock"><span class="nav-number">5.</span> <span class="nav-text">如果不是同一個鎖? 4-way deadlock</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">zhengcf</p>
+  <div class="site-description" itemprop="description">想到什麼就寫什麼</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">699</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">87</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhengcf</span>
+</div>
+  <div class="powered-by">Powered by <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl theme-link" data-url="aHR0cHM6Ly9tdXNlLnRoZW1lLW5leHQub3Jn">NexT.Muse</span>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 1000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://littlebees.github.io/2022/04/cond-var-atomic/',]
+      });
+      });
+  </script>
+
+</body>
+</html>

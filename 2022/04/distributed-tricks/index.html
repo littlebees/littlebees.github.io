@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://i.imgur.com/cljSkYT.png">
 <meta property="og:image" content="https://i.imgur.com/cUCHWqy.png">
 <meta property="article:published_time" content="2022-04-09T16:11:05.000Z">
-<meta property="article:modified_time" content="2022-04-12T06:30:58.450Z">
+<meta property="article:modified_time" content="2022-04-13T15:06:59.487Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://i.imgur.com/cljSkYT.png">
@@ -233,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-12 14:30:58" itemprop="dateModified" datetime="2022-04-12T14:30:58+08:00">2022-04-12</time>
+                <time title="Modified: 2022-04-13 23:06:59" itemprop="dateModified" datetime="2022-04-13T23:06:59+08:00">2022-04-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -260,7 +260,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-650">動機</h2>
+        <h2 id="動機-651">動機</h2>
 <p>整理常見分散式設計手法</p>
 <span id="more"></span>
 <h2 id="原子性">原子性</h2>
@@ -512,7 +512,7 @@ Merkle tree的好處是不用拿所有hash過的資料就可以找出是不是�
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-650"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E5%AD%90%E6%80%A7"><span class="nav-number">2.</span> <span class="nav-text">原子性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8D%E6%99%82%E9%96%93%E5%BB%BA%E6%A8%A1"><span class="nav-number">3.</span> <span class="nav-text">對時間建模</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%95%E5%AE%9A%E4%BA%BA%E6%95%B8-quorum"><span class="nav-number">4.</span> <span class="nav-text">法定人數 (quorum)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%95%E5%AE%9A%E4%BA%BA%E6%95%B8-%E5%B0%8D%E6%99%82%E9%96%93%E5%BB%BA%E6%A8%A1-read-quorum"><span class="nav-number">4.1.</span> <span class="nav-text">法定人數 + 對時間建模 &#x3D; read quorum</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#anti-entropy-recovery"><span class="nav-number">4.1.1.</span> <span class="nav-text">anti-entropy (recovery)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#write-quorum%E7%9A%84%E5%95%8F%E9%A1%8C"><span class="nav-number">4.2.</span> <span class="nav-text">write quorum的問題</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-phase-commit-2PC"><span class="nav-number">5.</span> <span class="nav-text">2 phase commit (2PC)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-phase-commit-3PC"><span class="nav-number">5.1.</span> <span class="nav-text">3 phase commit (3PC)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A7%9F%E7%B4%84"><span class="nav-number">6.</span> <span class="nav-text">租約</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90-5"><span class="nav-number">7.</span> <span class="nav-text">例子</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-651"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E5%AD%90%E6%80%A7"><span class="nav-number">2.</span> <span class="nav-text">原子性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8D%E6%99%82%E9%96%93%E5%BB%BA%E6%A8%A1"><span class="nav-number">3.</span> <span class="nav-text">對時間建模</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%95%E5%AE%9A%E4%BA%BA%E6%95%B8-quorum"><span class="nav-number">4.</span> <span class="nav-text">法定人數 (quorum)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%95%E5%AE%9A%E4%BA%BA%E6%95%B8-%E5%B0%8D%E6%99%82%E9%96%93%E5%BB%BA%E6%A8%A1-read-quorum"><span class="nav-number">4.1.</span> <span class="nav-text">法定人數 + 對時間建模 &#x3D; read quorum</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#anti-entropy-recovery"><span class="nav-number">4.1.1.</span> <span class="nav-text">anti-entropy (recovery)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#write-quorum%E7%9A%84%E5%95%8F%E9%A1%8C"><span class="nav-number">4.2.</span> <span class="nav-text">write quorum的問題</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-phase-commit-2PC"><span class="nav-number">5.</span> <span class="nav-text">2 phase commit (2PC)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-phase-commit-3PC"><span class="nav-number">5.1.</span> <span class="nav-text">3 phase commit (3PC)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A7%9F%E7%B4%84"><span class="nav-number">6.</span> <span class="nav-text">租約</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90-5"><span class="nav-number">7.</span> <span class="nav-text">例子</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -526,7 +526,7 @@ Merkle tree的好處是不用拿所有hash過的資料就可以找出是不是�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">698</span>
+          <span class="site-state-item-count">699</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

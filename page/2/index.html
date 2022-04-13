@@ -309,6 +309,93 @@ mjx-container[display="true"] + br {
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2022/03/raft-optimization/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhengcf">
+      <meta itemprop="description" content="想到什麼就寫什麼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="記事本">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/03/raft-optimization/" class="post-title-link" itemprop="url">raft優化</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-03-14 22:20:42" itemprop="dateCreated datePublished" datetime="2022-03-14T22:20:42+08:00">2022-03-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-04-13 23:06:59" itemprop="dateModified" datetime="2022-04-13T23:06:59+08:00">2022-04-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/System/" itemprop="url" rel="index"><span itemprop="name">System</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/System/Distributed/" itemprop="url" rel="index"><span itemprop="name">Distributed</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="動機-646">動機</h2>
+<p>raft有一些優化，這邊記錄一些<br>
+主要出自raft作者的博論</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/03/raft-optimization/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
     <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2022/03/rendezvous-hash-consistent-hash/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -340,7 +427,7 @@ mjx-container[display="true"] + br {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-12 14:30:58" itemprop="dateModified" datetime="2022-04-12T14:30:58+08:00">2022-04-12</time>
+                <time title="Modified: 2022-04-13 23:06:59" itemprop="dateModified" datetime="2022-04-13T23:06:59+08:00">2022-04-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -429,7 +516,7 @@ mjx-container[display="true"] + br {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-12 14:30:58" itemprop="dateModified" datetime="2022-04-12T14:30:58+08:00">2022-04-12</time>
+                <time title="Modified: 2022-04-13 23:06:59" itemprop="dateModified" datetime="2022-04-13T23:06:59+08:00">2022-04-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -515,7 +602,7 @@ mjx-container[display="true"] + br {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-12 14:30:58" itemprop="dateModified" datetime="2022-04-12T14:30:58+08:00">2022-04-12</time>
+                <time title="Modified: 2022-04-13 23:06:59" itemprop="dateModified" datetime="2022-04-13T23:06:59+08:00">2022-04-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -602,7 +689,7 @@ mjx-container[display="true"] + br {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-12 14:30:58" itemprop="dateModified" datetime="2022-04-12T14:30:58+08:00">2022-04-12</time>
+                <time title="Modified: 2022-04-13 23:06:59" itemprop="dateModified" datetime="2022-04-13T23:06:59+08:00">2022-04-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -629,7 +716,7 @@ mjx-container[display="true"] + br {
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="動機-672">動機</h2>
+          <h2 id="動機-673">動機</h2>
 <p>筆記</p>
           <!--noindex-->
             <div class="post-button">
@@ -688,7 +775,7 @@ mjx-container[display="true"] + br {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-12 14:30:58" itemprop="dateModified" datetime="2022-04-12T14:30:58+08:00">2022-04-12</time>
+                <time title="Modified: 2022-04-13 23:06:59" itemprop="dateModified" datetime="2022-04-13T23:06:59+08:00">2022-04-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -727,7 +814,7 @@ mjx-container[display="true"] + br {
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="動機-671">動機</h2>
+          <h2 id="動機-672">動機</h2>
 <p>好看的書，但我主要是看怎麼profile與gc所以有跳過一些部分</p>
 <p>跳過:<br>
 webfont, CDN, SSL, HTTP cache, Rails Cache, Backgrounding Work</p>
@@ -788,7 +875,7 @@ webfont, CDN, SSL, HTTP cache, Rails Cache, Backgrounding Work</p>
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-12 14:30:58" itemprop="dateModified" datetime="2022-04-12T14:30:58+08:00">2022-04-12</time>
+                <time title="Modified: 2022-04-13 23:06:59" itemprop="dateModified" datetime="2022-04-13T23:06:59+08:00">2022-04-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -889,7 +976,7 @@ ch6是怎麼debug像ftrace與debugfs、systemtap、kasan、kmemleak、CONFIG_DEB
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-12 14:30:58" itemprop="dateModified" datetime="2022-04-12T14:30:58+08:00">2022-04-12</time>
+                <time title="Modified: 2022-04-13 23:06:59" itemprop="dateModified" datetime="2022-04-13T23:06:59+08:00">2022-04-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -979,7 +1066,7 @@ ch6是怎麼debug像ftrace與debugfs、systemtap、kasan、kmemleak、CONFIG_DEB
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-12 14:30:58" itemprop="dateModified" datetime="2022-04-12T14:30:58+08:00">2022-04-12</time>
+                <time title="Modified: 2022-04-13 23:06:59" itemprop="dateModified" datetime="2022-04-13T23:06:59+08:00">2022-04-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1010,7 +1097,7 @@ ch6是怎麼debug像ftrace與debugfs、systemtap、kasan、kmemleak、CONFIG_DEB
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="動機-675">動機</h2>
+          <h2 id="動機-676">動機</h2>
 <blockquote>
 <p>What I can not create I do not understand.</p>
 </blockquote>
@@ -1080,7 +1167,7 @@ lab是2020版，6.s081有經歷幾次改版，lab的內容會換一下，尤其�
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-12 14:30:58" itemprop="dateModified" datetime="2022-04-12T14:30:58+08:00">2022-04-12</time>
+                <time title="Modified: 2022-04-13 23:06:59" itemprop="dateModified" datetime="2022-04-13T23:06:59+08:00">2022-04-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1118,99 +1205,6 @@ lab是2020版，6.s081有經歷幾次改版，lab的內容會換一下，尤其�
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/01/craft-small-os/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2022/01/database-system/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="zhengcf">
-      <meta itemprop="description" content="想到什麼就寫什麼">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="記事本">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/database-system/" class="post-title-link" itemprop="url">database system</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-01-17 16:28:53" itemprop="dateCreated datePublished" datetime="2022-01-17T16:28:53+08:00">2022-01-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-12 14:30:58" itemprop="dateModified" datetime="2022-04-12T14:30:58+08:00">2022-04-12</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/System/" itemprop="url" rel="index"><span itemprop="name">System</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/System/DB/" itemprop="url" rel="index"><span itemprop="name">DB</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/System/DB/Reading/" itemprop="url" rel="index"><span itemprop="name">Reading</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="動機-667">動機</h2>
-<p>我之前學的DB根本就是假的<br>
-這是來自nthu的DB課程，有slide但沒有prjects</p>
-<p>難道之後要跑CMU 15-445嗎?<br>
-不過有一說一，DB越看與xv6的fs真的很像，除了沒有SQL的部分</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/01/database-system/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -1299,7 +1293,7 @@ lab是2020版，6.s081有經歷幾次改版，lab的內容會換一下，尤其�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">698</span>
+          <span class="site-state-item-count">699</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
