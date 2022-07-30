@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 水">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-07-24T12:33:51.000Z">
-<meta property="article:modified_time" content="2022-07-30T02:34:34.094Z">
+<meta property="article:modified_time" content="2022-07-30T02:35:52.793Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="String">
 <meta property="article:tag" content="Math">
@@ -233,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 10:34:34" itemprop="dateModified" datetime="2022-07-30T10:34:34+08:00">2022-07-30</time>
+                <time title="Modified: 2022-07-30 10:35:52" itemprop="dateModified" datetime="2022-07-30T10:35:52+08:00">2022-07-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -264,12 +264,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-225">動機</h2>
+        <h2 id="動機-224">動機</h2>
 <p>水</p>
 <span id="more"></span>
-<h2 id="Problem-117">Problem</h2>
+<h2 id="Problem-116">Problem</h2>
 <p>Roman numerals are represented by seven different symbols: <code>I</code>, <code>V</code>, <code>X</code>, <code>L</code>, <code>C</code>, <code>D</code> and <code>M</code>.</p><pre><strong>Symbol</strong>       <strong>Value</strong>I             1V             5X             10L             50C             100D             500M             1000</pre><p>For example, <code>2</code> is written as <code>II</code> in Roman numeral, just two one's added together. <code>12</code> is written as <code>XII</code>, which is simply <code>X + II</code>. The number <code>27</code> is written as <code>XXVII</code>, which is <code>XX + V + II</code>.</p><p>Roman numerals are usually written largest to smallest from left to right. However, the numeral for four is not <code>IIII</code>. Instead, the number four is written as <code>IV</code>. Because the one is before the five we subtract it making four. The same principle applies to the number nine, which is written as <code>IX</code>. There are six instances where subtraction is used:</p><ul><li><code>I</code> can be placed before <code>V</code> (5) and <code>X</code> (10) to make 4 and 9. </li><li><code>X</code> can be placed before <code>L</code> (50) and <code>C</code> (100) to make 40 and 90. </li><li><code>C</code> can be placed before <code>D</code> (500) and <code>M</code> (1000) to make 400 and 900.</li></ul><p>Given a roman numeral, convert it to an integer.</p><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input:</strong> s = III<strong>Output:</strong> 3</pre><p><strong>Example 2:</strong></p><pre><strong>Input:</strong> s = IV<strong>Output:</strong> 4</pre><p><strong>Example 3:</strong></p><pre><strong>Input:</strong> s = IX<strong>Output:</strong> 9</pre><p><strong>Example 4:</strong></p><pre><strong>Input:</strong> s = LVIII<strong>Output:</strong> 58<strong>Explanation:</strong> L = 50, V= 5, III = 3.</pre><p><strong>Example 5:</strong></p><pre><strong>Input:</strong> s = MCMXCIV<strong>Output:</strong> 1994<strong>Explanation:</strong> M = 1000, CM = 900, XC = 90 and IV = 4.</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>1 <= s.length <= 15</code></li><li><code>s</code> contains only the characters <code>('I', 'V', 'X', 'L', 'C', 'D', 'M')</code>.</li><li>It is <strong>guaranteed</strong> that <code>s</code> is a valid roman numeral in the range <code>[1, 3999]</code>.</li></ul>
-<h2 id="Sol-87">Sol</h2>
+<h2 id="Sol-86">Sol</h2>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">romanToInt</span>(<span class="params">self, s: <span class="built_in">str</span></span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        tbl = &#123;<span class="string">&quot;I&quot;</span>:<span class="number">1</span> ,<span class="string">&quot;V&quot;</span>:<span class="number">5</span> ,<span class="string">&quot;X&quot;</span>:<span class="number">10</span> ,<span class="string">&quot;L&quot;</span>: <span class="number">50</span> , <span class="string">&quot;C&quot;</span>: <span class="number">100</span>, <span class="string">&quot;D&quot;</span>:<span class="number">500</span>, <span class="string">&quot;M&quot;</span>:<span class="number">1000</span>&#125;</span><br><span class="line">        tbl2 = &#123;<span class="string">&quot;IV&quot;</span>:<span class="number">4</span> ,<span class="string">&quot;IX&quot;</span>:<span class="number">9</span> ,<span class="string">&quot;XL&quot;</span>: <span class="number">40</span> , <span class="string">&quot;XC&quot;</span>: <span class="number">90</span>, <span class="string">&quot;CD&quot;</span>:<span class="number">400</span>, <span class="string">&quot;CM&quot;</span>:<span class="number">900</span>&#125;</span><br><span class="line">        ret,i = <span class="number">0</span>,<span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> i &lt; <span class="built_in">len</span>(s):</span><br><span class="line">            <span class="keyword">if</span> s[i:i+<span class="number">2</span>] <span class="keyword">in</span> tbl2:</span><br><span class="line">                ret += tbl2[s[i:i+<span class="number">2</span>]]</span><br><span class="line">                i += <span class="number">2</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                ret += tbl[s[i]]</span><br><span class="line">                i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> ret</span><br></pre></td></tr></table></figure>
     </div>
 
@@ -355,7 +355,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-225"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-117"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-87"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-224"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-116"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-86"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -369,7 +369,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">701</span>
+          <span class="site-state-item-count">702</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
