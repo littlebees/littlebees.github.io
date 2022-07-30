@@ -197,6 +197,95 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2020/9/pthread-cond-var/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhengcf">
+      <meta itemprop="description" content="想到什麼就寫什麼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="記事本">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/9/pthread-cond-var/" class="post-title-link" itemprop="url">奇聞軼事 - condition variable</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-09-13 01:44:39" itemprop="dateCreated datePublished" datetime="2020-09-13T01:44:39+08:00">2020-09-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-07-30 10:59:57" itemprop="dateModified" datetime="2022-07-30T10:59:57+08:00">2022-07-30</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/System/" itemprop="url" rel="index"><span itemprop="name">System</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/System/Parallel/" itemprop="url" rel="index"><span itemprop="name">Parallel</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="動機-98">動機</h2>
+<p>現在 main thread 生出 兩條thread<br>
+然後 main thread 要等兩條thread完成</p>
+<p>然而有一定機率，兩條子thread的其中一條會整個停住<br>
+只有一條可以完成</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/9/pthread-cond-var/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
     <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2020/9/go-first-step/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -228,7 +317,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 10:58:18" itemprop="dateModified" datetime="2022-07-30T10:58:18+08:00">2022-07-30</time>
+                <time title="Modified: 2022-07-30 10:59:57" itemprop="dateModified" datetime="2022-07-30T10:59:57+08:00">2022-07-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -319,7 +408,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 10:58:18" itemprop="dateModified" datetime="2022-07-30T10:58:18+08:00">2022-07-30</time>
+                <time title="Modified: 2022-07-30 10:59:57" itemprop="dateModified" datetime="2022-07-30T10:59:57+08:00">2022-07-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -405,7 +494,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 10:58:18" itemprop="dateModified" datetime="2022-07-30T10:58:18+08:00">2022-07-30</time>
+                <time title="Modified: 2022-07-30 10:59:57" itemprop="dateModified" datetime="2022-07-30T10:59:57+08:00">2022-07-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -491,7 +580,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 10:58:18" itemprop="dateModified" datetime="2022-07-30T10:58:18+08:00">2022-07-30</time>
+                <time title="Modified: 2022-07-30 10:59:57" itemprop="dateModified" datetime="2022-07-30T10:59:57+08:00">2022-07-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -522,7 +611,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="動機-667">動機</h2>
+          <h2 id="動機-668">動機</h2>
 <p>這是對我來說最hardcore的部分<br>
 都沒接觸過啊</p>
 <p>windows system programming<br>
@@ -586,7 +675,7 @@ code injection (binary &amp; shell code)</p>
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 10:58:18" itemprop="dateModified" datetime="2022-07-30T10:58:18+08:00">2022-07-30</time>
+                <time title="Modified: 2022-07-30 10:59:57" itemprop="dateModified" datetime="2022-07-30T10:59:57+08:00">2022-07-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -677,7 +766,7 @@ code injection (binary &amp; shell code)</p>
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 10:58:18" itemprop="dateModified" datetime="2022-07-30T10:58:18+08:00">2022-07-30</time>
+                <time title="Modified: 2022-07-30 10:59:57" itemprop="dateModified" datetime="2022-07-30T10:59:57+08:00">2022-07-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -708,7 +797,7 @@ code injection (binary &amp; shell code)</p>
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="動機-666">動機</h2>
+          <h2 id="動機-667">動機</h2>
 <p>這邊主要是處理http與web的html<br>
 還有網站結構</p>
           <!--noindex-->
@@ -768,7 +857,7 @@ code injection (binary &amp; shell code)</p>
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 10:58:18" itemprop="dateModified" datetime="2022-07-30T10:58:18+08:00">2022-07-30</time>
+                <time title="Modified: 2022-07-30 10:59:57" itemprop="dateModified" datetime="2022-07-30T10:59:57+08:00">2022-07-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -799,7 +888,7 @@ code injection (binary &amp; shell code)</p>
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="動機-680">動機</h2>
+          <h2 id="動機-681">動機</h2>
 <p>來做個筆記吧</p>
 <p>這裡有帶到基本的network programming與SSH的使用</p>
           <!--noindex-->
@@ -859,7 +948,7 @@ code injection (binary &amp; shell code)</p>
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 10:58:18" itemprop="dateModified" datetime="2022-07-30T10:58:18+08:00">2022-07-30</time>
+                <time title="Modified: 2022-07-30 10:59:57" itemprop="dateModified" datetime="2022-07-30T10:59:57+08:00">2022-07-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -951,7 +1040,7 @@ code injection (binary &amp; shell code)</p>
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 10:58:18" itemprop="dateModified" datetime="2022-07-30T10:58:18+08:00">2022-07-30</time>
+                <time title="Modified: 2022-07-30 10:59:57" itemprop="dateModified" datetime="2022-07-30T10:59:57+08:00">2022-07-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -987,96 +1076,6 @@ code injection (binary &amp; shell code)</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/8/web-api-def/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2020/8/strange-note-buildroot/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="zhengcf">
-      <meta itemprop="description" content="想到什麼就寫什麼">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="記事本">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/8/strange-note-buildroot/" class="post-title-link" itemprop="url">奇聞軼事-buildroot的坑</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-08-23 12:23:11" itemprop="dateCreated datePublished" datetime="2020-08-23T12:23:11+08:00">2020-08-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 10:58:18" itemprop="dateModified" datetime="2022-07-30T10:58:18+08:00">2022-07-30</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/System/" itemprop="url" rel="index"><span itemprop="name">System</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/System/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/System/Linux/Tips/" itemprop="url" rel="index"><span itemprop="name">Tips</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="動機-86">動機</h2>
-<p>記下把buildroot原本的package用成自己的時候遇到的坑</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/8/strange-note-buildroot/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -1165,7 +1164,7 @@ code injection (binary &amp; shell code)</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">708</span>
+          <span class="site-state-item-count">709</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
