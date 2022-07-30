@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://assets.leetcode.com/uploads/2020/10/23/countandsay.jpg">
 <meta property="article:published_time" content="2021-01-17T17:07:20.000Z">
-<meta property="article:modified_time" content="2022-07-30T02:35:52.789Z">
+<meta property="article:modified_time" content="2022-07-30T02:40:33.361Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="String">
 <meta name="twitter:card" content="summary">
@@ -233,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 10:35:52" itemprop="dateModified" datetime="2022-07-30T10:35:52+08:00">2022-07-30</time>
+                <time title="Modified: 2022-07-30 10:40:33" itemprop="dateModified" datetime="2022-07-30T10:40:33+08:00">2022-07-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -264,10 +264,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-137">動機</h2>
+        <h2 id="動機-138">動機</h2>
 <p>這題的題目敘述真的不太好，夢回接手新任務，霧裡看花，用力撞牆的感覺</p>
 <span id="more"></span>
-<h2 id="Problem-63">Problem</h2>
+<h2 id="Problem-64">Problem</h2>
 <p>The <strong>count-and-say</strong> sequence is a sequence of digit strings defined by the recursive formula:</p><ul><li><code>countAndSay(1) = 1</code></li><li><code>countAndSay(n)</code> is the way you would say the digit string from <code>countAndSay(n-1)</code>, which is then converted into a different digit string.</li></ul><p>To determine how you say a digit string, split it into the <strong>minimal</strong> number of groups so that each group is a contiguous section all of the <strong>same character.</strong> Then for each group, say the number of characters, then say the character. To convert the saying into a digit string, replace the counts with a number and concatenate every saying.</p><p>For example, the saying and conversion for digit string <code>3322251</code>:</p><img alt="" src="https://assets.leetcode.com/uploads/2020/10/23/countandsay.jpg" style="width: 581px; height: 172px;" /><p>Given a positive integer <code>n</code>, return <em>the </em><code>n<sup>th</sup></code><em> term of the <strong>count-and-say</strong> sequence</em>.</p><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input:</strong> n = 1<strong>Output:</strong> 1<strong>Explanation:</strong> This is the base case.</pre><p><strong>Example 2:</strong></p><pre><strong>Input:</strong> n = 4<strong>Output:</strong> 1211<strong>Explanation:</strong>countAndSay(1) = 1countAndSay(2) = say 1 = one 1 = 11countAndSay(3) = say 11 = two 1's = 21countAndSay(4) = say 21 = one 2 + one 1 = 12 + 11 = 1211</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>1 <= n <= 30</code></li></ul>
 <h2 id="Sol-43">Sol</h2>
 <p>就是看string中的數字直到變成鱉的數字之前，</p>
@@ -359,7 +359,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-137"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-63"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-43"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-138"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-64"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-43"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -373,7 +373,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">702</span>
+          <span class="site-state-item-count">703</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

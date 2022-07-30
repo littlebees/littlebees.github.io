@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 每次看到math的解法，都會想是不是有鬼，所以不會去想，還有原本就是要練DP，所以要不會往那邊想…">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-01-09T08:23:03.000Z">
-<meta property="article:modified_time" content="2022-07-30T02:35:52.793Z">
+<meta property="article:modified_time" content="2022-07-30T02:40:33.361Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Dynamic Programming">
 <meta property="article:tag" content="Array">
@@ -234,7 +234,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 10:35:52" itemprop="dateModified" datetime="2022-07-30T10:35:52+08:00">2022-07-30</time>
+                <time title="Modified: 2022-07-30 10:40:33" itemprop="dateModified" datetime="2022-07-30T10:40:33+08:00">2022-07-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -261,10 +261,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-163">動機</h2>
+        <h2 id="動機-164">動機</h2>
 <p>每次看到math的解法，都會想是不是有鬼，所以不會去想，還有原本就是要練DP，所以要不會往那邊想…</p>
 <span id="more"></span>
-<h2 id="Problem-89">Problem</h2>
+<h2 id="Problem-90">Problem</h2>
 <p>Alex and Lee play a game with piles of stones.  There are an even number of piles <strong>arranged in a row</strong>, and each pile has a positive integer number of stones <code>piles[i]</code>.</p><p>The objective of the game is to end with the most stones.  The total number of stones is odd, so there are no ties.</p><p>Alex and Lee take turns, with Alex starting first.  Each turn, a player takes the entire pile of stones from either the beginning or the end of the row.  This continues until there are no more piles left, at which point the person with the most stones wins.</p><p>Assuming Alex and Lee play optimally, return <code>True</code> if and only if Alex wins the game.</p><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input:</strong> piles = [5,3,4,5]<strong>Output:</strong> true<strong>Explanation: </strong>Alex starts first, and can only take the first 5 or the last 5.Say he takes the first 5, so that the row becomes [3, 4, 5].If Lee takes 3, then the board is [4, 5], and Alex takes 5 to win with 10 points.If Lee takes the last 5, then the board is [3, 4], and Alex takes 4 to win with 9 points.This demonstrated that taking the first 5 was a winning move for Alex, so we return true.</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>2 <= piles.length <= 500</code></li><li><code>piles.length</code> is even.</li><li><code>1 <= piles[i] <= 500</code></li><li><code>sum(piles)</code> is odd.</li></ul>
 <h2 id="Sol-61">Sol</h2>
 <p>取前取後一個一個試</p>
@@ -357,7 +357,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-163"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-89"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-61"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#case-study-3"><span class="nav-number">4.</span> <span class="nav-text">case study</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-164"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-90"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-61"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#case-study-3"><span class="nav-number">4.</span> <span class="nav-text">case study</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -371,7 +371,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">702</span>
+          <span class="site-state-item-count">703</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 把二分搜最討厭的部分完全展示的一題">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-12-29T16:33:36.000Z">
-<meta property="article:modified_time" content="2022-07-30T02:35:52.785Z">
+<meta property="article:modified_time" content="2022-07-30T02:40:33.353Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Array">
 <meta property="article:tag" content="Binary Search">
@@ -232,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 10:35:52" itemprop="dateModified" datetime="2022-07-30T10:35:52+08:00">2022-07-30</time>
+                <time title="Modified: 2022-07-30 10:40:33" itemprop="dateModified" datetime="2022-07-30T10:40:33+08:00">2022-07-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -259,10 +259,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-46">動機</h2>
+        <h2 id="動機-47">動機</h2>
 <p>把二分搜最討厭的部分完全展示的一題</p>
 <span id="more"></span>
-<h2 id="Problem-18">Problem</h2>
+<h2 id="Problem-19">Problem</h2>
 <p>Given an array of integers <code>citations</code> where <code>citations[i]</code> is the number of citations a researcher received for their <code>i<sup>th</sup></code> paper and <code>citations</code> is sorted in an <strong>ascending order</strong>, return compute the researcher's <code>h</code><strong>-index</strong>.</p><p>According to the <span class="exturl" data-url="aHR0cHM6Ly9lbi53aWtpcGVkaWEub3JnL3dpa2kvSC1pbmRleA==">definition of h-index on Wikipedia<i class="fa fa-external-link-alt"></i></span>: A scientist has an index <code>h</code> if <code>h</code> of their <code>n</code> papers have at least <code>h</code> citations each, and the other <code>n − h</code> papers have no more than <code>h</code> citations each.</p><p>If there are several possible values for <code>h</code>, the maximum one is taken as the <code>h</code><strong>-index</strong>.</p><p>You must write an algorithm that runs in logarithmic time.</p><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input:</strong> citations = [0,1,3,5,6]<strong>Output:</strong> 3<strong>Explanation:</strong> [0,1,3,5,6] means the researcher has 5 papers in total and each of them had received 0, 1, 3, 5, 6 citations respectively.Since the researcher has 3 papers with at least 3 citations each and the remaining two with no more than 3 citations each, their h-index is 3.</pre><p><strong>Example 2:</strong></p><pre><strong>Input:</strong> citations = [1,2,100]<strong>Output:</strong> 2</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>n == citations.length</code></li><li><code>1 <= n <= 10<sup>5</sup></code></li><li><code>0 <= citations[i] <= 1000</code></li><li><code>citations</code> is sorted in <strong>ascending order</strong>.</li></ul>
 <h2 id="Sol-13">Sol</h2>
 <p>h-index的定義是</p>
@@ -383,7 +383,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-46"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-18"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-13"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Ver1"><span class="nav-number">3.1.</span> <span class="nav-text">Ver1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ver2"><span class="nav-number">3.2.</span> <span class="nav-text">Ver2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-25"><span class="nav-number">4.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-47"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-19"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-13"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Ver1"><span class="nav-number">3.1.</span> <span class="nav-text">Ver1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ver2"><span class="nav-number">3.2.</span> <span class="nav-text">Ver2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-25"><span class="nav-number">4.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -397,7 +397,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">702</span>
+          <span class="site-state-item-count">703</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

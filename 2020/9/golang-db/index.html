@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 原本只打算看gorm的，但gorm的guide十分的簡略 所以會先從interface的部分開始看">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-09-19T09:03:28.000Z">
-<meta property="article:modified_time" content="2022-07-30T02:35:52.789Z">
+<meta property="article:modified_time" content="2022-07-30T02:40:33.357Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 10:35:52" itemprop="dateModified" datetime="2022-07-30T10:35:52+08:00">2022-07-30</time>
+                <time title="Modified: 2022-07-30 10:40:33" itemprop="dateModified" datetime="2022-07-30T10:40:33+08:00">2022-07-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -261,7 +261,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-95">動機</h2>
+        <h2 id="動機-96">動機</h2>
 <p>原本只打算看gorm的，但gorm的guide十分的簡略<br>
 所以會先從interface的部分開始看</p>
 <span id="more"></span>
@@ -436,7 +436,7 @@ Related透過foreignkey去找，也就是從外鍵去找，換言之從belong關
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-95"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vanilla-sql-interface"><span class="nav-number">2.</span> <span class="nav-text">vanilla sql interface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%AB%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="nav-number">3.</span> <span class="nav-text">寫在前面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CURD"><span class="nav-number">4.</span> <span class="nav-text">CURD</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95-2"><span class="nav-number">4.1.</span> <span class="nav-text">基本用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Create"><span class="nav-number">4.2.</span> <span class="nav-text">Create</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Update"><span class="nav-number">4.3.</span> <span class="nav-text">Update</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Delete"><span class="nav-number">4.4.</span> <span class="nav-text">Delete</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#soft-delete"><span class="nav-number">4.4.1.</span> <span class="nav-text">soft delete</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Read"><span class="nav-number">4.5.</span> <span class="nav-text">Read</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scopes"><span class="nav-number">4.6.</span> <span class="nav-text">scopes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FindInBatches"><span class="nav-number">4.7.</span> <span class="nav-text">FindInBatches</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#named-args"><span class="nav-number">4.8.</span> <span class="nav-text">named args</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nested-query-condition"><span class="nav-number">4.9.</span> <span class="nav-text">Nested query&amp;condition</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Association"><span class="nav-number">5.</span> <span class="nav-text">Association</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#belong-has"><span class="nav-number">5.1.</span> <span class="nav-text">belong &amp; has</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Preload-Association-Related"><span class="nav-number">5.2.</span> <span class="nav-text">Preload &amp; Association &amp; Related</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-63"><span class="nav-number">6.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-96"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vanilla-sql-interface"><span class="nav-number">2.</span> <span class="nav-text">vanilla sql interface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%AB%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="nav-number">3.</span> <span class="nav-text">寫在前面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CURD"><span class="nav-number">4.</span> <span class="nav-text">CURD</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95-2"><span class="nav-number">4.1.</span> <span class="nav-text">基本用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Create"><span class="nav-number">4.2.</span> <span class="nav-text">Create</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Update"><span class="nav-number">4.3.</span> <span class="nav-text">Update</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Delete"><span class="nav-number">4.4.</span> <span class="nav-text">Delete</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#soft-delete"><span class="nav-number">4.4.1.</span> <span class="nav-text">soft delete</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Read"><span class="nav-number">4.5.</span> <span class="nav-text">Read</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scopes"><span class="nav-number">4.6.</span> <span class="nav-text">scopes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FindInBatches"><span class="nav-number">4.7.</span> <span class="nav-text">FindInBatches</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#named-args"><span class="nav-number">4.8.</span> <span class="nav-text">named args</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nested-query-condition"><span class="nav-number">4.9.</span> <span class="nav-text">Nested query&amp;condition</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Association"><span class="nav-number">5.</span> <span class="nav-text">Association</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#belong-has"><span class="nav-number">5.1.</span> <span class="nav-text">belong &amp; has</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Preload-Association-Related"><span class="nav-number">5.2.</span> <span class="nav-text">Preload &amp; Association &amp; Related</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-63"><span class="nav-number">6.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -450,7 +450,7 @@ Related透過foreignkey去找，也就是從外鍵去找，換言之從belong關
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">702</span>
+          <span class="site-state-item-count">703</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

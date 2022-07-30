@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://assets.leetcode.com/uploads/2019/02/15/117_sample.png">
 <meta property="article:published_time" content="2021-08-01T15:11:54.000Z">
-<meta property="article:modified_time" content="2022-07-30T02:35:52.801Z">
+<meta property="article:modified_time" content="2022-07-30T02:40:33.373Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Breadth-First Search">
 <meta property="article:tag" content="Depth-First Search">
@@ -236,7 +236,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 10:35:52" itemprop="dateModified" datetime="2022-07-30T10:35:52+08:00">2022-07-30</time>
+                <time title="Modified: 2022-07-30 10:40:33" itemprop="dateModified" datetime="2022-07-30T10:40:33+08:00">2022-07-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -267,10 +267,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-411">動機</h2>
+        <h2 id="動機-412">動機</h2>
 <p>用已經建成的next去連，所以遞迴方式變得很有趣</p>
 <span id="more"></span>
-<h2 id="Problem-291">Problem</h2>
+<h2 id="Problem-292">Problem</h2>
 <p>Given a binary tree</p><pre>struct Node {  int val;  Node *left;  Node *right;  Node *next;}</pre><p>Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to <code>NULL</code>.</p><p>Initially, all next pointers are set to <code>NULL</code>.</p><p> </p><p><strong>Follow up:</strong></p><ul><li>You may only use constant extra space.</li><li>Recursive approach is fine, you may assume implicit stack space does not count as extra space for this problem.</li></ul><p> </p><p><strong>Example 1:</strong></p><p><img alt="" src="https://assets.leetcode.com/uploads/2019/02/15/117_sample.png" style="width: 640px; height: 218px;" /></p><pre><strong>Input:</strong> root = [1,2,3,4,5,null,7]<strong>Output:</strong> [1,#,2,3,#,4,5,7,#]<strong>Explanation: </strong>Given the above binary tree (Figure A), your function should populate each next pointer to point to its next right node, just like in Figure B. The serialized output is in level order as connected by the next pointers, with '#' signifying the end of each level.</pre><p> </p><p><strong>Constraints:</strong></p><ul><li>The number of nodes in the given tree is less than <code>6000</code>.</li><li><code>-100 <= node.val <= 100</code></li></ul>
 <h2 id="Sol-258">Sol</h2>
 <p>剛到這個root就先看左右node能不能連，之後要先遞迴<em>右邊</em>，因為終點在右邊，所以右邊的next要先建好</p>
@@ -361,7 +361,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-411"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-291"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-258"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-412"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-292"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-258"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -375,7 +375,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">702</span>
+          <span class="site-state-item-count">703</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

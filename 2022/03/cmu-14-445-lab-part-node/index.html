@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 不完全的理由是1~3只有跑local simple test，因為我的重點是第4個lab 想要了解不同的isolation level的效果">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2022-03-31T02:45:01.000Z">
-<meta property="article:modified_time" content="2022-07-30T02:35:52.813Z">
+<meta property="article:modified_time" content="2022-07-30T02:40:33.385Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 10:35:52" itemprop="dateModified" datetime="2022-07-30T10:35:52+08:00">2022-07-30</time>
+                <time title="Modified: 2022-07-30 10:40:33" itemprop="dateModified" datetime="2022-07-30T10:40:33+08:00">2022-07-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -261,7 +261,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-673">動機</h2>
+        <h2 id="動機-675">動機</h2>
 <p>不完全的理由是1~3只有跑local simple test，因為我的重點是第4個lab<br>
 想要了解不同的isolation level的效果</p>
 <span id="more"></span>
@@ -536,7 +536,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-673"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gradescope"><span class="nav-number">2.</span> <span class="nav-text">gradescope</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#project1"><span class="nav-number">3.</span> <span class="nav-text">project1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#project2"><span class="nav-number">4.</span> <span class="nav-text">project2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#project3"><span class="nav-number">5.</span> <span class="nav-text">project3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#project4"><span class="nav-number">6.</span> <span class="nav-text">project4</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ISOLATION-LEVELS"><span class="nav-number">6.1.</span> <span class="nav-text">ISOLATION LEVELS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8bustub%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="nav-number">6.2.</span> <span class="nav-text">在bustub的流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lock-manager"><span class="nav-number">6.3.</span> <span class="nav-text">lock manager</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rehash%E7%9A%84bug"><span class="nav-number">6.4.</span> <span class="nav-text">rehash的bug</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-150"><span class="nav-number">7.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-675"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gradescope"><span class="nav-number">2.</span> <span class="nav-text">gradescope</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#project1"><span class="nav-number">3.</span> <span class="nav-text">project1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#project2"><span class="nav-number">4.</span> <span class="nav-text">project2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#project3"><span class="nav-number">5.</span> <span class="nav-text">project3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#project4"><span class="nav-number">6.</span> <span class="nav-text">project4</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ISOLATION-LEVELS"><span class="nav-number">6.1.</span> <span class="nav-text">ISOLATION LEVELS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8bustub%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="nav-number">6.2.</span> <span class="nav-text">在bustub的流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lock-manager"><span class="nav-number">6.3.</span> <span class="nav-text">lock manager</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rehash%E7%9A%84bug"><span class="nav-number">6.4.</span> <span class="nav-text">rehash的bug</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-150"><span class="nav-number">7.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -550,7 +550,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">702</span>
+          <span class="site-state-item-count">703</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

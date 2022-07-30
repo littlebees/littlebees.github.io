@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 推導怎麼那麼難想，脫離高中太久，忘了還可以用相減去看">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-08-07T16:26:36.000Z">
-<meta property="article:modified_time" content="2022-07-30T02:35:52.805Z">
+<meta property="article:modified_time" content="2022-07-30T02:40:33.373Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Dynamic Programming">
 <meta property="article:tag" content="Math">
@@ -232,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 10:35:52" itemprop="dateModified" datetime="2022-07-30T10:35:52+08:00">2022-07-30</time>
+                <time title="Modified: 2022-07-30 10:40:33" itemprop="dateModified" datetime="2022-07-30T10:40:33+08:00">2022-07-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -259,10 +259,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-441">動機</h2>
+        <h2 id="動機-442">動機</h2>
 <p>推導怎麼那麼難想，脫離高中太久，忘了還可以用相減去看</p>
 <span id="more"></span>
-<h2 id="Problem-321">Problem</h2>
+<h2 id="Problem-322">Problem</h2>
 <p>You are given an integer array <code>nums</code> of length <code>n</code>.</p><p>Assume <code>arr<sub>k</sub></code> to be an array obtained by rotating <code>nums</code> by <code>k</code> positions clock-wise. We define the <strong>rotation function</strong> <code>F</code> on <code>nums</code> as follow:</p><ul>t<li><code>F(k) = 0 * arr<sub>k</sub>[0] + 1 * arr<sub>k</sub>[1] + ... + (n - 1) * arr<sub>k</sub>[n - 1].</code></li></ul><p>Return <em>the maximum value of</em> <code>F(0), F(1), ..., F(n-1)</code>.</p><p>The test cases are generated so that the answer fits in a <strong>32-bit</strong> integer.</p><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input:</strong> nums = [4,3,2,6]<strong>Output:</strong> 26<strong>Explanation:</strong>F(0) = (0 * 4) + (1 * 3) + (2 * 2) + (3 * 6) = 0 + 3 + 4 + 18 = 25F(1) = (0 * 6) + (1 * 4) + (2 * 3) + (3 * 2) = 0 + 4 + 6 + 6 = 16F(2) = (0 * 2) + (1 * 6) + (2 * 4) + (3 * 3) = 0 + 6 + 8 + 9 = 23F(3) = (0 * 3) + (1 * 2) + (2 * 6) + (3 * 4) = 0 + 2 + 12 + 12 = 26So the maximum value of F(0), F(1), F(2), F(3) is F(3) = 26.</pre><p><strong>Example 2:</strong></p><pre><strong>Input:</strong> nums = [100]<strong>Output:</strong> 0</pre><p> </p><p><strong>Constraints:</strong></p><ul>t<li><code>n == nums.length</code></li>t<li><code>1 <= n <= 10<sup>5</sup></code></li>t<li><code>-100 <= nums[i] <= 100</code></li></ul>
 <h2 id="Sol-288">Sol</h2>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">f(0) = 0A + 1B + 2C + 3D</span><br><span class="line">f(1) = 3A + 0B + 1C + 2D</span><br><span class="line">f(2) = 2A + 3B + 0C + 1D</span><br><span class="line"></span><br><span class="line">f(1)-f(0) = 3A -1B - 1C - 1D</span><br><span class="line">f(2)-f(1) = -1A + 3B - 1C -1D</span><br><span class="line"></span><br><span class="line">sum = A + B + C + D</span><br><span class="line">f(1) = f(0) - sum + 4A</span><br><span class="line">f(2) = f(1) - sum + 4B</span><br><span class="line">f(n) = f(n-1) - sum + len(arr)*arr[n-1]</span><br></pre></td></tr></table></figure>
@@ -350,7 +350,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-441"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-321"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-288"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-442"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-322"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-288"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -364,7 +364,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">702</span>
+          <span class="site-state-item-count">703</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

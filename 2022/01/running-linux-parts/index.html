@@ -36,7 +36,7 @@
 <meta property="og:image" content="https://i.imgur.com/4EDpjQ1.png">
 <meta property="og:image" content="https://img2020.cnblogs.com/blog/1771657/202003/1771657-20200314235145194-204116226.png">
 <meta property="article:published_time" content="2022-01-30T06:08:36.000Z">
-<meta property="article:modified_time" content="2022-07-30T02:35:52.813Z">
+<meta property="article:modified_time" content="2022-07-30T02:40:33.385Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://camo.githubusercontent.com/ad7815ed073cfaf75a2bc165fc8cb657831adaab26acc20e9868ed297636415d/68747470733a2f2f7261772e6769746875622e636f6d2f676f647370656564313938392f62756464795f616c6c6f6361746f722f6d61737465722f62756464795f73797374656d312e706e67">
@@ -350,7 +350,7 @@ mjx-container[display="true"] + br {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 10:35:52" itemprop="dateModified" datetime="2022-07-30T10:35:52+08:00">2022-07-30</time>
+                <time title="Modified: 2022-07-30 10:40:33" itemprop="dateModified" datetime="2022-07-30T10:40:33+08:00">2022-07-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -385,7 +385,7 @@ mjx-container[display="true"] + br {
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-638">動機</h2>
+        <h2 id="動機-639">動機</h2>
 <p>當初看這本是想補完一些linux kernel的設計實做，但最後發現除了第一章之外，都是code加直譯code的中文…</p>
 <p>這樣與自己trace有什麼區別!?</p>
 <p>code只是設計的其中一種體現<br>
@@ -549,7 +549,7 @@ rmap就是讓pa知道有多少va對到他，這樣就能從pa做unmap了</p>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-638"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#page-buddy"><span class="nav-number">2.</span> <span class="nav-text">page: buddy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#object-slab"><span class="nav-number">3.</span> <span class="nav-text">object: slab</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rmap"><span class="nav-number">4.</span> <span class="nav-text">rmap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gc-kswapd"><span class="nav-number">5.</span> <span class="nav-text">gc: kswapd</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%82%BA%E4%BB%80%E9%BA%BC%E6%88%91%E5%80%91%E8%A6%81free"><span class="nav-number">5.1.</span> <span class="nav-text">為什麼我們要free?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#memory-compact"><span class="nav-number">6.</span> <span class="nav-text">memory compact</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kernel-same-page"><span class="nav-number">7.</span> <span class="nav-text">kernel same page</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OOM"><span class="nav-number">8.</span> <span class="nav-text">OOM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RCU"><span class="nav-number">9.</span> <span class="nav-text">RCU</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cfs-schedule"><span class="nav-number">10.</span> <span class="nav-text">cfs schedule</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-134"><span class="nav-number">11.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-639"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#page-buddy"><span class="nav-number">2.</span> <span class="nav-text">page: buddy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#object-slab"><span class="nav-number">3.</span> <span class="nav-text">object: slab</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rmap"><span class="nav-number">4.</span> <span class="nav-text">rmap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gc-kswapd"><span class="nav-number">5.</span> <span class="nav-text">gc: kswapd</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%82%BA%E4%BB%80%E9%BA%BC%E6%88%91%E5%80%91%E8%A6%81free"><span class="nav-number">5.1.</span> <span class="nav-text">為什麼我們要free?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#memory-compact"><span class="nav-number">6.</span> <span class="nav-text">memory compact</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kernel-same-page"><span class="nav-number">7.</span> <span class="nav-text">kernel same page</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OOM"><span class="nav-number">8.</span> <span class="nav-text">OOM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RCU"><span class="nav-number">9.</span> <span class="nav-text">RCU</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cfs-schedule"><span class="nav-number">10.</span> <span class="nav-text">cfs schedule</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-134"><span class="nav-number">11.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -563,7 +563,7 @@ rmap就是讓pa知道有多少va對到他，這樣就能從pa做unmap了</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">702</span>
+          <span class="site-state-item-count">703</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

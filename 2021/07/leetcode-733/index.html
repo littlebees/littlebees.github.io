@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://assets.leetcode.com/uploads/2021/06/01/flood1-grid.jpg">
 <meta property="article:published_time" content="2021-07-27T12:21:02.000Z">
-<meta property="article:modified_time" content="2022-07-30T02:35:52.801Z">
+<meta property="article:modified_time" content="2022-07-30T02:40:33.373Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Array">
 <meta property="article:tag" content="Matrix">
@@ -236,7 +236,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 10:35:52" itemprop="dateModified" datetime="2022-07-30T10:35:52+08:00">2022-07-30</time>
+                <time title="Modified: 2022-07-30 10:40:33" itemprop="dateModified" datetime="2022-07-30T10:40:33+08:00">2022-07-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -267,12 +267,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-365">動機</h2>
+        <h2 id="動機-367">動機</h2>
 <p>複習dfs</p>
 <span id="more"></span>
-<h2 id="Problem-257">Problem</h2>
+<h2 id="Problem-259">Problem</h2>
 <p>An image is represented by an <code>m x n</code> integer grid <code>image</code> where <code>image[i][j]</code> represents the pixel value of the image.</p><p>You are also given three integers <code>sr</code>, <code>sc</code>, and <code>newColor</code>. You should perform a <strong>flood fill</strong> on the image starting from the pixel <code>image[sr][sc]</code>.</p><p>To perform a <strong>flood fill</strong>, consider the starting pixel, plus any pixels connected <strong>4-directionally</strong> to the starting pixel of the same color as the starting pixel, plus any pixels connected <strong>4-directionally</strong> to those pixels (also with the same color), and so on. Replace the color of all of the aforementioned pixels with <code>newColor</code>.</p><p>Return <em>the modified image after performing the flood fill</em>.</p><p> </p><p><strong>Example 1:</strong></p><img alt="" src="https://assets.leetcode.com/uploads/2021/06/01/flood1-grid.jpg" style="width: 613px; height: 253px;" /><pre><strong>Input:</strong> image = [[1,1,1],[1,1,0],[1,0,1]], sr = 1, sc = 1, newColor = 2<strong>Output:</strong> [[2,2,2],[2,2,0],[2,0,1]]<strong>Explanation:</strong> From the center of the image with position (sr, sc) = (1, 1) (i.e., the red pixel), all pixels connected by a path of the same color as the starting pixel (i.e., the blue pixels) are colored with the new color.Note the bottom corner is not colored 2, because it is not 4-directionally connected to the starting pixel.</pre><p><strong>Example 2:</strong></p><pre><strong>Input:</strong> image = [[0,0,0],[0,0,0]], sr = 0, sc = 0, newColor = 2<strong>Output:</strong> [[2,2,2],[2,2,2]]</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>m == image.length</code></li><li><code>n == image[i].length</code></li><li><code>1 <= m, n <= 50</code></li><li><code>0 <= image[i][j], newColor < 2<sup>16</sup></code></li><li><code>0 <= sr < m</code></li><li><code>0 <= sc < n</code></li></ul>
-<h2 id="Sol-224">Sol</h2>
+<h2 id="Sol-225">Sol</h2>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">floodFill</span>(<span class="params">self, image: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]], sr: <span class="built_in">int</span>, sc: <span class="built_in">int</span>, newColor: <span class="built_in">int</span></span>) -&gt; <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]]:</span></span><br><span class="line">        seen = <span class="built_in">set</span>()</span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">dfs</span>(<span class="params">i,j,target</span>):</span></span><br><span class="line">            <span class="keyword">if</span> <span class="number">0</span> &lt;= i &lt; <span class="built_in">len</span>(image) <span class="keyword">and</span> <span class="number">0</span> &lt;= j &lt; <span class="built_in">len</span>(image[i]) <span class="keyword">and</span> (i,j) <span class="keyword">not</span> <span class="keyword">in</span> seen:</span><br><span class="line">                seen.add((i,j))</span><br><span class="line">                <span class="keyword">if</span> image[i][j] == target:</span><br><span class="line">                    image[i][j] = newColor</span><br><span class="line">                    [dfs(x,y,target) <span class="keyword">for</span> (x,y) <span class="keyword">in</span> [(i+<span class="number">1</span>,j),(i,j+<span class="number">1</span>),(i,j-<span class="number">1</span>),(i-<span class="number">1</span>,j)]]</span><br><span class="line">        dfs(sr,sc,image[sr][sc])</span><br><span class="line">        <span class="keyword">return</span> image</span><br></pre></td></tr></table></figure>
     </div>
 
@@ -359,7 +359,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-365"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-257"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-224"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-367"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-259"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-225"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -373,7 +373,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">702</span>
+          <span class="site-state-item-count">703</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

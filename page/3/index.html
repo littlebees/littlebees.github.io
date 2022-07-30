@@ -75,7 +75,119 @@
   </style>
 </noscript>
 
-</head>
+<style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <div class="container use-motion">
@@ -197,6 +309,107 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2022/01/running-linux-parts/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhengcf">
+      <meta itemprop="description" content="想到什麼就寫什麼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="記事本">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/01/running-linux-parts/" class="post-title-link" itemprop="url">奔跑吧linux內核ch2~ch5摘錄</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-01-30 14:08:36" itemprop="dateCreated datePublished" datetime="2022-01-30T14:08:36+08:00">2022-01-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-07-30 10:40:33" itemprop="dateModified" datetime="2022-07-30T10:40:33+08:00">2022-07-30</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/System/" itemprop="url" rel="index"><span itemprop="name">System</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/System/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/System/Linux/FAQ/" itemprop="url" rel="index"><span itemprop="name">FAQ</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/System/Linux/Reading/" itemprop="url" rel="index"><span itemprop="name">Reading</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="動機-639">動機</h2>
+<p>當初看這本是想補完一些linux kernel的設計實做，但最後發現除了第一章之外，都是code加直譯code的中文…</p>
+<p>這樣與自己trace有什麼區別!?</p>
+<p>code只是設計的其中一種體現<br>
+書的重點應該是介紹設計，再加上一些比較特別或是重要的code</p>
+<p>所以後面就改成挑經典概念(不同於xv6)的解釋</p>
+<p>ch4是說lock的實做，所以挑RCU來說<br>
+ch5是說中斷的，可以參考linux kernel development與xv6的pdf<br>
+ch6是怎麼debug像ftrace與debugfs、systemtap、kasan、kmemleak、CONFIG_DEBUG_LOOKDEP</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/01/running-linux-parts/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
     <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2022/01/css-ctx/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -228,7 +441,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 10:35:52" itemprop="dateModified" datetime="2022-07-30T10:35:52+08:00">2022-07-30</time>
+                <time title="Modified: 2022-07-30 10:40:33" itemprop="dateModified" datetime="2022-07-30T10:40:33+08:00">2022-07-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -259,7 +472,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="動機-630">動機</h2>
+          <h2 id="動機-631">動機</h2>
 <p>寫個簡單的筆記</p>
           <!--noindex-->
             <div class="post-button">
@@ -318,7 +531,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 10:35:52" itemprop="dateModified" datetime="2022-07-30T10:35:52+08:00">2022-07-30</time>
+                <time title="Modified: 2022-07-30 10:40:33" itemprop="dateModified" datetime="2022-07-30T10:40:33+08:00">2022-07-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -349,7 +562,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="動機-679">動機</h2>
+          <h2 id="動機-681">動機</h2>
 <blockquote>
 <p>What I can not create I do not understand.</p>
 </blockquote>
@@ -419,7 +632,7 @@ lab是2020版，6.s081有經歷幾次改版，lab的內容會換一下，尤其�
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 10:35:52" itemprop="dateModified" datetime="2022-07-30T10:35:52+08:00">2022-07-30</time>
+                <time title="Modified: 2022-07-30 10:40:33" itemprop="dateModified" datetime="2022-07-30T10:40:33+08:00">2022-07-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -450,7 +663,7 @@ lab是2020版，6.s081有經歷幾次改版，lab的內容會換一下，尤其�
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="動機-629">動機</h2>
+          <h2 id="動機-630">動機</h2>
 <p>這篇主要在看怎麼從最一開始到一個可以打字的kernel的過程<br>
 重點不是裡面的code，而是過程</p>
 <p>因為真正讓人痛苦的東西其實是在os提供的各種抽象設施，也是progammer要在意的點</p>
@@ -511,7 +724,7 @@ lab是2020版，6.s081有經歷幾次改版，lab的內容會換一下，尤其�
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 10:35:52" itemprop="dateModified" datetime="2022-07-30T10:35:52+08:00">2022-07-30</time>
+                <time title="Modified: 2022-07-30 10:40:33" itemprop="dateModified" datetime="2022-07-30T10:40:33+08:00">2022-07-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -542,7 +755,7 @@ lab是2020版，6.s081有經歷幾次改版，lab的內容會換一下，尤其�
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="動機-671">動機</h2>
+          <h2 id="動機-673">動機</h2>
 <p>我之前學的DB根本就是假的<br>
 這是來自nthu的DB課程，有slide但沒有prjects</p>
 <p>難道之後要跑CMU 15-445嗎?<br>
@@ -604,7 +817,7 @@ lab是2020版，6.s081有經歷幾次改版，lab的內容會換一下，尤其�
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 10:35:52" itemprop="dateModified" datetime="2022-07-30T10:35:52+08:00">2022-07-30</time>
+                <time title="Modified: 2022-07-30 10:40:33" itemprop="dateModified" datetime="2022-07-30T10:40:33+08:00">2022-07-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -631,7 +844,7 @@ lab是2020版，6.s081有經歷幾次改版，lab的內容會換一下，尤其�
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="動機-668">動機</h2>
+          <h2 id="動機-670">動機</h2>
 <p>論選好課、書的重要性</p>
           <!--noindex-->
             <div class="post-button">
@@ -690,7 +903,7 @@ lab是2020版，6.s081有經歷幾次改版，lab的內容會換一下，尤其�
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 10:35:52" itemprop="dateModified" datetime="2022-07-30T10:35:52+08:00">2022-07-30</time>
+                <time title="Modified: 2022-07-30 10:40:33" itemprop="dateModified" datetime="2022-07-30T10:40:33+08:00">2022-07-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -721,7 +934,7 @@ lab是2020版，6.s081有經歷幾次改版，lab的內容會換一下，尤其�
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="動機-635">動機</h2>
+          <h2 id="動機-636">動機</h2>
 <p>可以先去看<a href="/2020/8/k8s-note/">k8s筆記</a></p>
           <!--noindex-->
             <div class="post-button">
@@ -780,7 +993,7 @@ lab是2020版，6.s081有經歷幾次改版，lab的內容會換一下，尤其�
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 10:35:52" itemprop="dateModified" datetime="2022-07-30T10:35:52+08:00">2022-07-30</time>
+                <time title="Modified: 2022-07-30 10:40:33" itemprop="dateModified" datetime="2022-07-30T10:40:33+08:00">2022-07-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -811,7 +1024,7 @@ lab是2020版，6.s081有經歷幾次改版，lab的內容會換一下，尤其�
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="動機-633">動機</h2>
+          <h2 id="動機-634">動機</h2>
 <p>寫的時候有遇到坑，紀錄一下</p>
           <!--noindex-->
             <div class="post-button">
@@ -870,7 +1083,7 @@ lab是2020版，6.s081有經歷幾次改版，lab的內容會換一下，尤其�
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 10:35:52" itemprop="dateModified" datetime="2022-07-30T10:35:52+08:00">2022-07-30</time>
+                <time title="Modified: 2022-07-30 10:40:33" itemprop="dateModified" datetime="2022-07-30T10:40:33+08:00">2022-07-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -897,7 +1110,7 @@ lab是2020版，6.s081有經歷幾次改版，lab的內容會換一下，尤其�
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="動機-636">動機</h2>
+          <h2 id="動機-637">動機</h2>
 <p>有2種辦法</p>
           <!--noindex-->
             <div class="post-button">
@@ -956,7 +1169,7 @@ lab是2020版，6.s081有經歷幾次改版，lab的內容會換一下，尤其�
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 10:35:52" itemprop="dateModified" datetime="2022-07-30T10:35:52+08:00">2022-07-30</time>
+                <time title="Modified: 2022-07-30 10:40:33" itemprop="dateModified" datetime="2022-07-30T10:40:33+08:00">2022-07-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -983,98 +1196,11 @@ lab是2020版，6.s081有經歷幾次改版，lab的內容會換一下，尤其�
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="動機-669">動機</h2>
+          <h2 id="動機-671">動機</h2>
 <p>平行的思考</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/01/Parallel/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2022/01/virtualbox-net-type/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="zhengcf">
-      <meta itemprop="description" content="想到什麼就寫什麼">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="記事本">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/virtualbox-net-type/" class="post-title-link" itemprop="url">virtualbox的網路種類</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-01-17 14:13:59" itemprop="dateCreated datePublished" datetime="2022-01-17T14:13:59+08:00">2022-01-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 10:35:52" itemprop="dateModified" datetime="2022-07-30T10:35:52+08:00">2022-07-30</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Network/" itemprop="url" rel="index"><span itemprop="name">Network</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Network/Tips/" itemprop="url" rel="index"><span itemprop="name">Tips</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="動機-639">動機</h2>
-<p>因為vagrant上vmware的支援太少了!!<br>
-只好來看virtualbox，但一如既往，難用</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/01/virtualbox-net-type/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -1163,7 +1289,7 @@ lab是2020版，6.s081有經歷幾次改版，lab的內容會換一下，尤其�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">702</span>
+          <span class="site-state-item-count">703</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

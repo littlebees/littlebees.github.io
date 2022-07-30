@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 prefix sum但是從後面來">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-09-14T09:08:48.000Z">
-<meta property="article:modified_time" content="2022-07-30T02:35:52.809Z">
+<meta property="article:modified_time" content="2022-07-30T02:40:33.377Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="String">
 <meta property="article:tag" content="Array">
@@ -232,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 10:35:52" itemprop="dateModified" datetime="2022-07-30T10:35:52+08:00">2022-07-30</time>
+                <time title="Modified: 2022-07-30 10:40:33" itemprop="dateModified" datetime="2022-07-30T10:40:33+08:00">2022-07-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -259,10 +259,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-553">動機</h2>
+        <h2 id="動機-554">動機</h2>
 <p>prefix sum但是從後面來</p>
 <span id="more"></span>
-<h2 id="Problem-427">Problem</h2>
+<h2 id="Problem-428">Problem</h2>
 <p>You are given a string <code>s</code> of lowercase English letters and an integer array <code>shifts</code> of the same length.</p><p>Call the <code>shift()</code> of a letter, the next letter in the alphabet, (wrapping around so that <code>'z'</code> becomes <code>'a'</code>).</p><ul><li>For example, <code>shift('a') = 'b'</code>, <code>shift('t') = 'u'</code>, and <code>shift('z') = 'a'</code>.</li></ul><p>Now for each <code>shifts[i] = x</code>, we want to shift the first <code>i + 1</code> letters of <code>s</code>, <code>x</code> times.</p><p>Return <em>the final string after all such shifts to s are applied</em>.</p><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input:</strong> s = "abc", shifts = [3,5,9]<strong>Output:</strong> "rpl"<strong>Explanation:</strong> We start with "abc".After shifting the first 1 letters of s by 3, we have "dbc".After shifting the first 2 letters of s by 5, we have "igc".After shifting the first 3 letters of s by 9, we have "rpl", the answer.</pre><p><strong>Example 2:</strong></p><pre><strong>Input:</strong> s = "aaa", shifts = [1,2,3]<strong>Output:</strong> "gfd"</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>1 <= s.length <= 10<sup>5</sup></code></li><li><code>s</code> consists of lowercase English letters.</li><li><code>shifts.length == s.length</code></li><li><code>0 <= shifts[i] <= 10<sup>9</sup></code></li></ul>
 <h2 id="Sol-394">Sol</h2>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">shiftingLetters</span>(<span class="params">self, s: <span class="built_in">str</span>, shifts: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">str</span>:</span></span><br><span class="line">        sums = shifts[::-<span class="number">1</span>]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="built_in">len</span>(sums)):</span><br><span class="line">            sums[i] += sums[i-<span class="number">1</span>]</span><br><span class="line">        sums = [x % <span class="number">26</span> <span class="keyword">for</span> x <span class="keyword">in</span> sums[::-<span class="number">1</span>]]</span><br><span class="line">        <span class="comment">#print(sums)</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span>.join([<span class="built_in">chr</span>(<span class="built_in">ord</span>(<span class="string">&#x27;a&#x27;</span>) + (<span class="built_in">ord</span>(c) - <span class="built_in">ord</span>(<span class="string">&#x27;a&#x27;</span>) + i) % <span class="number">26</span>) <span class="keyword">for</span> i,c <span class="keyword">in</span> <span class="built_in">zip</span>(sums, s)])</span><br></pre></td></tr></table></figure>
@@ -349,7 +349,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-553"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-427"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-394"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-554"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-428"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-394"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -363,7 +363,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">702</span>
+          <span class="site-state-item-count">703</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

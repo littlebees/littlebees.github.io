@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://assets.leetcode.com/uploads/2021/02/18/example1_1.png">
 <meta property="og:image" content="https://assets.leetcode.com/uploads/2021/02/18/example2_1.png">
 <meta property="article:published_time" content="2021-07-28T11:31:04.000Z">
-<meta property="article:modified_time" content="2022-07-30T02:35:52.793Z">
+<meta property="article:modified_time" content="2022-07-30T02:40:33.365Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Array">
 <meta property="article:tag" content="Matrix">
@@ -236,7 +236,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 10:35:52" itemprop="dateModified" datetime="2022-07-30T10:35:52+08:00">2022-07-30</time>
+                <time title="Modified: 2022-07-30 10:40:33" itemprop="dateModified" datetime="2022-07-30T10:40:33+08:00">2022-07-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -263,11 +263,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-210">動機</h2>
+        <h2 id="動機-211">動機</h2>
 <p>找最短路徑，bfs<br>
 但是沒想到最後死在判別重複上</p>
 <span id="more"></span>
-<h2 id="Problem-102">Problem</h2>
+<h2 id="Problem-103">Problem</h2>
 <p>Given an <code>n x n</code> binary matrix <code>grid</code>, return <em>the length of the shortest <strong>clear path</strong> in the matrix</em>. If there is no clear path, return <code>-1</code>.</p><p>A <strong>clear path</strong> in a binary matrix is a path from the <strong>top-left</strong> cell (i.e., <code>(0, 0)</code>) to the <strong>bottom-right</strong> cell (i.e., <code>(n - 1, n - 1)</code>) such that:</p><ul><li>All the visited cells of the path are <code>0</code>.</li><li>All the adjacent cells of the path are <strong>8-directionally</strong> connected (i.e., they are different and they share an edge or a corner).</li></ul><p>The <strong>length of a clear path</strong> is the number of visited cells of this path.</p><p> </p><p><strong>Example 1:</strong></p><img alt="" src="https://assets.leetcode.com/uploads/2021/02/18/example1_1.png" style="width: 500px; height: 234px;" /><pre><strong>Input:</strong> grid = [[0,1],[1,0]]<strong>Output:</strong> 2</pre><p><strong>Example 2:</strong></p><img alt="" src="https://assets.leetcode.com/uploads/2021/02/18/example2_1.png" style="height: 216px; width: 500px;" /><pre><strong>Input:</strong> grid = [[0,0,0],[1,1,0],[1,1,0]]<strong>Output:</strong> 4</pre><p><strong>Example 3:</strong></p><pre><strong>Input:</strong> grid = [[1,0,0],[1,1,0],[1,1,0]]<strong>Output:</strong> -1</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>n == grid.length</code></li><li><code>n == grid[i].length</code></li><li><code>1 <= n <= 100</code></li><li><code>grid[i][j] is 0 or 1</code></li></ul>
 <h2 id="Sol-72">Sol</h2>
 <p>用set直接超時，如果把看過得改成1就直接過了</p>
@@ -356,7 +356,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-210"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-102"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-72"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-211"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-103"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-72"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -370,7 +370,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">702</span>
+          <span class="site-state-item-count">703</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

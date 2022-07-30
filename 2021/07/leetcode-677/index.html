@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 沒看清楚功能要求吃了3個WA">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-07-30T17:12:37.000Z">
-<meta property="article:modified_time" content="2022-07-30T02:35:52.801Z">
+<meta property="article:modified_time" content="2022-07-30T02:40:33.369Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="String">
 <meta property="article:tag" content="Design">
@@ -234,7 +234,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 10:35:52" itemprop="dateModified" datetime="2022-07-30T10:35:52+08:00">2022-07-30</time>
+                <time title="Modified: 2022-07-30 10:40:33" itemprop="dateModified" datetime="2022-07-30T10:40:33+08:00">2022-07-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -261,10 +261,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-358">動機</h2>
+        <h2 id="動機-359">動機</h2>
 <p>沒看清楚功能要求吃了3個WA</p>
 <span id="more"></span>
-<h2 id="Problem-250">Problem</h2>
+<h2 id="Problem-251">Problem</h2>
 <p>Design a map that allows you to do the following:</p><ul><li>Maps a string key to a given value.</li><li>Returns the sum of the values that have a key with a prefix equal to a given string.</li></ul><p>Implement the <code>MapSum</code> class:</p><ul><li><code>MapSum()</code> Initializes the <code>MapSum</code> object.</li><li><code>void insert(String key, int val)</code> Inserts the <code>key-val</code> pair into the map. If the <code>key</code> already existed, the original <code>key-value</code> pair will be overridden to the new one.</li><li><code>int sum(string prefix)</code> Returns the sum of all the pairs' value whose <code>key</code> starts with the <code>prefix</code>.</li></ul><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input</strong>[MapSum, insert, sum, insert, sum][[], [apple, 3], [ap], [app, 2], [ap]]<strong>Output</strong>[null, null, 3, null, 5]<strong>Explanation</strong>MapSum mapSum = new MapSum();mapSum.insert(apple, 3);  mapSum.sum(ap);           // return 3 (<u>ap</u>ple = 3)mapSum.insert(app, 2);    mapSum.sum(ap);           // return 5 (<u>ap</u>ple + <u>ap</u>p = 3 + 2 = 5)</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>1 <= key.length, prefix.length <= 50</code></li><li><code>key</code> and <code>prefix</code> consist of only lowercase English letters.</li><li><code>1 <= val <= 1000</code></li><li>At most <code>50</code> calls will be made to <code>insert</code> and <code>sum</code>.</li></ul>
 <h2 id="Sol-217">Sol</h2>
 <p>就是Trie，但是要有特別的dfs</p>
@@ -354,7 +354,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-358"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-250"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-217"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-359"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-251"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-217"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -368,7 +368,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">702</span>
+          <span class="site-state-item-count">703</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

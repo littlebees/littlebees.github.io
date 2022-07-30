@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://assets.leetcode.com/uploads/2020/01/07/graph.png">
 <meta property="og:image" content="https://assets.leetcode.com/uploads/2020/01/07/graph-1.png">
 <meta property="article:published_time" content="2021-07-20T08:42:47.000Z">
-<meta property="article:modified_time" content="2022-07-30T02:35:52.793Z">
+<meta property="article:modified_time" content="2022-07-30T02:40:33.365Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Breadth-First Search">
 <meta property="article:tag" content="Depth-First Search">
@@ -238,7 +238,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 10:35:52" itemprop="dateModified" datetime="2022-07-30T10:35:52+08:00">2022-07-30</time>
+                <time title="Modified: 2022-07-30 10:40:33" itemprop="dateModified" datetime="2022-07-30T10:40:33+08:00">2022-07-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -273,12 +273,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-226">動機</h2>
+        <h2 id="動機-228">動機</h2>
 <p>複習dfs</p>
 <span id="more"></span>
-<h2 id="Problem-118">Problem</h2>
+<h2 id="Problem-120">Problem</h2>
 <p>Given a reference of a node in a <strong><span class="exturl" data-url="aHR0cHM6Ly9lbi53aWtpcGVkaWEub3JnL3dpa2kvQ29ubmVjdGl2aXR5XyhncmFwaF90aGVvcnkpI0Nvbm5lY3RlZF9ncmFwaA==">connected<i class="fa fa-external-link-alt"></i></span></strong> undirected graph.</p><p>Return a <a href="https://en.wikipedia.org/wiki/Object_copying#Deep_copy" target="_blank"><strong>deep copy</strong></a> (clone) of the graph.</p><p>Each node in the graph contains a value (<code>int</code>) and a list (<code>List[Node]</code>) of its neighbors.</p><pre>class Node {    public int val;    public List<Node> neighbors;}</pre><p> </p><p><strong>Test case format:</strong></p><p>For simplicity, each node's value is the same as the node's index (1-indexed). For example, the first node with <code>val == 1</code>, the second node with <code>val == 2</code>, and so on. The graph is represented in the test case using an adjacency list.</p><p><b>An adjacency list</b> is a collection of unordered <b>lists</b> used to represent a finite graph. Each list describes the set of neighbors of a node in the graph.</p><p>The given node will always be the first node with <code>val = 1</code>. You must return the <strong>copy of the given node</strong> as a reference to the cloned graph.</p><p> </p><p><strong>Example 1:</strong></p><img alt="" src="https://assets.leetcode.com/uploads/2019/11/04/133_clone_graph_question.png" style="width: 500px; height: 550px;" /><pre><strong>Input:</strong> adjList = [[2,4],[1,3],[2,4],[1,3]]<strong>Output:</strong> [[2,4],[1,3],[2,4],[1,3]]<strong>Explanation:</strong> There are 4 nodes in the graph.1st node (val = 1)'s neighbors are 2nd node (val = 2) and 4th node (val = 4).2nd node (val = 2)'s neighbors are 1st node (val = 1) and 3rd node (val = 3).3rd node (val = 3)'s neighbors are 2nd node (val = 2) and 4th node (val = 4).4th node (val = 4)'s neighbors are 1st node (val = 1) and 3rd node (val = 3).</pre><p><strong>Example 2:</strong></p><img alt="" src="https://assets.leetcode.com/uploads/2020/01/07/graph.png" style="width: 163px; height: 148px;" /><pre><strong>Input:</strong> adjList = [[]]<strong>Output:</strong> [[]]<strong>Explanation:</strong> Note that the input contains one empty list. The graph consists of only one node with val = 1 and it does not have any neighbors.</pre><p><strong>Example 3:</strong></p><pre><strong>Input:</strong> adjList = []<strong>Output:</strong> []<strong>Explanation:</strong> This an empty graph, it does not have any nodes.</pre><p><strong>Example 4:</strong></p><img alt="" src="https://assets.leetcode.com/uploads/2020/01/07/graph-1.png" style="width: 272px; height: 133px;" /><pre><strong>Input:</strong> adjList = [[2],[1]]<strong>Output:</strong> [[2],[1]]</pre><p> </p><p><strong>Constraints:</strong></p><ul><li>The number of nodes in the graph is in the range <code>[0, 100]</code>.</li><li><code>1 <= Node.val <= 100</code></li><li><code>Node.val</code> is unique for each node.</li><li>There are no repeated edges and no self-loops in the graph.</li><li>The Graph is connected and all nodes can be visited starting from the given node.</li></ul>
-<h2 id="Sol-88">Sol</h2>
+<h2 id="Sol-89">Sol</h2>
 <p>要記得把生過的node拿出來用</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.mem = &#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">cloneGraph</span>(<span class="params">self, node: <span class="string">&#x27;Node&#x27;</span></span>) -&gt; &#x27;Node&#x27;:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> node:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            ret = Node(node.val)</span><br><span class="line">            self.mem[node] = ret</span><br><span class="line">            <span class="keyword">for</span> n <span class="keyword">in</span> node.neighbors:</span><br><span class="line">                <span class="keyword">if</span> n <span class="keyword">not</span> <span class="keyword">in</span> self.mem:</span><br><span class="line">                    ret.neighbors.append(self.cloneGraph(n))</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    ret.neighbors.append(self.mem[n])</span><br><span class="line">            <span class="keyword">return</span> ret</span><br></pre></td></tr></table></figure>
     </div>
@@ -366,7 +366,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-226"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-118"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-88"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-228"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-120"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-89"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -380,7 +380,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">702</span>
+          <span class="site-state-item-count">703</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 email會在不同的人之間重複，這樣要讓這兩個人合起來 這裡的任務是  如何找出有重複的人 如何合起來">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-11-01T17:29:00.000Z">
-<meta property="article:modified_time" content="2022-07-30T02:35:52.781Z">
+<meta property="article:modified_time" content="2022-07-30T02:40:33.353Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="String">
 <meta property="article:tag" content="Array">
@@ -235,7 +235,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 10:35:52" itemprop="dateModified" datetime="2022-07-30T10:35:52+08:00">2022-07-30</time>
+                <time title="Modified: 2022-07-30 10:40:33" itemprop="dateModified" datetime="2022-07-30T10:40:33+08:00">2022-07-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -262,7 +262,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-25">動機</h2>
+        <h2 id="動機-26">動機</h2>
 <p>email會在不同的人之間重複，這樣要讓這兩個人合起來</p>
 <p>這裡的任務是</p>
 <ol>
@@ -270,7 +270,7 @@
 <li>如何合起來</li>
 </ol>
 <span id="more"></span>
-<h2 id="Problem-12">Problem</h2>
+<h2 id="Problem-13">Problem</h2>
 <p>Given a list of <code>accounts</code> where each element <code>accounts[i]</code> is a list of strings, where the first element <code>accounts[i][0]</code> is a name, and the rest of the elements are <strong>emails</strong> representing emails of the account.</p><p>Now, we would like to merge these accounts. Two accounts definitely belong to the same person if there is some common email to both accounts. Note that even if two accounts have the same name, they may belong to different people as people could have the same name. A person can have any number of accounts initially, but all of their accounts definitely have the same name.</p><p>After merging the accounts, return the accounts in the following format: the first element of each account is the name, and the rest of the elements are emails <strong>in sorted order</strong>. The accounts themselves can be returned in <strong>any order</strong>.</p><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input:</strong> accounts = [[John,johnsmith@mail.com,john_newyork@mail.com],[John,johnsmith@mail.com,john00@mail.com],[Mary,mary@mail.com],[John,johnnybravo@mail.com]]<strong>Output:</strong> [[John,john00@mail.com,john_newyork@mail.com,johnsmith@mail.com],[Mary,mary@mail.com],[John,johnnybravo@mail.com]]<strong>Explanation:</strong>The first and third John's are the same person as they have the common email johnsmith@mail.com.The second John and Mary are different people as none of their email addresses are used by other accounts.We could return these lists in any order, for example the answer [['Mary', 'mary@mail.com'], ['John', 'johnnybravo@mail.com'], ['John', 'john00@mail.com', 'john_newyork@mail.com', 'johnsmith@mail.com']] would still be accepted.</pre><p><strong>Example 2:</strong></p><pre><strong>Input:</strong> accounts = [[Gabe,Gabe0@m.co,Gabe3@m.co,Gabe1@m.co],[Kevin,Kevin3@m.co,Kevin5@m.co,Kevin0@m.co],[Ethan,Ethan5@m.co,Ethan4@m.co,Ethan0@m.co],[Hanzo,Hanzo3@m.co,Hanzo1@m.co,Hanzo0@m.co],[Fern,Fern5@m.co,Fern1@m.co,Fern0@m.co]]<strong>Output:</strong> [[Ethan,Ethan0@m.co,Ethan4@m.co,Ethan5@m.co],[Gabe,Gabe0@m.co,Gabe1@m.co,Gabe3@m.co],[Hanzo,Hanzo0@m.co,Hanzo1@m.co,Hanzo3@m.co],[Kevin,Kevin0@m.co,Kevin3@m.co,Kevin5@m.co],[Fern,Fern0@m.co,Fern1@m.co,Fern5@m.co]]</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>1 <= accounts.length <= 1000</code></li><li><code>2 <= accounts[i].length <= 10</code></li><li><code>1 <= accounts[i][j] <= 30</code></li><li><code>accounts[i][0]</code> consists of English letters.</li><li><code>accounts[i][j] (for j > 0)</code> is a valid email.</li></ul>
 <h2 id="Sol-8">Sol</h2>
 <p>這題當初卡在是要用email還是人去認共同祖先</p>
@@ -364,7 +364,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-25"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-12"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-8"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-26"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-13"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-8"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -378,7 +378,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">702</span>
+          <span class="site-state-item-count">703</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

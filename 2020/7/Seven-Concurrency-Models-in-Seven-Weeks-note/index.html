@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 感覺自己不曾了解過Concurrent programming，所以來看這本 看能不能得到一些直覺">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-07-30T16:01:22.000Z">
-<meta property="article:modified_time" content="2022-07-30T02:35:52.785Z">
+<meta property="article:modified_time" content="2022-07-30T02:40:33.357Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 10:35:52" itemprop="dateModified" datetime="2022-07-30T10:35:52+08:00">2022-07-30</time>
+                <time title="Modified: 2022-07-30 10:40:33" itemprop="dateModified" datetime="2022-07-30T10:40:33+08:00">2022-07-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -257,7 +257,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-69">動機</h2>
+        <h2 id="動機-70">動機</h2>
 <p>感覺自己不曾了解過Concurrent programming，所以來看這本<br>
 看能不能得到一些直覺</p>
 <span id="more"></span>
@@ -403,7 +403,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-69"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB%E8%AE%8A%E9%87%8F%E7%9A%84%E4%B8%80%E8%87%B4%E6%80%A7"><span class="nav-number">2.</span> <span class="nav-text">共享變量的一致性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9A%94%E9%9B%A2%E8%AE%8A%E6%95%B8"><span class="nav-number">3.</span> <span class="nav-text">隔離變數</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%BF%E5%85%8Ddeadlock"><span class="nav-number">4.</span> <span class="nav-text">避免deadlock</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%BD%A2%E6%88%90deadlock"><span class="nav-number">4.1.</span> <span class="nav-text">如何形成deadlock</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Priority-inversion-%E6%89%93%E7%9A%84%E6%99%82%E5%80%99%E6%83%B3%E8%B5%B7%E4%BE%86%E6%9C%89%E8%AE%80%E9%81%8E%EF%BC%8C%E4%BD%86%E6%9B%B8%E4%B8%8A%E6%B2%92%E6%9C%89"><span class="nav-number">4.2.</span> <span class="nav-text">Priority inversion(打的時候想起來有讀過，但書上沒有)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#avoid-lock"><span class="nav-number">5.</span> <span class="nav-text">avoid lock</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#STM%E8%88%87atomic-var%E8%88%87actor%E7%9A%84%E6%AF%94%E8%BC%83"><span class="nav-number">6.</span> <span class="nav-text">STM與atomic var與actor的比較</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSP"><span class="nav-number">7.</span> <span class="nav-text">CSP</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-70"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB%E8%AE%8A%E9%87%8F%E7%9A%84%E4%B8%80%E8%87%B4%E6%80%A7"><span class="nav-number">2.</span> <span class="nav-text">共享變量的一致性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9A%94%E9%9B%A2%E8%AE%8A%E6%95%B8"><span class="nav-number">3.</span> <span class="nav-text">隔離變數</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%BF%E5%85%8Ddeadlock"><span class="nav-number">4.</span> <span class="nav-text">避免deadlock</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%BD%A2%E6%88%90deadlock"><span class="nav-number">4.1.</span> <span class="nav-text">如何形成deadlock</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Priority-inversion-%E6%89%93%E7%9A%84%E6%99%82%E5%80%99%E6%83%B3%E8%B5%B7%E4%BE%86%E6%9C%89%E8%AE%80%E9%81%8E%EF%BC%8C%E4%BD%86%E6%9B%B8%E4%B8%8A%E6%B2%92%E6%9C%89"><span class="nav-number">4.2.</span> <span class="nav-text">Priority inversion(打的時候想起來有讀過，但書上沒有)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#avoid-lock"><span class="nav-number">5.</span> <span class="nav-text">avoid lock</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#STM%E8%88%87atomic-var%E8%88%87actor%E7%9A%84%E6%AF%94%E8%BC%83"><span class="nav-number">6.</span> <span class="nav-text">STM與atomic var與actor的比較</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSP"><span class="nav-number">7.</span> <span class="nav-text">CSP</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -417,7 +417,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">702</span>
+          <span class="site-state-item-count">703</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

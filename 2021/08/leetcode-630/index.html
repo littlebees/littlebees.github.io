@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 巧妙地讓heap描述當前總和的組成">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-08-02T18:34:22.000Z">
-<meta property="article:modified_time" content="2022-07-30T02:35:52.805Z">
+<meta property="article:modified_time" content="2022-07-30T02:40:33.377Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Array">
 <meta property="article:tag" content="Heap (Priority Queue)">
@@ -233,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 10:35:52" itemprop="dateModified" datetime="2022-07-30T10:35:52+08:00">2022-07-30</time>
+                <time title="Modified: 2022-07-30 10:40:33" itemprop="dateModified" datetime="2022-07-30T10:40:33+08:00">2022-07-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -264,10 +264,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-468">動機</h2>
+        <h2 id="動機-469">動機</h2>
 <p>巧妙地讓heap描述當前總和的組成</p>
 <span id="more"></span>
-<h2 id="Problem-348">Problem</h2>
+<h2 id="Problem-349">Problem</h2>
 <p>There are <code>n</code> different online courses numbered from <code>1</code> to <code>n</code>. You are given an array <code>courses</code> where <code>courses[i] = [duration<sub>i</sub>, lastDay<sub>i</sub>]</code> indicate that the <code>i<sup>th</sup></code> course should be taken <b>continuously</b> for <code>duration<sub>i</sub></code> days and must be finished before or on <code>lastDay<sub>i</sub></code>.</p><p>You will start on the <code>1<sup>st</sup></code> day and you cannot take two or more courses simultaneously.</p><p>Return <em>the maximum number of courses that you can take</em>.</p><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input:</strong> courses = [[100,200],[200,1300],[1000,1250],[2000,3200]]<strong>Output:</strong> 3Explanation: There are totally 4 courses, but you can take 3 courses at most:First, take the 1<sup>st</sup> course, it costs 100 days so you will finish it on the 100<sup>th</sup> day, and ready to take the next course on the 101<sup>st</sup> day.Second, take the 3<sup>rd</sup> course, it costs 1000 days so you will finish it on the 1100<sup>th</sup> day, and ready to take the next course on the 1101<sup>st</sup> day. Third, take the 2<sup>nd</sup> course, it costs 200 days so you will finish it on the 1300<sup>th</sup> day. The 4<sup>th</sup> course cannot be taken now, since you will finish it on the 3300<sup>th</sup> day, which exceeds the closed date.</pre><p><strong>Example 2:</strong></p><pre><strong>Input:</strong> courses = [[1,2]]<strong>Output:</strong> 1</pre><p><strong>Example 3:</strong></p><pre><strong>Input:</strong> courses = [[3,2],[4,3]]<strong>Output:</strong> 0</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>1 <= courses.length <= 10<sup>4</sup></code></li><li><code>1 <= duration<sub>i</sub>, lastDay<sub>i</sub> <= 10<sup>4</sup></code></li></ul>
 <h2 id="Sol-315">Sol</h2>
 <p>heap裡面放所有被選的課</p>
@@ -357,7 +357,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-468"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-348"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-315"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-469"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-349"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-315"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -371,7 +371,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">702</span>
+          <span class="site-state-item-count">703</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

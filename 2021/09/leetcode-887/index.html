@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 有可以直接求的dp但是很難懂">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-09-05T14:59:16.000Z">
-<meta property="article:modified_time" content="2022-07-30T02:35:52.809Z">
+<meta property="article:modified_time" content="2022-07-30T02:40:33.377Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Dynamic Programming">
 <meta property="article:tag" content="Math">
@@ -233,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 10:35:52" itemprop="dateModified" datetime="2022-07-30T10:35:52+08:00">2022-07-30</time>
+                <time title="Modified: 2022-07-30 10:40:33" itemprop="dateModified" datetime="2022-07-30T10:40:33+08:00">2022-07-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -260,10 +260,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-557">動機</h2>
+        <h2 id="動機-558">動機</h2>
 <p>有可以直接求的dp但是很難懂</p>
 <span id="more"></span>
-<h2 id="Problem-431">Problem</h2>
+<h2 id="Problem-432">Problem</h2>
 <p>You are given <code>k</code> identical eggs and you have access to a building with <code>n</code> floors labeled from <code>1</code> to <code>n</code>.</p><p>You know that there exists a floor <code>f</code> where <code>0 <= f <= n</code> such that any egg dropped at a floor <strong>higher</strong> than <code>f</code> will <strong>break</strong>, and any egg dropped <strong>at or below</strong> floor <code>f</code> will <strong>not break</strong>.</p><p>Each move, you may take an unbroken egg and drop it from any floor <code>x</code> (where <code>1 <= x <= n</code>). If the egg breaks, you can no longer use it. However, if the egg does not break, you may <strong>reuse</strong> it in future moves.</p><p>Return <em>the <strong>minimum number of moves</strong> that you need to determine <strong>with certainty</strong> what the value of </em><code>f</code> is.</p><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input:</strong> k = 1, n = 2<strong>Output:</strong> 2<strong>Explanation: </strong>Drop the egg from floor 1. If it breaks, we know that f = 0.Otherwise, drop the egg from floor 2. If it breaks, we know that f = 1.If it does not break, then we know f = 2.Hence, we need at minimum 2 moves to determine with certainty what the value of f is.</pre><p><strong>Example 2:</strong></p><pre><strong>Input:</strong> k = 2, n = 6<strong>Output:</strong> 3</pre><p><strong>Example 3:</strong></p><pre><strong>Input:</strong> k = 3, n = 14<strong>Output:</strong> 4</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>1 <= k <= 100</code></li><li><code>1 <= n <= 10<sup>4</sup></code></li></ul>
 <h2 id="Sol-398">Sol</h2>
 <p><code>dp(n,k)</code>是k個蛋與試n次，可以驗證到最多幾層樓</p>
@@ -352,7 +352,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-557"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-431"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-398"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-558"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-432"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-398"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -366,7 +366,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">702</span>
+          <span class="site-state-item-count">703</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

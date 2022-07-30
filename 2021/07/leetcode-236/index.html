@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://assets.leetcode.com/uploads/2018/12/14/binarytree.png">
 <meta property="og:image" content="https://assets.leetcode.com/uploads/2018/12/14/binarytree.png">
 <meta property="article:published_time" content="2021-07-23T08:08:06.000Z">
-<meta property="article:modified_time" content="2022-07-30T02:35:52.797Z">
+<meta property="article:modified_time" content="2022-07-30T02:40:33.369Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Depth-First Search">
 <meta property="article:tag" content="Binary Tree">
@@ -236,7 +236,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 10:35:52" itemprop="dateModified" datetime="2022-07-30T10:35:52+08:00">2022-07-30</time>
+                <time title="Modified: 2022-07-30 10:40:33" itemprop="dateModified" datetime="2022-07-30T10:40:33+08:00">2022-07-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -279,10 +279,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-276">動機</h2>
+        <h2 id="動機-277">動機</h2>
 <p>我忘了localty</p>
 <span id="more"></span>
-<h2 id="Problem-168">Problem</h2>
+<h2 id="Problem-169">Problem</h2>
 <p>Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.</p><p>According to the <span class="exturl" data-url="aHR0cHM6Ly9lbi53aWtpcGVkaWEub3JnL3dpa2kvTG93ZXN0X2NvbW1vbl9hbmNlc3Rvcg==">definition of LCA on Wikipedia<i class="fa fa-external-link-alt"></i></span>: “The lowest common ancestor is defined between two nodes <code>p</code> and <code>q</code> as the lowest node in <code>T</code> that has both <code>p</code> and <code>q</code> as descendants (where we allow <b>a node to be a descendant of itself</b>).”</p><p> </p><p><strong>Example 1:</strong></p><img alt="" src="https://assets.leetcode.com/uploads/2018/12/14/binarytree.png" style="width: 200px; height: 190px"; /><pre><strong>Input:</strong> root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 1<strong>Output:</strong> 3<strong>Explanation:</strong> The LCA of nodes 5 and 1 is 3.</pre><p><strong>Example 2:</strong></p><img alt="" src="https://assets.leetcode.com/uploads/2018/12/14/binarytree.png" style="width: 200px; height: 190px;" /><pre><strong>Input:</strong> root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 4<strong>Output:</strong> 5<strong>Explanation:</strong> The LCA of nodes 5 and 4 is 5, since a node can be a descendant of itself according to the LCA definition.</pre><p><strong>Example 3:</strong></p><pre><strong>Input:</strong> root = [1,2], p = 1, q = 2<strong>Output:</strong> 1</pre><p> </p><p><strong>Constraints:</strong></p><ul><li>The number of nodes in the tree is in the range <code>[2, 10<sup>5</sup>]</code>.</li><li><code>-10<sup>9</sup> <= Node.val <= 10<sup>9</sup></code></li><li>All <code>Node.val</code> are <strong>unique</strong>.</li><li><code>p != q</code></li><li><code>p</code> and <code>q</code> will exist in the tree.</li></ul>
 <h2 id="Sol-136">Sol</h2>
 <p>原本是用bfs，放node與到root的path，之後做intersection</p>
@@ -377,7 +377,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-276"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-168"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-136"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-277"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-169"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-136"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -391,7 +391,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">702</span>
+          <span class="site-state-item-count">703</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

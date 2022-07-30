@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 就是算">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-01-17T17:21:22.000Z">
-<meta property="article:modified_time" content="2022-07-30T02:35:52.789Z">
+<meta property="article:modified_time" content="2022-07-30T02:40:33.361Z">
 <meta property="article:author" content="zhengcf">
 <meta property="article:tag" content="Math">
 <meta property="article:tag" content="Two Pointers">
@@ -233,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 10:35:52" itemprop="dateModified" datetime="2022-07-30T10:35:52+08:00">2022-07-30</time>
+                <time title="Modified: 2022-07-30 10:40:33" itemprop="dateModified" datetime="2022-07-30T10:40:33+08:00">2022-07-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -264,10 +264,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-119">動機</h2>
+        <h2 id="動機-120">動機</h2>
 <p>就是算</p>
 <span id="more"></span>
-<h2 id="Problem-45">Problem</h2>
+<h2 id="Problem-46">Problem</h2>
 <p>Write an algorithm to determine if a number <code>n</code> is happy.</p><p>A <strong>happy number</strong> is a number defined by the following process:</p><ul><li>Starting with any positive integer, replace the number by the sum of the squares of its digits.</li><li>Repeat the process until the number equals 1 (where it will stay), or it <strong>loops endlessly in a cycle</strong> which does not include 1.</li><li>Those numbers for which this process <strong>ends in 1</strong> are happy.</li></ul><p>Return <code>true</code> <em>if</em> <code>n</code> <em>is a happy number, and</em> <code>false</code> <em>if not</em>.</p><p> </p><p><strong>Example 1:</strong></p><pre><strong>Input:</strong> n = 19<strong>Output:</strong> true<strong>Explanation:</strong>1<sup>2</sup> + 9<sup>2</sup> = 828<sup>2</sup> + 2<sup>2</sup> = 686<sup>2</sup> + 8<sup>2</sup> = 1001<sup>2</sup> + 0<sup>2</sup> + 0<sup>2</sup> = 1</pre><p><strong>Example 2:</strong></p><pre><strong>Input:</strong> n = 2<strong>Output:</strong> false</pre><p> </p><p><strong>Constraints:</strong></p><ul><li><code>1 <= n <= 2<sup>31</sup> - 1</code></li></ul>
 <h2 id="Sol-29">Sol</h2>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">happy</span>(<span class="params">n</span>):</span></span><br><span class="line">    tmp = [<span class="built_in">int</span>(x)*<span class="built_in">int</span>(x) <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">list</span>(<span class="built_in">str</span>(n))]</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">sum</span>(tmp)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isHappy</span>(<span class="params">self, n: <span class="built_in">int</span></span>) -&gt; <span class="built_in">bool</span>:</span></span><br><span class="line">        tbl = <span class="built_in">set</span>()</span><br><span class="line">        <span class="keyword">while</span> n <span class="keyword">not</span> <span class="keyword">in</span> tbl <span class="keyword">and</span> n != <span class="number">1</span>:</span><br><span class="line">            tbl.add(n)</span><br><span class="line">            n = happy(n)</span><br><span class="line">        <span class="keyword">return</span> (n == <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
@@ -355,7 +355,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-119"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-45"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-29"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-120"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-46"><span class="nav-number">2.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sol-29"><span class="nav-number">3.</span> <span class="nav-text">Sol</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -369,7 +369,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">702</span>
+          <span class="site-state-item-count">703</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

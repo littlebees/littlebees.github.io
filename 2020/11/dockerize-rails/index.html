@@ -29,7 +29,7 @@
 <meta property="og:description" content="動機 讓執行環境一致，與讓setup方便一點的時候到了(其實setup在docker還是有問題要處理…)">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-11-02T17:38:14.000Z">
-<meta property="article:modified_time" content="2022-07-30T02:35:52.781Z">
+<meta property="article:modified_time" content="2022-07-30T02:40:33.353Z">
 <meta property="article:author" content="zhengcf">
 <meta name="twitter:card" content="summary">
 
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 10:35:52" itemprop="dateModified" datetime="2022-07-30T10:35:52+08:00">2022-07-30</time>
+                <time title="Modified: 2022-07-30 10:40:33" itemprop="dateModified" datetime="2022-07-30T10:40:33+08:00">2022-07-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -261,7 +261,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="動機-11">動機</h2>
+        <h2 id="動機-12">動機</h2>
 <p>讓執行環境一致，與讓setup方便一點的時候到了(其實setup在docker還是有問題要處理…)</p>
 <span id="more"></span>
 <h2 id="DB-docker-compose">DB &amp; docker-compose</h2>
@@ -380,7 +380,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-11"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DB-docker-compose"><span class="nav-number">2.</span> <span class="nav-text">DB &amp; docker-compose</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Rails-image"><span class="nav-number">3.</span> <span class="nav-text">Rails image</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Dockerfile"><span class="nav-number">3.1.</span> <span class="nav-text">Dockerfile</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#database-yml"><span class="nav-number">3.2.</span> <span class="nav-text">database.yml</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Encountered-Problems"><span class="nav-number">4.</span> <span class="nav-text">Encountered Problems</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Unknown-MySQL-server-host-%E2%80%98db%E2%80%99-2"><span class="nav-number">4.1.</span> <span class="nav-text">Unknown MySQL server host ‘db’ (-2)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-connection-is-reset-by-peer"><span class="nav-number">4.2.</span> <span class="nav-text">The connection is reset by peer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tzinfo-data-is-not-present-Please-add-gem-%E2%80%98tzinfo-data%E2%80%99-to-your-Gemfile-and-run-bundle-install-TZInfo-DataSourceNotFound"><span class="nav-number">4.3.</span> <span class="nav-text">tzinfo-data is not present. Please add gem ‘tzinfo-data’ to your Gemfile and run bundle install (TZInfo::DataSourceNotFound)</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-12"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DB-docker-compose"><span class="nav-number">2.</span> <span class="nav-text">DB &amp; docker-compose</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Rails-image"><span class="nav-number">3.</span> <span class="nav-text">Rails image</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Dockerfile"><span class="nav-number">3.1.</span> <span class="nav-text">Dockerfile</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#database-yml"><span class="nav-number">3.2.</span> <span class="nav-text">database.yml</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Encountered-Problems"><span class="nav-number">4.</span> <span class="nav-text">Encountered Problems</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Unknown-MySQL-server-host-%E2%80%98db%E2%80%99-2"><span class="nav-number">4.1.</span> <span class="nav-text">Unknown MySQL server host ‘db’ (-2)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-connection-is-reset-by-peer"><span class="nav-number">4.2.</span> <span class="nav-text">The connection is reset by peer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tzinfo-data-is-not-present-Please-add-gem-%E2%80%98tzinfo-data%E2%80%99-to-your-Gemfile-and-run-bundle-install-TZInfo-DataSourceNotFound"><span class="nav-number">4.3.</span> <span class="nav-text">tzinfo-data is not present. Please add gem ‘tzinfo-data’ to your Gemfile and run bundle install (TZInfo::DataSourceNotFound)</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -394,7 +394,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">702</span>
+          <span class="site-state-item-count">703</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
