@@ -11,8 +11,18 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 30 Jul 2022 11:02:27 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 08 Feb 2024 10:49:52 +0800</lastBuildDate>
     <atom:link href="https://littlebees.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Move to Hugo</title>
+      <link>https://littlebees.github.io/2024/02/move-to-hugo/</link>
+      <pubDate>Thu, 08 Feb 2024 10:49:52 +0800</pubDate>
+      <guid>https://littlebees.github.io/2024/02/move-to-hugo/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;已經有一年沒有動過這邊了，想來翻新一下。
+但是想到過去與nodejs和hexo對抗的經驗，另外build一個site真的很久(超過10秒)，所以決定換到hugo來&lt;/p&gt;
+&lt;p&gt;同時把架構簡化一下，之前category太複雜了&lt;/p&gt;</description>
+    </item>
     <item>
       <title>booer moore字串比對</title>
       <link>https://littlebees.github.io/2022/07/booer-moore%E5%AD%97%E4%B8%B2%E6%AF%94%E5%B0%8D/</link>
@@ -1531,6 +1541,14 @@ Monotonic Stack&lt;/p&gt;</description>
 &lt;li&gt;&lt;em&gt;topdown dp與bottomup dp差在一個在前半段處理，另一個在後半段&lt;/em&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;因為上面的特質導致這題只能用bottomup&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-1438 - Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-1438-longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/</link>
+      <pubDate>Mon, 16 Aug 2021 01:07:35 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-1438-longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;sliding window但是用heap去找window的最大最小&lt;/p&gt;</description>
     </item>
     <item>
       <title>leetcode-516 - Longest Palindromic Subsequence</title>
@@ -5531,16 +5549,6 @@ List of OO 有哪些可能性(case) base case: 空 inductive case: 有東西 建
       <description>灌了ubuntu第一件事，不是更新，是換一個快的mirror
 script #! /bin/bash new=free.nchc.org.tw old=$(cat /etc/apt/sources.list | grep main | awk &amp;#39;{ print $2 }&amp;#39; | cut -d&amp;#39;/&amp;#39; -f3 | sed -n &amp;#39;3P&amp;#39;) sudo sed -i &amp;#34;s/$old/$new/g&amp;#34; /etc/apt/sources.list sudo sed -i &amp;#34;s/security.ubuntu.com/$new/g&amp;#34; /etc/apt/sources.list sudo apt update bash的複習: 各種expansion 給個變數
 hi=123 Arithmetic expansion Variables expansion 單雙引號不一樣 最通用的 Command expansion Ref bash的資料 改mirror的資料</description>
-    </item>
-    <item>
-      <title></title>
-      <link>https://littlebees.github.io/1/01/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://littlebees.github.io/1/01/</guid>
-      <description>動機 sliding window但是用heap去找window的最大最小
-Problem Given an array of integers nums and an integer limit, return the size of the longest non-empty subarray such that the absolute difference between any two elements of this subarray is less than or equal to limit.
-Example 1:
-Input: nums = [8,2,4,7], limit = 4Output: 2 Explanation: All subarrays are: [8] with maximum absolute diff |8-8| = 0 &lt;= 4.[8,2] with maximum absolute diff |8-2| = 6 &gt; 4.</description>
     </item>
   </channel>
 </rss>

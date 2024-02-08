@@ -11,8 +11,16 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 15 Aug 2021 14:43:55 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 16 Aug 2021 01:07:35 +0000</lastBuildDate>
     <atom:link href="https://littlebees.github.io/tags/monotonic-queue/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>leetcode-1438 - Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-1438-longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/</link>
+      <pubDate>Mon, 16 Aug 2021 01:07:35 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-1438-longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;sliding window但是用heap去找window的最大最小&lt;/p&gt;</description>
+    </item>
     <item>
       <title>leetcode-862 - Shortest Subarray with Sum at Least K</title>
       <link>https://littlebees.github.io/2021/08/leetcode-862-shortest-subarray-with-sum-at-least-k/</link>

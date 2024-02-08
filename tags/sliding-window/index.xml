@@ -27,6 +27,14 @@
 &lt;p&gt;因為上面的特質導致這題只能用bottomup&lt;/p&gt;</description>
     </item>
     <item>
+      <title>leetcode-1438 - Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-1438-longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/</link>
+      <pubDate>Mon, 16 Aug 2021 01:07:35 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-1438-longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;sliding window但是用heap去找window的最大最小&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>leetcode-1248 - Count Number of Nice Subarrays</title>
       <link>https://littlebees.github.io/2021/08/leetcode-1248-count-number-of-nice-subarrays/</link>
       <pubDate>Sun, 15 Aug 2021 15:43:06 +0000</pubDate>
