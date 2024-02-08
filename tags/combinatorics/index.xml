@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Combinatorics on 記事本</title>
+    <link>https://littlebees.github.io/tags/combinatorics/</link>
+    <description>Recent content in Combinatorics on 記事本</description>
+    <image>
+      <title>記事本</title>
+      <url>https://littlebees.github.io/images/papermod-cover.png</url>
+      <link>https://littlebees.github.io/images/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 27 Jul 2021 22:07:54 +0000</lastBuildDate>
+    <atom:link href="https://littlebees.github.io/tags/combinatorics/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>leetcode-1569 - Number of Ways to Reorder Array to Get Same BST</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-1569-number-of-ways-to-reorder-array-to-get-same-bst/</link>
+      <pubDate>Tue, 27 Jul 2021 22:07:54 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-1569-number-of-ways-to-reorder-array-to-get-same-bst/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;很有趣的問題，原來python有可以直接算combination的函數&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-62 - Unique Paths</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-62-unique-paths/</link>
+      <pubDate>Fri, 16 Jul 2021 20:05:19 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-62-unique-paths/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;複習dp&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

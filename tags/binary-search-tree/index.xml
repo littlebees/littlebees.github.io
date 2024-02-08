@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Binary Search Tree on 記事本</title>
+    <link>https://littlebees.github.io/tags/binary-search-tree/</link>
+    <description>Recent content in Binary Search Tree on 記事本</description>
+    <image>
+      <title>記事本</title>
+      <url>https://littlebees.github.io/images/papermod-cover.png</url>
+      <link>https://littlebees.github.io/images/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 30 Jul 2022 10:52:27 +0000</lastBuildDate>
+    <atom:link href="https://littlebees.github.io/tags/binary-search-tree/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>leetcode-1305 - All Elements in Two Binary Search Trees</title>
+      <link>https://littlebees.github.io/2022/07/leetcode-1305-all-elements-in-two-binary-search-trees/</link>
+      <pubDate>Sat, 30 Jul 2022 10:52:27 +0000</pubDate>
+      <guid>https://littlebees.github.io/2022/07/leetcode-1305-all-elements-in-two-binary-search-trees/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;應該可以改成iterator各自的BST，但很麻煩，就直接攤平吧&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-530 - Minimum Absolute Difference in BST</title>
+      <link>https://littlebees.github.io/2022/07/leetcode-530-minimum-absolute-difference-in-bst/</link>
+      <pubDate>Sat, 30 Jul 2022 10:49:04 +0000</pubDate>
+      <guid>https://littlebees.github.io/2022/07/leetcode-530-minimum-absolute-difference-in-bst/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;dfs回傳最大的子節點&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-538 - Convert BST to Greater Tree</title>
+      <link>https://littlebees.github.io/2022/07/leetcode-538-convert-bst-to-greater-tree/</link>
+      <pubDate>Sat, 30 Jul 2022 10:44:51 +0000</pubDate>
+      <guid>https://littlebees.github.io/2022/07/leetcode-538-convert-bst-to-greater-tree/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;post order traversal&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-449 - Serialize and Deserialize BST</title>
+      <link>https://littlebees.github.io/2022/07/leetcode-449-serialize-and-deserialize-bst/</link>
+      <pubDate>Sat, 30 Jul 2022 10:40:16 +0000</pubDate>
+      <guid>https://littlebees.github.io/2022/07/leetcode-449-serialize-and-deserialize-bst/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;因為是BST情況就沒有那麼複雜&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-701 - Insert into a Binary Search Tree</title>
+      <link>https://littlebees.github.io/2021/09/leetcode-701-insert-into-a-binary-search-tree/</link>
+      <pubDate>Mon, 13 Sep 2021 23:02:34 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/09/leetcode-701-insert-into-a-binary-search-tree/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;用rebuild的思維&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-1373 - Maximum Sum BST in Binary Tree</title>
+      <link>https://littlebees.github.io/2021/09/leetcode-1373-maximum-sum-bst-in-binary-tree/</link>
+      <pubDate>Mon, 13 Sep 2021 22:50:27 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/09/leetcode-1373-maximum-sum-bst-in-binary-tree/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;post order很重要!!&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-1038 - Binary Search Tree to Greater Sum Tree</title>
+      <link>https://littlebees.github.io/2021/09/leetcode-1038-binary-search-tree-to-greater-sum-tree/</link>
+      <pubDate>Mon, 13 Sep 2021 22:44:10 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/09/leetcode-1038-binary-search-tree-to-greater-sum-tree/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;順著走就好&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-450 - Delete Node in a BST</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-450-delete-node-in-a-bst/</link>
+      <pubDate>Tue, 10 Aug 2021 22:55:33 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-450-delete-node-in-a-bst/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;找右邊的最小，之後重建tree&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-1008 - Construct Binary Search Tree from Preorder Traversal</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-1008-construct-binary-search-tree-from-preorder-traversal/</link>
+      <pubDate>Tue, 10 Aug 2021 20:09:08 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-1008-construct-binary-search-tree-from-preorder-traversal/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;你大神還是你大神，滿滿的創意&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;在BST上做bsearch(太神啦)&lt;/em&gt;
+&lt;em&gt;帶入範圍&lt;/em&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-501 - Find Mode in Binary Search Tree</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-501-find-mode-in-binary-search-tree/</link>
+      <pubDate>Tue, 10 Aug 2021 02:37:06 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-501-find-mode-in-binary-search-tree/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;BST的inorder就是sort過的list!!
+忘了!!&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-1569 - Number of Ways to Reorder Array to Get Same BST</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-1569-number-of-ways-to-reorder-array-to-get-same-bst/</link>
+      <pubDate>Tue, 27 Jul 2021 22:07:54 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-1569-number-of-ways-to-reorder-array-to-get-same-bst/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;很有趣的問題，原來python有可以直接算combination的函數&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-96 - Unique Binary Search Trees</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-96-unique-binary-search-trees/</link>
+      <pubDate>Sat, 24 Jul 2021 01:27:28 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-96-unique-binary-search-trees/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;當成range，就可以去二分了&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-235 - Lowest Common Ancestor of a Binary Search Tree</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-235-lowest-common-ancestor-of-a-binary-search-tree/</link>
+      <pubDate>Tue, 20 Jul 2021 22:49:58 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-235-lowest-common-ancestor-of-a-binary-search-tree/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;善用binary search tree，所以才是easy&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-98 - Validate Binary Search Tree</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-98-validate-binary-search-tree/</link>
+      <pubDate>Tue, 20 Jul 2021 02:09:19 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-98-validate-binary-search-tree/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;當初還想著怎麼看node&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-108 - Convert Sorted Array to Binary Search Tree</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-108-convert-sorted-array-to-binary-search-tree/</link>
+      <pubDate>Sun, 18 Jul 2021 02:26:47 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-108-convert-sorted-array-to-binary-search-tree/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;複習dfs&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-230 - Kth Smallest Element in a BST</title>
+      <link>https://littlebees.github.io/2021/01/leetcode-230-kth-smallest-element-in-a-bst/</link>
+      <pubDate>Sun, 31 Jan 2021 22:40:04 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/01/leetcode-230-kth-smallest-element-in-a-bst/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;不要被BST誤導阿!!!
+一直往O(log(n))的方向去想&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-653 - Two Sum IV - Input is a BST</title>
+      <link>https://littlebees.github.io/2021/01/leetcode-653-two-sum-iv-input-is-a-bst/</link>
+      <pubDate>Sat, 30 Jan 2021 15:49:47 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/01/leetcode-653-two-sum-iv-input-is-a-bst/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;主要是紀錄在tree上做這題的做法&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-703 - Kth Largest Element in a Stream</title>
+      <link>https://littlebees.github.io/2021/01/leetcode-703-kth-largest-element-in-a-stream/</link>
+      <pubDate>Fri, 01 Jan 2021 22:23:09 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/01/leetcode-703-kth-largest-element-in-a-stream/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;當初想的太複雜了，還想用兩個heap&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

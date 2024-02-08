@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Lisp on 記事本</title>
+    <link>https://littlebees.github.io/tags/lisp/</link>
+    <description>Recent content in Lisp on 記事本</description>
+    <image>
+      <title>記事本</title>
+      <url>https://littlebees.github.io/images/papermod-cover.png</url>
+      <link>https://littlebees.github.io/images/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 30 Jul 2022 10:59:35 +0000</lastBuildDate>
+    <atom:link href="https://littlebees.github.io/tags/lisp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>state monad &amp; reverse state monad</title>
+      <link>https://littlebees.github.io/2022/07/state-monad-reverse-state-monad/</link>
+      <pubDate>Sat, 30 Jul 2022 10:59:35 +0000</pubDate>
+      <guid>https://littlebees.github.io/2022/07/state-monad-reverse-state-monad/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;state monad是left 2 right，對應到iteration (左遞迴)
+reverse state monad是right 2 left，對應到recursion (右遞迴)&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>free-freer-monad</title>
+      <link>https://littlebees.github.io/2021/11/free-freer-monad/</link>
+      <pubDate>Thu, 04 Nov 2021 21:02:40 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/11/free-freer-monad/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;興趣&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>continuation整理與CPS轉換</title>
+      <link>https://littlebees.github.io/2021/11/continuation%E6%95%B4%E7%90%86%E8%88%87cps%E8%BD%89%E6%8F%9B/</link>
+      <pubDate>Tue, 02 Nov 2021 00:24:06 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/11/continuation%E6%95%B4%E7%90%86%E8%88%87cps%E8%BD%89%E6%8F%9B/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;整理continuation與CPS轉換&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>The little prover 筆記</title>
+      <link>https://littlebees.github.io/2021/07/the-little-prover-%E7%AD%86%E8%A8%98/</link>
+      <pubDate>Wed, 14 Jul 2021 00:30:09 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/the-little-prover-%E7%AD%86%E8%A8%98/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;久遠筆記搬到github這裡，不過也是改寫超多東西的&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>little typer 後篇(8~16) 整理與筆記</title>
+      <link>https://littlebees.github.io/2020/05/little-typer-%E5%BE%8C%E7%AF%878~16-%E6%95%B4%E7%90%86%E8%88%87%E7%AD%86%E8%A8%98/</link>
+      <pubDate>Sat, 16 May 2020 17:34:32 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/05/little-typer-%E5%BE%8C%E7%AF%878~16-%E6%95%B4%E7%90%86%E8%88%87%E7%AD%86%E8%A8%98/</guid>
+      <description>來證明啦
+ch8 &amp;amp; ch9 &amp;amp; ch10 &amp;amp; ch11 現在說用type證明，但實際上怎麼做?
+在claim寫下想證的東西，在define證出來
+incr &amp;amp; + (claim incr (-&amp;gt; Nat Nat)) (define incr (λ (n) (iter-Nat n 1 (+ 1)))) (claim + (-&amp;gt; Nat Nat Nat)) (define + (λ (a b) (iter-Nat a b (λ (ret) (add1 ret))))) +1=add1 證對於任何整數，add1等於+1
+(claim +1=add1 (Pi ((n Nat)) (= Nat (+ 1 n) (add1 n)))) 所以我們需要一個value的type是(= Nat (+ 1 n) (add1 n))) 先把1帶入+中，會發現根本就是(add1 n)
+也就是兩邊都一樣，same!!
+(define +1=add1 (λ (n) (same (+ 1 n)))) incr=add1 同樣的來試試incr=add1</description>
+    </item>
+    <item>
+      <title>little typer 前篇(1~7) 整理與筆記</title>
+      <link>https://littlebees.github.io/2020/05/little-typer-%E5%89%8D%E7%AF%871~7-%E6%95%B4%E7%90%86%E8%88%87%E7%AD%86%E8%A8%98/</link>
+      <pubDate>Sat, 16 May 2020 17:34:21 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/05/little-typer-%E5%89%8D%E7%AF%871~7-%E6%95%B4%E7%90%86%E8%88%87%E7%AD%86%E8%A8%98/</guid>
+      <description>介紹Pie怎麼用
+ch1 &amp;amp; ch2 &amp;amp; ch3 所有東西都是expression 有人斷言expression有某種屬性或與其他expression有共通的特質是judgment Sentences get their meaning from those who understand them. The sentences capture thoughts that we have, and thoughts are more important than the words we use to express them. 描述某一群expression的expression是Type 當type constructor在頂部就是type (Pair Nat Nat) constructor在頂部就是Value constructor會產生某個type的實體(像add1會產生Nat的實體，8也是Nat的實體) eliminator會分解value取出構成value的資訊 當某一expression無法再被改寫時叫normal form 改寫expression叫evaluation expression因為有變數而無法繼續改寫叫neutral 只要長的一樣就是same (不是等於，之後會用same去證等於) total function對任何一個值都能產生對應的值 沒有遞迴 因為每個expression都一定要收斂 所以有其他東西來做類似的效果 evaluation &amp;amp; value 在dependent type中，evaluation得到的是expression 在一般PL(像lisp)中，evaluation得到的是value 在一般PL中，expression與value是不同類別的東西
+ch4 &amp;amp; ch5 claim &amp;amp; define 在pie中要產生一個變數要先claim再define</description>
+    </item>
+    <item>
+      <title>The Seasoned Schemer讀後筆記</title>
+      <link>https://littlebees.github.io/2020/04/the-seasoned-schemer%E8%AE%80%E5%BE%8C%E7%AD%86%E8%A8%98/</link>
+      <pubDate>Wed, 15 Apr 2020 23:58:57 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/04/the-seasoned-schemer%E8%AE%80%E5%BE%8C%E7%AD%86%E8%A8%98/</guid>
+      <description>前言 The Seasoned Schemer(TSS)的目的是補完TLS中沒有提及的狀態。 這篇筆記同樣不依照章節順序，用主題式的方式，把我心中的這本書呈現出來。
+行前須知 知道什麼是?
+Scheme 遞迴 accumulator parameter reverse 如果要反轉list，在有append情況下可以寫成
+(define (rev l) (if (null? l) &amp;#39;() (append (rev (cdr l)) (cons (car l) &amp;#39;())))) 但我們需要一直append嗎? 如果我們可以從第一個開始就先cons出來的東西，不就是我們要的。
+(define (rev l acc) (if (null? l) acc (rev (cdr l) (cons (car l) acc)))) 引入acc可以記下我們從頭到目前看過的東西。
+flatten 同樣在要攤平list時，如果有append可寫成
+(define (atom? x) (and (not (pair? x)) (not (null? x)))) (define (fl lol) (cond [(null? lol) &amp;#39;()] [(atom? (car lol)) (cons (car lol) (fl (cdr lol)))] [else (append (fl (car lol)) (fl (cdr lol)))])) 這裡是不是可以利用剛剛acc可以記下目前看過的東西的特性來改寫呢?</description>
+    </item>
+    <item>
+      <title>The Little Schemer讀後筆記</title>
+      <link>https://littlebees.github.io/2020/04/the-little-schemer%E8%AE%80%E5%BE%8C%E7%AD%86%E8%A8%98/</link>
+      <pubDate>Wed, 15 Apr 2020 17:55:27 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/04/the-little-schemer%E8%AE%80%E5%BE%8C%E7%AD%86%E8%A8%98/</guid>
+      <description>前言 The Little Schemer(TLS)的目的是教讀者寫遞迴。 這篇筆記不依照章節順序，用主題式的方式，把我心中的這本書呈現出來。
+行前須知 知道什麼是?
+base 與 inductive case 在歸納法中大概的意思 快速Scheme Tutorial 調用: (&amp;lt;function-or-operator) &amp;lt;args...&amp;gt;) 宣告變數: (define &amp;lt;var-name&amp;gt; &amp;lt;value&amp;gt;) 條件式:
+(if &amp;lt;predicate&amp;gt; &amp;lt;when-true&amp;gt; &amp;lt;when-false&amp;gt;) (cond [&amp;lt;predicate&amp;gt; &amp;lt;do-somthing&amp;gt;] ... [else &amp;lt;do-somthing&amp;gt;]) 函數:
+(define &amp;lt;func-name&amp;gt; (lambda (&amp;lt;args...&amp;gt;) &amp;lt;do-somthing&amp;gt;)) ;; OR (define (&amp;lt;func-name&amp;gt; (&amp;lt;args...&amp;gt;)) &amp;lt;do-somthing&amp;gt;) 匿名函數:
+(lambda (&amp;lt;args...&amp;gt;) &amp;lt;do-somthing&amp;gt;) 本書用到的資料結構介紹 Atom &amp;lt;line-of-characters&amp;gt;還有數字
+List of OO 有哪些可能性(case) base case: 空 inductive case: 有東西 建構 空 的case : &amp;lsquo;() 有東西 的case : cons 分解 有東西 的case : car 與 cdr 對應到cons有兩個參數，所以會有兩個解構子。 區分case 空 的case : null?</description>
+    </item>
+  </channel>
+</rss>

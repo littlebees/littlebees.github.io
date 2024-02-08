@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Keepass on 記事本</title>
+    <link>https://littlebees.github.io/tags/keepass/</link>
+    <description>Recent content in Keepass on 記事本</description>
+    <image>
+      <title>記事本</title>
+      <url>https://littlebees.github.io/images/papermod-cover.png</url>
+      <link>https://littlebees.github.io/images/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 19 Jun 2021 15:58:02 +0000</lastBuildDate>
+    <atom:link href="https://littlebees.github.io/tags/keepass/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>keepassxc同步db與自動開db</title>
+      <link>https://littlebees.github.io/2021/06/keepassxc%E5%90%8C%E6%AD%A5db%E8%88%87%E8%87%AA%E5%8B%95%E9%96%8Bdb/</link>
+      <pubDate>Sat, 19 Jun 2021 15:58:02 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/06/keepassxc%E5%90%8C%E6%AD%A5db%E8%88%87%E8%87%AA%E5%8B%95%E9%96%8Bdb/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;keepass2真的有點慢，所以換回去keepassxc，同時找一個辦法避免每次開機都要打master key
+所以我把dropbox給裝上去了&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

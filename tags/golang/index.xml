@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Golang on 記事本</title>
+    <link>https://littlebees.github.io/tags/golang/</link>
+    <description>Recent content in Golang on 記事本</description>
+    <image>
+      <title>記事本</title>
+      <url>https://littlebees.github.io/images/papermod-cover.png</url>
+      <link>https://littlebees.github.io/images/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 31 Aug 2021 22:59:00 +0000</lastBuildDate>
+    <atom:link href="https://littlebees.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>golang與繼承與template method pattern</title>
+      <link>https://littlebees.github.io/2021/08/golang%E8%88%87%E7%B9%BC%E6%89%BF%E8%88%87template-method-pattern/</link>
+      <pubDate>Tue, 31 Aug 2021 22:59:00 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/golang%E8%88%87%E7%B9%BC%E6%89%BF%E8%88%87template-method-pattern/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;promoted attr只是一種語法糖，不是繼承 (沒有subtype)&lt;/li&gt;
+&lt;li&gt;promoted attr只是展開&lt;/li&gt;
+&lt;li&gt;把struct想成Let Over Lambda&lt;/li&gt;
+&lt;li&gt;struct是value type&lt;/li&gt;
+&lt;li&gt;interface就是看有沒有function&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
+  </channel>
+</rss>

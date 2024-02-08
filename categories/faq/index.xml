@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>FAQ on 記事本</title>
+    <link>https://littlebees.github.io/categories/faq/</link>
+    <description>Recent content in FAQ on 記事本</description>
+    <image>
+      <title>記事本</title>
+      <url>https://littlebees.github.io/images/papermod-cover.png</url>
+      <link>https://littlebees.github.io/images/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 30 Jul 2022 10:59:35 +0000</lastBuildDate>
+    <atom:link href="https://littlebees.github.io/categories/faq/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>state monad &amp; reverse state monad</title>
+      <link>https://littlebees.github.io/2022/07/state-monad-reverse-state-monad/</link>
+      <pubDate>Sat, 30 Jul 2022 10:59:35 +0000</pubDate>
+      <guid>https://littlebees.github.io/2022/07/state-monad-reverse-state-monad/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;state monad是left 2 right，對應到iteration (左遞迴)
+reverse state monad是right 2 left，對應到recursion (右遞迴)&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>條件變數與原子性</title>
+      <link>https://littlebees.github.io/2022/04/%E6%A2%9D%E4%BB%B6%E8%AE%8A%E6%95%B8%E8%88%87%E5%8E%9F%E5%AD%90%E6%80%A7/</link>
+      <pubDate>Wed, 13 Apr 2022 23:06:34 +0000</pubDate>
+      <guid>https://littlebees.github.io/2022/04/%E6%A2%9D%E4%BB%B6%E8%AE%8A%E6%95%B8%E8%88%87%E5%8E%9F%E5%AD%90%E6%80%A7/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;</description>
+    </item>
+    <item>
+      <title>分散式手法</title>
+      <link>https://littlebees.github.io/2022/04/%E5%88%86%E6%95%A3%E5%BC%8F%E6%89%8B%E6%B3%95/</link>
+      <pubDate>Sun, 10 Apr 2022 00:11:05 +0000</pubDate>
+      <guid>https://littlebees.github.io/2022/04/%E5%88%86%E6%95%A3%E5%BC%8F%E6%89%8B%E6%B3%95/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;整理常見分散式設計手法&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>共識、錯誤、時間、排序</title>
+      <link>https://littlebees.github.io/2022/03/%E5%85%B1%E8%AD%98%E9%8C%AF%E8%AA%A4%E6%99%82%E9%96%93%E6%8E%92%E5%BA%8F/</link>
+      <pubDate>Thu, 31 Mar 2022 11:04:02 +0000</pubDate>
+      <guid>https://littlebees.github.io/2022/03/%E5%85%B1%E8%AD%98%E9%8C%AF%E8%AA%A4%E6%99%82%E9%96%93%E6%8E%92%E5%BA%8F/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;分散式系統最重要的就是在不同的錯誤情境下達成共識
+之後追求performance&lt;/p&gt;
+&lt;p&gt;串起這一切的就是時間與與之對應的排序&lt;/p&gt;
+&lt;p&gt;下面就來簡單的整理一下&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>raft補遺</title>
+      <link>https://littlebees.github.io/2022/03/raft%E8%A3%9C%E9%81%BA/</link>
+      <pubDate>Thu, 31 Mar 2022 10:56:26 +0000</pubDate>
+      <guid>https://littlebees.github.io/2022/03/raft%E8%A3%9C%E9%81%BA/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;同樣是補6.824上沒有的部分&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;換成員&lt;/li&gt;
+&lt;li&gt;raft博論的練習題 (有練習題你敢信，同時還有paxos的練習題!!)&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
+    <item>
+      <title>Erasure Code</title>
+      <link>https://littlebees.github.io/2022/03/erasure-code/</link>
+      <pubDate>Thu, 31 Mar 2022 10:51:50 +0000</pubDate>
+      <guid>https://littlebees.github.io/2022/03/erasure-code/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;文章很好懂，紀錄一下
+同時把6.824沒說到的補完&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>raft優化</title>
+      <link>https://littlebees.github.io/2022/03/raft%E5%84%AA%E5%8C%96/</link>
+      <pubDate>Mon, 14 Mar 2022 22:20:42 +0000</pubDate>
+      <guid>https://littlebees.github.io/2022/03/raft%E5%84%AA%E5%8C%96/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;raft有一些優化，這邊記錄一些
+主要出自raft作者的博論&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>paxos到zab再到raft</title>
+      <link>https://littlebees.github.io/2022/03/paxos%E5%88%B0zab%E5%86%8D%E5%88%B0raft/</link>
+      <pubDate>Sun, 13 Mar 2022 16:08:37 +0000</pubDate>
+      <guid>https://littlebees.github.io/2022/03/paxos%E5%88%B0zab%E5%86%8D%E5%88%B0raft/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;整理一下&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>電腦從0開始</title>
+      <link>https://littlebees.github.io/2022/01/%E9%9B%BB%E8%85%A6%E5%BE%9E0%E9%96%8B%E5%A7%8B/</link>
+      <pubDate>Tue, 18 Jan 2022 11:44:22 +0000</pubDate>
+      <guid>https://littlebees.github.io/2022/01/%E9%9B%BB%E8%85%A6%E5%BE%9E0%E9%96%8B%E5%A7%8B/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;這篇主要在看怎麼從最一開始到一個可以打字的kernel的過程
+重點不是裡面的code，而是過程&lt;/p&gt;
+&lt;p&gt;因為真正讓人痛苦的東西其實是在os提供的各種抽象設施，也是progammer要在意的點&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Distributed computing</title>
+      <link>https://littlebees.github.io/2022/01/distributed-computing/</link>
+      <pubDate>Mon, 17 Jan 2022 16:17:07 +0000</pubDate>
+      <guid>https://littlebees.github.io/2022/01/distributed-computing/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;論選好課、書的重要性&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>k8s概念</title>
+      <link>https://littlebees.github.io/2022/01/k8s%E6%A6%82%E5%BF%B5/</link>
+      <pubDate>Mon, 17 Jan 2022 15:17:03 +0000</pubDate>
+      <guid>https://littlebees.github.io/2022/01/k8s%E6%A6%82%E5%BF%B5/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;可以先去看&lt;a href=&#34;https://littlebees.github.io/2020/8/k8s-note/&#34;&gt;k8s筆記&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Parallel Thinking</title>
+      <link>https://littlebees.github.io/2022/01/parallel-thinking/</link>
+      <pubDate>Mon, 17 Jan 2022 14:27:20 +0000</pubDate>
+      <guid>https://littlebees.github.io/2022/01/parallel-thinking/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;平行的思考&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>在javascript做deep copy?</title>
+      <link>https://littlebees.github.io/2022/01/%E5%9C%A8javascript%E5%81%9Adeep-copy/</link>
+      <pubDate>Mon, 17 Jan 2022 10:59:14 +0000</pubDate>
+      <guid>https://littlebees.github.io/2022/01/%E5%9C%A8javascript%E5%81%9Adeep-copy/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;當你以為deep copy是正常的builtin時，Javascript總是能給你驚喜&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>queuing thoery的tutorial</title>
+      <link>https://littlebees.github.io/2022/01/queuing-thoery%E7%9A%84tutorial/</link>
+      <pubDate>Mon, 17 Jan 2022 10:26:57 +0000</pubDate>
+      <guid>https://littlebees.github.io/2022/01/queuing-thoery%E7%9A%84tutorial/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;補完當年的queuing thoery&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>packet在linux中走過的路2</title>
+      <link>https://littlebees.github.io/2021/11/packet%E5%9C%A8linux%E4%B8%AD%E8%B5%B0%E9%81%8E%E7%9A%84%E8%B7%AF2/</link>
+      <pubDate>Thu, 04 Nov 2021 23:38:50 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/11/packet%E5%9C%A8linux%E4%B8%AD%E8%B5%B0%E9%81%8E%E7%9A%84%E8%B7%AF2/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;算是&lt;a href=&#34;https://littlebees.github.io/2021/09/path-of-packet-in-linux/&#34;&gt;packet在linux中走過的路&lt;/a&gt;的延伸&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>netfilter的conntrack</title>
+      <link>https://littlebees.github.io/2021/11/netfilter%E7%9A%84conntrack/</link>
+      <pubDate>Thu, 04 Nov 2021 21:15:09 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/11/netfilter%E7%9A%84conntrack/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;把netfilter最後的拼圖補上&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>free-freer-monad</title>
+      <link>https://littlebees.github.io/2021/11/free-freer-monad/</link>
+      <pubDate>Thu, 04 Nov 2021 21:02:40 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/11/free-freer-monad/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;興趣&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>amdahl&#39;s law</title>
+      <link>https://littlebees.github.io/2021/11/amdahls-law/</link>
+      <pubDate>Thu, 04 Nov 2021 20:35:27 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/11/amdahls-law/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;紀錄&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>syscall與vdso</title>
+      <link>https://littlebees.github.io/2021/11/syscall%E8%88%87vdso/</link>
+      <pubDate>Thu, 04 Nov 2021 00:44:45 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/11/syscall%E8%88%87vdso/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;記錄用&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>nat穿隧筆記</title>
+      <link>https://littlebees.github.io/2021/11/nat%E7%A9%BF%E9%9A%A7%E7%AD%86%E8%A8%98/</link>
+      <pubDate>Wed, 03 Nov 2021 23:58:56 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/11/nat%E7%A9%BF%E9%9A%A7%E7%AD%86%E8%A8%98/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;記錄用&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>ipv6筆記</title>
+      <link>https://littlebees.github.io/2021/11/ipv6%E7%AD%86%E8%A8%98/</link>
+      <pubDate>Wed, 03 Nov 2021 23:13:05 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/11/ipv6%E7%AD%86%E8%A8%98/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;記錄用&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>continuation整理與CPS轉換</title>
+      <link>https://littlebees.github.io/2021/11/continuation%E6%95%B4%E7%90%86%E8%88%87cps%E8%BD%89%E6%8F%9B/</link>
+      <pubDate>Tue, 02 Nov 2021 00:24:06 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/11/continuation%E6%95%B4%E7%90%86%E8%88%87cps%E8%BD%89%E6%8F%9B/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;整理continuation與CPS轉換&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>怎麼分析系統</title>
+      <link>https://littlebees.github.io/2021/10/%E6%80%8E%E9%BA%BC%E5%88%86%E6%9E%90%E7%B3%BB%E7%B5%B1/</link>
+      <pubDate>Sat, 30 Oct 2021 22:53:36 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/10/%E6%80%8E%E9%BA%BC%E5%88%86%E6%9E%90%E7%B3%BB%E7%B5%B1/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;紀錄&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>http-protocol</title>
+      <link>https://littlebees.github.io/2021/10/http-protocol/</link>
+      <pubDate>Wed, 27 Oct 2021 23:09:18 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/10/http-protocol/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;記錄用&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>共變數和反變數</title>
+      <link>https://littlebees.github.io/2021/10/%E5%85%B1%E8%AE%8A%E6%95%B8%E5%92%8C%E5%8F%8D%E8%AE%8A%E6%95%B8/</link>
+      <pubDate>Tue, 26 Oct 2021 20:57:34 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/10/%E5%85%B1%E8%AE%8A%E6%95%B8%E5%92%8C%E5%8F%8D%E8%AE%8A%E6%95%B8/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;突然遇到的觀念，紀錄一下&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>overlayfs</title>
+      <link>https://littlebees.github.io/2021/10/overlayfs/</link>
+      <pubDate>Fri, 22 Oct 2021 21:10:13 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/10/overlayfs/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;記錄用&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>floatpoint</title>
+      <link>https://littlebees.github.io/2021/10/floatpoint/</link>
+      <pubDate>Fri, 22 Oct 2021 20:19:57 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/10/floatpoint/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;複習浮點數&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>pam的整理</title>
+      <link>https://littlebees.github.io/2021/10/pam%E7%9A%84%E6%95%B4%E7%90%86/</link>
+      <pubDate>Sun, 17 Oct 2021 22:03:11 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/10/pam%E7%9A%84%E6%95%B4%E7%90%86/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;之前修arch上su不能用在homed上，有修pam的檔，所以紀錄一下pam&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>沒有sizeof算size</title>
+      <link>https://littlebees.github.io/2021/10/%E6%B2%92%E6%9C%89sizeof%E7%AE%97size/</link>
+      <pubDate>Fri, 15 Oct 2021 22:41:15 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/10/%E6%B2%92%E6%9C%89sizeof%E7%AE%97size/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;不知道為什麼c常出現這種問題，就記錄一下
+重點是&lt;strong&gt;在c中，所有資料都是數字&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>packet在linux中走過的路</title>
+      <link>https://littlebees.github.io/2021/09/packet%E5%9C%A8linux%E4%B8%AD%E8%B5%B0%E9%81%8E%E7%9A%84%E8%B7%AF/</link>
+      <pubDate>Thu, 02 Sep 2021 21:01:11 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/09/packet%E5%9C%A8linux%E4%B8%AD%E8%B5%B0%E9%81%8E%E7%9A%84%E8%B7%AF/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;有趣的topic&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>net-faq</title>
+      <link>https://littlebees.github.io/2021/08/net-faq/</link>
+      <pubDate>Sun, 29 Aug 2021 02:41:08 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/net-faq/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;</description>
+    </item>
+    <item>
+      <title>java的faq</title>
+      <link>https://littlebees.github.io/2021/08/java%E7%9A%84faq/</link>
+      <pubDate>Wed, 18 Aug 2021 22:27:36 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/java%E7%9A%84faq/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;就faq&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>刪linked list的好做法??</title>
+      <link>https://littlebees.github.io/2021/08/%E5%88%AAlinked-list%E7%9A%84%E5%A5%BD%E5%81%9A%E6%B3%95/</link>
+      <pubDate>Mon, 16 Aug 2021 22:12:25 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/%E5%88%AAlinked-list%E7%9A%84%E5%A5%BD%E5%81%9A%E6%B3%95/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;Linus Torvalds的雙層ptr的推廣文&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>top half &amp; bottom half &amp; workqueue &amp; device範例集</title>
+      <link>https://littlebees.github.io/2021/07/top-half-bottom-half-workqueue-device%E7%AF%84%E4%BE%8B%E9%9B%86/</link>
+      <pubDate>Thu, 15 Jul 2021 00:27:55 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/top-half-bottom-half-workqueue-device%E7%AF%84%E4%BE%8B%E9%9B%86/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;上次看完&lt;a href=&#34;https://littlebees.github.io/2021/06/Linux-Kernel-Development-3rd-note&#34;&gt;Linux Kernel Development 3rd&lt;/a&gt;，想說來補一下
+大概有個感覺&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>bit tricks</title>
+      <link>https://littlebees.github.io/2021/07/bit-tricks/</link>
+      <pubDate>Mon, 05 Jul 2021 17:08:26 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/bit-tricks/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;之前面試題目有遇過bit trick的考題，用到lowBit!!
+所以來記錄一下&lt;/p&gt;
+&lt;p&gt;這篇不記錄要table或是常數的做法，這裡只記錄用bit operation與負號就能用的手法，如果需要看&lt;a href=&#34;https://graphics.stanford.edu/~seander/bithacks.html#ConditionalSetOrClearBitsWithoutBranching&#34;&gt;這裡&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>system-design的faq</title>
+      <link>https://littlebees.github.io/2021/07/system-design%E7%9A%84faq/</link>
+      <pubDate>Sun, 04 Jul 2021 02:45:06 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/system-design%E7%9A%84faq/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;之前面試莫名其妙被system design電到翻過去，
+之後看了，system design primer，但還是出事，以為只要把system design的觀念記熟就好，之後要我計算有的沒的就起飛。&lt;/p&gt;
+&lt;p&gt;目前發現&lt;a href=&#34;https://www.jyt0532.com/2017/03/27/system-design/&#34;&gt;這個&lt;/a&gt;，看完發現，原來我之前只有準備一半啊&lt;/p&gt;
+&lt;p&gt;system design的面試其實有一定的程序要走，不是單純的QA
+這個沒做過相關的分析，基本上應該很難當場想出來，我當初是能想到設計，但沒辦法證明(do some math)這是可行的&lt;/p&gt;
+&lt;p&gt;所以這篇，是要補完這點。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>linking的種類</title>
+      <link>https://littlebees.github.io/2021/07/linking%E7%9A%84%E7%A8%AE%E9%A1%9E/</link>
+      <pubDate>Fri, 02 Jul 2021 00:28:49 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/linking%E7%9A%84%E7%A8%AE%E9%A1%9E/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;看bpf時突然想起來，整理一下&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>記憶體模型筆記</title>
+      <link>https://littlebees.github.io/2021/06/%E8%A8%98%E6%86%B6%E9%AB%94%E6%A8%A1%E5%9E%8B%E7%AD%86%E8%A8%98/</link>
+      <pubDate>Sun, 27 Jun 2021 19:02:08 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/06/%E8%A8%98%E6%86%B6%E9%AB%94%E6%A8%A1%E5%9E%8B%E7%AD%86%E8%A8%98/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;之前看完linux kernel的同步方式，對同步有新的理解，可以重新面對這個話題了&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>daemonize與sig與pgid</title>
+      <link>https://littlebees.github.io/2021/02/daemonize%E8%88%87sig%E8%88%87pgid/</link>
+      <pubDate>Sat, 06 Feb 2021 18:32:09 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/02/daemonize%E8%88%87sig%E8%88%87pgid/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;碰到daemonize來記錄一下&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>js的proto與metaclass</title>
+      <link>https://littlebees.github.io/2021/02/js%E7%9A%84proto%E8%88%87metaclass/</link>
+      <pubDate>Mon, 01 Feb 2021 23:39:47 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/02/js%E7%9A%84proto%E8%88%87metaclass/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;之前在看js的proto時，突然想起之前看的metaclass&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>git conflict 與 three-ways-merge</title>
+      <link>https://littlebees.github.io/2021/02/git-conflict-%E8%88%87-three-ways-merge/</link>
+      <pubDate>Mon, 01 Feb 2021 22:40:04 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/02/git-conflict-%E8%88%87-three-ways-merge/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;之前有遇過，但沒有好好認識他，來記錄一下&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>system design primer筆記 範例篇</title>
+      <link>https://littlebees.github.io/2021/01/system-design-primer%E7%AD%86%E8%A8%98-%E7%AF%84%E4%BE%8B%E7%AF%87/</link>
+      <pubDate>Sat, 09 Jan 2021 03:30:33 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/01/system-design-primer%E7%AD%86%E8%A8%98-%E7%AF%84%E4%BE%8B%E7%AF%87/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;這是system design primer筆記的最後一篇，講要怎麼把system一步一步scale out
+但還是有沒提到的部分，像NoSQL/SQL的實際比較、DB的優化手法比較，這些都是輕描淡寫帶過去而已，儘管如此&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>system design primer筆記 設計流程與估算篇</title>
+      <link>https://littlebees.github.io/2021/01/system-design-primer%E7%AD%86%E8%A8%98-%E8%A8%AD%E8%A8%88%E6%B5%81%E7%A8%8B%E8%88%87%E4%BC%B0%E7%AE%97%E7%AF%87/</link>
+      <pubDate>Thu, 07 Jan 2021 23:27:53 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/01/system-design-primer%E7%AD%86%E8%A8%98-%E8%A8%AD%E8%A8%88%E6%B5%81%E7%A8%8B%E8%88%87%E4%BC%B0%E7%AE%97%E7%AF%87/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;這次是設計流程與估算&lt;/p&gt;
+&lt;p&gt;設計系統，要先做出評估與假設&lt;/p&gt;
+&lt;p&gt;分成user與system&lt;/p&gt;
+&lt;p&gt;user部分要問，誰會用、怎麼用、多少人&lt;/p&gt;
+&lt;p&gt;對system而言，會先收到request，之後變成data，之後要io&lt;/p&gt;
+&lt;p&gt;所以system部分要問，做什麼、input/output是、每秒處理多少request、希望處理多少資料、預期的讀、寫比例&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>system design primer筆記 工具篇</title>
+      <link>https://littlebees.github.io/2021/01/system-design-primer%E7%AD%86%E8%A8%98-%E5%B7%A5%E5%85%B7%E7%AF%87/</link>
+      <pubDate>Thu, 07 Jan 2021 00:46:39 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/01/system-design-primer%E7%AD%86%E8%A8%98-%E5%B7%A5%E5%85%B7%E7%AF%87/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;會知道system design primer是因為某場面試，原本以為system design在網路上沒有什麼資料&lt;/p&gt;
+&lt;p&gt;結果是很多資料，但是system design資料會多，很大一部分是system design包含的面向很廣&lt;/p&gt;
+&lt;p&gt;所以來整理一下，作為了解的開始&lt;/p&gt;
+&lt;p&gt;這篇是介紹會用到的工具，接下來是設計
+但設計還要帶一下估計的方法與常用數字&lt;/p&gt;
+&lt;p&gt;所以之後還有兩篇要整理&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>cpp的Value Categories</title>
+      <link>https://littlebees.github.io/2020/12/cpp%E7%9A%84value-categories/</link>
+      <pubDate>Sun, 27 Dec 2020 03:16:40 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/12/cpp%E7%9A%84value-categories/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;自從多了move之後，C++就整個不一樣了。
+變得十分的詭異，move與現在要講的這個 Value Categories。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>await 與 async 與 promise</title>
+      <link>https://littlebees.github.io/2020/12/await-%E8%88%87-async-%E8%88%87-promise/</link>
+      <pubDate>Sat, 26 Dec 2020 20:21:51 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/12/await-%E8%88%87-async-%E8%88%87-promise/</guid>
+      <description>動機 想到就來寫一寫
+promise is monad promise是從callback hell來的，而每個callback都有接callback的變數，所以可以用之前寫過的方式來把它簡化
+最後拿到的就是promise
+await is bind &amp;amp; async is return 在monad中 return 是 讓一個值變成monad 而 bind 是從monad中取值，再包成monad
+對應到 Promise就是
+then(() =&amp;gt; {}): bind Promise.resolve(val): return 但是寫Promise.resolve(val)配function有點長，所以有了async 寫then((x) =&amp;gt; { return x})只是為了取個值也很煩，所以有了await
+從promise到await 正常的code
+let a = 1 let b = 2 let c = 3 return a+b+c 包成callback
+(a) =&amp;gt; { return (a,b) =&amp;gt; { return (a,b,c) =&amp;gt; { return a+b+c }(1,2,3); }(1,2); }(1); // OR (a) =&amp;gt; { return (b) =&amp;gt; { return (c) =&amp;gt; { return a+b+c }(3); }(2); }(1); 用promise來寫，因為then之間的context不能共享，所以會變得很難看</description>
+    </item>
+    <item>
+      <title>cpp的std::move</title>
+      <link>https://littlebees.github.io/2020/12/cpp%E7%9A%84stdmove/</link>
+      <pubDate>Sat, 26 Dec 2020 12:53:07 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/12/cpp%E7%9A%84stdmove/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;寫寫std::move的筆記&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>C/C&#43;&#43;的FAQ</title>
+      <link>https://littlebees.github.io/2020/12/c/c-%E7%9A%84faq/</link>
+      <pubDate>Sun, 20 Dec 2020 03:53:12 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/12/c/c-%E7%9A%84faq/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;整理一些之前的問題&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>C&#43;&#43; template meta-programming筆記</title>
+      <link>https://littlebees.github.io/2020/12/c-template-meta-programming%E7%AD%86%E8%A8%98/</link>
+      <pubDate>Sat, 19 Dec 2020 02:35:50 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/12/c-template-meta-programming%E7%AD%86%E8%A8%98/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;一切的&lt;a href=&#34;https://stackoverflow.com/questions/8542591/c11-reverse-range-based-for-loop&#34;&gt;開始&lt;/a&gt;，只是想要個reversed而已，就順便把tmp補完&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>C&#43;&#43;的左右值</title>
+      <link>https://littlebees.github.io/2020/08/c-%E7%9A%84%E5%B7%A6%E5%8F%B3%E5%80%BC/</link>
+      <pubDate>Sun, 16 Aug 2020 01:31:36 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/08/c-%E7%9A%84%E5%B7%A6%E5%8F%B3%E5%80%BC/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;auto&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;hi&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[](&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;!&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;hi&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;123&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;這會報錯，十分反人類&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>k8s筆記</title>
+      <link>https://littlebees.github.io/2020/08/k8s%E7%AD%86%E8%A8%98/</link>
+      <pubDate>Sat, 15 Aug 2020 20:41:18 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/08/k8s%E7%AD%86%E8%A8%98/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;突然想起有k8s，就來看看
+越看越像linux主機的抽象化，最後變成近乎linux主機的framework&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>網路如何送資料</title>
+      <link>https://littlebees.github.io/2020/08/%E7%B6%B2%E8%B7%AF%E5%A6%82%E4%BD%95%E9%80%81%E8%B3%87%E6%96%99/</link>
+      <pubDate>Sat, 01 Aug 2020 14:24:40 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/08/%E7%B6%B2%E8%B7%AF%E5%A6%82%E4%BD%95%E9%80%81%E8%B3%87%E6%96%99/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;那就來寫寫看說明文吧&lt;/p&gt;
+&lt;p&gt;第一個問題也是最重要的問題是&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;為什麼分那麼多層?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;接下去就是要說明這件事&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>design pattern隨便筆記</title>
+      <link>https://littlebees.github.io/2020/07/design-pattern%E9%9A%A8%E4%BE%BF%E7%AD%86%E8%A8%98/</link>
+      <pubDate>Sat, 25 Jul 2020 00:56:22 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/07/design-pattern%E9%9A%A8%E4%BE%BF%E7%AD%86%E8%A8%98/</guid>
+      <description>物件與lambda 物件其實就是使用前需要new的lambda
+但
+物件可以有一個以上的function 可以用繼承來傳function給父類別 Factorys 就是把物件生成抽象化
+simple factory 把物件生成的code抽成物件(lambda)
+用參數傳function
+method factory 把物件生成的code抽成要實作的方法
+用override傳function
+abstract factory 把所有物件生成的code
+放到物件中 讓子類別實作 就simple factory+method factory 但實作method從caller本身被抽到另一個物件去
+簡介 接著來介紹pattern的替代方案
+替代方案: lambda Strategy 拉一個interface來產生一個給lambda的洞(attribute)
+Template Method 拉好幾個abstract method給子類別實做需要用到的method
+Bridge 把許多function放在一起
+dict with lots of lambda
+Observer 存callback函數，再把資料透過callback推送出去
+Command 真的就是lambda
+替代方案: Rrcursive data type Decorator data List = Base | Node A List 就是List的type，但是可能會有許多base
+interface layer { int eval(); } class Base implements layer { int eval() { return 0;} } class add10 implements layer { layer next; public add10(layer l) { next = l; } int eval() { return 10+next.</description>
+    </item>
+    <item>
+      <title>db正規化的隨便筆記</title>
+      <link>https://littlebees.github.io/2020/07/db%E6%AD%A3%E8%A6%8F%E5%8C%96%E7%9A%84%E9%9A%A8%E4%BE%BF%E7%AD%86%E8%A8%98/</link>
+      <pubDate>Tue, 21 Jul 2020 11:32:22 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/07/db%E6%AD%A3%E8%A6%8F%E5%8C%96%E7%9A%84%E9%9A%A8%E4%BE%BF%E7%AD%86%E8%A8%98/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;突然想起來 有這種東西
+就來重看一下&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>隨意iptables筆記</title>
+      <link>https://littlebees.github.io/2020/07/%E9%9A%A8%E6%84%8Fiptables%E7%AD%86%E8%A8%98/</link>
+      <pubDate>Sun, 19 Jul 2020 12:39:42 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/07/%E9%9A%A8%E6%84%8Fiptables%E7%AD%86%E8%A8%98/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;記錄下自己怎麼看待iptables&lt;/p&gt;
+&lt;p&gt;iptables把firewall的功能與network stack緊緊地結合在一起
+所以有的時候會看不懂到底發生甚麼事，也不好寫出自己想要的rule
+故在此寫下自己的看法&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>在不同context下的sync與async(與block&amp;non-block比較)</title>
+      <link>https://littlebees.github.io/2020/05/%E5%9C%A8%E4%B8%8D%E5%90%8Ccontext%E4%B8%8B%E7%9A%84sync%E8%88%87async%E8%88%87blocknon-block%E6%AF%94%E8%BC%83/</link>
+      <pubDate>Mon, 04 May 2020 23:58:14 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/05/%E5%9C%A8%E4%B8%8D%E5%90%8Ccontext%E4%B8%8B%E7%9A%84sync%E8%88%87async%E8%88%87blocknon-block%E6%AF%94%E8%BC%83/</guid>
+      <description>caller: block &amp;amp; nonblock caller會等 =&amp;gt; block caller不等 =&amp;gt; nonblock (所以要自己時不是去確認好了沒，或是，callee通知)
+return val: (general&amp;rsquo;s) sync &amp;amp; async 調用後會拿到 sync: 我們想要的資料 async: 類似raincheck的東西，也許馬上，也許要一段時間後，才會拿到我們想要的資料
+要不要自己把copy到userspace的io做完: (NP&amp;rsquo;s) sync &amp;amp; async 前面4種都是最後要自己call system call拉資料，所以是sync，最後user與kernel的任務會同時完成
+async io是user連什麼時候完成都不知道，等到kernel把資料copy好就會call callback
+AJAX var httpRequest = httpRequest = new XMLHttpRequest(); httpRequest.onreadystatechange = function() { // 等狀態變成請求完成狀態 if (httpRequest.readyState === 4 &amp;amp;&amp;amp; httpRequest.status == 200) { httpRequest.responseText } alert(`ERROR - server status code: ${httpRequest.status} xdr status: ${httpRequest.readyState}`); }; httpRequest.open(&amp;#39;GET&amp;#39;, &amp;#39;/api/get_something&amp;#39;); httpRequest.</description>
+    </item>
+    <item>
+      <title>有趣與有用的es6特性</title>
+      <link>https://littlebees.github.io/2020/05/%E6%9C%89%E8%B6%A3%E8%88%87%E6%9C%89%E7%94%A8%E7%9A%84es6%E7%89%B9%E6%80%A7/</link>
+      <pubDate>Mon, 04 May 2020 23:54:10 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/05/%E6%9C%89%E8%B6%A3%E8%88%87%E6%9C%89%E7%94%A8%E7%9A%84es6%E7%89%B9%E6%80%A7/</guid>
+      <description>下面是個人比較喜歡的es6的新特性
+終於來了!! Template Literals `Fifteen is ${a + b} and not ${2 * a + b}.` Arrow Functions function Person() { this.age = 0; // var self = this; // 定義該 Arrow Functions 時的環境，是在 Person 物件中 setInterval(() =&amp;gt; { // 所以 this 會正確指向 Person 物件 this.age++; //self.age++ }, 1000); } var p = new Person(); class syntax sugar class Animal { constructor(name) { this.name = name; } speak() { console.log(this.name + &amp;#39; makes a noise.</description>
+    </item>
+    <item>
+      <title>monad推導，主要是cont monad</title>
+      <link>https://littlebees.github.io/2020/05/monad%E6%8E%A8%E5%B0%8E%E4%B8%BB%E8%A6%81%E6%98%AFcont-monad/</link>
+      <pubDate>Mon, 04 May 2020 23:53:58 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/05/monad%E6%8E%A8%E5%B0%8E%E4%B8%BB%E8%A6%81%E6%98%AFcont-monad/</guid>
+      <description>把參數藏起來 把acc藏起來看看
+(define (sum l acc) (if (null? l) acc (sum (cdr l) (+ acc (car l))))) delay 要藏的變數 (define (sum1 l) (lambda (acc) (if (null? l) acc ((sum2 (cdr l)) (+ (car l) acc))))) 把lambda推到if的兩項 (define (sum2 l) (if (null? l) (lambda (acc) acc) (lambda (acc) ((sum2 (cdr l)) (+ (car l) acc))))) 抽出遞迴的part (define (sum3 l) (if (null? l) (lambda (acc) acc) (let ((m (sum3 (cdr l)))) (lambda (acc) (m (+ (car l) acc)))))) 把運算抽出來，並把delay的變數塞回去 (define (sum4.</description>
+    </item>
+    <item>
+      <title>JS一些概念的整理</title>
+      <link>https://littlebees.github.io/2020/04/js%E4%B8%80%E4%BA%9B%E6%A6%82%E5%BF%B5%E7%9A%84%E6%95%B4%E7%90%86/</link>
+      <pubDate>Tue, 21 Apr 2020 23:35:12 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/04/js%E4%B8%80%E4%BA%9B%E6%A6%82%E5%BF%B5%E7%9A%84%E6%95%B4%E7%90%86/</guid>
+      <description>hoisting console.log(a) var a = 10 會變成類似(會說是類似，因為底層不一定是這樣做)
+var a console.log(a) a = 10 可以把他
+var a = &amp;#39;1&amp;#39; // A... var b = 2 // B ... var c 想像成這樣
+function whatever(a,b,c) { // A ... // B ... }(&amp;#39;1&amp;#39;,1,undefined); 如果有let
+var a = &amp;#39;1&amp;#39; function x() { // a ... let a = 2 } 先想像成
+function whatever(a) { function x() { // a ... let a = 2 // b .</description>
+    </item>
+  </channel>
+</rss>

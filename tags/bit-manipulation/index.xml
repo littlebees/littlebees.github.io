@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Bit Manipulation on 記事本</title>
+    <link>https://littlebees.github.io/tags/bit-manipulation/</link>
+    <description>Recent content in Bit Manipulation on 記事本</description>
+    <image>
+      <title>記事本</title>
+      <url>https://littlebees.github.io/images/papermod-cover.png</url>
+      <link>https://littlebees.github.io/images/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 27 Sep 2021 11:15:18 +0000</lastBuildDate>
+    <atom:link href="https://littlebees.github.io/tags/bit-manipulation/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>leetcode-1863 - Sum of All Subset XOR Totals</title>
+      <link>https://littlebees.github.io/2021/09/leetcode-1863-sum-of-all-subset-xor-totals/</link>
+      <pubDate>Mon, 27 Sep 2021 11:15:18 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/09/leetcode-1863-sum-of-all-subset-xor-totals/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;複習subset的backtrack&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-1525 - Number of Good Ways to Split a String</title>
+      <link>https://littlebees.github.io/2021/09/leetcode-1525-number-of-good-ways-to-split-a-string/</link>
+      <pubDate>Thu, 16 Sep 2021 15:43:54 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/09/leetcode-1525-number-of-good-ways-to-split-a-string/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;可以當成有一個bar，從左邊推到右邊&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-645 - Set Mismatch</title>
+      <link>https://littlebees.github.io/2021/09/leetcode-645-set-mismatch/</link>
+      <pubDate>Tue, 14 Sep 2021 17:11:40 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/09/leetcode-645-set-mismatch/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;水，但好像可以用數學解，但我看不懂&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-1386 - Cinema Seat Allocation</title>
+      <link>https://littlebees.github.io/2021/09/leetcode-1386-cinema-seat-allocation/</link>
+      <pubDate>Sun, 05 Sep 2021 23:02:25 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/09/leetcode-1386-cinema-seat-allocation/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;十分的哭，&lt;code&gt;1 &amp;lt;= n &amp;lt;= 10^9&lt;/code&gt;
+會不會太大&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-89 - Gray Code</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-89-gray-code/</link>
+      <pubDate>Tue, 10 Aug 2021 22:14:13 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-89-gray-code/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;一個是直接幹，一個是mirror&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-260 - Single Number III</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-260-single-number-iii/</link>
+      <pubDate>Sun, 08 Aug 2021 16:15:44 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-260-single-number-iii/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;又是看創意的一題，以後是不是要給這種題目個標籤&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;用mask其中一個bit做分類依據&lt;/em&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-342 - Power of Four</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-342-power-of-four/</link>
+      <pubDate>Sun, 08 Aug 2021 15:36:42 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-342-power-of-four/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;Bit Manipulation，怕&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-389 - Find the Difference</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-389-find-the-difference/</link>
+      <pubDate>Sun, 08 Aug 2021 15:25:06 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-389-find-the-difference/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;只有一個不一樣的就xor下去&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-995 - Minimum Number of K Consecutive Bit Flips</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-995-minimum-number-of-k-consecutive-bit-flips/</link>
+      <pubDate>Wed, 04 Aug 2021 00:38:55 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-995-minimum-number-of-k-consecutive-bit-flips/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;下次處理flip就要這樣處理&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-421 - Maximum XOR of Two Numbers in an Array</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-421-maximum-xor-of-two-numbers-in-an-array/</link>
+      <pubDate>Sun, 01 Aug 2021 23:21:17 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-421-maximum-xor-of-two-numbers-in-an-array/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;真的很有趣，利用bit是list，與xor的特性，所以我可以從最高位一位一位建答案&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-698 - Partition to K Equal Sum Subsets</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-698-partition-to-k-equal-sum-subsets/</link>
+      <pubDate>Sat, 31 Jul 2021 20:28:36 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-698-partition-to-k-equal-sum-subsets/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;人生第一次用狀態壓縮&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-784 - Letter Case Permutation</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-784-letter-case-permutation/</link>
+      <pubDate>Sat, 31 Jul 2021 03:29:58 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-784-letter-case-permutation/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;複習backtrack&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-137 - Single Number II</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-137-single-number-ii/</link>
+      <pubDate>Wed, 28 Jul 2021 22:13:46 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-137-single-number-ii/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;是誰想到用bit去統計的&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-67 - Add Binary</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-67-add-binary/</link>
+      <pubDate>Wed, 28 Jul 2021 01:12:54 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-67-add-binary/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;加加加&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-187 - Repeated DNA Sequences</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-187-repeated-dna-sequences/</link>
+      <pubDate>Tue, 27 Jul 2021 00:38:37 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-187-repeated-dna-sequences/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;複習sliding window&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-90 - Subsets II</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-90-subsets-ii/</link>
+      <pubDate>Mon, 26 Jul 2021 01:25:58 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-90-subsets-ii/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;backtrack與重複&lt;/p&gt;
+&lt;p&gt;filter與next是不是有bug阿&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-29 - Divide Two Integers</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-29-divide-two-integers/</link>
+      <pubDate>Sun, 25 Jul 2021 22:16:27 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-29-divide-two-integers/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;阿，除法&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-287 - Find the Duplicate Number</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-287-find-the-duplicate-number/</link>
+      <pubDate>Fri, 23 Jul 2021 01:26:09 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-287-find-the-duplicate-number/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;這題有很多有趣的解法&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-136 - Single Number</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-136-single-number/</link>
+      <pubDate>Thu, 22 Jul 2021 23:20:53 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-136-single-number/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;XOR!!&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-268 - Missing Number</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-268-missing-number/</link>
+      <pubDate>Wed, 21 Jul 2021 01:19:53 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-268-missing-number/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;以為要用bsearch&amp;hellip;
+結果是搞混了&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-371 - Sum of Two Integers</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-371-sum-of-two-integers/</link>
+      <pubDate>Wed, 21 Jul 2021 00:07:27 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-371-sum-of-two-integers/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;當初是自幹加法器與2補數&amp;hellip;
+該學會用bit operation了，這操作太神啦!!&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-78 - Subsets</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-78-subsets/</link>
+      <pubDate>Sun, 18 Jul 2021 15:48:23 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-78-subsets/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;經典子集列舉&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-779 - K-th Symbol in Grammar</title>
+      <link>https://littlebees.github.io/2021/01/leetcode-779-k-th-symbol-in-grammar/</link>
+      <pubDate>Sun, 31 Jan 2021 20:47:08 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/01/leetcode-779-k-th-symbol-in-grammar/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;十分有趣的題目&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-190 - Reverse Bits</title>
+      <link>https://littlebees.github.io/2021/01/leetcode-190-reverse-bits/</link>
+      <pubDate>Fri, 29 Jan 2021 22:55:52 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/01/leetcode-190-reverse-bits/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;神奇的位元操作&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-191 - Number of 1 Bits</title>
+      <link>https://littlebees.github.io/2021/01/leetcode-191-number-of-1-bits/</link>
+      <pubDate>Sun, 17 Jan 2021 23:03:11 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/01/leetcode-191-number-of-1-bits/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;雖然說是水題，但是在LC的Solution中，卻有一個有趣的解法&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-338 - Counting Bits</title>
+      <link>https://littlebees.github.io/2020/11/leetcode-338-counting-bits/</link>
+      <pubDate>Tue, 03 Nov 2020 02:06:31 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/11/leetcode-338-counting-bits/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;在奇偶性上做dp&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

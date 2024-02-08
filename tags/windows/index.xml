@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Windows on 記事本</title>
+    <link>https://littlebees.github.io/tags/windows/</link>
+    <description>Recent content in Windows on 記事本</description>
+    <image>
+      <title>記事本</title>
+      <url>https://littlebees.github.io/images/papermod-cover.png</url>
+      <link>https://littlebees.github.io/images/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 24 Jun 2021 02:00:28 +0000</lastBuildDate>
+    <atom:link href="https://littlebees.github.io/tags/windows/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>windows上用win10的pxe檔案與架pxe server</title>
+      <link>https://littlebees.github.io/2021/06/windows%E4%B8%8A%E7%94%A8win10%E7%9A%84pxe%E6%AA%94%E6%A1%88%E8%88%87%E6%9E%B6pxe-server/</link>
+      <pubDate>Thu, 24 Jun 2021 02:00:28 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/06/windows%E4%B8%8A%E7%94%A8win10%E7%9A%84pxe%E6%AA%94%E6%A1%88%E8%88%87%E6%9E%B6pxe-server/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;我找不到我的隨身碟，剩下的sd卡也掉到某個床縫中，暫時拿不到
+只好來研究怎麼用網路來裝OS了&lt;/p&gt;
+&lt;p&gt;原本用serva，好不容易用完，開機之後發現帳密不管怎麼打都不對，就只好自立自強了&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>設定windows-mail出現0x80070490的錯誤碼</title>
+      <link>https://littlebees.github.io/2021/02/%E8%A8%AD%E5%AE%9Awindows-mail%E5%87%BA%E7%8F%BE0x80070490%E7%9A%84%E9%8C%AF%E8%AA%A4%E7%A2%BC/</link>
+      <pubDate>Sun, 14 Feb 2021 16:23:11 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/02/%E8%A8%AD%E5%AE%9Awindows-mail%E5%87%BA%E7%8F%BE0x80070490%E7%9A%84%E9%8C%AF%E8%AA%A4%E7%A2%BC/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;重灌電腦遇到紀錄一下&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

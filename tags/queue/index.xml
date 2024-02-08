@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Queue on 記事本</title>
+    <link>https://littlebees.github.io/tags/queue/</link>
+    <description>Recent content in Queue on 記事本</description>
+    <image>
+      <title>記事本</title>
+      <url>https://littlebees.github.io/images/papermod-cover.png</url>
+      <link>https://littlebees.github.io/images/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 15 Aug 2021 14:43:55 +0000</lastBuildDate>
+    <atom:link href="https://littlebees.github.io/tags/queue/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>leetcode-862 - Shortest Subarray with Sum at Least K</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-862-shortest-subarray-with-sum-at-least-k/</link>
+      <pubDate>Sun, 15 Aug 2021 14:43:55 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-862-shortest-subarray-with-sum-at-least-k/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;What makes this problem hard is that we have negative values.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;sliding window + monotone stack = monotone queue&lt;/li&gt;
+&lt;li&gt;prefix sum in fly + hash&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-232 - Implement Queue using Stacks</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-232-implement-queue-using-stacks/</link>
+      <pubDate>Tue, 27 Jul 2021 16:29:25 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-232-implement-queue-using-stacks/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;很經典，但沒想過可以用兩個stack&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-341 - Flatten Nested List Iterator</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-341-flatten-nested-list-iterator/</link>
+      <pubDate>Sun, 25 Jul 2021 22:14:24 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-341-flatten-nested-list-iterator/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;讓每個遞迴只負責一個工作&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-387 - First Unique Character in a String</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-387-first-unique-character-in-a-string/</link>
+      <pubDate>Sun, 18 Jul 2021 23:13:01 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-387-first-unique-character-in-a-string/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;複習Counter&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-239 - Sliding Window Maximum</title>
+      <link>https://littlebees.github.io/2021/01/leetcode-239-sliding-window-maximum/</link>
+      <pubDate>Sat, 30 Jan 2021 16:30:37 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/01/leetcode-239-sliding-window-maximum/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;從sliding window到寫merge interval的變化版&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

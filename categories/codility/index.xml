@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Codility on 記事本</title>
+    <link>https://littlebees.github.io/categories/codility/</link>
+    <description>Recent content in Codility on 記事本</description>
+    <image>
+      <title>記事本</title>
+      <url>https://littlebees.github.io/images/papermod-cover.png</url>
+      <link>https://littlebees.github.io/images/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 06 Nov 2021 22:28:43 +0000</lastBuildDate>
+    <atom:link href="https://littlebees.github.io/categories/codility/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Polygon Concavity Index</title>
+      <link>https://littlebees.github.io/2021/11/polygon-concavity-index/</link>
+      <pubDate>Sat, 06 Nov 2021 22:28:43 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/11/polygon-concavity-index/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;居然有閉包!!
+note: cross往下是負的，cross往上是正的&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Str-Symmetry-Point</title>
+      <link>https://littlebees.github.io/2021/11/str-symmetry-point/</link>
+      <pubDate>Sat, 06 Nov 2021 19:31:54 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/11/str-symmetry-point/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;這題目有夠爛，這根本不像是找對稱點，而是確認對稱點&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>First-Unique</title>
+      <link>https://littlebees.github.io/2021/11/first-unique/</link>
+      <pubDate>Sat, 06 Nov 2021 19:25:36 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/11/first-unique/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;紀錄&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Tree-Height</title>
+      <link>https://littlebees.github.io/2021/11/tree-height/</link>
+      <pubDate>Sat, 06 Nov 2021 19:23:49 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/11/tree-height/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;紀錄&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Array-Inversion-Count</title>
+      <link>https://littlebees.github.io/2021/11/array-inversion-count/</link>
+      <pubDate>Sat, 06 Nov 2021 19:22:05 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/11/array-inversion-count/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;紀錄&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Disappearing-Pairs</title>
+      <link>https://littlebees.github.io/2021/11/disappearing-pairs/</link>
+      <pubDate>Sat, 06 Nov 2021 19:20:51 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/11/disappearing-pairs/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;紀錄&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

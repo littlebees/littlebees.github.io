@@ -1,11 +1,3 @@
 User-agent: *
-Allow: /
-Allow: /archives/
-Allow: /categories/
-Allow: /tags/
-Allow: /about/
-Disallow: /vendors/
-Disallow: /fonts/
-Disallow: /fancybox/
-Disallow: /resume/
+Disallow:
 Sitemap: https://littlebees.github.io/sitemap.xml

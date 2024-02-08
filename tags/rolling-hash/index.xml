@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Rolling Hash on 記事本</title>
+    <link>https://littlebees.github.io/tags/rolling-hash/</link>
+    <description>Recent content in Rolling Hash on 記事本</description>
+    <image>
+      <title>記事本</title>
+      <url>https://littlebees.github.io/images/papermod-cover.png</url>
+      <link>https://littlebees.github.io/images/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 16 Aug 2021 01:14:05 +0000</lastBuildDate>
+    <atom:link href="https://littlebees.github.io/tags/rolling-hash/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>leetcode-718 - Maximum Length of Repeated Subarray</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-718-maximum-length-of-repeated-subarray/</link>
+      <pubDate>Mon, 16 Aug 2021 01:14:05 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-718-maximum-length-of-repeated-subarray/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;超有意思的題目，只能用bottomup dp的題目!!
+下次不能說topdown與bottomup的dp可以互換了&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;topdown dp與bottomup dp差在一個在前半段處理，另一個在後半段&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;因為上面的特質導致這題只能用bottomup&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-187 - Repeated DNA Sequences</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-187-repeated-dna-sequences/</link>
+      <pubDate>Tue, 27 Jul 2021 00:38:37 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-187-repeated-dna-sequences/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;複習sliding window&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

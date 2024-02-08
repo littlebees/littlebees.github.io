@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Merge Sort on 記事本</title>
+    <link>https://littlebees.github.io/tags/merge-sort/</link>
+    <description>Recent content in Merge Sort on 記事本</description>
+    <image>
+      <title>記事本</title>
+      <url>https://littlebees.github.io/images/papermod-cover.png</url>
+      <link>https://littlebees.github.io/images/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 16 Jul 2021 21:24:21 +0000</lastBuildDate>
+    <atom:link href="https://littlebees.github.io/tags/merge-sort/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>leetcode-23 - Merge k Sorted Lists</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-23-merge-k-sorted-lists/</link>
+      <pubDate>Fri, 16 Jul 2021 21:24:21 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-23-merge-k-sorted-lists/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;這題為什麼是hard?&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-493 - Reverse Pairs</title>
+      <link>https://littlebees.github.io/2021/02/leetcode-493-reverse-pairs/</link>
+      <pubDate>Sat, 20 Feb 2021 23:56:07 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/02/leetcode-493-reverse-pairs/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;個數、&lt;code&gt;i&amp;lt;j&lt;/code&gt;，使用divide and conquer的時機!!&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-327 - Count of Range Sum</title>
+      <link>https://littlebees.github.io/2021/02/leetcode-327-count-of-range-sum/</link>
+      <pubDate>Sat, 20 Feb 2021 22:44:11 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/02/leetcode-327-count-of-range-sum/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;使用divide and conquer的時機是?&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-315 - Count of Smaller Numbers After Self</title>
+      <link>https://littlebees.github.io/2021/01/leetcode-315-count-of-smaller-numbers-after-self/</link>
+      <pubDate>Fri, 29 Jan 2021 02:10:08 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/01/leetcode-315-count-of-smaller-numbers-after-self/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;sorted list的index，就是&lt;strong&gt;前面有幾個比自己小&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;index也可以這樣用!?&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-148 - Sort List</title>
+      <link>https://littlebees.github.io/2021/01/leetcode-148-sort-list/</link>
+      <pubDate>Mon, 18 Jan 2021 01:11:06 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/01/leetcode-148-sort-list/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;merge sort的所有case都是O(nLog(n))!!&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

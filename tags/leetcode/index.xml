@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Leetcode on 記事本</title>
+    <link>https://littlebees.github.io/tags/leetcode/</link>
+    <description>Recent content in Leetcode on 記事本</description>
+    <image>
+      <title>記事本</title>
+      <url>https://littlebees.github.io/images/papermod-cover.png</url>
+      <link>https://littlebees.github.io/images/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 30 Jul 2022 10:52:27 +0000</lastBuildDate>
+    <atom:link href="https://littlebees.github.io/tags/leetcode/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>leetcode-1305 - All Elements in Two Binary Search Trees</title>
+      <link>https://littlebees.github.io/2022/07/leetcode-1305-all-elements-in-two-binary-search-trees/</link>
+      <pubDate>Sat, 30 Jul 2022 10:52:27 +0000</pubDate>
+      <guid>https://littlebees.github.io/2022/07/leetcode-1305-all-elements-in-two-binary-search-trees/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;應該可以改成iterator各自的BST，但很麻煩，就直接攤平吧&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-530 - Minimum Absolute Difference in BST</title>
+      <link>https://littlebees.github.io/2022/07/leetcode-530-minimum-absolute-difference-in-bst/</link>
+      <pubDate>Sat, 30 Jul 2022 10:49:04 +0000</pubDate>
+      <guid>https://littlebees.github.io/2022/07/leetcode-530-minimum-absolute-difference-in-bst/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;dfs回傳最大的子節點&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-538 - Convert BST to Greater Tree</title>
+      <link>https://littlebees.github.io/2022/07/leetcode-538-convert-bst-to-greater-tree/</link>
+      <pubDate>Sat, 30 Jul 2022 10:44:51 +0000</pubDate>
+      <guid>https://littlebees.github.io/2022/07/leetcode-538-convert-bst-to-greater-tree/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;post order traversal&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-623 - Add One Row to Tree</title>
+      <link>https://littlebees.github.io/2022/07/leetcode-623-add-one-row-to-tree/</link>
+      <pubDate>Sat, 30 Jul 2022 10:43:07 +0000</pubDate>
+      <guid>https://littlebees.github.io/2022/07/leetcode-623-add-one-row-to-tree/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;從bottom重建tree&lt;/p&gt;
+&lt;p&gt;以後是不是應該整理dfs在tree上的用法?&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-449 - Serialize and Deserialize BST</title>
+      <link>https://littlebees.github.io/2022/07/leetcode-449-serialize-and-deserialize-bst/</link>
+      <pubDate>Sat, 30 Jul 2022 10:40:16 +0000</pubDate>
+      <guid>https://littlebees.github.io/2022/07/leetcode-449-serialize-and-deserialize-bst/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;因為是BST情況就沒有那麼複雜&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-1539 - Kth Missing Positive Number</title>
+      <link>https://littlebees.github.io/2022/07/leetcode-1539-kth-missing-positive-number/</link>
+      <pubDate>Sat, 30 Jul 2022 10:35:26 +0000</pubDate>
+      <guid>https://littlebees.github.io/2022/07/leetcode-1539-kth-missing-positive-number/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;猜數字&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-888 - Fair Candy Swap</title>
+      <link>https://littlebees.github.io/2022/07/leetcode-888-fair-candy-swap/</link>
+      <pubDate>Sat, 30 Jul 2022 10:34:19 +0000</pubDate>
+      <guid>https://littlebees.github.io/2022/07/leetcode-888-fair-candy-swap/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;直接求數字就好&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-1608 - Special Array With X Elements Greater Than or Equal X</title>
+      <link>https://littlebees.github.io/2022/07/leetcode-1608-special-array-with-x-elements-greater-than-or-equal-x/</link>
+      <pubDate>Sat, 30 Jul 2022 10:32:25 +0000</pubDate>
+      <guid>https://littlebees.github.io/2022/07/leetcode-1608-special-array-with-x-elements-greater-than-or-equal-x/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;猜數字&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-1315 - Sum of Nodes with Even-Valued Grandparent</title>
+      <link>https://littlebees.github.io/2022/04/leetcode-1315-sum-of-nodes-with-even-valued-grandparent/</link>
+      <pubDate>Tue, 12 Apr 2022 01:41:45 +0000</pubDate>
+      <guid>https://littlebees.github.io/2022/04/leetcode-1315-sum-of-nodes-with-even-valued-grandparent/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;讓每個點決定自己該做什麼&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>打leetcode API心得</title>
+      <link>https://littlebees.github.io/2021/08/%E6%89%93leetcode-api%E5%BF%83%E5%BE%97/</link>
+      <pubDate>Fri, 06 Aug 2021 23:30:57 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/%E6%89%93leetcode-api%E5%BF%83%E5%BE%97/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;以前只有留解法，之後要看的時候很難一次回想起，這些到底要幹嘛
+所以就研究怎麼打api，抓資料再跑腳本&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode的問題集</title>
+      <link>https://littlebees.github.io/2021/07/leetcode%E7%9A%84%E5%95%8F%E9%A1%8C%E9%9B%86/</link>
+      <pubDate>Mon, 26 Jul 2021 01:36:13 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode%E7%9A%84%E5%95%8F%E9%A1%8C%E9%9B%86/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;leetcode如今已經累積接近2000題，要刷就從別人整理好的list開始&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-Concurrency</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-concurrency/</link>
+      <pubDate>Sun, 04 Jul 2021 23:55:59 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-concurrency/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;解解LC的題目&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-4 - Median of Two Sorted Arrays</title>
+      <link>https://littlebees.github.io/2020/11/leetcode-4-median-of-two-sorted-arrays/</link>
+      <pubDate>Sat, 07 Nov 2020 02:40:45 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/11/leetcode-4-median-of-two-sorted-arrays/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;這題體現了二分法是一種藝術&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Line Sweep on 記事本</title>
+    <link>https://littlebees.github.io/tags/line-sweep/</link>
+    <description>Recent content in Line Sweep on 記事本</description>
+    <image>
+      <title>記事本</title>
+      <url>https://littlebees.github.io/images/papermod-cover.png</url>
+      <link>https://littlebees.github.io/images/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 14 Sep 2021 16:28:59 +0000</lastBuildDate>
+    <atom:link href="https://littlebees.github.io/tags/line-sweep/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>leetcode-391 - Perfect Rectangle</title>
+      <link>https://littlebees.github.io/2021/09/leetcode-391-perfect-rectangle/</link>
+      <pubDate>Tue, 14 Sep 2021 16:28:59 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/09/leetcode-391-perfect-rectangle/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;原來有symmetric difference&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-850 - Rectangle Area II</title>
+      <link>https://littlebees.github.io/2021/09/leetcode-850-rectangle-area-ii/</link>
+      <pubDate>Tue, 14 Sep 2021 16:24:25 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/09/leetcode-850-rectangle-area-ii/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;在你疑惑怎麼在x軸做linesweep時，lee215直接從y軸做離散化!!&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-218 - The Skyline Problem</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-218-the-skyline-problem/</link>
+      <pubDate>Wed, 28 Jul 2021 19:27:53 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-218-the-skyline-problem/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;被這題搞了兩天，所以要記錄下來
+以前沒有看線段合併的Divide and Conquer，所以要記錄下來 (還債)
+以前沒有看Segment tree，所以要記錄下來 (還債)&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

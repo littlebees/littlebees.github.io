@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>OS on 記事本</title>
+    <link>https://littlebees.github.io/tags/os/</link>
+    <description>Recent content in OS on 記事本</description>
+    <image>
+      <title>記事本</title>
+      <url>https://littlebees.github.io/images/papermod-cover.png</url>
+      <link>https://littlebees.github.io/images/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 18 Jan 2022 11:44:22 +0000</lastBuildDate>
+    <atom:link href="https://littlebees.github.io/tags/os/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>電腦從0開始</title>
+      <link>https://littlebees.github.io/2022/01/%E9%9B%BB%E8%85%A6%E5%BE%9E0%E9%96%8B%E5%A7%8B/</link>
+      <pubDate>Tue, 18 Jan 2022 11:44:22 +0000</pubDate>
+      <guid>https://littlebees.github.io/2022/01/%E9%9B%BB%E8%85%A6%E5%BE%9E0%E9%96%8B%E5%A7%8B/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;這篇主要在看怎麼從最一開始到一個可以打字的kernel的過程
+重點不是裡面的code，而是過程&lt;/p&gt;
+&lt;p&gt;因為真正讓人痛苦的東西其實是在os提供的各種抽象設施，也是progammer要在意的點&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

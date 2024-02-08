@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Reading on 記事本</title>
+    <link>https://littlebees.github.io/categories/reading/</link>
+    <description>Recent content in Reading on 記事本</description>
+    <image>
+      <title>記事本</title>
+      <url>https://littlebees.github.io/images/papermod-cover.png</url>
+      <link>https://littlebees.github.io/images/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 30 Jul 2022 10:58:01 +0000</lastBuildDate>
+    <atom:link href="https://littlebees.github.io/categories/reading/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>思辨賽局：看穿局勢、創造優勢的策略智慧 心得</title>
+      <link>https://littlebees.github.io/2022/07/%E6%80%9D%E8%BE%A8%E8%B3%BD%E5%B1%80%E7%9C%8B%E7%A9%BF%E5%B1%80%E5%8B%A2%E5%89%B5%E9%80%A0%E5%84%AA%E5%8B%A2%E7%9A%84%E7%AD%96%E7%95%A5%E6%99%BA%E6%85%A7-%E5%BF%83%E5%BE%97/</link>
+      <pubDate>Sat, 30 Jul 2022 10:58:01 +0000</pubDate>
+      <guid>https://littlebees.github.io/2022/07/%E6%80%9D%E8%BE%A8%E8%B3%BD%E5%B1%80%E7%9C%8B%E7%A9%BF%E5%B1%80%E5%8B%A2%E5%89%B5%E9%80%A0%E5%84%AA%E5%8B%A2%E7%9A%84%E7%AD%96%E7%95%A5%E6%99%BA%E6%85%A7-%E5%BF%83%E5%BE%97/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;好看!!
+讓我之後想去看Algorithmic Game Theory&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>the complete guide to rails performance讀後筆記</title>
+      <link>https://littlebees.github.io/2022/01/the-complete-guide-to-rails-performance%E8%AE%80%E5%BE%8C%E7%AD%86%E8%A8%98/</link>
+      <pubDate>Sun, 30 Jan 2022 14:44:01 +0000</pubDate>
+      <guid>https://littlebees.github.io/2022/01/the-complete-guide-to-rails-performance%E8%AE%80%E5%BE%8C%E7%AD%86%E8%A8%98/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;好看的書，但我主要是看怎麼profile與gc所以有跳過一些部分&lt;/p&gt;
+&lt;p&gt;跳過:
+webfont, CDN, SSL, HTTP cache, Rails Cache, Backgrounding Work&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>奔跑吧linux內核ch2~ch5摘錄</title>
+      <link>https://littlebees.github.io/2022/01/%E5%A5%94%E8%B7%91%E5%90%A7linux%E5%85%A7%E6%A0%B8ch2~ch5%E6%91%98%E9%8C%84/</link>
+      <pubDate>Sun, 30 Jan 2022 14:08:36 +0000</pubDate>
+      <guid>https://littlebees.github.io/2022/01/%E5%A5%94%E8%B7%91%E5%90%A7linux%E5%85%A7%E6%A0%B8ch2~ch5%E6%91%98%E9%8C%84/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;當初看這本是想補完一些linux kernel的設計實做，但最後發現除了第一章之外，都是code加直譯code的中文&amp;hellip;&lt;/p&gt;
+&lt;p&gt;這樣與自己trace有什麼區別!?&lt;/p&gt;
+&lt;p&gt;code只是設計的其中一種體現
+書的重點應該是介紹設計，再加上一些比較特別或是重要的code&lt;/p&gt;
+&lt;p&gt;所以後面就改成挑經典概念(不同於xv6)的解釋&lt;/p&gt;
+&lt;p&gt;ch4是說lock的實做，所以挑RCU來說
+ch5是說中斷的，可以參考linux kernel development與xv6的pdf
+ch6是怎麼debug像ftrace與debugfs、systemtap、kasan、kmemleak、CONFIG_DEBUG_LOOKDEP&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>最高閒聊法</title>
+      <link>https://littlebees.github.io/2022/01/%E6%9C%80%E9%AB%98%E9%96%92%E8%81%8A%E6%B3%95/</link>
+      <pubDate>Mon, 17 Jan 2022 11:06:31 +0000</pubDate>
+      <guid>https://littlebees.github.io/2022/01/%E6%9C%80%E9%AB%98%E9%96%92%E8%81%8A%E6%B3%95/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;書越來越貴了&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Power：Why Some People Have It and Others Don’t</title>
+      <link>https://littlebees.github.io/2022/01/powerwhy-some-people-have-it-and-others-dont/</link>
+      <pubDate>Mon, 17 Jan 2022 11:04:49 +0000</pubDate>
+      <guid>https://littlebees.github.io/2022/01/powerwhy-some-people-have-it-and-others-dont/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The idea is nothing effects you until you agree to be affected.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    <item>
+      <title>Designing Data-Intensive Applications</title>
+      <link>https://littlebees.github.io/2022/01/designing-data-intensive-applications/</link>
+      <pubDate>Mon, 17 Jan 2022 10:35:09 +0000</pubDate>
+      <guid>https://littlebees.github.io/2022/01/designing-data-intensive-applications/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;不可多得的一本書，把所有與DB與distrubuted computing的手法與議題都說了一遍&lt;/p&gt;
+&lt;p&gt;有&lt;a href=&#34;https://github.com/Vonng/DDIA&#34;&gt;簡中翻譯&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>巨型服務架構：分布式/資料庫優化/記憶體快取設計/IO模型</title>
+      <link>https://littlebees.github.io/2022/01/%E5%B7%A8%E5%9E%8B%E6%9C%8D%E5%8B%99%E6%9E%B6%E6%A7%8B%E5%88%86%E5%B8%83%E5%BC%8F/%E8%B3%87%E6%96%99%E5%BA%AB%E5%84%AA%E5%8C%96/%E8%A8%98%E6%86%B6%E9%AB%94%E5%BF%AB%E5%8F%96%E8%A8%AD%E8%A8%88/io%E6%A8%A1%E5%9E%8B/</link>
+      <pubDate>Mon, 17 Jan 2022 10:31:32 +0000</pubDate>
+      <guid>https://littlebees.github.io/2022/01/%E5%B7%A8%E5%9E%8B%E6%9C%8D%E5%8B%99%E6%9E%B6%E6%A7%8B%E5%88%86%E5%B8%83%E5%BC%8F/%E8%B3%87%E6%96%99%E5%BA%AB%E5%84%AA%E5%8C%96/%E8%A8%98%E6%86%B6%E9%AB%94%E5%BF%AB%E5%8F%96%E8%A8%AD%E8%A8%88/io%E6%A8%A1%E5%9E%8B/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;查漏補缺&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>怎麼survey</title>
+      <link>https://littlebees.github.io/2021/10/%E6%80%8E%E9%BA%BCsurvey/</link>
+      <pubDate>Wed, 27 Oct 2021 22:17:59 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/10/%E6%80%8E%E9%BA%BCsurvey/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;這篇是結合採訪、寫作、survey的總結文
+採訪與survey很像但不同是面對的是人，所以另外用quote的方式附上採訪的重點&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>奔跑吧linux kernel第一章筆記</title>
+      <link>https://littlebees.github.io/2021/08/%E5%A5%94%E8%B7%91%E5%90%A7linux-kernel%E7%AC%AC%E4%B8%80%E7%AB%A0%E7%AD%86%E8%A8%98/</link>
+      <pubDate>Thu, 12 Aug 2021 15:39:00 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/%E5%A5%94%E8%B7%91%E5%90%A7linux-kernel%E7%AC%AC%E4%B8%80%E7%AB%A0%E7%AD%86%E8%A8%98/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;這書真的很厚，光是第二章就佔了全書的一半，所以就一章一篇吧&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>The little prover 筆記</title>
+      <link>https://littlebees.github.io/2021/07/the-little-prover-%E7%AD%86%E8%A8%98/</link>
+      <pubDate>Wed, 14 Jul 2021 00:30:09 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/the-little-prover-%E7%AD%86%E8%A8%98/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;久遠筆記搬到github這裡，不過也是改寫超多東西的&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>A little java, a few patterns筆記</title>
+      <link>https://littlebees.github.io/2021/07/a-little-java-a-few-patterns%E7%AD%86%E8%A8%98/</link>
+      <pubDate>Wed, 07 Jul 2021 00:19:54 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/a-little-java-a-few-patterns%E7%AD%86%E8%A8%98/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;這已經雪藏很久了，久在github page還沒用到之前就在我的google docs中
+整理一下貼出來&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Linux Kernel Development 3rd筆記</title>
+      <link>https://littlebees.github.io/2021/06/linux-kernel-development-3rd%E7%AD%86%E8%A8%98/</link>
+      <pubDate>Sat, 26 Jun 2021 03:31:56 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/06/linux-kernel-development-3rd%E7%AD%86%E8%A8%98/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;不記實際上怎麼跑與跑了什麼，只記設計與方便未來查詢的部分
+畢竟這是基於linux2.6的&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Green Threads Explained筆記</title>
+      <link>https://littlebees.github.io/2021/06/green-threads-explained%E7%AD%86%E8%A8%98/</link>
+      <pubDate>Wed, 23 Jun 2021 15:41:46 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/06/green-threads-explained%E7%AD%86%E8%A8%98/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;偶然找到&lt;a href=&#34;https://c9x.me/articles/gthreads/intro.html&#34;&gt;Green Threads Explained&lt;/a&gt;很讚，做點筆記&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>圖解linux核心工作原理整理</title>
+      <link>https://littlebees.github.io/2021/06/%E5%9C%96%E8%A7%A3linux%E6%A0%B8%E5%BF%83%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E6%95%B4%E7%90%86/</link>
+      <pubDate>Sun, 13 Jun 2021 00:46:14 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/06/%E5%9C%96%E8%A7%A3linux%E6%A0%B8%E5%BF%83%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E6%95%B4%E7%90%86/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;都買了就讀一下&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>The Pragmatic Programmer快速翻閱節錄</title>
+      <link>https://littlebees.github.io/2021/02/the-pragmatic-programmer%E5%BF%AB%E9%80%9F%E7%BF%BB%E9%96%B1%E7%AF%80%E9%8C%84/</link>
+      <pubDate>Sun, 21 Feb 2021 00:26:47 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/02/the-pragmatic-programmer%E5%BF%AB%E9%80%9F%E7%BF%BB%E9%96%B1%E7%AF%80%E9%8C%84/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;翻翻The Pragmatic Programmer 20週年紀念版的一些紀錄我感覺很重要的部分&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>The Little MLer 筆記</title>
+      <link>https://littlebees.github.io/2020/05/the-little-mler-%E7%AD%86%E8%A8%98/</link>
+      <pubDate>Sun, 24 May 2020 23:07:10 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/05/the-little-mler-%E7%AD%86%E8%A8%98/</guid>
+      <description>ch0: 執行環境 想用wsl來跑sml的話，poly/ml是不錯的選項
+ch1: 定義type datatype num = ZERO | ONE_MORE of num datatype ‘a Slist = NIL of ‘a | SCONS of ‘a Slist ch2: 寫function datatype Abc = A | B of Abc | C of Abc fun only_B(A) = true | only_B(B(x)) = only_B(x) | only_B(C(x)) = false (only_B : Abc -&amp;gt; bool) datatype ‘a Xyz = X of ‘a | Y of ‘a Xyz | Z of ‘a Xyz fun is_xy(X(x)) = true | is_xy(Y(x)) = is_xy(x) | is_xy(Z(x)) = false (is_xy : ‘a Xyz -&amp;gt; bool) ch3: 在list上遞迴 fun rem_B(A) = A | rem_B(B(x)) = rem_B(x) | rem_B(C(x)) = C(rem_B(x)) fun C_in_fron_of_B(A) = A | C_in_fron_of_B(B(x)) = C(B(C_in_fron_of_B(x))) | C_in_fron_of_B(C(x)) = C(C_in_fron_of_B(x)) fun subst_B_C(x) = rem_B(C_in_fron_of_B(x)) (* OR *) fun subst_B_C(A) = A | subst_B_C(B(x)) = C(subst_B_C(x)) | subst_B_C(C(x)) = C(subst_B_C(x)) (* 都是走訪同一list故可以用同一種走訪，把兩個式子結合起來(map fusion) *) ch4: tuple &amp;amp; 多參數function (A,X,A) :: (Abc * Xyz * Abc) datatype Abc = A | B | C fun add_a(A) = (A,A) | add_a(B) = (B,A) | add_a = (C,A) (add_a : Abc -&amp;gt; (Abc * Abc)) 可以利用type variable來打少一點字</description>
+    </item>
+    <item>
+      <title>little typer 後篇(8~16) 整理與筆記</title>
+      <link>https://littlebees.github.io/2020/05/little-typer-%E5%BE%8C%E7%AF%878~16-%E6%95%B4%E7%90%86%E8%88%87%E7%AD%86%E8%A8%98/</link>
+      <pubDate>Sat, 16 May 2020 17:34:32 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/05/little-typer-%E5%BE%8C%E7%AF%878~16-%E6%95%B4%E7%90%86%E8%88%87%E7%AD%86%E8%A8%98/</guid>
+      <description>來證明啦
+ch8 &amp;amp; ch9 &amp;amp; ch10 &amp;amp; ch11 現在說用type證明，但實際上怎麼做?
+在claim寫下想證的東西，在define證出來
+incr &amp;amp; + (claim incr (-&amp;gt; Nat Nat)) (define incr (λ (n) (iter-Nat n 1 (+ 1)))) (claim + (-&amp;gt; Nat Nat Nat)) (define + (λ (a b) (iter-Nat a b (λ (ret) (add1 ret))))) +1=add1 證對於任何整數，add1等於+1
+(claim +1=add1 (Pi ((n Nat)) (= Nat (+ 1 n) (add1 n)))) 所以我們需要一個value的type是(= Nat (+ 1 n) (add1 n))) 先把1帶入+中，會發現根本就是(add1 n)
+也就是兩邊都一樣，same!!
+(define +1=add1 (λ (n) (same (+ 1 n)))) incr=add1 同樣的來試試incr=add1</description>
+    </item>
+    <item>
+      <title>little typer 前篇(1~7) 整理與筆記</title>
+      <link>https://littlebees.github.io/2020/05/little-typer-%E5%89%8D%E7%AF%871~7-%E6%95%B4%E7%90%86%E8%88%87%E7%AD%86%E8%A8%98/</link>
+      <pubDate>Sat, 16 May 2020 17:34:21 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/05/little-typer-%E5%89%8D%E7%AF%871~7-%E6%95%B4%E7%90%86%E8%88%87%E7%AD%86%E8%A8%98/</guid>
+      <description>介紹Pie怎麼用
+ch1 &amp;amp; ch2 &amp;amp; ch3 所有東西都是expression 有人斷言expression有某種屬性或與其他expression有共通的特質是judgment Sentences get their meaning from those who understand them. The sentences capture thoughts that we have, and thoughts are more important than the words we use to express them. 描述某一群expression的expression是Type 當type constructor在頂部就是type (Pair Nat Nat) constructor在頂部就是Value constructor會產生某個type的實體(像add1會產生Nat的實體，8也是Nat的實體) eliminator會分解value取出構成value的資訊 當某一expression無法再被改寫時叫normal form 改寫expression叫evaluation expression因為有變數而無法繼續改寫叫neutral 只要長的一樣就是same (不是等於，之後會用same去證等於) total function對任何一個值都能產生對應的值 沒有遞迴 因為每個expression都一定要收斂 所以有其他東西來做類似的效果 evaluation &amp;amp; value 在dependent type中，evaluation得到的是expression 在一般PL(像lisp)中，evaluation得到的是value 在一般PL中，expression與value是不同類別的東西
+ch4 &amp;amp; ch5 claim &amp;amp; define 在pie中要產生一個變數要先claim再define</description>
+    </item>
+    <item>
+      <title>Rebuilding Rails的心得</title>
+      <link>https://littlebees.github.io/2020/04/rebuilding-rails%E7%9A%84%E5%BF%83%E5%BE%97/</link>
+      <pubDate>Fri, 17 Apr 2020 11:28:15 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/04/rebuilding-rails%E7%9A%84%E5%BF%83%E5%BE%97/</guid>
+      <description>Ch1 Zero to “It Works!” Gem的檔案結構 $ bundle gem rulers create rulers/Gemfile create rulers/Rakefile create rulers/LICENSE.txt create rulers/README.md create rulers/.gitignore create rulers/rulers.gemspec # !! create rulers/lib/rulers.rb # !! create rulers/lib/rulers/version.rb Initializating git repo in src/rulers rulers/rulers.gemspec放的是gem的資訊與dependency
+rulers/lib/rulers.rb就是主程式
+dependency分成development與runtime # rulers.gemspec gem.add_development_dependency &amp;#34;rspec&amp;#34; gem.add_runtime_dependency &amp;#34;rest-client&amp;#34; rack進入點 與 rack app回傳值的資料結構 # best_quotes/config.ru run proc { [200, {&amp;#39;Content-Type&amp;#39; =&amp;gt; &amp;#39;text/html&amp;#39;}, [&amp;#34;Hello, world!&amp;#34;]] } 狀態值,header,資料
+rack app 的 interface # rulers/lib/rulers.rb require &amp;#34;rulers/version&amp;#34; module Rulers class Application def call(env) [200, {&amp;#39;Content-Type&amp;#39; =&amp;gt; &amp;#39;text/html&amp;#39;}, [&amp;#34;Hello from Ruby on Rulers!</description>
+    </item>
+    <item>
+      <title>The Seasoned Schemer讀後筆記</title>
+      <link>https://littlebees.github.io/2020/04/the-seasoned-schemer%E8%AE%80%E5%BE%8C%E7%AD%86%E8%A8%98/</link>
+      <pubDate>Wed, 15 Apr 2020 23:58:57 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/04/the-seasoned-schemer%E8%AE%80%E5%BE%8C%E7%AD%86%E8%A8%98/</guid>
+      <description>前言 The Seasoned Schemer(TSS)的目的是補完TLS中沒有提及的狀態。 這篇筆記同樣不依照章節順序，用主題式的方式，把我心中的這本書呈現出來。
+行前須知 知道什麼是?
+Scheme 遞迴 accumulator parameter reverse 如果要反轉list，在有append情況下可以寫成
+(define (rev l) (if (null? l) &amp;#39;() (append (rev (cdr l)) (cons (car l) &amp;#39;())))) 但我們需要一直append嗎? 如果我們可以從第一個開始就先cons出來的東西，不就是我們要的。
+(define (rev l acc) (if (null? l) acc (rev (cdr l) (cons (car l) acc)))) 引入acc可以記下我們從頭到目前看過的東西。
+flatten 同樣在要攤平list時，如果有append可寫成
+(define (atom? x) (and (not (pair? x)) (not (null? x)))) (define (fl lol) (cond [(null? lol) &amp;#39;()] [(atom? (car lol)) (cons (car lol) (fl (cdr lol)))] [else (append (fl (car lol)) (fl (cdr lol)))])) 這裡是不是可以利用剛剛acc可以記下目前看過的東西的特性來改寫呢?</description>
+    </item>
+    <item>
+      <title>The Little Schemer讀後筆記</title>
+      <link>https://littlebees.github.io/2020/04/the-little-schemer%E8%AE%80%E5%BE%8C%E7%AD%86%E8%A8%98/</link>
+      <pubDate>Wed, 15 Apr 2020 17:55:27 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/04/the-little-schemer%E8%AE%80%E5%BE%8C%E7%AD%86%E8%A8%98/</guid>
+      <description>前言 The Little Schemer(TLS)的目的是教讀者寫遞迴。 這篇筆記不依照章節順序，用主題式的方式，把我心中的這本書呈現出來。
+行前須知 知道什麼是?
+base 與 inductive case 在歸納法中大概的意思 快速Scheme Tutorial 調用: (&amp;lt;function-or-operator) &amp;lt;args...&amp;gt;) 宣告變數: (define &amp;lt;var-name&amp;gt; &amp;lt;value&amp;gt;) 條件式:
+(if &amp;lt;predicate&amp;gt; &amp;lt;when-true&amp;gt; &amp;lt;when-false&amp;gt;) (cond [&amp;lt;predicate&amp;gt; &amp;lt;do-somthing&amp;gt;] ... [else &amp;lt;do-somthing&amp;gt;]) 函數:
+(define &amp;lt;func-name&amp;gt; (lambda (&amp;lt;args...&amp;gt;) &amp;lt;do-somthing&amp;gt;)) ;; OR (define (&amp;lt;func-name&amp;gt; (&amp;lt;args...&amp;gt;)) &amp;lt;do-somthing&amp;gt;) 匿名函數:
+(lambda (&amp;lt;args...&amp;gt;) &amp;lt;do-somthing&amp;gt;) 本書用到的資料結構介紹 Atom &amp;lt;line-of-characters&amp;gt;還有數字
+List of OO 有哪些可能性(case) base case: 空 inductive case: 有東西 建構 空 的case : &amp;lsquo;() 有東西 的case : cons 分解 有東西 的case : car 與 cdr 對應到cons有兩個參數，所以會有兩個解構子。 區分case 空 的case : null?</description>
+    </item>
+  </channel>
+</rss>

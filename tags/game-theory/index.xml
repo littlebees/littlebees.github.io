@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Game Theory on 記事本</title>
+    <link>https://littlebees.github.io/tags/game-theory/</link>
+    <description>Recent content in Game Theory on 記事本</description>
+    <image>
+      <title>記事本</title>
+      <url>https://littlebees.github.io/images/papermod-cover.png</url>
+      <link>https://littlebees.github.io/images/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 09 Jan 2021 16:23:03 +0000</lastBuildDate>
+    <atom:link href="https://littlebees.github.io/tags/game-theory/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>leetcode-877 - Stone Game</title>
+      <link>https://littlebees.github.io/2021/01/leetcode-877-stone-game/</link>
+      <pubDate>Sat, 09 Jan 2021 16:23:03 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/01/leetcode-877-stone-game/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;每次看到math的解法，都會想是不是有鬼，所以不會去想，還有原本就是要練DP，所以要不會往那邊想&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-292 - Nim Game</title>
+      <link>https://littlebees.github.io/2020/12/leetcode-292-nim-game/</link>
+      <pubDate>Thu, 31 Dec 2020 00:59:34 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/12/leetcode-292-nim-game/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;原來這麼簡單!?&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

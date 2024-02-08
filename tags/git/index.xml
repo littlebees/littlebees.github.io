@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Git on 記事本</title>
+    <link>https://littlebees.github.io/tags/git/</link>
+    <description>Recent content in Git on 記事本</description>
+    <image>
+      <title>記事本</title>
+      <url>https://littlebees.github.io/images/papermod-cover.png</url>
+      <link>https://littlebees.github.io/images/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 01 Feb 2021 23:04:10 +0000</lastBuildDate>
+    <atom:link href="https://littlebees.github.io/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>apply patch到在不同資料夾不同的檔案名的檔案</title>
+      <link>https://littlebees.github.io/2021/02/apply-patch%E5%88%B0%E5%9C%A8%E4%B8%8D%E5%90%8C%E8%B3%87%E6%96%99%E5%A4%BE%E4%B8%8D%E5%90%8C%E7%9A%84%E6%AA%94%E6%A1%88%E5%90%8D%E7%9A%84%E6%AA%94%E6%A1%88/</link>
+      <pubDate>Mon, 01 Feb 2021 23:04:10 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/02/apply-patch%E5%88%B0%E5%9C%A8%E4%B8%8D%E5%90%8C%E8%B3%87%E6%96%99%E5%A4%BE%E4%B8%8D%E5%90%8C%E7%9A%84%E6%AA%94%E6%A1%88%E5%90%8D%E7%9A%84%E6%AA%94%E6%A1%88/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;之前遇到，要apply一個patch到十分類似的檔案，雖然說十分類似，但還是會想說會不會因為有不同的地方所以會報錯之類的，結果沒有，所以記錄一下&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>git conflict 與 three-ways-merge</title>
+      <link>https://littlebees.github.io/2021/02/git-conflict-%E8%88%87-three-ways-merge/</link>
+      <pubDate>Mon, 01 Feb 2021 22:40:04 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/02/git-conflict-%E8%88%87-three-ways-merge/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;之前有遇過，但沒有好好認識他，來記錄一下&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>git筆記</title>
+      <link>https://littlebees.github.io/2020/06/git%E7%AD%86%E8%A8%98/</link>
+      <pubDate>Mon, 15 Jun 2020 20:56:10 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/06/git%E7%AD%86%E8%A8%98/</guid>
+      <description>動機 git的指令很多，希望能用一種統一的觀點來看
+commit as Node (folder) -&amp;gt; (stage :: node) -&amp;gt; (repo :: linked list) | \ / (stash :: pool of nodes) Linked List new node &amp;amp; use existing node git add 把folder中的file，加到node中 git stash 把還沒加到repo(linked list)的node放到node的暫存區 edit the last node git amend 修改最後一個node(HEAD) iterate nodes git filter-branch list.map ... git rebase newlist = list.each ...; list.append(newlist) 可以edit, squash(融合), drop, pick(保留) ptr to node git tag 單純的ptr git branch 替node加上新的ptr，只是這個ptr會在他被append一個新node時，把該ptr往後移動 所以可以把這個ptr當成&amp;quot;最新&amp;quot;或是&amp;quot;現在&amp;quot; append node(s) git commit 把目前的node加到目前HEAD的後面 就是list.</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Simulation on 記事本</title>
+    <link>https://littlebees.github.io/tags/simulation/</link>
+    <description>Recent content in Simulation on 記事本</description>
+    <image>
+      <title>記事本</title>
+      <url>https://littlebees.github.io/images/papermod-cover.png</url>
+      <link>https://littlebees.github.io/images/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 27 Sep 2021 00:18:41 +0000</lastBuildDate>
+    <atom:link href="https://littlebees.github.io/tags/simulation/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>leetcode-1441 - Build an Array With Stack Operations</title>
+      <link>https://littlebees.github.io/2021/09/leetcode-1441-build-an-array-with-stack-operations/</link>
+      <pubDate>Mon, 27 Sep 2021 00:18:41 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/09/leetcode-1441-build-an-array-with-stack-operations/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;就硬幹&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-415 - Add Strings</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-415-add-strings/</link>
+      <pubDate>Tue, 10 Aug 2021 00:39:33 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-415-add-strings/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;就之前的add two number&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-498 - Diagonal Traverse</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-498-diagonal-traverse/</link>
+      <pubDate>Sun, 08 Aug 2021 15:24:11 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-498-diagonal-traverse/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;reverse是好東西&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-844 - Backspace String Compare</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-844-backspace-string-compare/</link>
+      <pubDate>Thu, 29 Jul 2021 02:38:23 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-844-backspace-string-compare/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;複習stack，但第二個解法很漂亮&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-67 - Add Binary</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-67-add-binary/</link>
+      <pubDate>Wed, 28 Jul 2021 01:12:54 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-67-add-binary/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;加加加&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-1275 - Find Winner on a Tic Tac Toe Game</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-1275-find-winner-on-a-tic-tac-toe-game/</link>
+      <pubDate>Tue, 27 Jul 2021 22:58:34 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-1275-find-winner-on-a-tic-tac-toe-game/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;照著做&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-412 - Fizz Buzz</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-412-fizz-buzz/</link>
+      <pubDate>Sat, 24 Jul 2021 23:41:26 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-412-fizz-buzz/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;超常見水題&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-54 - Spiral Matrix</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-54-spiral-matrix/</link>
+      <pubDate>Tue, 20 Jul 2021 22:41:16 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-54-spiral-matrix/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;評語同&lt;a href=&#34;https://littlebees.github.io/2021/07/leetcode-48&#34;&gt;48&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-289 - Game of Life</title>
+      <link>https://littlebees.github.io/2021/01/leetcode-289-game-of-life/</link>
+      <pubDate>Mon, 18 Jan 2021 21:35:46 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/01/leetcode-289-game-of-life/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;用數字代表狀態變化&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-43 - Multiply Strings</title>
+      <link>https://littlebees.github.io/2020/11/leetcode-43-multiply-strings/</link>
+      <pubDate>Mon, 02 Nov 2020 01:19:30 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/11/leetcode-43-multiply-strings/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;這題是考細心，基本上一般人都知道做法，
+但是要實作就是細細思考，處理小細節&lt;/p&gt;
+&lt;p&gt;同時善用function去包常call的操作，降低實作的複雜度，以免在寫出來之前頭腦先爆炸&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

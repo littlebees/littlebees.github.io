@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Quickselect on 記事本</title>
+    <link>https://littlebees.github.io/tags/quickselect/</link>
+    <description>Recent content in Quickselect on 記事本</description>
+    <image>
+      <title>記事本</title>
+      <url>https://littlebees.github.io/images/papermod-cover.png</url>
+      <link>https://littlebees.github.io/images/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 01 Aug 2021 15:01:00 +0000</lastBuildDate>
+    <atom:link href="https://littlebees.github.io/tags/quickselect/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>leetcode-973 - K Closest Points to Origin</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-973-k-closest-points-to-origin/</link>
+      <pubDate>Sun, 01 Aug 2021 15:01:00 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-973-k-closest-points-to-origin/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;sort與heap差在一個能插入，另一個不能&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-215 - Kth Largest Element in an Array</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-215-kth-largest-element-in-an-array/</link>
+      <pubDate>Fri, 23 Jul 2021 03:00:25 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-215-kth-largest-element-in-an-array/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;沒有魔法的一題&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-347 - Top K Frequent Elements</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-347-top-k-frequent-elements/</link>
+      <pubDate>Tue, 20 Jul 2021 00:18:19 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-347-top-k-frequent-elements/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;直接sort就好&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-324 - Wiggle Sort II</title>
+      <link>https://littlebees.github.io/2021/01/leetcode-324-wiggle-sort-ii/</link>
+      <pubDate>Sat, 30 Jan 2021 01:59:41 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/01/leetcode-324-wiggle-sort-ii/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;神奇的indexing&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

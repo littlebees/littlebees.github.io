@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Github Action on 記事本</title>
+    <link>https://littlebees.github.io/tags/github-action/</link>
+    <description>Recent content in Github Action on 記事本</description>
+    <image>
+      <title>記事本</title>
+      <url>https://littlebees.github.io/images/papermod-cover.png</url>
+      <link>https://littlebees.github.io/images/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 30 Jul 2021 23:32:30 +0000</lastBuildDate>
+    <atom:link href="https://littlebees.github.io/tags/github-action/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>透過webhook讓github actions rebuild</title>
+      <link>https://littlebees.github.io/2021/07/%E9%80%8F%E9%81%8Ewebhook%E8%AE%93github-actions-rebuild/</link>
+      <pubDate>Fri, 30 Jul 2021 23:32:30 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/%E9%80%8F%E9%81%8Ewebhook%E8%AE%93github-actions-rebuild/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;因為另一個project的需求
+需要CI可以透過web api來rebuild，所以就換到github action了&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

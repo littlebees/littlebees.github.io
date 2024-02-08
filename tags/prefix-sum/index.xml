@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Prefix Sum on 記事本</title>
+    <link>https://littlebees.github.io/tags/prefix-sum/</link>
+    <description>Recent content in Prefix Sum on 記事本</description>
+    <image>
+      <title>記事本</title>
+      <url>https://littlebees.github.io/images/papermod-cover.png</url>
+      <link>https://littlebees.github.io/images/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 13 Sep 2021 23:22:55 +0000</lastBuildDate>
+    <atom:link href="https://littlebees.github.io/tags/prefix-sum/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>leetcode-1109 - Corporate Flight Bookings</title>
+      <link>https://littlebees.github.io/2021/09/leetcode-1109-corporate-flight-bookings/</link>
+      <pubDate>Mon, 13 Sep 2021 23:22:55 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/09/leetcode-1109-corporate-flight-bookings/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;太久沒打真的會忘記
+這是prefix sum阿&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-1856 - Maximum Subarray Min-Product</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-1856-maximum-subarray-min-product/</link>
+      <pubDate>Thu, 19 Aug 2021 23:25:23 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-1856-maximum-subarray-min-product/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;把&lt;a href=&#34;https://littlebees.github.io/2021/07/leetcode-84&#34;&gt;84&lt;/a&gt;的monotonic stack介紹借過來一下&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;1 2 3 .left. 7 .right. 2
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;right的數字大小一定是大於7!!
+left的數字一定是等於7&lt;/p&gt;
+&lt;p&gt;所以在這個區間中7一定是最小&lt;/p&gt;
+&lt;p&gt;這樣就可以用在題&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-930 - Binary Subarrays With Sum</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-930-binary-subarrays-with-sum/</link>
+      <pubDate>Sun, 15 Aug 2021 15:20:40 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-930-binary-subarrays-with-sum/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;用atMost秒殺
+用prefix sum in fly也可以&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-1004 - Max Consecutive Ones III</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-1004-max-consecutive-ones-iii/</link>
+      <pubDate>Sun, 15 Aug 2021 15:17:03 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-1004-max-consecutive-ones-iii/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;基本款sliding window&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-862 - Shortest Subarray with Sum at Least K</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-862-shortest-subarray-with-sum-at-least-k/</link>
+      <pubDate>Sun, 15 Aug 2021 14:43:55 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-862-shortest-subarray-with-sum-at-least-k/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;What makes this problem hard is that we have negative values.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;sliding window + monotone stack = monotone queue&lt;/li&gt;
+&lt;li&gt;prefix sum in fly + hash&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-525 - Contiguous Array</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-525-contiguous-array/</link>
+      <pubDate>Tue, 10 Aug 2021 20:04:12 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-525-contiguous-array/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;用prefix sum紀錄偏移到哪邊了&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-995 - Minimum Number of K Consecutive Bit Flips</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-995-minimum-number-of-k-consecutive-bit-flips/</link>
+      <pubDate>Wed, 04 Aug 2021 00:38:55 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-995-minimum-number-of-k-consecutive-bit-flips/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;下次處理flip就要這樣處理&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-303 - Range Sum Query - Immutable</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-303-range-sum-query-immutable/</link>
+      <pubDate>Thu, 29 Jul 2021 02:11:44 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-303-range-sum-query-immutable/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;複習prefix sum&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-238 - Product of Array Except Self</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-238-product-of-array-except-self/</link>
+      <pubDate>Wed, 21 Jul 2021 00:48:34 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-238-product-of-array-except-self/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;由左到右與由右到左去組合!!&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-209 - Minimum Size Subarray Sum</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-209-minimum-size-subarray-sum/</link>
+      <pubDate>Tue, 20 Jul 2021 00:40:09 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-209-minimum-size-subarray-sum/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;與&lt;a href=&#34;https://littlebees.github.io/2021/07/leetcode-560&#34;&gt;560&lt;/a&gt;不同他可以用sliding window&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;prefix sum + binary search&lt;/li&gt;
+&lt;li&gt;prefix sum in fly + sliding window&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-560 - Subarray Sum Equals K</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-560-subarray-sum-equals-k/</link>
+      <pubDate>Tue, 20 Jul 2021 00:35:41 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-560-subarray-sum-equals-k/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;我忘了prefix sum!!
+同時，這題不能用sliding window&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-523 - Continuous Subarray Sum</title>
+      <link>https://littlebees.github.io/2021/01/leetcode-523-continuous-subarray-sum/</link>
+      <pubDate>Sun, 31 Jan 2021 01:53:46 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/01/leetcode-523-continuous-subarray-sum/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;要與560一起看&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-304 - Range Sum Query 2D - Immutable</title>
+      <link>https://littlebees.github.io/2020/11/leetcode-304-range-sum-query-2d-immutable/</link>
+      <pubDate>Tue, 03 Nov 2020 00:16:52 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/11/leetcode-304-range-sum-query-2d-immutable/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;就是一維的推廣&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

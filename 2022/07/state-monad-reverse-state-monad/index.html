@@ -1,504 +1,110 @@
-<!DOCTYPE html>
-<html lang="zh-tw">
-<head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.0.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
-  <meta name="google-site-verification" content="AEpTGuQAkxnTOlmfF4INDna3S660LxrkyZ4BQzVbRSw">
-
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"littlebees.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
-  </script>
-
-  <meta name="description" content="動機 state monad是left 2 right，對應到iteration (左遞迴) reverse state monad是right 2 left，對應到recursion (右遞迴)">
-<meta property="og:type" content="article">
-<meta property="og:title" content="state monad &amp; reverse state monad">
-<meta property="og:url" content="https://littlebees.github.io/2022/07/state-monad-reverse-state-monad/index.html">
-<meta property="og:site_name" content="記事本">
-<meta property="og:description" content="動機 state monad是left 2 right，對應到iteration (左遞迴) reverse state monad是right 2 left，對應到recursion (右遞迴)">
-<meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2022-07-30T02:59:35.000Z">
-<meta property="article:modified_time" content="2023-07-09T11:56:04.848Z">
-<meta property="article:author" content="zhengcf">
-<meta name="twitter:card" content="summary">
-
-<link rel="canonical" href="https://littlebees.github.io/2022/07/state-monad-reverse-state-monad/">
-
-
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-tw'
-  };
-</script>
-
-  <title>state monad & reverse state monad | 記事本</title>
-  
-
-
-
-
-
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
-
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">記事本</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-      <p class="site-subtitle" itemprop="description">寫下來，不然會忘</p>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-        <i class="fa fa-search fa-fw fa-lg"></i>
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
-
-  </li>
-        <li class="menu-item menu-item-sitemap">
-
-    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
-
-  </li>
-      <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
-        </a>
-      </li>
-  </ul>
-</nav>
-
-
-
-  <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
-           placeholder="Searching..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
-  <span class="popup-btn-close">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
-  </div>
-</div>
-
-    </div>
-  </div>
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
-
-    
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2022/07/state-monad-reverse-state-monad/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="zhengcf">
-      <meta itemprop="description" content="想到什麼就寫什麼">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="記事本">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          state monad & reverse state monad
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-07-30 10:59:35" itemprop="dateCreated datePublished" datetime="2022-07-30T10:59:35+08:00">2022-07-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-07-09 19:56:04" itemprop="dateModified" datetime="2023-07-09T19:56:04+08:00">2023-07-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/PLT/" itemprop="url" rel="index"><span itemprop="name">PLT</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-        <h2 id="動機-664">動機</h2>
-<p>state monad是left 2 right，對應到iteration (左遞迴)<br>
-reverse state monad是right 2 left，對應到recursion (右遞迴)</p>
-<span id="more"></span>
-<h2 id="derive-state-monad">derive state monad</h2>
-<h3 id="轉成iteration">轉成iteration</h3>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">s</span>(<span class="params">l</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> l:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> l[<span class="number">0</span>] + s(l[<span class="number">1</span>:])</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">s2</span>(<span class="params">l, acc=<span class="number">0</span></span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> l:</span><br><span class="line">        <span class="keyword">return</span> acc</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> s2(l[<span class="number">1</span>:], l[<span class="number">0</span>] + acc)</span><br></pre></td></tr></table></figure>
-<h3 id="把acc往下推">把acc往下推</h3>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">s3</span>(<span class="params">l</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> l:</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">lambda</span> acc: acc</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">lambda</span> acc: s3(l[<span class="number">1</span>:])(l[<span class="number">0</span>] + acc)</span><br></pre></td></tr></table></figure>
-<h3 id="用成類似monad的樣子">用成類似monad的樣子</h3>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ret</span>(<span class="params">acc</span>):</span></span><br><span class="line">    <span class="keyword">return</span> acc</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bind</span>(<span class="params">mx, f</span>):</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">lambda</span> acc: mx(f(acc))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">s4</span>(<span class="params">l</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> l:</span><br><span class="line">        <span class="comment">#return ret(0)</span></span><br><span class="line">        <span class="keyword">return</span> ret</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> bind(s4(l[<span class="number">1</span>:]), <span class="keyword">lambda</span> acc: l[<span class="number">0</span>] + acc)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">s2</span>(<span class="params">l, acc=<span class="number">0</span></span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> l:</span><br><span class="line">        <span class="keyword">return</span> acc</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> s2(l[<span class="number">1</span>:], l[<span class="number">0</span>] + acc)</span><br></pre></td></tr></table></figure>
-<p>到s4其實就推的差不多了，但是ret其實不符合monad的return定義<br>
-所以我們改一下</p>
-<h3 id="real-state-monad">real state monad</h3>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ret2</span>(<span class="params">acc</span>):</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">lambda</span> ignored_acc: acc</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bind2</span>(<span class="params">mx, f</span>):</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">lambda</span> acc: f(mx(acc))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">s5</span>(<span class="params">l</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> l:</span><br><span class="line">        <span class="keyword">return</span> ret2(<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> bind2(s5(l[<span class="number">1</span>:]), <span class="keyword">lambda</span> acc: l[<span class="number">0</span>] + acc)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">s</span>(<span class="params">l</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> l:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> l[<span class="number">0</span>] + s(l[<span class="number">1</span>:])</span><br></pre></td></tr></table></figure>
-<p>如果去走一下整個過程會發現他與遞迴版的很像，因為0是從底部給，不像之前是依靠外面給</p>
-<h2 id="state-monad">state monad</h2>
-<p>state monad其實就是會留一層acc在外層等人給<br>
-剩下就是找順序來，所以是left 2 right</p>
-<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">newtype</span> <span class="type">State</span> s a = <span class="type">State</span> &#123; <span class="title">runState</span> :: <span class="title">s</span> -&gt; (<span class="title">a</span>,<span class="title">s</span>) &#125;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="keyword">instance</span> <span class="type">Functor</span> (<span class="type">State</span> <span class="title">s</span>) <span class="keyword">where</span></span></span><br><span class="line">  (&lt;$&gt;) :: (a -&gt; b) -&gt; <span class="type">State</span> s a -&gt; <span class="type">State</span> s b</span><br><span class="line">  (&lt;$&gt;) fn (<span class="type">State</span> sa) = <span class="type">State</span> (\s0 -&gt; <span class="keyword">let</span> (a, s1) = sa s0 <span class="keyword">in</span> (fn a, s1))</span><br><span class="line"><span class="class"> </span></span><br><span class="line"><span class="class"><span class="keyword">instance</span> <span class="type">Applicative</span> (<span class="type">State</span> <span class="title">s</span>) <span class="keyword">where</span></span></span><br><span class="line">  pure  :: a -&gt; <span class="type">State</span> s a</span><br><span class="line">  pure a = <span class="type">State</span> (\s -&gt; (a,s))</span><br><span class="line">  (&lt;*&gt;) :: <span class="type">State</span> s (a -&gt; b) -&gt; <span class="type">State</span> s a -&gt; <span class="type">State</span> s b</span><br><span class="line">  (&lt;*&gt;) (<span class="type">State</span> sa) (<span class="type">State</span> sb) =</span><br><span class="line">    <span class="type">State</span> (\s0 -&gt; <span class="keyword">let</span> (fn, s1) = sa s0</span><br><span class="line">                      (a,  s2) = sb s1</span><br><span class="line">                  <span class="keyword">in</span> (fn a, s2))</span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="keyword">instance</span> <span class="type">Monad</span> (<span class="type">State</span> <span class="title">s</span>) <span class="keyword">where</span></span></span><br><span class="line">  (&gt;&gt;=) :: <span class="type">State</span> s a -&gt; (a -&gt; <span class="type">State</span> s b) -&gt; <span class="type">State</span> s b</span><br><span class="line">  (&gt;&gt;=) (<span class="type">State</span> sa) fn =</span><br><span class="line">    <span class="type">State</span> (\s0 -&gt; <span class="keyword">let</span> (a, s1)  = sa s0 <span class="comment">-- 先往下遞迴</span></span><br><span class="line">                      <span class="type">State</span> sb = fn a <span class="comment">-- 拿到的往f灌</span></span><br><span class="line">                  <span class="keyword">in</span> sb s1) <span class="comment">-- 接回去</span></span><br></pre></td></tr></table></figure>
-<h2 id="reverse-state-monad">reverse state monad</h2>
-<p>reverse的話就是先往右手邊遞迴，做出right 2 left的效果</p>
-<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">instance</span> <span class="type">Applicative</span> (<span class="type">ReverseState</span> <span class="title">s</span>) <span class="keyword">where</span></span></span><br><span class="line">  pure x = <span class="type">ReverseState</span> $ (,) x</span><br><span class="line">  mf &lt;*&gt; mx =</span><br><span class="line">    <span class="type">ReverseState</span> $ \s -&gt;</span><br><span class="line">      <span class="keyword">let</span> (x, future) = runReverseState mx s <span class="comment">-- 先往右遞迴</span></span><br><span class="line">          (f, now) = runReverseState mf future <span class="comment">-- 終於回來了，用前面的值灌回來</span></span><br><span class="line">      <span class="keyword">in</span> (f x, now)</span><br></pre></td></tr></table></figure>
-<p>如果用與前面一樣的想法(先做右邊)，去設計monad<br>
-會遇到一個問題</p>
-<p><strong>我們只有f要怎麼右遞迴</strong></p>
-<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">instance</span> <span class="type">Monad</span> (<span class="type">ReverseState</span> <span class="title">s</span>) <span class="keyword">where</span></span></span><br><span class="line">  mx &gt;&gt;= f =</span><br><span class="line">    <span class="type">ReverseState</span> $ \s -&gt;</span><br><span class="line">      <span class="keyword">let</span> (b, future) = runReverseState ?? s</span><br><span class="line">          (a, now) = runReverseState mx future</span><br><span class="line">      <span class="keyword">in</span> (b, now)</span><br></pre></td></tr></table></figure>
-<ol>
-<li>我們目前的值，其實是在mx之中，所以要想方法拿到mx裡面的值</li>
-<li>要拿mx的值要透過runReverseState</li>
-<li>不是已經call過了嗎 <code>(a, now) = runReverseState mx future</code></li>
-</ol>
-<p>所以把這個值餵回去f就好了</p>
-<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">instance</span> <span class="type">Monad</span> (<span class="type">ReverseState</span> <span class="title">s</span>) <span class="keyword">where</span></span></span><br><span class="line">  mx &gt;&gt;= f =</span><br><span class="line">    <span class="type">ReverseState</span> $ \s -&gt;</span><br><span class="line">      <span class="keyword">let</span> (b, future) = runReverseState (f a) s</span><br><span class="line">          (a, now) = runReverseState mx future</span><br><span class="line">      <span class="keyword">in</span> (b, now)</span><br></pre></td></tr></table></figure>
-<p>Q: 怎麼可能有futrue又有a，這樣不是互相依賴嗎?<br>
-A: haskell是lazy的</p>
-<h2 id="Ref-143">Ref</h2>
-<p><span class="exturl" data-url="aHR0cHM6Ly90ZWNoLWJsb2cuY2FwaXRhbC1tYXRjaC5jb20vcG9zdHMvNS10aGUtcmV2ZXJzZS1zdGF0ZS1tb25hZC5odG1s">The Curious Time-Traveling Reverse State Monad<i class="fa fa-external-link-alt"></i></span><br>
-<span class="exturl" data-url="aHR0cHM6Ly92YWliaGF2c2FnYXIuY29tL2Jsb2cvMjAxNi8wNi8xNy9oYXNrZWxsLXN0YXRlLw==">You Could Have Invented The State Monad<i class="fa fa-external-link-alt"></i></span></p>
-
-    </div>
-
-    
-    
-    
-
-      <footer class="post-footer">
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2022/07/The-Art-of-Strategy-reading/" rel="prev" title="思辨賽局：看穿局勢、創造優勢的策略智慧 心得">
-      <i class="fa fa-chevron-left"></i> 思辨賽局：看穿局勢、創造優勢的策略智慧 心得
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/07/booer-moore/" rel="next" title="booer moore字串比對">
-      booer moore字串比對 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-664"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#derive-state-monad"><span class="nav-number">2.</span> <span class="nav-text">derive state monad</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%89%E6%88%90iteration"><span class="nav-number">2.1.</span> <span class="nav-text">轉成iteration</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%8Aacc%E5%BE%80%E4%B8%8B%E6%8E%A8"><span class="nav-number">2.2.</span> <span class="nav-text">把acc往下推</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%88%90%E9%A1%9E%E4%BC%BCmonad%E7%9A%84%E6%A8%A3%E5%AD%90"><span class="nav-number">2.3.</span> <span class="nav-text">用成類似monad的樣子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#real-state-monad"><span class="nav-number">2.4.</span> <span class="nav-text">real state monad</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#state-monad"><span class="nav-number">3.</span> <span class="nav-text">state monad</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reverse-state-monad"><span class="nav-number">4.</span> <span class="nav-text">reverse state monad</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref-143"><span class="nav-number">5.</span> <span class="nav-text">Ref</span></a></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">zhengcf</p>
-  <div class="site-description" itemprop="description">想到什麼就寫什麼</div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">710</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">87</span>
-        <span class="site-state-item-name">categories</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">64</span>
-        <span class="site-state-item-name">tags</span></a>
-      </div>
-  </nav>
-</div>
-
-
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2023</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">zhengcf</span>
-</div>
-  <div class="powered-by">Powered by <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl theme-link" data-url="aHR0cHM6Ly9tdXNlLnRoZW1lLW5leHQub3Jn">NexT.Muse</span>
-  </div>
-
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
-
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
-  
-
-
-
-
-  
-<script src="/js/local-search.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
-  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
-  <script>
-      window.addEventListener('load', () => {
-      quicklink({
-        timeout : 1000,
-        priority: true,
-        ignores : [uri => uri.includes('#'),uri => uri === 'https://littlebees.github.io/2022/07/state-monad-reverse-state-monad/',]
-      });
-      });
-  </script>
-
-</body>
-</html>
+<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>state monad & reverse state monad | 記事本</title>
+<meta name=keywords content="Lisp"><meta name=description content="動機
+state monad是left 2 right，對應到iteration (左遞迴)
+reverse state monad是right 2 left，對應到recursion (右遞迴)"><meta name=author content="zhengcf"><link rel=canonical href=https://littlebees.github.io/2022/07/state-monad-reverse-state-monad/><link crossorigin=anonymous href=/assets/css/stylesheet.b609c58d5c11bb90b1a54e04005d74ad1ddf22165eb79f5533967e57df9c3b50.css integrity="sha256-tgnFjVwRu5CxpU4EAF10rR3fIhZet59VM5Z+V9+cO1A=" rel="preload stylesheet" as=style><link rel=icon href=https://littlebees.github.io/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://littlebees.github.io/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://littlebees.github.io/favicon-32x32.png><link rel=apple-touch-icon href=https://littlebees.github.io/apple-touch-icon.png><link rel=mask-icon href=https://littlebees.github.io/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><meta property="og:title" content="state monad & reverse state monad"><meta property="og:description" content="動機
+state monad是left 2 right，對應到iteration (左遞迴)
+reverse state monad是right 2 left，對應到recursion (右遞迴)"><meta property="og:type" content="article"><meta property="og:url" content="https://littlebees.github.io/2022/07/state-monad-reverse-state-monad/"><meta property="og:image" content="https://littlebees.github.io/images/papermod-cover.png"><meta property="article:section" content="posts"><meta property="article:published_time" content="2022-07-30T10:59:35+00:00"><meta property="article:modified_time" content="2022-07-30T10:59:35+00:00"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://littlebees.github.io/images/papermod-cover.png"><meta name=twitter:title content="state monad & reverse state monad"><meta name=twitter:description content="動機
+state monad是left 2 right，對應到iteration (左遞迴)
+reverse state monad是right 2 left，對應到recursion (右遞迴)"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://littlebees.github.io/posts/"},{"@type":"ListItem","position":2,"name":"state monad \u0026 reverse state monad","item":"https://littlebees.github.io/2022/07/state-monad-reverse-state-monad/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"state monad \u0026 reverse state monad","name":"state monad \u0026 reverse state monad","description":"動機 state monad是left 2 right，對應到iteration (左遞迴) reverse state monad是right 2 left，對應到recursion (右遞迴)\n","keywords":["Lisp"],"articleBody":"動機 state monad是left 2 right，對應到iteration (左遞迴) reverse state monad是right 2 left，對應到recursion (右遞迴)\nderive state monad 轉成iteration def s(l): if not l: return 0 else: return l[0] + s(l[1:]) def s2(l, acc=0): if not l: return acc else: return s2(l[1:], l[0] + acc) 把acc往下推 def s3(l): if not l: return lambda acc: acc else: return lambda acc: s3(l[1:])(l[0] + acc) 用成類似monad的樣子 def ret(acc): return acc def bind(mx, f): return lambda acc: mx(f(acc)) def s4(l): if not l: #return ret(0) return ret else: return bind(s4(l[1:]), lambda acc: l[0] + acc) def s2(l, acc=0): if not l: return acc else: return s2(l[1:], l[0] + acc) 到s4其實就推的差不多了，但是ret其實不符合monad的return定義 所以我們改一下\nreal state monad def ret2(acc): return lambda ignored_acc: acc def bind2(mx, f): return lambda acc: f(mx(acc)) def s5(l): if not l: return ret2(0) else: return bind2(s5(l[1:]), lambda acc: l[0] + acc) def s(l): if not l: return 0 else: return l[0] + s(l[1:]) 如果去走一下整個過程會發現他與遞迴版的很像，因為0是從底部給，不像之前是依靠外面給\nstate monad state monad其實就是會留一層acc在外層等人給 剩下就是找順序來，所以是left 2 right\nnewtype State s a = State { runState :: s -\u003e (a,s) } instance Functor (State s) where (\u003c$\u003e) :: (a -\u003e b) -\u003e State s a -\u003e State s b (\u003c$\u003e) fn (State sa) = State (\\s0 -\u003e let (a, s1) = sa s0 in (fn a, s1)) instance Applicative (State s) where pure :: a -\u003e State s a pure a = State (\\s -\u003e (a,s)) (\u003c*\u003e) :: State s (a -\u003e b) -\u003e State s a -\u003e State s b (\u003c*\u003e) (State sa) (State sb) = State (\\s0 -\u003e let (fn, s1) = sa s0 (a, s2) = sb s1 in (fn a, s2)) instance Monad (State s) where (\u003e\u003e=) :: State s a -\u003e (a -\u003e State s b) -\u003e State s b (\u003e\u003e=) (State sa) fn = State (\\s0 -\u003e let (a, s1) = sa s0 -- 先往下遞迴 State sb = fn a -- 拿到的往f灌 in sb s1) -- 接回去 reverse state monad reverse的話就是先往右手邊遞迴，做出right 2 left的效果\ninstance Applicative (ReverseState s) where pure x = ReverseState $ (,) x mf \u003c*\u003e mx = ReverseState $ \\s -\u003e let (x, future) = runReverseState mx s -- 先往右遞迴 (f, now) = runReverseState mf future -- 終於回來了，用前面的值灌回來 in (f x, now) 如果用與前面一樣的想法(先做右邊)，去設計monad 會遇到一個問題\n我們只有f要怎麼右遞迴\ninstance Monad (ReverseState s) where mx \u003e\u003e= f = ReverseState $ \\s -\u003e let (b, future) = runReverseState ?? s (a, now) = runReverseState mx future in (b, now) 我們目前的值，其實是在mx之中，所以要想方法拿到mx裡面的值 要拿mx的值要透過runReverseState 不是已經call過了嗎 (a, now) = runReverseState mx future 所以把這個值餵回去f就好了\ninstance Monad (ReverseState s) where mx \u003e\u003e= f = ReverseState $ \\s -\u003e let (b, future) = runReverseState (f a) s (a, now) = runReverseState mx future in (b, now) Q: 怎麼可能有futrue又有a，這樣不是互相依賴嗎? A: haskell是lazy的\nRef The Curious Time-Traveling Reverse State Monad You Could Have Invented The State Monad\n","wordCount":"447","inLanguage":"en","datePublished":"2022-07-30T10:59:35Z","dateModified":"2022-07-30T10:59:35Z","author":{"@type":"Person","name":"zhengcf"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://littlebees.github.io/2022/07/state-monad-reverse-state-monad/"},"publisher":{"@type":"Organization","name":"記事本","logo":{"@type":"ImageObject","url":"https://littlebees.github.io/favicon.ico"}}}</script></head><body id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=https://littlebees.github.io/ accesskey=h title="記事本 (Alt + H)">記事本</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu><li><a href=https://littlebees.github.io/categories/ title=Categories><span>Categories</span></a></li><li><a href=https://littlebees.github.io/search/ title="Search (Alt + /)" accesskey=/><span>Search</span></a></li><li><a href=https://littlebees.github.io/tags/ title=Tags><span>Tags</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><div class=breadcrumbs><a href=https://littlebees.github.io/>Home</a>&nbsp;»&nbsp;<a href=https://littlebees.github.io/posts/>Posts</a></div><h1 class="post-title entry-hint-parent">state monad & reverse state monad</h1><div class=post-meta><span title='2022-07-30 10:59:35 +0000 UTC'>July 30, 2022</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;zhengcf</div></header><div class=toc><details><summary accesskey=c title="(Alt + C)"><span class=details>Table of Contents</span></summary><div class=inner><ul><li><a href=#%e5%8b%95%e6%a9%9f aria-label=動機>動機</a></li><li><a href=#derive-state-monad aria-label="derive state monad">derive state monad</a><ul><li><a href=#%e8%bd%89%e6%88%90iteration aria-label=轉成iteration>轉成iteration</a></li><li><a href=#%e6%8a%8aacc%e5%be%80%e4%b8%8b%e6%8e%a8 aria-label=把acc往下推>把acc往下推</a></li><li><a href=#%e7%94%a8%e6%88%90%e9%a1%9e%e4%bc%bcmonad%e7%9a%84%e6%a8%a3%e5%ad%90 aria-label=用成類似monad的樣子>用成類似monad的樣子</a></li><li><a href=#real-state-monad aria-label="real state monad">real state monad</a></li></ul></li><li><a href=#state-monad aria-label="state monad">state monad</a></li><li><a href=#reverse-state-monad aria-label="reverse state monad">reverse state monad</a></li><li><a href=#ref aria-label=Ref>Ref</a></li></ul></div></details></div><div class=post-content><h2 id=動機>動機<a hidden class=anchor aria-hidden=true href=#動機>#</a></h2><p>state monad是left 2 right，對應到iteration (左遞迴)
+reverse state monad是right 2 left，對應到recursion (右遞迴)</p><h2 id=derive-state-monad>derive state monad<a hidden class=anchor aria-hidden=true href=#derive-state-monad>#</a></h2><h3 id=轉成iteration>轉成iteration<a hidden class=anchor aria-hidden=true href=#轉成iteration>#</a></h3><pre tabindex=0><code class="language-python=" data-lang="python=">def s(l):
+    if not l:
+        return 0
+    else:
+        return l[0] + s(l[1:])
+
+def s2(l, acc=0):
+    if not l:
+        return acc
+    else:
+        return s2(l[1:], l[0] + acc)
+</code></pre><h3 id=把acc往下推>把acc往下推<a hidden class=anchor aria-hidden=true href=#把acc往下推>#</a></h3><pre tabindex=0><code class="language-python=" data-lang="python=">def s3(l):
+    if not l:
+        return lambda acc: acc
+    else:
+        return lambda acc: s3(l[1:])(l[0] + acc)
+</code></pre><h3 id=用成類似monad的樣子>用成類似monad的樣子<a hidden class=anchor aria-hidden=true href=#用成類似monad的樣子>#</a></h3><pre tabindex=0><code class="language-python=" data-lang="python=">def ret(acc):
+    return acc
+
+def bind(mx, f):
+    return lambda acc: mx(f(acc))
+
+def s4(l):
+    if not l:
+        #return ret(0)
+        return ret
+    else:
+        return bind(s4(l[1:]), lambda acc: l[0] + acc)
+
+def s2(l, acc=0):
+    if not l:
+        return acc
+    else:
+        return s2(l[1:], l[0] + acc)
+</code></pre><p>到s4其實就推的差不多了，但是ret其實不符合monad的return定義
+所以我們改一下</p><h3 id=real-state-monad>real state monad<a hidden class=anchor aria-hidden=true href=#real-state-monad>#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>ret2</span><span class=p>(</span><span class=n>acc</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=k>lambda</span> <span class=n>ignored_acc</span><span class=p>:</span> <span class=n>acc</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>bind2</span><span class=p>(</span><span class=n>mx</span><span class=p>,</span> <span class=n>f</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=k>lambda</span> <span class=n>acc</span><span class=p>:</span> <span class=n>f</span><span class=p>(</span><span class=n>mx</span><span class=p>(</span><span class=n>acc</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>s5</span><span class=p>(</span><span class=n>l</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=ow>not</span> <span class=n>l</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>ret2</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>bind2</span><span class=p>(</span><span class=n>s5</span><span class=p>(</span><span class=n>l</span><span class=p>[</span><span class=mi>1</span><span class=p>:]),</span> <span class=k>lambda</span> <span class=n>acc</span><span class=p>:</span> <span class=n>l</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>+</span> <span class=n>acc</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>s</span><span class=p>(</span><span class=n>l</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=ow>not</span> <span class=n>l</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl>    <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>l</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>+</span> <span class=n>s</span><span class=p>(</span><span class=n>l</span><span class=p>[</span><span class=mi>1</span><span class=p>:])</span>
+</span></span></code></pre></div><p>如果去走一下整個過程會發現他與遞迴版的很像，因為0是從底部給，不像之前是依靠外面給</p><h2 id=state-monad>state monad<a hidden class=anchor aria-hidden=true href=#state-monad>#</a></h2><p>state monad其實就是會留一層acc在外層等人給
+剩下就是找順序來，所以是left 2 right</p><pre tabindex=0><code class="language-haskell=" data-lang="haskell=">newtype State s a = State { runState :: s -&gt; (a,s) }
+
+instance Functor (State s) where
+  (&lt;$&gt;) :: (a -&gt; b) -&gt; State s a -&gt; State s b
+  (&lt;$&gt;) fn (State sa) = State (\s0 -&gt; let (a, s1) = sa s0 in (fn a, s1))
+ 
+instance Applicative (State s) where
+  pure  :: a -&gt; State s a
+  pure a = State (\s -&gt; (a,s))
+  (&lt;*&gt;) :: State s (a -&gt; b) -&gt; State s a -&gt; State s b
+  (&lt;*&gt;) (State sa) (State sb) =
+    State (\s0 -&gt; let (fn, s1) = sa s0
+                      (a,  s2) = sb s1
+                  in (fn a, s2))
+
+instance Monad (State s) where
+  (&gt;&gt;=) :: State s a -&gt; (a -&gt; State s b) -&gt; State s b
+  (&gt;&gt;=) (State sa) fn =
+    State (\s0 -&gt; let (a, s1)  = sa s0 -- 先往下遞迴
+                      State sb = fn a -- 拿到的往f灌
+                  in sb s1) -- 接回去
+</code></pre><h2 id=reverse-state-monad>reverse state monad<a hidden class=anchor aria-hidden=true href=#reverse-state-monad>#</a></h2><p>reverse的話就是先往右手邊遞迴，做出right 2 left的效果</p><pre tabindex=0><code class="language-haskell=" data-lang="haskell=">instance Applicative (ReverseState s) where
+  pure x = ReverseState $ (,) x
+  mf &lt;*&gt; mx =
+    ReverseState $ \s -&gt;
+      let (x, future) = runReverseState mx s -- 先往右遞迴
+          (f, now) = runReverseState mf future -- 終於回來了，用前面的值灌回來
+      in (f x, now)
+</code></pre><p>如果用與前面一樣的想法(先做右邊)，去設計monad
+會遇到一個問題</p><p><strong>我們只有f要怎麼右遞迴</strong></p><pre tabindex=0><code class="language-haskell=" data-lang="haskell=">instance Monad (ReverseState s) where
+  mx &gt;&gt;= f =
+    ReverseState $ \s -&gt;
+      let (b, future) = runReverseState ?? s
+          (a, now) = runReverseState mx future
+      in (b, now)
+</code></pre><ol><li>我們目前的值，其實是在mx之中，所以要想方法拿到mx裡面的值</li><li>要拿mx的值要透過runReverseState</li><li>不是已經call過了嗎 <code>(a, now) = runReverseState mx future</code></li></ol><p>所以把這個值餵回去f就好了</p><pre tabindex=0><code class="language-haskell=" data-lang="haskell=">instance Monad (ReverseState s) where
+  mx &gt;&gt;= f =
+    ReverseState $ \s -&gt;
+      let (b, future) = runReverseState (f a) s
+          (a, now) = runReverseState mx future
+      in (b, now)
+</code></pre><p>Q: 怎麼可能有futrue又有a，這樣不是互相依賴嗎?
+A: haskell是lazy的</p><h2 id=ref>Ref<a hidden class=anchor aria-hidden=true href=#ref>#</a></h2><p><a href=https://tech-blog.capital-match.com/posts/5-the-reverse-state-monad.html>The Curious Time-Traveling Reverse State Monad</a>
+<a href=https://vaibhavsagar.com/blog/2016/06/17/haskell-state/>You Could Have Invented The State Monad</a></p></div><footer class=post-footer><ul class=post-tags><li><a href=https://littlebees.github.io/tags/lisp/>Lisp</a></li></ul><nav class=paginav><a class=prev href=https://littlebees.github.io/2022/07/booer-moore%E5%AD%97%E4%B8%B2%E6%AF%94%E5%B0%8D/><span class=title>« Prev</span><br><span>booer moore字串比對</span>
+</a><a class=next href=https://littlebees.github.io/2022/07/%E6%80%9D%E8%BE%A8%E8%B3%BD%E5%B1%80%E7%9C%8B%E7%A9%BF%E5%B1%80%E5%8B%A2%E5%89%B5%E9%80%A0%E5%84%AA%E5%8B%A2%E7%9A%84%E7%AD%96%E7%95%A5%E6%99%BA%E6%85%A7-%E5%BF%83%E5%BE%97/><span class=title>Next »</span><br><span>思辨賽局：看穿局勢、創造優勢的策略智慧 心得</span></a></nav></footer></article></main><footer class=footer><span>&copy; 2024 <a href=https://littlebees.github.io/>記事本</a></span>
+<span>Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script><script>document.querySelectorAll("pre > code").forEach(e=>{const n=e.parentNode.parentNode,t=document.createElement("button");t.classList.add("copy-code"),t.innerHTML="copy";function s(){t.innerHTML="copied!",setTimeout(()=>{t.innerHTML="copy"},2e3)}t.addEventListener("click",t=>{if("clipboard"in navigator){navigator.clipboard.writeText(e.textContent),s();return}const n=document.createRange();n.selectNodeContents(e);const o=window.getSelection();o.removeAllRanges(),o.addRange(n);try{document.execCommand("copy"),s()}catch{}o.removeRange(n)}),n.classList.contains("highlight")?n.appendChild(t):n.parentNode.firstChild==n||(e.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?e.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(t):e.parentNode.appendChild(t))})</script></body></html>

@@ -1,688 +1,274 @@
-<!DOCTYPE html>
-<html lang="zh-tw">
-<head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.0.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
-  <meta name="google-site-verification" content="AEpTGuQAkxnTOlmfF4INDna3S660LxrkyZ4BQzVbRSw">
-
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"littlebees.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
-  </script>
-
-  <meta name="description" content="動機 要複習怎麼用C++做leetcode">
-<meta property="og:type" content="article">
-<meta property="og:title" content="review-leetcode">
-<meta property="og:url" content="https://littlebees.github.io/2022/04/review-leetcode/index.html">
-<meta property="og:site_name" content="記事本">
-<meta property="og:description" content="動機 要複習怎麼用C++做leetcode">
-<meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2022-04-11T17:38:21.000Z">
-<meta property="article:modified_time" content="2023-07-09T11:56:04.848Z">
-<meta property="article:author" content="zhengcf">
-<meta name="twitter:card" content="summary">
-
-<link rel="canonical" href="https://littlebees.github.io/2022/04/review-leetcode/">
-
-
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-tw'
-  };
-</script>
-
-  <title>review-leetcode | 記事本</title>
-  
-
-
-
-
-
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
-
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">記事本</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-      <p class="site-subtitle" itemprop="description">寫下來，不然會忘</p>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-        <i class="fa fa-search fa-fw fa-lg"></i>
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
-
-  </li>
-        <li class="menu-item menu-item-sitemap">
-
-    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
-
-  </li>
-      <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
-        </a>
-      </li>
-  </ul>
-</nav>
-
-
-
-  <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
-           placeholder="Searching..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
-  <span class="popup-btn-close">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
-  </div>
-</div>
-
-    </div>
-  </div>
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
-
-    
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://littlebees.github.io/2022/04/review-leetcode/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="zhengcf">
-      <meta itemprop="description" content="想到什麼就寫什麼">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="記事本">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          review-leetcode
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-04-12 01:38:21" itemprop="dateCreated datePublished" datetime="2022-04-12T01:38:21+08:00">2022-04-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-07-09 19:56:04" itemprop="dateModified" datetime="2023-07-09T19:56:04+08:00">2023-07-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Leetcode/" itemprop="url" rel="index"><span itemprop="name">Leetcode</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Leetcode/Tips/" itemprop="url" rel="index"><span itemprop="name">Tips</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-        <h2 id="動機-654">動機</h2>
-<p>要複習怎麼用C++做leetcode</p>
-<span id="more"></span>
-<h2 id="龜兔賽跑">龜兔賽跑</h2>
-<p>一個快(2倍速)，一個慢(1倍速)<br>
-同樣都走k次<br>
-因為最後在loop遇到，所以兩者的距離只差在common的那一段<br>
-所以做最後只要再走一次就是起點</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">slow = common + x + (cycle*a)</span><br><span class="line">fast = common*2 + x + 2*(cycle*a)</span><br><span class="line">// 因為最後在loop遇到，所以x會是一樣 (我忘了實際的proof...)</span><br><span class="line">fast = slow*2</span><br><span class="line"></span><br><span class="line">fast-slow = common</span><br></pre></td></tr></table></figure>
-<h3 id="142-Linked-List-Cycle-II">142. Linked List Cycle II</h3>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode *<span class="title">detectCycle</span><span class="params">(ListNode *head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (head &amp;&amp; head-&gt;next) &#123;</span><br><span class="line">            ListNode *a=head-&gt;next,*b=head-&gt;next-&gt;next;</span><br><span class="line">            <span class="keyword">for</span>(;a!=b &amp;&amp; b &amp;&amp; b-&gt;next;a=a-&gt;next, b=b-&gt;next-&gt;next) ;</span><br><span class="line">            <span class="keyword">if</span> (b &amp;&amp; b-&gt;next &amp;&amp; a == b) &#123;</span><br><span class="line">                a = head;</span><br><span class="line">                <span class="keyword">for</span>(;a!=b;a=a-&gt;next, b=b-&gt;next) ;</span><br><span class="line">                <span class="keyword">return</span> a;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="287-Find-the-Duplicate-Number">287. Find the Duplicate Number</h3>
-<p>這題的資料很特別，都是1~n，同時array長n+1<br>
-這代表array資料一定在array的index中，所以有重複就是cycle</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">findDuplicate</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> a = nums[nums[<span class="number">0</span>]], b = nums[nums[nums[<span class="number">0</span>]]];</span><br><span class="line">        <span class="keyword">for</span> (;a!=b;a=nums[a], b=nums[nums[b]]) ;</span><br><span class="line">        <span class="keyword">for</span> (a = nums[<span class="number">0</span>];a!=b;a=nums[a], b=nums[b]) ;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="160-Intersection-of-Two-Linked-Lists">160. Intersection of Two Linked Lists</h3>
-<p>龜兔賽跑能找到起點是因為兩者只差一段common的距離</p>
-<p>所以只要把兩個ptr<strong>走的距離湊成一樣</strong>的就可以找到起點</p>
-<p>當走到底就從另一個開始走</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a = a_diff + common</span><br><span class="line">b = b_diff + common</span><br><span class="line"></span><br><span class="line">走到底之後</span><br><span class="line">a =&gt; a_diff + common + b_diff</span><br><span class="line">b =&gt; b_diff + common + a_diff</span><br></pre></td></tr></table></figure>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode *<span class="title">getIntersectionNode</span><span class="params">(ListNode *a, ListNode *b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!a || !b)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        ListNode *x = a, *y = b;</span><br><span class="line">        <span class="keyword">while</span> (x != y) &#123;</span><br><span class="line">            x = !x ? b : x-&gt;next;</span><br><span class="line">            y = !y ? a : y-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="matrix翻翻樂">matrix翻翻樂</h2>
-<p>常常見到，不知道為什麼</p>
-<h3 id="48-Rotate-Image">48. Rotate Image</h3>
-<p>有兩個解法</p>
-<p>一個是4個一起換</p>
-<p>一個是對角線 (固定走橫的，想像成轉成直線)<br>
-<code>(i, j), (n-1-i, n-1-j)</code><br>
-另一個反對角線 (固定走直的，想像成轉成橫線)<br>
-<code>(n-1-j,i), (j,n-1-i)</code><br>
-之後把覆蓋順序寫下來<br>
-<code>(i, j)  &lt;-  (n-1-j, i)  &lt;-  (n-1-i, n-1-j)  &lt;-  (j, n-1-i)</code></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">rotate</span><span class="params">(vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt;&amp; mx)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">auto</span> m = mx.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">auto</span> inv = [m](<span class="keyword">int</span> x) &#123; <span class="keyword">return</span> m<span class="number">-1</span>-x; &#125;;</span><br><span class="line">        <span class="comment">// (i, j)  &lt;-  (n-1-j, i)  &lt;-  (n-1-i, n-1-j)  &lt;-  (j, n-1-i)</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;(m&gt;&gt;<span class="number">1</span>);i++)</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;(m-(m&gt;&gt;<span class="number">1</span>));j++) &#123;</span><br><span class="line">                <span class="keyword">int</span> tmp = mx[i][j];</span><br><span class="line">                mx[i][j] = mx[<span class="built_in">inv</span>(j)][i];</span><br><span class="line">                mx[<span class="built_in">inv</span>(j)][i] = mx[<span class="built_in">inv</span>(i)][<span class="built_in">inv</span>(j)];</span><br><span class="line">                mx[<span class="built_in">inv</span>(i)][<span class="built_in">inv</span>(j)] = mx[j][<span class="built_in">inv</span>(i)];</span><br><span class="line">                mx[j][<span class="built_in">inv</span>(i)] = tmp;</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>另一個是transpose(對角線互換)後把column都reverse</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">rotate</span><span class="params">(vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt;&amp; mx)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;mx.<span class="built_in">size</span>();i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=i+<span class="number">1</span>;j&lt;mx.<span class="built_in">size</span>();j++) &#123;</span><br><span class="line">                <span class="built_in">swap</span>(mx[i][j],mx[j][i]);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">reverse</span>(mx[i].<span class="built_in">begin</span>(),mx[i].<span class="built_in">end</span>());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="54-Spiral-Matrix">54. Spiral Matrix</h3>
-<p>用index是最麻煩的，這裡可以拿第一排之後逆時針轉90度</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; <span class="built_in">back90</span>(vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt;&amp; m) &#123;</span><br><span class="line">        vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; ret;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j=m[<span class="number">0</span>].<span class="built_in">size</span>()<span class="number">-1</span>;j&gt;=<span class="number">0</span>;j--) &#123;</span><br><span class="line">            vector&lt;<span class="keyword">int</span>&gt; row;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;m.<span class="built_in">size</span>();i++)</span><br><span class="line">                row.<span class="built_in">push_back</span>(m[i][j]);</span><br><span class="line">            ret.<span class="built_in">push_back</span>(row);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">spiralOrder</span><span class="params">(vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt;&amp; m)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="keyword">int</span>&gt; ret;</span><br><span class="line">        <span class="keyword">while</span> (!m.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">            std::<span class="built_in">copy</span>(m[<span class="number">0</span>].<span class="built_in">begin</span>(),m[<span class="number">0</span>].<span class="built_in">end</span>(), std::<span class="built_in">back_inserter</span>(ret));</span><br><span class="line">            m.<span class="built_in">erase</span>(m.<span class="built_in">begin</span>());</span><br><span class="line">            m = <span class="built_in">back90</span>(m);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="binary-search-2">binary search</h2>
-<ol>
-<li>做出單調函數，來猜數字</li>
-<li>丟左邊，留右邊</li>
-<li>終點(b)透過答案存不存在決定要不要-1</li>
-</ol>
-<h3 id="287-Find-the-Duplicate-Number-2">287. Find the Duplicate Number</h3>
-<p>因為數字是累積的，只會越來越多(單調)<br>
-所以可以設計一個函數把array轉成單調的array做bsearch</p>
-<p>只要能湊出單調就能用bsearch</p>
-<p>要找什麼?<br>
-找總量不對的第一個位置</p>
-<p>b帶<code>nums.size()-1</code>，因為最後出來的最大數字就是這個值<br>
-需要捨棄的部分帶<code>a = mid+1</code><br>
-要保留的部分帶<code>b = mid</code><br>
-return就是<code>a</code></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">findDuplicate</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">auto</span> small_or_equal = [&amp;](<span class="keyword">int</span> cur) &#123;</span><br><span class="line">            <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;num: nums) &#123;</span><br><span class="line">                <span class="keyword">if</span> (num &lt;= cur)</span><br><span class="line">                    count++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> count;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="keyword">int</span> a = <span class="number">0</span>, b = nums.<span class="built_in">size</span>()<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span> (a &lt; b) &#123;</span><br><span class="line">            <span class="keyword">int</span> mid = (a+b)/<span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">small_or_equal</span>(mid) &gt; mid)</span><br><span class="line">                b = mid;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                a = mid+<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="33-Search-in-Rotated-Sorted-Array">33. Search in Rotated Sorted Array</h3>
-<p>第一段找最小<br>
-因為是rotate，所以最大一定在中間<br>
-總方向就是丟左邊</p>
-<p>所以我們取中點看右邊</p>
-<p>剩下就是用這個index做map之後做bsearch</p>
-<p>注意到這裡的b是帶<code>nums.size()</code>，因為有可能不存在</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">search</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> a=<span class="number">0</span>,b=nums.<span class="built_in">size</span>()<span class="number">-1</span>; <span class="comment">// 這裡要-1</span></span><br><span class="line">        <span class="keyword">while</span> (a&lt;b) &#123;</span><br><span class="line">            <span class="keyword">int</span> mid = (a+b)/<span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span> (nums[mid]&gt;nums[b])</span><br><span class="line">                a = mid+<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                b = mid;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> base = a;</span><br><span class="line">        <span class="keyword">for</span>(a=<span class="number">0</span>,b=nums.<span class="built_in">size</span>();a&lt;b;) &#123; <span class="comment">// 這裡不能-1</span></span><br><span class="line">            <span class="keyword">int</span> mid = (a+b)/<span class="number">2</span>;</span><br><span class="line">            <span class="keyword">int</span> i = (mid+base) % nums.<span class="built_in">size</span>();</span><br><span class="line">            <span class="keyword">if</span> (nums[i] == target)</span><br><span class="line">                <span class="keyword">return</span> i;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (nums[i] &lt; target)</span><br><span class="line">                a = mid+<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                b = mid;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="162-Find-Peak-Element">162. Find Peak Element</h3>
-<p>確定是上升就可以<br>
-丟左邊，留右邊</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">findPeakElement</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> a = <span class="number">0</span>, b = nums.<span class="built_in">size</span>()<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span> (a &lt; b) &#123;</span><br><span class="line">            <span class="keyword">int</span> mid = (a+b)/<span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span> (nums[mid] &lt; nums[mid+<span class="number">1</span>])</span><br><span class="line">                a = mid+<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                b = mid;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="34-Find-First-and-Last-Position-of-Element-in-Sorted-Array">34. Find First and Last Position of Element in Sorted Array</h3>
-<p>其實就是找lowerbound與upperbound-1</p>
-<p>注意到</p>
-<ol>
-<li>lowerbound與upperbound只差在一個等號</li>
-<li>upperbound的b還是帶<code>nums.size()</code>，因為可能不存在</li>
-</ol>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">searchRange</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="keyword">int</span>&gt; ret;</span><br><span class="line">        <span class="keyword">int</span> a = <span class="number">0</span>, b = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">while</span> (a &lt; b) &#123;</span><br><span class="line">            <span class="keyword">int</span> mid = (a+b)/<span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span> (nums[mid] &lt; target)</span><br><span class="line">                a = mid+<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                b = mid;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (a == nums.<span class="built_in">size</span>() || nums[a] != target)</span><br><span class="line">            <span class="keyword">return</span> &#123;<span class="number">-1</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">        ret.<span class="built_in">push_back</span>(a);</span><br><span class="line">        b = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">while</span> (a &lt; b) &#123;</span><br><span class="line">            <span class="keyword">int</span> mid = (a+b)/<span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span> (nums[mid] &lt;= target)</span><br><span class="line">                a = mid+<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                b = mid;</span><br><span class="line">        &#125;</span><br><span class="line">        ret.<span class="built_in">push_back</span>(a<span class="number">-1</span>);</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="154-Find-Minimum-in-Rotated-Sorted-Array-II">154. Find Minimum in Rotated Sorted Array II</h3>
-<p>Find Peak Element重複的話?</p>
-<p>重複就縮上界，因為不知道怎麼bsearch</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">findMin</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> a=<span class="number">0</span>,b=nums.<span class="built_in">size</span>()<span class="number">-1</span>; <span class="comment">// 這裡要-1</span></span><br><span class="line">        <span class="keyword">while</span> (a&lt;b) &#123;</span><br><span class="line">            <span class="keyword">int</span> mid = (a+b)/<span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span> (nums[mid]&gt;nums[b])</span><br><span class="line">                a = mid+<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (nums[mid] &lt; nums[b])</span><br><span class="line">                b = mid;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                b--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> nums[a];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="topo-sort">topo sort</h2>
-<p>我真的忘了</p>
-<ol>
-<li>建圖</li>
-<li>做topo sort</li>
-</ol>
-<ul>
-<li>dfs
-<ul>
-<li>dfs紀錄node狀態</li>
-<li>沒走過、走過、正在走</li>
-<li>遇到正在走要報錯</li>
-<li>最後要記得reverse結果</li>
-</ul>
-</li>
-<li>bfs
-<ul>
-<li>要算in_degree(有多少點指到)</li>
-<li>把degree 0塞到queue</li>
-<li>處理完把別人的ingree去掉</li>
-</ul>
-</li>
-</ul>
-<p>除非要求，不然用bfs比較好，因為cycle只要看bfs結束時in_degree的表還有沒有東西就好<br>
-dfs要另外處理cycle還要管理中間走過的點，如果是python就算了，用c++真的很痛苦，同時還要reverse結果…</p>
-<h2 id="mono-stack">mono stack</h2>
-<ul>
-<li>根據關注點不同有不同的看法
-<ul>
-<li>排序，留下最後的字典序 (stk是重點)
-<ul>
-<li><code>1 3 7 2</code></li>
-<li><code>1 2</code>
-<ul>
-<li>可以看成<code>2</code>把3,7吃了，只留下該範圍最小的，這也是字典序的由來</li>
-</ul>
-</li>
-<li>內容物:
-<ul>
-<li>節點</li>
-<li>區塊</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>夾出區間，中間是最大或是最小 (被pop的資料是重點)
-<ul>
-<li><code>while stk and stk[-1] &lt;= n</code>
-<ul>
-<li><code>7 3 2 ..left.. 1 ..right.. 2</code>
-<ul>
-<li>right的所有數字都會小於1</li>
-<li>left的所有數字都會等於1</li>
-<li>1是這個區間(去頭尾)<strong>最大的</strong>，含頭尾的區間中的<strong>最小的</strong></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><code>while stk and stk[-1] &gt;= n</code>
-<ul>
-<li><code>1 2 3 ..left.. 7 ..right.. 2</code>
-<ul>
-<li>right的所有數字都會大於7</li>
-<li>left的所有數字都會等於7</li>
-<li>7是這個區間<strong>最小的</strong>，含頭尾的區間中的<strong>最大的</strong></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>這樣就可以用<code>stk[-2]</code>與<code>n</code>，做出一個閉區間</li>
-<li>記得處理沒有stk的case</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><code>&lt;=</code>與<code>&gt;=</code>怎麼用?
-<ul>
-<li>看資料是遞增(<code>&gt;=</code>)還是遞減(<code>&lt;=</code>)</li>
-<li>箭頭指向最低的地方</li>
-</ul>
-</li>
-<li>在需要保持原本的順序、字典序、前面的資料會被後面的蓋掉時就可以老慮用用看</li>
-</ul>
-<h3 id="84-Largest-Rectangle-in-Histogram">84. Largest Rectangle in Histogram</h3>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">largestRectangleArea</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; hs)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="keyword">int</span>&gt; stk;</span><br><span class="line">        <span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">        hs.<span class="built_in">push_back</span>(<span class="number">0</span>); <span class="comment">// 留一個最低的把stack都壓出來</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;hs.<span class="built_in">size</span>();i++) &#123;</span><br><span class="line">            <span class="keyword">while</span> (!stk.<span class="built_in">empty</span>() &amp;&amp; hs[stk.<span class="built_in">back</span>()] &gt;= hs[i]) &#123; <span class="comment">// not &lt;=</span></span><br><span class="line">                <span class="keyword">if</span> (stk.<span class="built_in">size</span>() &gt; <span class="number">1</span>)</span><br><span class="line">                    ret = <span class="built_in">max</span>(ret, hs[stk.<span class="built_in">back</span>()]*(i-stk[stk.<span class="built_in">size</span>()<span class="number">-2</span>]<span class="number">-1</span>)); <span class="comment">// not +1</span></span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    ret = <span class="built_in">max</span>(ret, hs[stk.<span class="built_in">back</span>()]*i);</span><br><span class="line">                stk.<span class="built_in">pop_back</span>();</span><br><span class="line">            &#125;</span><br><span class="line">            stk.<span class="built_in">push_back</span>(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="sliding-windows">sliding windows</h2>
-<p>用<em>閉區間</em>做</p>
-<p>列舉起點</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">b = <span class="number">0</span></span><br><span class="line">win = []</span><br><span class="line"><span class="keyword">for</span> a <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(fs)):</span><br><span class="line">    <span class="keyword">while</span> b &lt; <span class="built_in">len</span>(fs) <span class="keyword">and</span> when_win_is_legal():</span><br><span class="line">        update_ret()</span><br><span class="line">        expand_win()</span><br><span class="line">    shrink_win()</span><br><span class="line"><span class="keyword">return</span> ret</span><br></pre></td></tr></table></figure>
-<p>列舉終點</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">0</span></span><br><span class="line">win = []</span><br><span class="line"><span class="keyword">for</span> b <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(fs)):</span><br><span class="line">    update_win()</span><br><span class="line">    <span class="keyword">while</span> a &lt;= b <span class="keyword">and</span> when_win_is_illegal():</span><br><span class="line">        shrink_win()</span><br><span class="line">    update_ret()</span><br><span class="line"><span class="keyword">return</span> ret</span><br></pre></td></tr></table></figure>
-<p>atMost</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">atmost</span>(<span class="params">bound</span>):</span></span><br><span class="line">    ret = i = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> j,n <span class="keyword">in</span> <span class="built_in">enumerate</span>(nums):</span><br><span class="line">        update_win()</span><br><span class="line">        <span class="keyword">while</span> i &lt;= j <span class="keyword">and</span> when_win_is_illegal():</span><br><span class="line">            shrink_win()</span><br><span class="line">        ret += j-i+<span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> ret</span><br></pre></td></tr></table></figure>
-<h2 id="prefix-sum">prefix sum</h2>
-<ul>
-<li>算區間和</li>
-<li>和
-<ul>
-<li>從a~b的總和</li>
-<li>如果有負數，可以代表偏離原點多遠</li>
-</ul>
-</li>
-<li>一般來說，通常第一個會是0代表沒有加任何東西的狀態</li>
-<li>所以index從1開始，代表從<code>arr[0]~arr[i-1]</code></li>
-</ul>
-<h3 id="static-index-sum">static (index -&gt; sum)</h3>
-<ul>
-<li><code>list(accumulate(nums, initial=0))</code></li>
-<li>LC209
-<ul>
-<li>因為arr只有正數
-<ul>
-<li>可以用sliding window，去收縮大小</li>
-<li>可以用prefix sum，在prefix sum做binary search
-<ul>
-<li>我們會先列舉起點到終點</li>
-<li>所以prefix sum也是從起點去往後找終點</li>
-<li>TODO: LC209與LC525為什麼一個是從後面一個從前面</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="in-fly-sum-count-or-index">in fly (sum -&gt; count or [index])</h3>
-<ul>
-<li>LC560
-<ul>
-<li>基本款</li>
-</ul>
-</li>
-<li>LC525
-<ul>
-<li>與LC209不同這裡是每加一個都會產生變化</li>
-<li>所以可以用in fly一邊建prefix sum，再找有沒有符合的</li>
-<li>注意同一個sum我們只要<em>最前面</em>的</li>
-</ul>
-</li>
-</ul>
-
-    </div>
-
-    
-    
-    
-
-      <footer class="post-footer">
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2022/04/distributed-tricks/" rel="prev" title="分散式手法">
-      <i class="fa fa-chevron-left"></i> 分散式手法
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/04/leetcode-1315/" rel="next" title="leetcode-1315 - Sum of Nodes with Even-Valued Grandparent">
-      leetcode-1315 - Sum of Nodes with Even-Valued Grandparent <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%A9%9F-654"><span class="nav-number">1.</span> <span class="nav-text">動機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%BE%9C%E5%85%94%E8%B3%BD%E8%B7%91"><span class="nav-number">2.</span> <span class="nav-text">龜兔賽跑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#142-Linked-List-Cycle-II"><span class="nav-number">2.1.</span> <span class="nav-text">142. Linked List Cycle II</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#287-Find-the-Duplicate-Number"><span class="nav-number">2.2.</span> <span class="nav-text">287. Find the Duplicate Number</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#160-Intersection-of-Two-Linked-Lists"><span class="nav-number">2.3.</span> <span class="nav-text">160. Intersection of Two Linked Lists</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#matrix%E7%BF%BB%E7%BF%BB%E6%A8%82"><span class="nav-number">3.</span> <span class="nav-text">matrix翻翻樂</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#48-Rotate-Image"><span class="nav-number">3.1.</span> <span class="nav-text">48. Rotate Image</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#54-Spiral-Matrix"><span class="nav-number">3.2.</span> <span class="nav-text">54. Spiral Matrix</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#binary-search-2"><span class="nav-number">4.</span> <span class="nav-text">binary search</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#287-Find-the-Duplicate-Number-2"><span class="nav-number">4.1.</span> <span class="nav-text">287. Find the Duplicate Number</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#33-Search-in-Rotated-Sorted-Array"><span class="nav-number">4.2.</span> <span class="nav-text">33. Search in Rotated Sorted Array</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#162-Find-Peak-Element"><span class="nav-number">4.3.</span> <span class="nav-text">162. Find Peak Element</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#34-Find-First-and-Last-Position-of-Element-in-Sorted-Array"><span class="nav-number">4.4.</span> <span class="nav-text">34. Find First and Last Position of Element in Sorted Array</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#154-Find-Minimum-in-Rotated-Sorted-Array-II"><span class="nav-number">4.5.</span> <span class="nav-text">154. Find Minimum in Rotated Sorted Array II</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#topo-sort"><span class="nav-number">5.</span> <span class="nav-text">topo sort</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mono-stack"><span class="nav-number">6.</span> <span class="nav-text">mono stack</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#84-Largest-Rectangle-in-Histogram"><span class="nav-number">6.1.</span> <span class="nav-text">84. Largest Rectangle in Histogram</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sliding-windows"><span class="nav-number">7.</span> <span class="nav-text">sliding windows</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#prefix-sum"><span class="nav-number">8.</span> <span class="nav-text">prefix sum</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#static-index-sum"><span class="nav-number">8.1.</span> <span class="nav-text">static (index -&gt; sum)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#in-fly-sum-count-or-index"><span class="nav-number">8.2.</span> <span class="nav-text">in fly (sum -&gt; count or [index])</span></a></li></ol></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">zhengcf</p>
-  <div class="site-description" itemprop="description">想到什麼就寫什麼</div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">710</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">87</span>
-        <span class="site-state-item-name">categories</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">64</span>
-        <span class="site-state-item-name">tags</span></a>
-      </div>
-  </nav>
-</div>
-
-
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2023</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">zhengcf</span>
-</div>
-  <div class="powered-by">Powered by <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl theme-link" data-url="aHR0cHM6Ly9tdXNlLnRoZW1lLW5leHQub3Jn">NexT.Muse</span>
-  </div>
-
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
-
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
-  
-
-
-
-
-  
-<script src="/js/local-search.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
-  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
-  <script>
-      window.addEventListener('load', () => {
-      quicklink({
-        timeout : 1000,
-        priority: true,
-        ignores : [uri => uri.includes('#'),uri => uri === 'https://littlebees.github.io/2022/04/review-leetcode/',]
-      });
-      });
-  </script>
-
-</body>
-</html>
+<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>review-leetcode | 記事本</title>
+<meta name=keywords content="TODO"><meta name=description content="動機
+要複習怎麼用C++做leetcode"><meta name=author content="zhengcf"><link rel=canonical href=https://littlebees.github.io/2022/04/review-leetcode/><link crossorigin=anonymous href=/assets/css/stylesheet.b609c58d5c11bb90b1a54e04005d74ad1ddf22165eb79f5533967e57df9c3b50.css integrity="sha256-tgnFjVwRu5CxpU4EAF10rR3fIhZet59VM5Z+V9+cO1A=" rel="preload stylesheet" as=style><link rel=icon href=https://littlebees.github.io/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://littlebees.github.io/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://littlebees.github.io/favicon-32x32.png><link rel=apple-touch-icon href=https://littlebees.github.io/apple-touch-icon.png><link rel=mask-icon href=https://littlebees.github.io/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><meta property="og:title" content="review-leetcode"><meta property="og:description" content="動機
+要複習怎麼用C++做leetcode"><meta property="og:type" content="article"><meta property="og:url" content="https://littlebees.github.io/2022/04/review-leetcode/"><meta property="og:image" content="https://littlebees.github.io/images/papermod-cover.png"><meta property="article:section" content="posts"><meta property="article:published_time" content="2022-04-12T01:38:21+00:00"><meta property="article:modified_time" content="2022-04-12T01:38:21+00:00"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://littlebees.github.io/images/papermod-cover.png"><meta name=twitter:title content="review-leetcode"><meta name=twitter:description content="動機
+要複習怎麼用C++做leetcode"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://littlebees.github.io/posts/"},{"@type":"ListItem","position":2,"name":"review-leetcode","item":"https://littlebees.github.io/2022/04/review-leetcode/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"review-leetcode","name":"review-leetcode","description":"動機 要複習怎麼用C++做leetcode\n","keywords":["TODO"],"articleBody":"動機 要複習怎麼用C++做leetcode\n龜兔賽跑 一個快(2倍速)，一個慢(1倍速) 同樣都走k次 因為最後在loop遇到，所以兩者的距離只差在common的那一段 所以做最後只要再走一次就是起點\nslow = common + x + (cycle*a) fast = common*2 + x + 2*(cycle*a) // 因為最後在loop遇到，所以x會是一樣 (我忘了實際的proof...) fast = slow*2 fast-slow = common 142. Linked List Cycle II class Solution { public: ListNode *detectCycle(ListNode *head) { if (head \u0026\u0026 head-\u003enext) { ListNode *a=head-\u003enext,*b=head-\u003enext-\u003enext; for(;a!=b \u0026\u0026 b \u0026\u0026 b-\u003enext;a=a-\u003enext, b=b-\u003enext-\u003enext) ; if (b \u0026\u0026 b-\u003enext \u0026\u0026 a == b) { a = head; for(;a!=b;a=a-\u003enext, b=b-\u003enext) ; return a; } } return 0; } }; 287. Find the Duplicate Number 這題的資料很特別，都是1~n，同時array長n+1 這代表array資料一定在array的index中，所以有重複就是cycle\nclass Solution { public: int findDuplicate(vector\u003cint\u003e\u0026 nums) { int a = nums[nums[0]], b = nums[nums[nums[0]]]; for (;a!=b;a=nums[a], b=nums[nums[b]]) ; for (a = nums[0];a!=b;a=nums[a], b=nums[b]) ; return a; } }; 160. Intersection of Two Linked Lists 龜兔賽跑能找到起點是因為兩者只差一段common的距離\n所以只要把兩個ptr走的距離湊成一樣的就可以找到起點\n當走到底就從另一個開始走\na = a_diff + common b = b_diff + common 走到底之後 a =\u003e a_diff + common + b_diff b =\u003e b_diff + common + a_diff class Solution { public: ListNode *getIntersectionNode(ListNode *a, ListNode *b) { if (!a || !b) return 0; ListNode *x = a, *y = b; while (x != y) { x = !x ? b : x-\u003enext; y = !y ? a : y-\u003enext; } return x; } }; matrix翻翻樂 常常見到，不知道為什麼\n48. Rotate Image 有兩個解法\n一個是4個一起換\n一個是對角線 (固定走橫的，想像成轉成直線) (i, j), (n-1-i, n-1-j) 另一個反對角線 (固定走直的，想像成轉成橫線) (n-1-j,i), (j,n-1-i) 之後把覆蓋順序寫下來 (i, j) \u003c- (n-1-j, i) \u003c- (n-1-i, n-1-j) \u003c- (j, n-1-i)\nclass Solution { public: void rotate(vector\u003cvector\u003cint\u003e\u003e\u0026 mx) { auto m = mx.size(); auto inv = [m](int x) { return m-1-x; }; // (i, j) \u003c- (n-1-j, i) \u003c- (n-1-i, n-1-j) \u003c- (j, n-1-i) for (int i=0;i\u003c(m\u003e\u003e1);i++) for (int j=0;j\u003c(m-(m\u003e\u003e1));j++) { int tmp = mx[i][j]; mx[i][j] = mx[inv(j)][i]; mx[inv(j)][i] = mx[inv(i)][inv(j)]; mx[inv(i)][inv(j)] = mx[j][inv(i)]; mx[j][inv(i)] = tmp; } } }; 另一個是transpose(對角線互換)後把column都reverse\nclass Solution { public: void rotate(vector\u003cvector\u003cint\u003e\u003e\u0026 mx) { for(int i=0;i\u003cmx.size();i++) { for(int j=i+1;j\u003cmx.size();j++) { swap(mx[i][j],mx[j][i]); } reverse(mx[i].begin(),mx[i].end()); } } }; 54. Spiral Matrix 用index是最麻煩的，這裡可以拿第一排之後逆時針轉90度\nclass Solution { public: vector\u003cvector\u003cint\u003e\u003e back90(vector\u003cvector\u003cint\u003e\u003e\u0026 m) { vector\u003cvector\u003cint\u003e\u003e ret; for (int j=m[0].size()-1;j\u003e=0;j--) { vector\u003cint\u003e row; for (int i=0;i\u003cm.size();i++) row.push_back(m[i][j]); ret.push_back(row); } return ret; } vector\u003cint\u003e spiralOrder(vector\u003cvector\u003cint\u003e\u003e\u0026 m) { vector\u003cint\u003e ret; while (!m.empty()) { std::copy(m[0].begin(),m[0].end(), std::back_inserter(ret)); m.erase(m.begin()); m = back90(m); } return ret; } }; binary search 做出單調函數，來猜數字 丟左邊，留右邊 終點(b)透過答案存不存在決定要不要-1 287. Find the Duplicate Number 因為數字是累積的，只會越來越多(單調) 所以可以設計一個函數把array轉成單調的array做bsearch\n只要能湊出單調就能用bsearch\n要找什麼? 找總量不對的第一個位置\nb帶nums.size()-1，因為最後出來的最大數字就是這個值 需要捨棄的部分帶a = mid+1 要保留的部分帶b = mid return就是a\nclass Solution { public: int findDuplicate(vector\u003cint\u003e\u0026 nums) { auto small_or_equal = [\u0026](int cur) { int count = 0; for (auto \u0026num: nums) { if (num \u003c= cur) count++; } return count; }; int a = 0, b = nums.size()-1; while (a \u003c b) { int mid = (a+b)/2; if (small_or_equal(mid) \u003e mid) b = mid; else a = mid+1; } return a; } }; 33. Search in Rotated Sorted Array 第一段找最小 因為是rotate，所以最大一定在中間 總方向就是丟左邊\n所以我們取中點看右邊\n剩下就是用這個index做map之後做bsearch\n注意到這裡的b是帶nums.size()，因為有可能不存在\nclass Solution { public: int search(vector\u003cint\u003e\u0026 nums, int target) { int a=0,b=nums.size()-1; // 這裡要-1 while (a\u003cb) { int mid = (a+b)/2; if (nums[mid]\u003enums[b]) a = mid+1; else b = mid; } int base = a; for(a=0,b=nums.size();a\u003cb;) { // 這裡不能-1 int mid = (a+b)/2; int i = (mid+base) % nums.size(); if (nums[i] == target) return i; else if (nums[i] \u003c target) a = mid+1; else b = mid; } return -1; } }; 162. Find Peak Element 確定是上升就可以 丟左邊，留右邊\nclass Solution { public: int findPeakElement(vector\u003cint\u003e\u0026 nums) { int a = 0, b = nums.size()-1; while (a \u003c b) { int mid = (a+b)/2; if (nums[mid] \u003c nums[mid+1]) a = mid+1; else b = mid; } return a; } }; 34. Find First and Last Position of Element in Sorted Array 其實就是找lowerbound與upperbound-1\n注意到\nlowerbound與upperbound只差在一個等號 upperbound的b還是帶nums.size()，因為可能不存在 class Solution { public: vector\u003cint\u003e searchRange(vector\u003cint\u003e\u0026 nums, int target) { vector\u003cint\u003e ret; int a = 0, b = nums.size(); while (a \u003c b) { int mid = (a+b)/2; if (nums[mid] \u003c target) a = mid+1; else b = mid; } if (a == nums.size() || nums[a] != target) return {-1, -1}; ret.push_back(a); b = nums.size(); while (a \u003c b) { int mid = (a+b)/2; if (nums[mid] \u003c= target) a = mid+1; else b = mid; } ret.push_back(a-1); return ret; } }; 154. Find Minimum in Rotated Sorted Array II Find Peak Element重複的話?\n重複就縮上界，因為不知道怎麼bsearch\nclass Solution { public: int findMin(vector\u003cint\u003e\u0026 nums) { int a=0,b=nums.size()-1; // 這裡要-1 while (a\u003cb) { int mid = (a+b)/2; if (nums[mid]\u003enums[b]) a = mid+1; else if (nums[mid] \u003c nums[b]) b = mid; else b--; } return nums[a]; } }; topo sort 我真的忘了\n建圖 做topo sort dfs dfs紀錄node狀態 沒走過、走過、正在走 遇到正在走要報錯 最後要記得reverse結果 bfs 要算in_degree(有多少點指到) 把degree 0塞到queue 處理完把別人的ingree去掉 除非要求，不然用bfs比較好，因為cycle只要看bfs結束時in_degree的表還有沒有東西就好 dfs要另外處理cycle還要管理中間走過的點，如果是python就算了，用c++真的很痛苦，同時還要reverse結果…\nmono stack 根據關注點不同有不同的看法 排序，留下最後的字典序 (stk是重點) 1 3 7 2 1 2 可以看成2把3,7吃了，只留下該範圍最小的，這也是字典序的由來 內容物: 節點 區塊 夾出區間，中間是最大或是最小 (被pop的資料是重點) while stk and stk[-1] \u003c= n 7 3 2 ..left.. 1 ..right.. 2 right的所有數字都會小於1 left的所有數字都會等於1 1是這個區間(去頭尾)最大的，含頭尾的區間中的最小的 while stk and stk[-1] \u003e= n 1 2 3 ..left.. 7 ..right.. 2 right的所有數字都會大於7 left的所有數字都會等於7 7是這個區間最小的，含頭尾的區間中的最大的 這樣就可以用stk[-2]與n，做出一個閉區間 記得處理沒有stk的case \u003c=與\u003e=怎麼用? 看資料是遞增(\u003e=)還是遞減(\u003c=) 箭頭指向最低的地方 在需要保持原本的順序、字典序、前面的資料會被後面的蓋掉時就可以老慮用用看 84. Largest Rectangle in Histogram class Solution { public: int largestRectangleArea(vector\u003cint\u003e\u0026 hs) { vector\u003cint\u003e stk; int ret = 0; hs.push_back(0); // 留一個最低的把stack都壓出來 for (int i=0;i\u003chs.size();i++) { while (!stk.empty() \u0026\u0026 hs[stk.back()] \u003e= hs[i]) { // not \u003c= if (stk.size() \u003e 1) ret = max(ret, hs[stk.back()]*(i-stk[stk.size()-2]-1)); // not +1 else ret = max(ret, hs[stk.back()]*i); stk.pop_back(); } stk.push_back(i); } return ret; } }; sliding windows 用閉區間做\n列舉起點\nb = 0 win = [] for a in range(len(fs)): while b \u003c len(fs) and when_win_is_legal(): update_ret() expand_win() shrink_win() return ret 列舉終點\na = 0 win = [] for b in range(len(fs)): update_win() while a \u003c= b and when_win_is_illegal(): shrink_win() update_ret() return ret atMost\ndef atmost(bound): ret = i = 0 for j,n in enumerate(nums): update_win() while i \u003c= j and when_win_is_illegal(): shrink_win() ret += j-i+1 return ret prefix sum 算區間和 和 從a~b的總和 如果有負數，可以代表偏離原點多遠 一般來說，通常第一個會是0代表沒有加任何東西的狀態 所以index從1開始，代表從arr[0]~arr[i-1] static (index -\u003e sum) list(accumulate(nums, initial=0)) LC209 因為arr只有正數 可以用sliding window，去收縮大小 可以用prefix sum，在prefix sum做binary search 我們會先列舉起點到終點 所以prefix sum也是從起點去往後找終點 TODO: LC209與LC525為什麼一個是從後面一個從前面 in fly (sum -\u003e count or [index]) LC560 基本款 LC525 與LC209不同這裡是每加一個都會產生變化 所以可以用in fly一邊建prefix sum，再找有沒有符合的 注意同一個sum我們只要最前面的 ","wordCount":"966","inLanguage":"en","datePublished":"2022-04-12T01:38:21Z","dateModified":"2022-04-12T01:38:21Z","author":{"@type":"Person","name":"zhengcf"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://littlebees.github.io/2022/04/review-leetcode/"},"publisher":{"@type":"Organization","name":"記事本","logo":{"@type":"ImageObject","url":"https://littlebees.github.io/favicon.ico"}}}</script></head><body id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=https://littlebees.github.io/ accesskey=h title="記事本 (Alt + H)">記事本</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu><li><a href=https://littlebees.github.io/categories/ title=Categories><span>Categories</span></a></li><li><a href=https://littlebees.github.io/search/ title="Search (Alt + /)" accesskey=/><span>Search</span></a></li><li><a href=https://littlebees.github.io/tags/ title=Tags><span>Tags</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><div class=breadcrumbs><a href=https://littlebees.github.io/>Home</a>&nbsp;»&nbsp;<a href=https://littlebees.github.io/posts/>Posts</a></div><h1 class="post-title entry-hint-parent">review-leetcode</h1><div class=post-meta><span title='2022-04-12 01:38:21 +0000 UTC'>April 12, 2022</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;zhengcf</div></header><div class=toc><details><summary accesskey=c title="(Alt + C)"><span class=details>Table of Contents</span></summary><div class=inner><ul><li><a href=#%e5%8b%95%e6%a9%9f aria-label=動機>動機</a></li><li><a href=#%e9%be%9c%e5%85%94%e8%b3%bd%e8%b7%91 aria-label=龜兔賽跑>龜兔賽跑</a><ul><li><a href=#142-linked-list-cycle-ii aria-label="142. Linked List Cycle II">142. Linked List Cycle II</a></li><li><a href=#287-find-the-duplicate-number aria-label="287. Find the Duplicate Number">287. Find the Duplicate Number</a></li><li><a href=#160-intersection-of-two-linked-lists aria-label="160. Intersection of Two Linked Lists">160. Intersection of Two Linked Lists</a></li></ul></li><li><a href=#matrix%e7%bf%bb%e7%bf%bb%e6%a8%82 aria-label=matrix翻翻樂>matrix翻翻樂</a><ul><li><a href=#48-rotate-image aria-label="48. Rotate Image">48. Rotate Image</a></li><li><a href=#54-spiral-matrix aria-label="54. Spiral Matrix">54. Spiral Matrix</a></li></ul></li><li><a href=#binary-search aria-label="binary search">binary search</a><ul><li><a href=#287-find-the-duplicate-number-1 aria-label="287. Find the Duplicate Number">287. Find the Duplicate Number</a></li><li><a href=#33-search-in-rotated-sorted-array aria-label="33. Search in Rotated Sorted Array">33. Search in Rotated Sorted Array</a></li><li><a href=#162-find-peak-element aria-label="162. Find Peak Element">162. Find Peak Element</a></li><li><a href=#34-find-first-and-last-position-of-element-in-sorted-array aria-label="34. Find First and Last Position of Element in Sorted Array">34. Find First and Last Position of Element in Sorted Array</a></li><li><a href=#154-find-minimum-in-rotated-sorted-array-ii aria-label="154. Find Minimum in Rotated Sorted Array II">154. Find Minimum in Rotated Sorted Array II</a></li></ul></li><li><a href=#topo-sort aria-label="topo sort">topo sort</a></li><li><a href=#mono-stack aria-label="mono stack">mono stack</a><ul><li><a href=#84-largest-rectangle-in-histogram aria-label="84. Largest Rectangle in Histogram">84. Largest Rectangle in Histogram</a></li></ul></li><li><a href=#sliding-windows aria-label="sliding windows">sliding windows</a></li><li><a href=#prefix-sum aria-label="prefix sum">prefix sum</a><ul><li><a href=#static-index---sum aria-label="static (index -> sum)">static (index -> sum)</a></li><li><a href=#in-fly-sum---count-or-index aria-label="in fly (sum -> count or [index])">in fly (sum -> count or [index])</a></li></ul></li></ul></div></details></div><div class=post-content><h2 id=動機>動機<a hidden class=anchor aria-hidden=true href=#動機>#</a></h2><p>要複習怎麼用C++做leetcode</p><h2 id=龜兔賽跑>龜兔賽跑<a hidden class=anchor aria-hidden=true href=#龜兔賽跑>#</a></h2><p>一個快(2倍速)，一個慢(1倍速)
+同樣都走k次
+因為最後在loop遇到，所以兩者的距離只差在common的那一段
+所以做最後只要再走一次就是起點</p><pre tabindex=0><code>slow = common + x + (cycle*a)
+fast = common*2 + x + 2*(cycle*a)
+// 因為最後在loop遇到，所以x會是一樣 (我忘了實際的proof...)
+fast = slow*2
+
+fast-slow = common
+</code></pre><h3 id=142-linked-list-cycle-ii>142. Linked List Cycle II<a hidden class=anchor aria-hidden=true href=#142-linked-list-cycle-ii>#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=line><span class=cl><span class=k>class</span> <span class=nc>Solution</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl><span class=k>public</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>ListNode</span> <span class=o>*</span><span class=n>detectCycle</span><span class=p>(</span><span class=n>ListNode</span> <span class=o>*</span><span class=n>head</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=n>head</span> <span class=o>&amp;&amp;</span> <span class=n>head</span><span class=o>-&gt;</span><span class=n>next</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=n>ListNode</span> <span class=o>*</span><span class=n>a</span><span class=o>=</span><span class=n>head</span><span class=o>-&gt;</span><span class=n>next</span><span class=p>,</span><span class=o>*</span><span class=n>b</span><span class=o>=</span><span class=n>head</span><span class=o>-&gt;</span><span class=n>next</span><span class=o>-&gt;</span><span class=n>next</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=k>for</span><span class=p>(;</span><span class=n>a</span><span class=o>!=</span><span class=n>b</span> <span class=o>&amp;&amp;</span> <span class=n>b</span> <span class=o>&amp;&amp;</span> <span class=n>b</span><span class=o>-&gt;</span><span class=n>next</span><span class=p>;</span><span class=n>a</span><span class=o>=</span><span class=n>a</span><span class=o>-&gt;</span><span class=n>next</span><span class=p>,</span> <span class=n>b</span><span class=o>=</span><span class=n>b</span><span class=o>-&gt;</span><span class=n>next</span><span class=o>-&gt;</span><span class=n>next</span><span class=p>)</span> <span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=p>(</span><span class=n>b</span> <span class=o>&amp;&amp;</span> <span class=n>b</span><span class=o>-&gt;</span><span class=n>next</span> <span class=o>&amp;&amp;</span> <span class=n>a</span> <span class=o>==</span> <span class=n>b</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=n>a</span> <span class=o>=</span> <span class=n>head</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>                <span class=k>for</span><span class=p>(;</span><span class=n>a</span><span class=o>!=</span><span class=n>b</span><span class=p>;</span><span class=n>a</span><span class=o>=</span><span class=n>a</span><span class=o>-&gt;</span><span class=n>next</span><span class=p>,</span> <span class=n>b</span><span class=o>=</span><span class=n>b</span><span class=o>-&gt;</span><span class=n>next</span><span class=p>)</span> <span class=p>;</span>
+</span></span><span class=line><span class=cl>                <span class=k>return</span> <span class=n>a</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span></code></pre></div><h3 id=287-find-the-duplicate-number>287. Find the Duplicate Number<a hidden class=anchor aria-hidden=true href=#287-find-the-duplicate-number>#</a></h3><p>這題的資料很特別，都是1~n，同時array長n+1
+這代表array資料一定在array的index中，所以有重複就是cycle</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=line><span class=cl><span class=k>class</span> <span class=nc>Solution</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl><span class=k>public</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=n>findDuplicate</span><span class=p>(</span><span class=n>vector</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;&amp;</span> <span class=n>nums</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kt>int</span> <span class=n>a</span> <span class=o>=</span> <span class=n>nums</span><span class=p>[</span><span class=n>nums</span><span class=p>[</span><span class=mi>0</span><span class=p>]],</span> <span class=n>b</span> <span class=o>=</span> <span class=n>nums</span><span class=p>[</span><span class=n>nums</span><span class=p>[</span><span class=n>nums</span><span class=p>[</span><span class=mi>0</span><span class=p>]]];</span>
+</span></span><span class=line><span class=cl>        <span class=k>for</span> <span class=p>(;</span><span class=n>a</span><span class=o>!=</span><span class=n>b</span><span class=p>;</span><span class=n>a</span><span class=o>=</span><span class=n>nums</span><span class=p>[</span><span class=n>a</span><span class=p>],</span> <span class=n>b</span><span class=o>=</span><span class=n>nums</span><span class=p>[</span><span class=n>nums</span><span class=p>[</span><span class=n>b</span><span class=p>]])</span> <span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=k>for</span> <span class=p>(</span><span class=n>a</span> <span class=o>=</span> <span class=n>nums</span><span class=p>[</span><span class=mi>0</span><span class=p>];</span><span class=n>a</span><span class=o>!=</span><span class=n>b</span><span class=p>;</span><span class=n>a</span><span class=o>=</span><span class=n>nums</span><span class=p>[</span><span class=n>a</span><span class=p>],</span> <span class=n>b</span><span class=o>=</span><span class=n>nums</span><span class=p>[</span><span class=n>b</span><span class=p>])</span> <span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>a</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span></code></pre></div><h3 id=160-intersection-of-two-linked-lists>160. Intersection of Two Linked Lists<a hidden class=anchor aria-hidden=true href=#160-intersection-of-two-linked-lists>#</a></h3><p>龜兔賽跑能找到起點是因為兩者只差一段common的距離</p><p>所以只要把兩個ptr<strong>走的距離湊成一樣</strong>的就可以找到起點</p><p>當走到底就從另一個開始走</p><pre tabindex=0><code>a = a_diff + common
+b = b_diff + common
+
+走到底之後
+a =&gt; a_diff + common + b_diff
+b =&gt; b_diff + common + a_diff
+</code></pre><div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=line><span class=cl><span class=k>class</span> <span class=nc>Solution</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl><span class=k>public</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>ListNode</span> <span class=o>*</span><span class=n>getIntersectionNode</span><span class=p>(</span><span class=n>ListNode</span> <span class=o>*</span><span class=n>a</span><span class=p>,</span> <span class=n>ListNode</span> <span class=o>*</span><span class=n>b</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=n>a</span> <span class=o>||</span> <span class=o>!</span><span class=n>b</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=n>ListNode</span> <span class=o>*</span><span class=n>x</span> <span class=o>=</span> <span class=n>a</span><span class=p>,</span> <span class=o>*</span><span class=n>y</span> <span class=o>=</span> <span class=n>b</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=k>while</span> <span class=p>(</span><span class=n>x</span> <span class=o>!=</span> <span class=n>y</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=n>x</span> <span class=o>=</span> <span class=o>!</span><span class=n>x</span> <span class=o>?</span> <span class=nl>b</span> <span class=p>:</span> <span class=n>x</span><span class=o>-&gt;</span><span class=n>next</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=n>y</span> <span class=o>=</span> <span class=o>!</span><span class=n>y</span> <span class=o>?</span> <span class=nl>a</span> <span class=p>:</span> <span class=n>y</span><span class=o>-&gt;</span><span class=n>next</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>x</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span></code></pre></div><h2 id=matrix翻翻樂>matrix翻翻樂<a hidden class=anchor aria-hidden=true href=#matrix翻翻樂>#</a></h2><p>常常見到，不知道為什麼</p><h3 id=48-rotate-image>48. Rotate Image<a hidden class=anchor aria-hidden=true href=#48-rotate-image>#</a></h3><p>有兩個解法</p><p>一個是4個一起換</p><p>一個是對角線 (固定走橫的，想像成轉成直線)
+<code>(i, j), (n-1-i, n-1-j)</code>
+另一個反對角線 (固定走直的，想像成轉成橫線)
+<code>(n-1-j,i), (j,n-1-i)</code>
+之後把覆蓋順序寫下來
+<code>(i, j) &lt;- (n-1-j, i) &lt;- (n-1-i, n-1-j) &lt;- (j, n-1-i)</code></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=line><span class=cl><span class=k>class</span> <span class=nc>Solution</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl><span class=k>public</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>    <span class=kt>void</span> <span class=n>rotate</span><span class=p>(</span><span class=n>vector</span><span class=o>&lt;</span><span class=n>vector</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;&gt;&amp;</span> <span class=n>mx</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>auto</span> <span class=n>m</span> <span class=o>=</span> <span class=n>mx</span><span class=p>.</span><span class=n>size</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>        <span class=k>auto</span> <span class=n>inv</span> <span class=o>=</span> <span class=p>[</span><span class=n>m</span><span class=p>](</span><span class=kt>int</span> <span class=n>x</span><span class=p>)</span> <span class=p>{</span> <span class=k>return</span> <span class=n>m</span><span class=o>-</span><span class=mi>1</span><span class=o>-</span><span class=n>x</span><span class=p>;</span> <span class=p>};</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// (i, j)  &lt;-  (n-1-j, i)  &lt;-  (n-1-i, n-1-j)  &lt;-  (j, n-1-i)
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=k>for</span> <span class=p>(</span><span class=kt>int</span> <span class=n>i</span><span class=o>=</span><span class=mi>0</span><span class=p>;</span><span class=n>i</span><span class=o>&lt;</span><span class=p>(</span><span class=n>m</span><span class=o>&gt;&gt;</span><span class=mi>1</span><span class=p>);</span><span class=n>i</span><span class=o>++</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=k>for</span> <span class=p>(</span><span class=kt>int</span> <span class=n>j</span><span class=o>=</span><span class=mi>0</span><span class=p>;</span><span class=n>j</span><span class=o>&lt;</span><span class=p>(</span><span class=n>m</span><span class=o>-</span><span class=p>(</span><span class=n>m</span><span class=o>&gt;&gt;</span><span class=mi>1</span><span class=p>));</span><span class=n>j</span><span class=o>++</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=kt>int</span> <span class=n>tmp</span> <span class=o>=</span> <span class=n>mx</span><span class=p>[</span><span class=n>i</span><span class=p>][</span><span class=n>j</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>                <span class=n>mx</span><span class=p>[</span><span class=n>i</span><span class=p>][</span><span class=n>j</span><span class=p>]</span> <span class=o>=</span> <span class=n>mx</span><span class=p>[</span><span class=n>inv</span><span class=p>(</span><span class=n>j</span><span class=p>)][</span><span class=n>i</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>                <span class=n>mx</span><span class=p>[</span><span class=n>inv</span><span class=p>(</span><span class=n>j</span><span class=p>)][</span><span class=n>i</span><span class=p>]</span> <span class=o>=</span> <span class=n>mx</span><span class=p>[</span><span class=n>inv</span><span class=p>(</span><span class=n>i</span><span class=p>)][</span><span class=n>inv</span><span class=p>(</span><span class=n>j</span><span class=p>)];</span>
+</span></span><span class=line><span class=cl>                <span class=n>mx</span><span class=p>[</span><span class=n>inv</span><span class=p>(</span><span class=n>i</span><span class=p>)][</span><span class=n>inv</span><span class=p>(</span><span class=n>j</span><span class=p>)]</span> <span class=o>=</span> <span class=n>mx</span><span class=p>[</span><span class=n>j</span><span class=p>][</span><span class=n>inv</span><span class=p>(</span><span class=n>i</span><span class=p>)];</span>
+</span></span><span class=line><span class=cl>                <span class=n>mx</span><span class=p>[</span><span class=n>j</span><span class=p>][</span><span class=n>inv</span><span class=p>(</span><span class=n>i</span><span class=p>)]</span> <span class=o>=</span> <span class=n>tmp</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span></code></pre></div><p>另一個是transpose(對角線互換)後把column都reverse</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=line><span class=cl><span class=k>class</span> <span class=nc>Solution</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl><span class=k>public</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>    <span class=kt>void</span> <span class=n>rotate</span><span class=p>(</span><span class=n>vector</span><span class=o>&lt;</span><span class=n>vector</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;&gt;&amp;</span> <span class=n>mx</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>for</span><span class=p>(</span><span class=kt>int</span> <span class=n>i</span><span class=o>=</span><span class=mi>0</span><span class=p>;</span><span class=n>i</span><span class=o>&lt;</span><span class=n>mx</span><span class=p>.</span><span class=n>size</span><span class=p>();</span><span class=n>i</span><span class=o>++</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=k>for</span><span class=p>(</span><span class=kt>int</span> <span class=n>j</span><span class=o>=</span><span class=n>i</span><span class=o>+</span><span class=mi>1</span><span class=p>;</span><span class=n>j</span><span class=o>&lt;</span><span class=n>mx</span><span class=p>.</span><span class=n>size</span><span class=p>();</span><span class=n>j</span><span class=o>++</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=n>swap</span><span class=p>(</span><span class=n>mx</span><span class=p>[</span><span class=n>i</span><span class=p>][</span><span class=n>j</span><span class=p>],</span><span class=n>mx</span><span class=p>[</span><span class=n>j</span><span class=p>][</span><span class=n>i</span><span class=p>]);</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>            <span class=n>reverse</span><span class=p>(</span><span class=n>mx</span><span class=p>[</span><span class=n>i</span><span class=p>].</span><span class=n>begin</span><span class=p>(),</span><span class=n>mx</span><span class=p>[</span><span class=n>i</span><span class=p>].</span><span class=n>end</span><span class=p>());</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span></code></pre></div><h3 id=54-spiral-matrix>54. Spiral Matrix<a hidden class=anchor aria-hidden=true href=#54-spiral-matrix>#</a></h3><p>用index是最麻煩的，這裡可以拿第一排之後逆時針轉90度</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=line><span class=cl><span class=k>class</span> <span class=nc>Solution</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl><span class=k>public</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>vector</span><span class=o>&lt;</span><span class=n>vector</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;&gt;</span> <span class=n>back90</span><span class=p>(</span><span class=n>vector</span><span class=o>&lt;</span><span class=n>vector</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;&gt;&amp;</span> <span class=n>m</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>vector</span><span class=o>&lt;</span><span class=n>vector</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;&gt;</span> <span class=n>ret</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=k>for</span> <span class=p>(</span><span class=kt>int</span> <span class=n>j</span><span class=o>=</span><span class=n>m</span><span class=p>[</span><span class=mi>0</span><span class=p>].</span><span class=n>size</span><span class=p>()</span><span class=o>-</span><span class=mi>1</span><span class=p>;</span><span class=n>j</span><span class=o>&gt;=</span><span class=mi>0</span><span class=p>;</span><span class=n>j</span><span class=o>--</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=n>vector</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;</span> <span class=n>row</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=k>for</span> <span class=p>(</span><span class=kt>int</span> <span class=n>i</span><span class=o>=</span><span class=mi>0</span><span class=p>;</span><span class=n>i</span><span class=o>&lt;</span><span class=n>m</span><span class=p>.</span><span class=n>size</span><span class=p>();</span><span class=n>i</span><span class=o>++</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                <span class=n>row</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=n>m</span><span class=p>[</span><span class=n>i</span><span class=p>][</span><span class=n>j</span><span class=p>]);</span>
+</span></span><span class=line><span class=cl>            <span class=n>ret</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=n>row</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>ret</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=n>vector</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;</span> <span class=n>spiralOrder</span><span class=p>(</span><span class=n>vector</span><span class=o>&lt;</span><span class=n>vector</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;&gt;&amp;</span> <span class=n>m</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>vector</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;</span> <span class=n>ret</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=k>while</span> <span class=p>(</span><span class=o>!</span><span class=n>m</span><span class=p>.</span><span class=n>empty</span><span class=p>())</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=n>std</span><span class=o>::</span><span class=n>copy</span><span class=p>(</span><span class=n>m</span><span class=p>[</span><span class=mi>0</span><span class=p>].</span><span class=n>begin</span><span class=p>(),</span><span class=n>m</span><span class=p>[</span><span class=mi>0</span><span class=p>].</span><span class=n>end</span><span class=p>(),</span> <span class=n>std</span><span class=o>::</span><span class=n>back_inserter</span><span class=p>(</span><span class=n>ret</span><span class=p>));</span>
+</span></span><span class=line><span class=cl>            <span class=n>m</span><span class=p>.</span><span class=n>erase</span><span class=p>(</span><span class=n>m</span><span class=p>.</span><span class=n>begin</span><span class=p>());</span>
+</span></span><span class=line><span class=cl>            <span class=n>m</span> <span class=o>=</span> <span class=n>back90</span><span class=p>(</span><span class=n>m</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>ret</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span></code></pre></div><h2 id=binary-search>binary search<a hidden class=anchor aria-hidden=true href=#binary-search>#</a></h2><ol><li>做出單調函數，來猜數字</li><li>丟左邊，留右邊</li><li>終點(b)透過答案存不存在決定要不要-1</li></ol><h3 id=287-find-the-duplicate-number-1>287. Find the Duplicate Number<a hidden class=anchor aria-hidden=true href=#287-find-the-duplicate-number-1>#</a></h3><p>因為數字是累積的，只會越來越多(單調)
+所以可以設計一個函數把array轉成單調的array做bsearch</p><p>只要能湊出單調就能用bsearch</p><p>要找什麼?
+找總量不對的第一個位置</p><p>b帶<code>nums.size()-1</code>，因為最後出來的最大數字就是這個值
+需要捨棄的部分帶<code>a = mid+1</code>
+要保留的部分帶<code>b = mid</code>
+return就是<code>a</code></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=line><span class=cl><span class=k>class</span> <span class=nc>Solution</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl><span class=k>public</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=n>findDuplicate</span><span class=p>(</span><span class=n>vector</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;&amp;</span> <span class=n>nums</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>auto</span> <span class=n>small_or_equal</span> <span class=o>=</span> <span class=p>[</span><span class=o>&amp;</span><span class=p>](</span><span class=kt>int</span> <span class=n>cur</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=kt>int</span> <span class=n>count</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=k>for</span> <span class=p>(</span><span class=k>auto</span> <span class=o>&amp;</span><span class=nl>num</span><span class=p>:</span> <span class=n>nums</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=k>if</span> <span class=p>(</span><span class=n>num</span> <span class=o>&lt;=</span> <span class=n>cur</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                    <span class=n>count</span><span class=o>++</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=n>count</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>};</span>
+</span></span><span class=line><span class=cl>        <span class=kt>int</span> <span class=n>a</span> <span class=o>=</span> <span class=mi>0</span><span class=p>,</span> <span class=n>b</span> <span class=o>=</span> <span class=n>nums</span><span class=p>.</span><span class=n>size</span><span class=p>()</span><span class=o>-</span><span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=k>while</span> <span class=p>(</span><span class=n>a</span> <span class=o>&lt;</span> <span class=n>b</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=kt>int</span> <span class=n>mid</span> <span class=o>=</span> <span class=p>(</span><span class=n>a</span><span class=o>+</span><span class=n>b</span><span class=p>)</span><span class=o>/</span><span class=mi>2</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=p>(</span><span class=n>small_or_equal</span><span class=p>(</span><span class=n>mid</span><span class=p>)</span> <span class=o>&gt;</span> <span class=n>mid</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                <span class=n>b</span> <span class=o>=</span> <span class=n>mid</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=k>else</span>
+</span></span><span class=line><span class=cl>                <span class=n>a</span> <span class=o>=</span> <span class=n>mid</span><span class=o>+</span><span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>a</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span></code></pre></div><h3 id=33-search-in-rotated-sorted-array>33. Search in Rotated Sorted Array<a hidden class=anchor aria-hidden=true href=#33-search-in-rotated-sorted-array>#</a></h3><p>第一段找最小
+因為是rotate，所以最大一定在中間
+總方向就是丟左邊</p><p>所以我們取中點看右邊</p><p>剩下就是用這個index做map之後做bsearch</p><p>注意到這裡的b是帶<code>nums.size()</code>，因為有可能不存在</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=line><span class=cl><span class=k>class</span> <span class=nc>Solution</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl><span class=k>public</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=n>search</span><span class=p>(</span><span class=n>vector</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;&amp;</span> <span class=n>nums</span><span class=p>,</span> <span class=kt>int</span> <span class=n>target</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kt>int</span> <span class=n>a</span><span class=o>=</span><span class=mi>0</span><span class=p>,</span><span class=n>b</span><span class=o>=</span><span class=n>nums</span><span class=p>.</span><span class=n>size</span><span class=p>()</span><span class=o>-</span><span class=mi>1</span><span class=p>;</span> <span class=c1>// 這裡要-1
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=k>while</span> <span class=p>(</span><span class=n>a</span><span class=o>&lt;</span><span class=n>b</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=kt>int</span> <span class=n>mid</span> <span class=o>=</span> <span class=p>(</span><span class=n>a</span><span class=o>+</span><span class=n>b</span><span class=p>)</span><span class=o>/</span><span class=mi>2</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=p>(</span><span class=n>nums</span><span class=p>[</span><span class=n>mid</span><span class=p>]</span><span class=o>&gt;</span><span class=n>nums</span><span class=p>[</span><span class=n>b</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>                <span class=n>a</span> <span class=o>=</span> <span class=n>mid</span><span class=o>+</span><span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=k>else</span>
+</span></span><span class=line><span class=cl>                <span class=n>b</span> <span class=o>=</span> <span class=n>mid</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=kt>int</span> <span class=n>base</span> <span class=o>=</span> <span class=n>a</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=k>for</span><span class=p>(</span><span class=n>a</span><span class=o>=</span><span class=mi>0</span><span class=p>,</span><span class=n>b</span><span class=o>=</span><span class=n>nums</span><span class=p>.</span><span class=n>size</span><span class=p>();</span><span class=n>a</span><span class=o>&lt;</span><span class=n>b</span><span class=p>;)</span> <span class=p>{</span> <span class=c1>// 這裡不能-1
+</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=kt>int</span> <span class=n>mid</span> <span class=o>=</span> <span class=p>(</span><span class=n>a</span><span class=o>+</span><span class=n>b</span><span class=p>)</span><span class=o>/</span><span class=mi>2</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=p>(</span><span class=n>mid</span><span class=o>+</span><span class=n>base</span><span class=p>)</span> <span class=o>%</span> <span class=n>nums</span><span class=p>.</span><span class=n>size</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=p>(</span><span class=n>nums</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>==</span> <span class=n>target</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                <span class=k>return</span> <span class=n>i</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=k>else</span> <span class=nf>if</span> <span class=p>(</span><span class=n>nums</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>&lt;</span> <span class=n>target</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                <span class=n>a</span> <span class=o>=</span> <span class=n>mid</span><span class=o>+</span><span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=k>else</span>
+</span></span><span class=line><span class=cl>                <span class=n>b</span> <span class=o>=</span> <span class=n>mid</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=o>-</span><span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span></code></pre></div><h3 id=162-find-peak-element>162. Find Peak Element<a hidden class=anchor aria-hidden=true href=#162-find-peak-element>#</a></h3><p>確定是上升就可以
+丟左邊，留右邊</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=line><span class=cl><span class=k>class</span> <span class=nc>Solution</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl><span class=k>public</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=n>findPeakElement</span><span class=p>(</span><span class=n>vector</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;&amp;</span> <span class=n>nums</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kt>int</span> <span class=n>a</span> <span class=o>=</span> <span class=mi>0</span><span class=p>,</span> <span class=n>b</span> <span class=o>=</span> <span class=n>nums</span><span class=p>.</span><span class=n>size</span><span class=p>()</span><span class=o>-</span><span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=k>while</span> <span class=p>(</span><span class=n>a</span> <span class=o>&lt;</span> <span class=n>b</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=kt>int</span> <span class=n>mid</span> <span class=o>=</span> <span class=p>(</span><span class=n>a</span><span class=o>+</span><span class=n>b</span><span class=p>)</span><span class=o>/</span><span class=mi>2</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=p>(</span><span class=n>nums</span><span class=p>[</span><span class=n>mid</span><span class=p>]</span> <span class=o>&lt;</span> <span class=n>nums</span><span class=p>[</span><span class=n>mid</span><span class=o>+</span><span class=mi>1</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>                <span class=n>a</span> <span class=o>=</span> <span class=n>mid</span><span class=o>+</span><span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=k>else</span>
+</span></span><span class=line><span class=cl>                <span class=n>b</span> <span class=o>=</span> <span class=n>mid</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>a</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span></code></pre></div><h3 id=34-find-first-and-last-position-of-element-in-sorted-array>34. Find First and Last Position of Element in Sorted Array<a hidden class=anchor aria-hidden=true href=#34-find-first-and-last-position-of-element-in-sorted-array>#</a></h3><p>其實就是找lowerbound與upperbound-1</p><p>注意到</p><ol><li>lowerbound與upperbound只差在一個等號</li><li>upperbound的b還是帶<code>nums.size()</code>，因為可能不存在</li></ol><div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=line><span class=cl><span class=k>class</span> <span class=nc>Solution</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl><span class=k>public</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>vector</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;</span> <span class=n>searchRange</span><span class=p>(</span><span class=n>vector</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;&amp;</span> <span class=n>nums</span><span class=p>,</span> <span class=kt>int</span> <span class=n>target</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>vector</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;</span> <span class=n>ret</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=kt>int</span> <span class=n>a</span> <span class=o>=</span> <span class=mi>0</span><span class=p>,</span> <span class=n>b</span> <span class=o>=</span> <span class=n>nums</span><span class=p>.</span><span class=n>size</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>        <span class=k>while</span> <span class=p>(</span><span class=n>a</span> <span class=o>&lt;</span> <span class=n>b</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=kt>int</span> <span class=n>mid</span> <span class=o>=</span> <span class=p>(</span><span class=n>a</span><span class=o>+</span><span class=n>b</span><span class=p>)</span><span class=o>/</span><span class=mi>2</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=p>(</span><span class=n>nums</span><span class=p>[</span><span class=n>mid</span><span class=p>]</span> <span class=o>&lt;</span> <span class=n>target</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                <span class=n>a</span> <span class=o>=</span> <span class=n>mid</span><span class=o>+</span><span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=k>else</span>
+</span></span><span class=line><span class=cl>                <span class=n>b</span> <span class=o>=</span> <span class=n>mid</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=n>a</span> <span class=o>==</span> <span class=n>nums</span><span class=p>.</span><span class=n>size</span><span class=p>()</span> <span class=o>||</span> <span class=n>nums</span><span class=p>[</span><span class=n>a</span><span class=p>]</span> <span class=o>!=</span> <span class=n>target</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=p>{</span><span class=o>-</span><span class=mi>1</span><span class=p>,</span> <span class=o>-</span><span class=mi>1</span><span class=p>};</span>
+</span></span><span class=line><span class=cl>        <span class=n>ret</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=n>a</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=n>b</span> <span class=o>=</span> <span class=n>nums</span><span class=p>.</span><span class=n>size</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>        <span class=k>while</span> <span class=p>(</span><span class=n>a</span> <span class=o>&lt;</span> <span class=n>b</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=kt>int</span> <span class=n>mid</span> <span class=o>=</span> <span class=p>(</span><span class=n>a</span><span class=o>+</span><span class=n>b</span><span class=p>)</span><span class=o>/</span><span class=mi>2</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=p>(</span><span class=n>nums</span><span class=p>[</span><span class=n>mid</span><span class=p>]</span> <span class=o>&lt;=</span> <span class=n>target</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                <span class=n>a</span> <span class=o>=</span> <span class=n>mid</span><span class=o>+</span><span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=k>else</span>
+</span></span><span class=line><span class=cl>                <span class=n>b</span> <span class=o>=</span> <span class=n>mid</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=n>ret</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=n>a</span><span class=o>-</span><span class=mi>1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>ret</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span></code></pre></div><h3 id=154-find-minimum-in-rotated-sorted-array-ii>154. Find Minimum in Rotated Sorted Array II<a hidden class=anchor aria-hidden=true href=#154-find-minimum-in-rotated-sorted-array-ii>#</a></h3><p>Find Peak Element重複的話?</p><p>重複就縮上界，因為不知道怎麼bsearch</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=line><span class=cl><span class=k>class</span> <span class=nc>Solution</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl><span class=k>public</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=n>findMin</span><span class=p>(</span><span class=n>vector</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;&amp;</span> <span class=n>nums</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kt>int</span> <span class=n>a</span><span class=o>=</span><span class=mi>0</span><span class=p>,</span><span class=n>b</span><span class=o>=</span><span class=n>nums</span><span class=p>.</span><span class=n>size</span><span class=p>()</span><span class=o>-</span><span class=mi>1</span><span class=p>;</span> <span class=c1>// 這裡要-1
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=k>while</span> <span class=p>(</span><span class=n>a</span><span class=o>&lt;</span><span class=n>b</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=kt>int</span> <span class=n>mid</span> <span class=o>=</span> <span class=p>(</span><span class=n>a</span><span class=o>+</span><span class=n>b</span><span class=p>)</span><span class=o>/</span><span class=mi>2</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=p>(</span><span class=n>nums</span><span class=p>[</span><span class=n>mid</span><span class=p>]</span><span class=o>&gt;</span><span class=n>nums</span><span class=p>[</span><span class=n>b</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>                <span class=n>a</span> <span class=o>=</span> <span class=n>mid</span><span class=o>+</span><span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=k>else</span> <span class=nf>if</span> <span class=p>(</span><span class=n>nums</span><span class=p>[</span><span class=n>mid</span><span class=p>]</span> <span class=o>&lt;</span> <span class=n>nums</span><span class=p>[</span><span class=n>b</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>                <span class=n>b</span> <span class=o>=</span> <span class=n>mid</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=k>else</span>
+</span></span><span class=line><span class=cl>                <span class=n>b</span><span class=o>--</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>nums</span><span class=p>[</span><span class=n>a</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span></code></pre></div><h2 id=topo-sort>topo sort<a hidden class=anchor aria-hidden=true href=#topo-sort>#</a></h2><p>我真的忘了</p><ol><li>建圖</li><li>做topo sort</li></ol><ul><li>dfs<ul><li>dfs紀錄node狀態</li><li>沒走過、走過、正在走</li><li>遇到正在走要報錯</li><li>最後要記得reverse結果</li></ul></li><li>bfs<ul><li>要算in_degree(有多少點指到)</li><li>把degree 0塞到queue</li><li>處理完把別人的ingree去掉</li></ul></li></ul><p>除非要求，不然用bfs比較好，因為cycle只要看bfs結束時in_degree的表還有沒有東西就好
+dfs要另外處理cycle還要管理中間走過的點，如果是python就算了，用c++真的很痛苦，同時還要reverse結果&mldr;</p><h2 id=mono-stack>mono stack<a hidden class=anchor aria-hidden=true href=#mono-stack>#</a></h2><ul><li>根據關注點不同有不同的看法<ul><li>排序，留下最後的字典序 (stk是重點)<ul><li><code>1 3 7 2</code></li><li><code>1 2</code><ul><li>可以看成<code>2</code>把3,7吃了，只留下該範圍最小的，這也是字典序的由來</li></ul></li><li>內容物:<ul><li>節點</li><li>區塊</li></ul></li></ul></li><li>夾出區間，中間是最大或是最小 (被pop的資料是重點)<ul><li><code>while stk and stk[-1] &lt;= n</code><ul><li><code>7 3 2 ..left.. 1 ..right.. 2</code><ul><li>right的所有數字都會小於1</li><li>left的所有數字都會等於1</li><li>1是這個區間(去頭尾)<strong>最大的</strong>，含頭尾的區間中的<strong>最小的</strong></li></ul></li></ul></li><li><code>while stk and stk[-1] >= n</code><ul><li><code>1 2 3 ..left.. 7 ..right.. 2</code><ul><li>right的所有數字都會大於7</li><li>left的所有數字都會等於7</li><li>7是這個區間<strong>最小的</strong>，含頭尾的區間中的<strong>最大的</strong></li></ul></li></ul></li><li>這樣就可以用<code>stk[-2]</code>與<code>n</code>，做出一個閉區間</li><li>記得處理沒有stk的case</li></ul></li></ul></li><li><code>&lt;=</code>與<code>>=</code>怎麼用?<ul><li>看資料是遞增(<code>>=</code>)還是遞減(<code>&lt;=</code>)</li><li>箭頭指向最低的地方</li></ul></li><li>在需要保持原本的順序、字典序、前面的資料會被後面的蓋掉時就可以老慮用用看</li></ul><h3 id=84-largest-rectangle-in-histogram>84. Largest Rectangle in Histogram<a hidden class=anchor aria-hidden=true href=#84-largest-rectangle-in-histogram>#</a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=line><span class=cl><span class=k>class</span> <span class=nc>Solution</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl><span class=k>public</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=n>largestRectangleArea</span><span class=p>(</span><span class=n>vector</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;&amp;</span> <span class=n>hs</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>vector</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;</span> <span class=n>stk</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=kt>int</span> <span class=n>ret</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=n>hs</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=mi>0</span><span class=p>);</span> <span class=c1>// 留一個最低的把stack都壓出來
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=k>for</span> <span class=p>(</span><span class=kt>int</span> <span class=n>i</span><span class=o>=</span><span class=mi>0</span><span class=p>;</span><span class=n>i</span><span class=o>&lt;</span><span class=n>hs</span><span class=p>.</span><span class=n>size</span><span class=p>();</span><span class=n>i</span><span class=o>++</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=k>while</span> <span class=p>(</span><span class=o>!</span><span class=n>stk</span><span class=p>.</span><span class=n>empty</span><span class=p>()</span> <span class=o>&amp;&amp;</span> <span class=n>hs</span><span class=p>[</span><span class=n>stk</span><span class=p>.</span><span class=n>back</span><span class=p>()]</span> <span class=o>&gt;=</span> <span class=n>hs</span><span class=p>[</span><span class=n>i</span><span class=p>])</span> <span class=p>{</span> <span class=c1>// not &lt;=
+</span></span></span><span class=line><span class=cl><span class=c1></span>                <span class=k>if</span> <span class=p>(</span><span class=n>stk</span><span class=p>.</span><span class=n>size</span><span class=p>()</span> <span class=o>&gt;</span> <span class=mi>1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                    <span class=n>ret</span> <span class=o>=</span> <span class=n>max</span><span class=p>(</span><span class=n>ret</span><span class=p>,</span> <span class=n>hs</span><span class=p>[</span><span class=n>stk</span><span class=p>.</span><span class=n>back</span><span class=p>()]</span><span class=o>*</span><span class=p>(</span><span class=n>i</span><span class=o>-</span><span class=n>stk</span><span class=p>[</span><span class=n>stk</span><span class=p>.</span><span class=n>size</span><span class=p>()</span><span class=o>-</span><span class=mi>2</span><span class=p>]</span><span class=o>-</span><span class=mi>1</span><span class=p>));</span> <span class=c1>// not +1
+</span></span></span><span class=line><span class=cl><span class=c1></span>                <span class=k>else</span>
+</span></span><span class=line><span class=cl>                    <span class=n>ret</span> <span class=o>=</span> <span class=n>max</span><span class=p>(</span><span class=n>ret</span><span class=p>,</span> <span class=n>hs</span><span class=p>[</span><span class=n>stk</span><span class=p>.</span><span class=n>back</span><span class=p>()]</span><span class=o>*</span><span class=n>i</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>                <span class=n>stk</span><span class=p>.</span><span class=n>pop_back</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>            <span class=n>stk</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=n>i</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>ret</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span></code></pre></div><h2 id=sliding-windows>sliding windows<a hidden class=anchor aria-hidden=true href=#sliding-windows>#</a></h2><p>用<em>閉區間</em>做</p><p>列舉起點</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>b</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl><span class=n>win</span> <span class=o>=</span> <span class=p>[]</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>a</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=nb>len</span><span class=p>(</span><span class=n>fs</span><span class=p>)):</span>
+</span></span><span class=line><span class=cl>    <span class=k>while</span> <span class=n>b</span> <span class=o>&lt;</span> <span class=nb>len</span><span class=p>(</span><span class=n>fs</span><span class=p>)</span> <span class=ow>and</span> <span class=n>when_win_is_legal</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>        <span class=n>update_ret</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=n>expand_win</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>shrink_win</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=k>return</span> <span class=n>ret</span>
+</span></span></code></pre></div><p>列舉終點</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>a</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl><span class=n>win</span> <span class=o>=</span> <span class=p>[]</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>b</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=nb>len</span><span class=p>(</span><span class=n>fs</span><span class=p>)):</span>
+</span></span><span class=line><span class=cl>    <span class=n>update_win</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=k>while</span> <span class=n>a</span> <span class=o>&lt;=</span> <span class=n>b</span> <span class=ow>and</span> <span class=n>when_win_is_illegal</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>        <span class=n>shrink_win</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>update_ret</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=k>return</span> <span class=n>ret</span>
+</span></span></code></pre></div><p>atMost</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>atmost</span><span class=p>(</span><span class=n>bound</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>ret</span> <span class=o>=</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>j</span><span class=p>,</span><span class=n>n</span> <span class=ow>in</span> <span class=nb>enumerate</span><span class=p>(</span><span class=n>nums</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=n>update_win</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=k>while</span> <span class=n>i</span> <span class=o>&lt;=</span> <span class=n>j</span> <span class=ow>and</span> <span class=n>when_win_is_illegal</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>            <span class=n>shrink_win</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=n>ret</span> <span class=o>+=</span> <span class=n>j</span><span class=o>-</span><span class=n>i</span><span class=o>+</span><span class=mi>1</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>ret</span>
+</span></span></code></pre></div><h2 id=prefix-sum>prefix sum<a hidden class=anchor aria-hidden=true href=#prefix-sum>#</a></h2><ul><li>算區間和</li><li>和<ul><li>從a~b的總和</li><li>如果有負數，可以代表偏離原點多遠</li></ul></li><li>一般來說，通常第一個會是0代表沒有加任何東西的狀態</li><li>所以index從1開始，代表從<code>arr[0]~arr[i-1]</code></li></ul><h3 id=static-index---sum>static (index -> sum)<a hidden class=anchor aria-hidden=true href=#static-index---sum>#</a></h3><ul><li><code>list(accumulate(nums, initial=0))</code></li><li>LC209<ul><li>因為arr只有正數<ul><li>可以用sliding window，去收縮大小</li><li>可以用prefix sum，在prefix sum做binary search<ul><li>我們會先列舉起點到終點</li><li>所以prefix sum也是從起點去往後找終點</li><li>TODO: LC209與LC525為什麼一個是從後面一個從前面</li></ul></li></ul></li></ul></li></ul><h3 id=in-fly-sum---count-or-index>in fly (sum -> count or [index])<a hidden class=anchor aria-hidden=true href=#in-fly-sum---count-or-index>#</a></h3><ul><li>LC560<ul><li>基本款</li></ul></li><li>LC525<ul><li>與LC209不同這裡是每加一個都會產生變化</li><li>所以可以用in fly一邊建prefix sum，再找有沒有符合的</li><li>注意同一個sum我們只要<em>最前面</em>的</li></ul></li></ul></div><footer class=post-footer><ul class=post-tags><li><a href=https://littlebees.github.io/tags/todo/>TODO</a></li></ul><nav class=paginav><a class=prev href=https://littlebees.github.io/2022/04/leetcode-1315-sum-of-nodes-with-even-valued-grandparent/><span class=title>« Prev</span><br><span>leetcode-1315 - Sum of Nodes with Even-Valued Grandparent</span>
+</a><a class=next href=https://littlebees.github.io/2022/04/%E5%88%86%E6%95%A3%E5%BC%8F%E6%89%8B%E6%B3%95/><span class=title>Next »</span><br><span>分散式手法</span></a></nav></footer></article></main><footer class=footer><span>&copy; 2024 <a href=https://littlebees.github.io/>記事本</a></span>
+<span>Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script><script>document.querySelectorAll("pre > code").forEach(e=>{const n=e.parentNode.parentNode,t=document.createElement("button");t.classList.add("copy-code"),t.innerHTML="copy";function s(){t.innerHTML="copied!",setTimeout(()=>{t.innerHTML="copy"},2e3)}t.addEventListener("click",t=>{if("clipboard"in navigator){navigator.clipboard.writeText(e.textContent),s();return}const n=document.createRange();n.selectNodeContents(e);const o=window.getSelection();o.removeAllRanges(),o.addRange(n);try{document.execCommand("copy"),s()}catch{}o.removeRange(n)}),n.classList.contains("highlight")?n.appendChild(t):n.parentNode.firstChild==n||(e.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?e.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(t):e.parentNode.appendChild(t))})</script></body></html>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Ordered Set on 記事本</title>
+    <link>https://littlebees.github.io/tags/ordered-set/</link>
+    <description>Recent content in Ordered Set on 記事本</description>
+    <image>
+      <title>記事本</title>
+      <url>https://littlebees.github.io/images/papermod-cover.png</url>
+      <link>https://littlebees.github.io/images/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 17 Sep 2021 23:57:37 +0000</lastBuildDate>
+    <atom:link href="https://littlebees.github.io/tags/ordered-set/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>leetcode-975 - Odd Even Jump</title>
+      <link>https://littlebees.github.io/2021/09/leetcode-975-odd-even-jump/</link>
+      <pubDate>Fri, 17 Sep 2021 23:57:37 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/09/leetcode-975-odd-even-jump/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;lee215，不用質疑的神&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;用Monotonic Stack+sort求最小(大)的最近的index!!&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-850 - Rectangle Area II</title>
+      <link>https://littlebees.github.io/2021/09/leetcode-850-rectangle-area-ii/</link>
+      <pubDate>Tue, 14 Sep 2021 16:24:25 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/09/leetcode-850-rectangle-area-ii/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;在你疑惑怎麼在x軸做linesweep時，lee215直接從y軸做離散化!!&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-855 - Exam Room</title>
+      <link>https://littlebees.github.io/2021/09/leetcode-855-exam-room/</link>
+      <pubDate>Sun, 05 Sep 2021 23:06:28 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/09/leetcode-855-exam-room/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;就很直接，沒有什麼魔法&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-352 - Data Stream as Disjoint Intervals</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-352-data-stream-as-disjoint-intervals/</link>
+      <pubDate>Wed, 11 Aug 2021 02:04:53 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-352-data-stream-as-disjoint-intervals/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;為什麼我的interval merge這麼痛苦&lt;/p&gt;
+&lt;p&gt;insight: &lt;em&gt;只要sort過的list就可以直接當heap用&lt;/em&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-895 - Maximum Frequency Stack</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-895-maximum-frequency-stack/</link>
+      <pubDate>Thu, 05 Aug 2021 21:26:31 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-895-maximum-frequency-stack/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;有趣的一題&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-218 - The Skyline Problem</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-218-the-skyline-problem/</link>
+      <pubDate>Wed, 28 Jul 2021 19:27:53 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-218-the-skyline-problem/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;被這題搞了兩天，所以要記錄下來
+以前沒有看線段合併的Divide and Conquer，所以要記錄下來 (還債)
+以前沒有看Segment tree，所以要記錄下來 (還債)&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-220 - Contains Duplicate III</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-220-contains-duplicate-iii/</link>
+      <pubDate>Wed, 28 Jul 2021 19:27:53 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-220-contains-duplicate-iii/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;很喜歡的一題，看到怎麼處理abs&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-456 - 132 Pattern</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-456-132-pattern/</link>
+      <pubDate>Sat, 10 Jul 2021 16:01:20 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-456-132-pattern/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;久違的leetcode&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-493 - Reverse Pairs</title>
+      <link>https://littlebees.github.io/2021/02/leetcode-493-reverse-pairs/</link>
+      <pubDate>Sat, 20 Feb 2021 23:56:07 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/02/leetcode-493-reverse-pairs/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;個數、&lt;code&gt;i&amp;lt;j&lt;/code&gt;，使用divide and conquer的時機!!&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-327 - Count of Range Sum</title>
+      <link>https://littlebees.github.io/2021/02/leetcode-327-count-of-range-sum/</link>
+      <pubDate>Sat, 20 Feb 2021 22:44:11 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/02/leetcode-327-count-of-range-sum/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;使用divide and conquer的時機是?&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-315 - Count of Smaller Numbers After Self</title>
+      <link>https://littlebees.github.io/2021/01/leetcode-315-count-of-smaller-numbers-after-self/</link>
+      <pubDate>Fri, 29 Jan 2021 02:10:08 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/01/leetcode-315-count-of-smaller-numbers-after-self/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;sorted list的index，就是&lt;strong&gt;前面有幾個比自己小&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;index也可以這樣用!?&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Linux on 記事本</title>
+    <link>https://littlebees.github.io/tags/linux/</link>
+    <description>Recent content in Linux on 記事本</description>
+    <image>
+      <title>記事本</title>
+      <url>https://littlebees.github.io/images/papermod-cover.png</url>
+      <link>https://littlebees.github.io/images/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 30 Jan 2022 14:08:36 +0000</lastBuildDate>
+    <atom:link href="https://littlebees.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>奔跑吧linux內核ch2~ch5摘錄</title>
+      <link>https://littlebees.github.io/2022/01/%E5%A5%94%E8%B7%91%E5%90%A7linux%E5%85%A7%E6%A0%B8ch2~ch5%E6%91%98%E9%8C%84/</link>
+      <pubDate>Sun, 30 Jan 2022 14:08:36 +0000</pubDate>
+      <guid>https://littlebees.github.io/2022/01/%E5%A5%94%E8%B7%91%E5%90%A7linux%E5%85%A7%E6%A0%B8ch2~ch5%E6%91%98%E9%8C%84/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;當初看這本是想補完一些linux kernel的設計實做，但最後發現除了第一章之外，都是code加直譯code的中文&amp;hellip;&lt;/p&gt;
+&lt;p&gt;這樣與自己trace有什麼區別!?&lt;/p&gt;
+&lt;p&gt;code只是設計的其中一種體現
+書的重點應該是介紹設計，再加上一些比較特別或是重要的code&lt;/p&gt;
+&lt;p&gt;所以後面就改成挑經典概念(不同於xv6)的解釋&lt;/p&gt;
+&lt;p&gt;ch4是說lock的實做，所以挑RCU來說
+ch5是說中斷的，可以參考linux kernel development與xv6的pdf
+ch6是怎麼debug像ftrace與debugfs、systemtap、kasan、kmemleak、CONFIG_DEBUG_LOOKDEP&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>syscall與vdso</title>
+      <link>https://littlebees.github.io/2021/11/syscall%E8%88%87vdso/</link>
+      <pubDate>Thu, 04 Nov 2021 00:44:45 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/11/syscall%E8%88%87vdso/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;記錄用&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>誰開了檔案</title>
+      <link>https://littlebees.github.io/2021/10/%E8%AA%B0%E9%96%8B%E4%BA%86%E6%AA%94%E6%A1%88/</link>
+      <pubDate>Tue, 26 Oct 2021 20:58:57 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/10/%E8%AA%B0%E9%96%8B%E4%BA%86%E6%AA%94%E6%A1%88/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;紀錄&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>overlayfs</title>
+      <link>https://littlebees.github.io/2021/10/overlayfs/</link>
+      <pubDate>Fri, 22 Oct 2021 21:10:13 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/10/overlayfs/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;記錄用&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>ltrace-strace</title>
+      <link>https://littlebees.github.io/2021/10/ltrace-strace/</link>
+      <pubDate>Fri, 22 Oct 2021 20:37:55 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/10/ltrace-strace/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;接著說說strace與ltrace&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>linux debug工具 part1</title>
+      <link>https://littlebees.github.io/2021/10/linux-debug%E5%B7%A5%E5%85%B7-part1/</link>
+      <pubDate>Fri, 22 Oct 2021 20:23:31 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/10/linux-debug%E5%B7%A5%E5%85%B7-part1/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;整理一些linux debug工具&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>pam的整理</title>
+      <link>https://littlebees.github.io/2021/10/pam%E7%9A%84%E6%95%B4%E7%90%86/</link>
+      <pubDate>Sun, 17 Oct 2021 22:03:11 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/10/pam%E7%9A%84%E6%95%B4%E7%90%86/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;之前修arch上su不能用在homed上，有修pam的檔，所以紀錄一下pam&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>arch linux的安裝更新</title>
+      <link>https://littlebees.github.io/2021/10/arch-linux%E7%9A%84%E5%AE%89%E8%A3%9D%E6%9B%B4%E6%96%B0/</link>
+      <pubDate>Tue, 05 Oct 2021 00:11:49 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/10/arch-linux%E7%9A%84%E5%AE%89%E8%A3%9D%E6%9B%B4%E6%96%B0/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;這是更新上次安裝arch的流程&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;用systemd-boot&lt;/li&gt;
+&lt;li&gt;用systemd-networkd&lt;/li&gt;
+&lt;li&gt;用systemd-homed&lt;/li&gt;
+&lt;li&gt;用doas&lt;/li&gt;
+&lt;li&gt;優化pacman&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
+    <item>
+      <title>拯救rm的檔案</title>
+      <link>https://littlebees.github.io/2021/10/%E6%8B%AF%E6%95%91rm%E7%9A%84%E6%AA%94%E6%A1%88/</link>
+      <pubDate>Sun, 03 Oct 2021 23:39:37 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/10/%E6%8B%AF%E6%95%91rm%E7%9A%84%E6%AA%94%E6%A1%88/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;紀錄一下&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>奔跑吧linux kernel第一章筆記</title>
+      <link>https://littlebees.github.io/2021/08/%E5%A5%94%E8%B7%91%E5%90%A7linux-kernel%E7%AC%AC%E4%B8%80%E7%AB%A0%E7%AD%86%E8%A8%98/</link>
+      <pubDate>Thu, 12 Aug 2021 15:39:00 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/%E5%A5%94%E8%B7%91%E5%90%A7linux-kernel%E7%AC%AC%E4%B8%80%E7%AB%A0%E7%AD%86%E8%A8%98/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;這書真的很厚，光是第二章就佔了全書的一半，所以就一章一篇吧&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>top half &amp; bottom half &amp; workqueue &amp; device範例集</title>
+      <link>https://littlebees.github.io/2021/07/top-half-bottom-half-workqueue-device%E7%AF%84%E4%BE%8B%E9%9B%86/</link>
+      <pubDate>Thu, 15 Jul 2021 00:27:55 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/top-half-bottom-half-workqueue-device%E7%AF%84%E4%BE%8B%E9%9B%86/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;上次看完&lt;a href=&#34;https://littlebees.github.io/2021/06/Linux-Kernel-Development-3rd-note&#34;&gt;Linux Kernel Development 3rd&lt;/a&gt;，想說來補一下
+大概有個感覺&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>linking的種類</title>
+      <link>https://littlebees.github.io/2021/07/linking%E7%9A%84%E7%A8%AE%E9%A1%9E/</link>
+      <pubDate>Fri, 02 Jul 2021 00:28:49 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/linking%E7%9A%84%E7%A8%AE%E9%A1%9E/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;看bpf時突然想起來，整理一下&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>gdb使用筆記</title>
+      <link>https://littlebees.github.io/2021/07/gdb%E4%BD%BF%E7%94%A8%E7%AD%86%E8%A8%98/</link>
+      <pubDate>Thu, 01 Jul 2021 15:39:24 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/gdb%E4%BD%BF%E7%94%A8%E7%AD%86%E8%A8%98/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;之前不常用記錄一下&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>systemtap使用筆記</title>
+      <link>https://littlebees.github.io/2021/06/systemtap%E4%BD%BF%E7%94%A8%E7%AD%86%E8%A8%98/</link>
+      <pubDate>Wed, 30 Jun 2021 03:48:53 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/06/systemtap%E4%BD%BF%E7%94%A8%E7%AD%86%E8%A8%98/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;受不了只能一直放printf與printk來猜到底哪裡錯的日子，所以來看看systemtap
+發現他真的很強!!&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Linux Kernel Development 3rd筆記</title>
+      <link>https://littlebees.github.io/2021/06/linux-kernel-development-3rd%E7%AD%86%E8%A8%98/</link>
+      <pubDate>Sat, 26 Jun 2021 03:31:56 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/06/linux-kernel-development-3rd%E7%AD%86%E8%A8%98/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;不記實際上怎麼跑與跑了什麼，只記設計與方便未來查詢的部分
+畢竟這是基於linux2.6的&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>圖解linux核心工作原理整理</title>
+      <link>https://littlebees.github.io/2021/06/%E5%9C%96%E8%A7%A3linux%E6%A0%B8%E5%BF%83%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E6%95%B4%E7%90%86/</link>
+      <pubDate>Sun, 13 Jun 2021 00:46:14 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/06/%E5%9C%96%E8%A7%A3linux%E6%A0%B8%E5%BF%83%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E6%95%B4%E7%90%86/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;都買了就讀一下&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>daemonize與sig與pgid</title>
+      <link>https://littlebees.github.io/2021/02/daemonize%E8%88%87sig%E8%88%87pgid/</link>
+      <pubDate>Sat, 06 Feb 2021 18:32:09 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/02/daemonize%E8%88%87sig%E8%88%87pgid/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;碰到daemonize來記錄一下&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>ubuntu-mirror</title>
+      <link>https://littlebees.github.io/2020/04/ubuntu-mirror/</link>
+      <pubDate>Wed, 15 Apr 2020 01:26:21 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/04/ubuntu-mirror/</guid>
+      <description>灌了ubuntu第一件事，不是更新，是換一個快的mirror
+script #! /bin/bash new=free.nchc.org.tw old=$(cat /etc/apt/sources.list | grep main | awk &amp;#39;{ print $2 }&amp;#39; | cut -d&amp;#39;/&amp;#39; -f3 | sed -n &amp;#39;3P&amp;#39;) sudo sed -i &amp;#34;s/$old/$new/g&amp;#34; /etc/apt/sources.list sudo sed -i &amp;#34;s/security.ubuntu.com/$new/g&amp;#34; /etc/apt/sources.list sudo apt update bash的複習: 各種expansion 給個變數
+hi=123 Arithmetic expansion Variables expansion 單雙引號不一樣 最通用的 Command expansion Ref bash的資料 改mirror的資料</description>
+    </item>
+  </channel>
+</rss>

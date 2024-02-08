@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Graph on 記事本</title>
+    <link>https://littlebees.github.io/tags/graph/</link>
+    <description>Recent content in Graph on 記事本</description>
+    <image>
+      <title>記事本</title>
+      <url>https://littlebees.github.io/images/papermod-cover.png</url>
+      <link>https://littlebees.github.io/images/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 14 Sep 2021 17:24:56 +0000</lastBuildDate>
+    <atom:link href="https://littlebees.github.io/tags/graph/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>leetcode-797 - All Paths From Source to Target</title>
+      <link>https://littlebees.github.io/2021/09/leetcode-797-all-paths-from-source-to-target/</link>
+      <pubDate>Tue, 14 Sep 2021 17:24:56 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/09/leetcode-797-all-paths-from-source-to-target/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;就dfs，同時因為是dag所以不用處理cycle&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-990 - Satisfiability of Equality Equations</title>
+      <link>https://littlebees.github.io/2021/09/leetcode-990-satisfiability-of-equality-equations/</link>
+      <pubDate>Tue, 14 Sep 2021 16:42:39 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/09/leetcode-990-satisfiability-of-equality-equations/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;做兩遍union find!!&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-834 - Sum of Distances in Tree</title>
+      <link>https://littlebees.github.io/2021/09/leetcode-834-sum-of-distances-in-tree/</link>
+      <pubDate>Sun, 05 Sep 2021 22:51:19 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/09/leetcode-834-sum-of-distances-in-tree/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;看解答推導看不懂，看lee215一下就懂了，真是神!!&lt;/p&gt;
+&lt;p&gt;另外這題很漂亮、很美!!&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-399 - Evaluate Division</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-399-evaluate-division/</link>
+      <pubDate>Sat, 14 Aug 2021 00:24:07 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-399-evaluate-division/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;建圖去走&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-1361 - Validate Binary Tree Nodes</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-1361-validate-binary-tree-nodes/</link>
+      <pubDate>Sat, 14 Aug 2021 00:20:25 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-1361-validate-binary-tree-nodes/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;把需要的spec定義出來就好&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-1632 - Rank Transform of a Matrix</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-1632-rank-transform-of-a-matrix/</link>
+      <pubDate>Mon, 09 Aug 2021 15:35:07 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-1632-rank-transform-of-a-matrix/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;1331變成2維&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-1203 - Sort Items by Groups Respecting Dependencies</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-1203-sort-items-by-groups-respecting-dependencies/</link>
+      <pubDate>Thu, 05 Aug 2021 21:16:44 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-1203-sort-items-by-groups-respecting-dependencies/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;Hard題都是來看創意的&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;把 group encode成起點與終點&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;同時這題也是遇過最複雜的一題&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-310 - Minimum Height Trees</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-310-minimum-height-trees/</link>
+      <pubDate>Mon, 02 Aug 2021 01:23:13 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-310-minimum-height-trees/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;第一次看到bfs這麼用&lt;/li&gt;
+&lt;li&gt;這樣叫topo sort嗎?&lt;/li&gt;
+&lt;li&gt;很漂亮的算法，真的很漂亮&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-329 - Longest Increasing Path in a Matrix</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-329-longest-increasing-path-in-a-matrix/</link>
+      <pubDate>Sun, 25 Jul 2021 22:09:36 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-329-longest-increasing-path-in-a-matrix/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;因為題目特性，不用考慮重複走的問題&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-210 - Course Schedule II</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-210-course-schedule-ii/</link>
+      <pubDate>Sun, 25 Jul 2021 22:08:04 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-210-course-schedule-ii/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;沒辦法用cache_computing偷懶了&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-207 - Course Schedule</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-207-course-schedule/</link>
+      <pubDate>Wed, 21 Jul 2021 01:55:53 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-207-course-schedule/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;複習dfs
+話說原來有擋修是這麼麻煩的事&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-133 - Clone Graph</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-133-clone-graph/</link>
+      <pubDate>Tue, 20 Jul 2021 16:42:47 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-133-clone-graph/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;複習dfs&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Sliding Window on 記事本</title>
+    <link>https://littlebees.github.io/tags/sliding-window/</link>
+    <description>Recent content in Sliding Window on 記事本</description>
+    <image>
+      <title>記事本</title>
+      <url>https://littlebees.github.io/images/papermod-cover.png</url>
+      <link>https://littlebees.github.io/images/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 16 Aug 2021 01:14:05 +0000</lastBuildDate>
+    <atom:link href="https://littlebees.github.io/tags/sliding-window/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>leetcode-718 - Maximum Length of Repeated Subarray</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-718-maximum-length-of-repeated-subarray/</link>
+      <pubDate>Mon, 16 Aug 2021 01:14:05 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-718-maximum-length-of-repeated-subarray/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;超有意思的題目，只能用bottomup dp的題目!!
+下次不能說topdown與bottomup的dp可以互換了&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;topdown dp與bottomup dp差在一個在前半段處理，另一個在後半段&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;因為上面的特質導致這題只能用bottomup&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-1248 - Count Number of Nice Subarrays</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-1248-count-number-of-nice-subarrays/</link>
+      <pubDate>Sun, 15 Aug 2021 15:43:06 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-1248-count-number-of-nice-subarrays/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;atMost或是在回收時計算長度&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-1234 - Replace the Substring for Balanced String</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-1234-replace-the-substring-for-balanced-string/</link>
+      <pubDate>Sun, 15 Aug 2021 15:23:22 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-1234-replace-the-substring-for-balanced-string/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;window中的東西可以亂生!!&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-930 - Binary Subarrays With Sum</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-930-binary-subarrays-with-sum/</link>
+      <pubDate>Sun, 15 Aug 2021 15:20:40 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-930-binary-subarrays-with-sum/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;用atMost秒殺
+用prefix sum in fly也可以&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-1004 - Max Consecutive Ones III</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-1004-max-consecutive-ones-iii/</link>
+      <pubDate>Sun, 15 Aug 2021 15:17:03 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-1004-max-consecutive-ones-iii/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;基本款sliding window&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-992 - Subarrays with K Different Integers</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-992-subarrays-with-k-different-integers/</link>
+      <pubDate>Sun, 15 Aug 2021 15:13:46 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-992-subarrays-with-k-different-integers/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;sliding window的新招式&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;binary search的range是左閉右開
+&lt;ul&gt;
+&lt;li&gt;lower bound: &lt;code&gt;&amp;gt;=的第一個值&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;upper bound: &lt;code&gt;&amp;gt;的第一個值&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;sliding window是左閉右閉
+&lt;ul&gt;
+&lt;li&gt;atMost: &lt;code&gt;&amp;lt;=目標的所有區間總數&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-862 - Shortest Subarray with Sum at Least K</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-862-shortest-subarray-with-sum-at-least-k/</link>
+      <pubDate>Sun, 15 Aug 2021 14:43:55 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-862-shortest-subarray-with-sum-at-least-k/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;What makes this problem hard is that we have negative values.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;sliding window + monotone stack = monotone queue&lt;/li&gt;
+&lt;li&gt;prefix sum in fly + hash&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-632 - Smallest Range Covering Elements from K Lists</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-632-smallest-range-covering-elements-from-k-lists/</link>
+      <pubDate>Thu, 05 Aug 2021 21:25:25 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-632-smallest-range-covering-elements-from-k-lists/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;就heap&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-30 - Substring with Concatenation of All Words</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-30-substring-with-concatenation-of-all-words/</link>
+      <pubDate>Thu, 05 Aug 2021 21:07:36 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-30-substring-with-concatenation-of-all-words/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;題目明明已經把same length上粗體了，還看不到&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-480 - Sliding Window Median</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-480-sliding-window-median/</link>
+      <pubDate>Wed, 04 Aug 2021 00:40:57 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-480-sliding-window-median/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;對的資料結構帶你上天堂&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-995 - Minimum Number of K Consecutive Bit Flips</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-995-minimum-number-of-k-consecutive-bit-flips/</link>
+      <pubDate>Wed, 04 Aug 2021 00:38:55 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-995-minimum-number-of-k-consecutive-bit-flips/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;下次處理flip就要這樣處理&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-904 - Fruit Into Baskets</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-904-fruit-into-baskets/</link>
+      <pubDate>Sun, 01 Aug 2021 14:59:18 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-904-fruit-into-baskets/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;sliding window的重點是怎麼重用其中一邊的點&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-713 - Subarray Product Less Than K</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-713-subarray-product-less-than-k/</link>
+      <pubDate>Sun, 01 Aug 2021 01:55:15 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-713-subarray-product-less-than-k/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;right-left + 1&lt;/code&gt;等於以right為最後一個的array到left之間的所有array的組合數&lt;/p&gt;
+&lt;p&gt;這題要知道這個魔法才能做&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-220 - Contains Duplicate III</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-220-contains-duplicate-iii/</link>
+      <pubDate>Wed, 28 Jul 2021 19:27:53 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-220-contains-duplicate-iii/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;很喜歡的一題，看到怎麼處理abs&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-643 - Maximum Average Subarray I</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-643-maximum-average-subarray-i/</link>
+      <pubDate>Tue, 27 Jul 2021 00:48:39 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-643-maximum-average-subarray-i/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;大概抓到sliding window的模式了&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-187 - Repeated DNA Sequences</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-187-repeated-dna-sequences/</link>
+      <pubDate>Tue, 27 Jul 2021 00:38:37 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-187-repeated-dna-sequences/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;複習sliding window&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-567 - Permutation in String</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-567-permutation-in-string/</link>
+      <pubDate>Tue, 27 Jul 2021 00:37:09 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-567-permutation-in-string/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;雖然說是複習sliding window，但學到一個很迷的技巧&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-424 - Longest Repeating Character Replacement</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-424-longest-repeating-character-replacement/</link>
+      <pubDate>Thu, 22 Jul 2021 20:40:39 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-424-longest-repeating-character-replacement/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;lee215太神啦!!&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-76 - Minimum Window Substring</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-76-minimum-window-substring/</link>
+      <pubDate>Thu, 22 Jul 2021 02:51:12 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-76-minimum-window-substring/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;現在寫sliding window的風格跟以前完全不一樣&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-209 - Minimum Size Subarray Sum</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-209-minimum-size-subarray-sum/</link>
+      <pubDate>Tue, 20 Jul 2021 00:40:09 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-209-minimum-size-subarray-sum/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;與&lt;a href=&#34;https://littlebees.github.io/2021/07/leetcode-560&#34;&gt;560&lt;/a&gt;不同他可以用sliding window&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;prefix sum + binary search&lt;/li&gt;
+&lt;li&gt;prefix sum in fly + sliding window&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-3 - Longest Substring Without Repeating Characters</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-3-longest-substring-without-repeating-characters/</link>
+      <pubDate>Fri, 16 Jul 2021 21:58:07 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-3-longest-substring-without-repeating-characters/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;複習sliding windows&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-395 - Longest Substring with At Least K Repeating Characters</title>
+      <link>https://littlebees.github.io/2021/01/leetcode-395-longest-substring-with-at-least-k-repeating-characters/</link>
+      <pubDate>Sun, 31 Jan 2021 21:03:20 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/01/leetcode-395-longest-substring-with-at-least-k-repeating-characters/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;搞懂調整sliding window的條件&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-239 - Sliding Window Maximum</title>
+      <link>https://littlebees.github.io/2021/01/leetcode-239-sliding-window-maximum/</link>
+      <pubDate>Sat, 30 Jan 2021 16:30:37 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/01/leetcode-239-sliding-window-maximum/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;從sliding window到寫merge interval的變化版&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-438 - Find All Anagrams in a String</title>
+      <link>https://littlebees.github.io/2021/01/leetcode-438-find-all-anagrams-in-a-string/</link>
+      <pubDate>Sat, 30 Jan 2021 15:28:22 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/01/leetcode-438-find-all-anagrams-in-a-string/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;想起優化LC 127的過程&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-219 - Contains Duplicate II</title>
+      <link>https://littlebees.github.io/2021/01/leetcode-219-contains-duplicate-ii/</link>
+      <pubDate>Mon, 18 Jan 2021 00:39:59 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/01/leetcode-219-contains-duplicate-ii/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;從 &lt;strong&gt;數量&lt;/strong&gt; 或 &lt;strong&gt;距離&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

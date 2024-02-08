@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Divide and Conquer on 記事本</title>
+    <link>https://littlebees.github.io/tags/divide-and-conquer/</link>
+    <description>Recent content in Divide and Conquer on 記事本</description>
+    <image>
+      <title>記事本</title>
+      <url>https://littlebees.github.io/images/papermod-cover.png</url>
+      <link>https://littlebees.github.io/images/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 14 Sep 2021 17:30:27 +0000</lastBuildDate>
+    <atom:link href="https://littlebees.github.io/tags/divide-and-conquer/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>leetcode-372 - Super Pow</title>
+      <link>https://littlebees.github.io/2021/09/leetcode-372-super-pow/</link>
+      <pubDate>Tue, 14 Sep 2021 17:30:27 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/09/leetcode-372-super-pow/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;也是數學，&lt;code&gt;(a*b) % c&lt;/code&gt;等於&lt;code&gt;(a%c)*(b%c)&lt;/code&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-973 - K Closest Points to Origin</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-973-k-closest-points-to-origin/</link>
+      <pubDate>Sun, 01 Aug 2021 15:01:00 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-973-k-closest-points-to-origin/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;sort與heap差在一個能插入，另一個不能&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-654 - Maximum Binary Tree</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-654-maximum-binary-tree/</link>
+      <pubDate>Sat, 31 Jul 2021 23:19:36 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-654-maximum-binary-tree/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;這應該是easy吧&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-932 - Beautiful Array</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-932-beautiful-array/</link>
+      <pubDate>Wed, 28 Jul 2021 20:06:54 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-932-beautiful-array/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;很玄，這沒看解答會知道?&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-218 - The Skyline Problem</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-218-the-skyline-problem/</link>
+      <pubDate>Wed, 28 Jul 2021 19:27:53 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-218-the-skyline-problem/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;被這題搞了兩天，所以要記錄下來
+以前沒有看線段合併的Divide and Conquer，所以要記錄下來 (還債)
+以前沒有看Segment tree，所以要記錄下來 (還債)&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-1569 - Number of Ways to Reorder Array to Get Same BST</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-1569-number-of-ways-to-reorder-array-to-get-same-bst/</link>
+      <pubDate>Tue, 27 Jul 2021 22:07:54 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-1569-number-of-ways-to-reorder-array-to-get-same-bst/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;很有趣的問題，原來python有可以直接算combination的函數&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-169 - Majority Element</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-169-majority-element/</link>
+      <pubDate>Fri, 23 Jul 2021 03:40:00 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-169-majority-element/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;複習Counter與認識一個神奇的算法&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-215 - Kth Largest Element in an Array</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-215-kth-largest-element-in-an-array/</link>
+      <pubDate>Fri, 23 Jul 2021 03:00:25 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-215-kth-largest-element-in-an-array/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;沒有魔法的一題&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-240 - Search a 2D Matrix II</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-240-search-a-2d-matrix-ii/</link>
+      <pubDate>Fri, 23 Jul 2021 02:02:20 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-240-search-a-2d-matrix-ii/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;複習saddle back&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-106 - Construct Binary Tree from Inorder and Postorder Traversal</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-106-construct-binary-tree-from-inorder-and-postorder-traversal/</link>
+      <pubDate>Tue, 20 Jul 2021 01:09:56 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-106-construct-binary-tree-from-inorder-and-postorder-traversal/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;把&lt;a href=&#34;https://littlebees.github.io/2021/07/leetcode-105&#34;&gt;105&lt;/a&gt;改一下&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-105 - Construct Binary Tree from Preorder and Inorder Traversal</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-105-construct-binary-tree-from-preorder-and-inorder-traversal/</link>
+      <pubDate>Tue, 20 Jul 2021 01:02:13 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-105-construct-binary-tree-from-preorder-and-inorder-traversal/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;複習inorder與preorder&lt;/p&gt;
+&lt;p&gt;可以順便看&lt;a href=&#34;https://littlebees.github.io/2021/07/leetcode-106&#34;&gt;106&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-347 - Top K Frequent Elements</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-347-top-k-frequent-elements/</link>
+      <pubDate>Tue, 20 Jul 2021 00:18:19 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-347-top-k-frequent-elements/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;直接sort就好&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-108 - Convert Sorted Array to Binary Search Tree</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-108-convert-sorted-array-to-binary-search-tree/</link>
+      <pubDate>Sun, 18 Jul 2021 02:26:47 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-108-convert-sorted-array-to-binary-search-tree/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;複習dfs&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-23 - Merge k Sorted Lists</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-23-merge-k-sorted-lists/</link>
+      <pubDate>Fri, 16 Jul 2021 21:24:21 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-23-merge-k-sorted-lists/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;這題為什麼是hard?&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-53 - Maximum Subarray</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-53-maximum-subarray/</link>
+      <pubDate>Wed, 14 Jul 2021 22:43:03 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-53-maximum-subarray/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;解一解&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-493 - Reverse Pairs</title>
+      <link>https://littlebees.github.io/2021/02/leetcode-493-reverse-pairs/</link>
+      <pubDate>Sat, 20 Feb 2021 23:56:07 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/02/leetcode-493-reverse-pairs/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;個數、&lt;code&gt;i&amp;lt;j&lt;/code&gt;，使用divide and conquer的時機!!&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-327 - Count of Range Sum</title>
+      <link>https://littlebees.github.io/2021/02/leetcode-327-count-of-range-sum/</link>
+      <pubDate>Sat, 20 Feb 2021 22:44:11 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/02/leetcode-327-count-of-range-sum/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;使用divide and conquer的時機是?&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-395 - Longest Substring with At Least K Repeating Characters</title>
+      <link>https://littlebees.github.io/2021/01/leetcode-395-longest-substring-with-at-least-k-repeating-characters/</link>
+      <pubDate>Sun, 31 Jan 2021 21:03:20 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/01/leetcode-395-longest-substring-with-at-least-k-repeating-characters/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;搞懂調整sliding window的條件&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-324 - Wiggle Sort II</title>
+      <link>https://littlebees.github.io/2021/01/leetcode-324-wiggle-sort-ii/</link>
+      <pubDate>Sat, 30 Jan 2021 01:59:41 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/01/leetcode-324-wiggle-sort-ii/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;神奇的indexing&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-190 - Reverse Bits</title>
+      <link>https://littlebees.github.io/2021/01/leetcode-190-reverse-bits/</link>
+      <pubDate>Fri, 29 Jan 2021 22:55:52 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/01/leetcode-190-reverse-bits/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;神奇的位元操作&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-315 - Count of Smaller Numbers After Self</title>
+      <link>https://littlebees.github.io/2021/01/leetcode-315-count-of-smaller-numbers-after-self/</link>
+      <pubDate>Fri, 29 Jan 2021 02:10:08 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/01/leetcode-315-count-of-smaller-numbers-after-self/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;sorted list的index，就是&lt;strong&gt;前面有幾個比自己小&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;index也可以這樣用!?&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-148 - Sort List</title>
+      <link>https://littlebees.github.io/2021/01/leetcode-148-sort-list/</link>
+      <pubDate>Mon, 18 Jan 2021 01:11:06 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/01/leetcode-148-sort-list/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;merge sort的所有case都是O(nLog(n))!!&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-4 - Median of Two Sorted Arrays</title>
+      <link>https://littlebees.github.io/2020/11/leetcode-4-median-of-two-sorted-arrays/</link>
+      <pubDate>Sat, 07 Nov 2020 02:40:45 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/11/leetcode-4-median-of-two-sorted-arrays/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;這題體現了二分法是一種藝術&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

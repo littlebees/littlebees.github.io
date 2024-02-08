@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Brainteaser on 記事本</title>
+    <link>https://littlebees.github.io/tags/brainteaser/</link>
+    <description>Recent content in Brainteaser on 記事本</description>
+    <image>
+      <title>記事本</title>
+      <url>https://littlebees.github.io/images/papermod-cover.png</url>
+      <link>https://littlebees.github.io/images/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 14 Sep 2021 17:28:12 +0000</lastBuildDate>
+    <atom:link href="https://littlebees.github.io/tags/brainteaser/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>leetcode-319 - Bulb Switcher</title>
+      <link>https://littlebees.github.io/2021/09/leetcode-319-bulb-switcher/</link>
+      <pubDate>Tue, 14 Sep 2021 17:28:12 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/09/leetcode-319-bulb-switcher/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;有趣的數學題&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-292 - Nim Game</title>
+      <link>https://littlebees.github.io/2020/12/leetcode-292-nim-game/</link>
+      <pubDate>Thu, 31 Dec 2020 00:59:34 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/12/leetcode-292-nim-game/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;原來這麼簡單!?&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

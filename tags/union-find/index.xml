@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Union Find on 記事本</title>
+    <link>https://littlebees.github.io/tags/union-find/</link>
+    <description>Recent content in Union Find on 記事本</description>
+    <image>
+      <title>記事本</title>
+      <url>https://littlebees.github.io/images/papermod-cover.png</url>
+      <link>https://littlebees.github.io/images/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 19 Sep 2021 22:40:06 +0000</lastBuildDate>
+    <atom:link href="https://littlebees.github.io/tags/union-find/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>leetcode-1631 - Path With Minimum Effort</title>
+      <link>https://littlebees.github.io/2021/09/leetcode-1631-path-with-minimum-effort/</link>
+      <pubDate>Sun, 19 Sep 2021 22:40:06 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/09/leetcode-1631-path-with-minimum-effort/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;最小路徑? no,no
+最短路徑!!!&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-990 - Satisfiability of Equality Equations</title>
+      <link>https://littlebees.github.io/2021/09/leetcode-990-satisfiability-of-equality-equations/</link>
+      <pubDate>Tue, 14 Sep 2021 16:42:39 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/09/leetcode-990-satisfiability-of-equality-equations/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;做兩遍union find!!&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-399 - Evaluate Division</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-399-evaluate-division/</link>
+      <pubDate>Sat, 14 Aug 2021 00:24:07 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-399-evaluate-division/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;建圖去走&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-1361 - Validate Binary Tree Nodes</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-1361-validate-binary-tree-nodes/</link>
+      <pubDate>Sat, 14 Aug 2021 00:20:25 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-1361-validate-binary-tree-nodes/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;把需要的spec定義出來就好&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-1632 - Rank Transform of a Matrix</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-1632-rank-transform-of-a-matrix/</link>
+      <pubDate>Mon, 09 Aug 2021 15:35:07 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-1632-rank-transform-of-a-matrix/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;1331變成2維&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-827 - Making A Large Island</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-827-making-a-large-island/</link>
+      <pubDate>Mon, 02 Aug 2021 02:24:45 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-827-making-a-large-island/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;python的主場來啦&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-1569 - Number of Ways to Reorder Array to Get Same BST</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-1569-number-of-ways-to-reorder-array-to-get-same-bst/</link>
+      <pubDate>Tue, 27 Jul 2021 22:07:54 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-1569-number-of-ways-to-reorder-array-to-get-same-bst/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;很有趣的問題，原來python有可以直接算combination的函數&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-130 - Surrounded Regions</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-130-surrounded-regions/</link>
+      <pubDate>Sat, 24 Jul 2021 23:35:30 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-130-surrounded-regions/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;複習dfs&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-128 - Longest Consecutive Sequence</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-128-longest-consecutive-sequence/</link>
+      <pubDate>Thu, 22 Jul 2021 02:41:43 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-128-longest-consecutive-sequence/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;令人回想到&lt;a href=&#34;https://littlebees.github.io/2021/07/leetcode-73&#34;&gt;73&lt;/a&gt;
+如果找不到範圍就先看看怎麼定義頭吧&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-695 - Max Area of Island</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-695-max-area-of-island/</link>
+      <pubDate>Mon, 19 Jul 2021 00:49:07 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-695-max-area-of-island/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;以為是要數幾座島，結果是要數島的面積&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-200 - Number of Islands</title>
+      <link>https://littlebees.github.io/2020/11/leetcode-200-number-of-islands/</link>
+      <pubDate>Tue, 03 Nov 2020 00:00:08 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/11/leetcode-200-number-of-islands/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;經典的dfs&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-721 - Accounts Merge</title>
+      <link>https://littlebees.github.io/2020/11/leetcode-721-accounts-merge/</link>
+      <pubDate>Mon, 02 Nov 2020 01:29:00 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/11/leetcode-721-accounts-merge/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;email會在不同的人之間重複，這樣要讓這兩個人合起來&lt;/p&gt;
+&lt;p&gt;這裡的任務是&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;如何找出有重複的人&lt;/li&gt;
+&lt;li&gt;如何合起來&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
+  </channel>
+</rss>

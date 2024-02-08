@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>TODO on 記事本</title>
+    <link>https://littlebees.github.io/tags/todo/</link>
+    <description>Recent content in TODO on 記事本</description>
+    <image>
+      <title>記事本</title>
+      <url>https://littlebees.github.io/images/papermod-cover.png</url>
+      <link>https://littlebees.github.io/images/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 12 Apr 2022 01:38:21 +0000</lastBuildDate>
+    <atom:link href="https://littlebees.github.io/tags/todo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>review-leetcode</title>
+      <link>https://littlebees.github.io/2022/04/review-leetcode/</link>
+      <pubDate>Tue, 12 Apr 2022 01:38:21 +0000</pubDate>
+      <guid>https://littlebees.github.io/2022/04/review-leetcode/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;要複習怎麼用C++做leetcode&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode的問題集</title>
+      <link>https://littlebees.github.io/2021/07/leetcode%E7%9A%84%E5%95%8F%E9%A1%8C%E9%9B%86/</link>
+      <pubDate>Mon, 26 Jul 2021 01:36:13 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode%E7%9A%84%E5%95%8F%E9%A1%8C%E9%9B%86/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;leetcode如今已經累積接近2000題，要刷就從別人整理好的list開始&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Python on 記事本</title>
+    <link>https://littlebees.github.io/tags/python/</link>
+    <description>Recent content in Python on 記事本</description>
+    <image>
+      <title>記事本</title>
+      <url>https://littlebees.github.io/images/papermod-cover.png</url>
+      <link>https://littlebees.github.io/images/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 10 Jul 2021 16:01:20 +0000</lastBuildDate>
+    <atom:link href="https://littlebees.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>leetcode-456 - 132 Pattern</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-456-132-pattern/</link>
+      <pubDate>Sat, 10 Jul 2021 16:01:20 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-456-132-pattern/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;久違的leetcode&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>用twisted迅速架簡單的server</title>
+      <link>https://littlebees.github.io/2021/06/%E7%94%A8twisted%E8%BF%85%E9%80%9F%E6%9E%B6%E7%B0%A1%E5%96%AE%E7%9A%84server/</link>
+      <pubDate>Mon, 28 Jun 2021 01:08:48 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/06/%E7%94%A8twisted%E8%BF%85%E9%80%9F%E6%9E%B6%E7%B0%A1%E5%96%AE%E7%9A%84server/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;之前工作要架簡單的server去測，但裝一般的server還要設定有的沒的，所以用這個來偷吃步&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

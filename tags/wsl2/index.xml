@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>WSL2 on 記事本</title>
+    <link>https://littlebees.github.io/tags/wsl2/</link>
+    <description>Recent content in WSL2 on 記事本</description>
+    <image>
+      <title>記事本</title>
+      <url>https://littlebees.github.io/images/papermod-cover.png</url>
+      <link>https://littlebees.github.io/images/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 22 Oct 2021 21:08:46 +0000</lastBuildDate>
+    <atom:link href="https://littlebees.github.io/tags/wsl2/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>rootfs與initramfs (with WSL2的安裝)</title>
+      <link>https://littlebees.github.io/2021/10/rootfs%E8%88%87initramfs-with-wsl2%E7%9A%84%E5%AE%89%E8%A3%9D/</link>
+      <pubDate>Fri, 22 Oct 2021 21:08:46 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/10/rootfs%E8%88%87initramfs-with-wsl2%E7%9A%84%E5%AE%89%E8%A3%9D/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;原本是為了裝arch的wsl2所以碰到rootfs，所以來整理一下&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>在wsl2使用vagrant</title>
+      <link>https://littlebees.github.io/2021/10/%E5%9C%A8wsl2%E4%BD%BF%E7%94%A8vagrant/</link>
+      <pubDate>Fri, 15 Oct 2021 22:43:42 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/10/%E5%9C%A8wsl2%E4%BD%BF%E7%94%A8vagrant/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;vm與container的使用情境不同，還是要懂
+同時這個也比docker或是k8s好懂、好操作多&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

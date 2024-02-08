@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Tips on 記事本</title>
+    <link>https://littlebees.github.io/categories/tips/</link>
+    <description>Recent content in Tips on 記事本</description>
+    <image>
+      <title>記事本</title>
+      <url>https://littlebees.github.io/images/papermod-cover.png</url>
+      <link>https://littlebees.github.io/images/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 17 Jan 2022 14:40:34 +0000</lastBuildDate>
+    <atom:link href="https://littlebees.github.io/categories/tips/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>只讀一部份的yaml成ansible的變數</title>
+      <link>https://littlebees.github.io/2022/01/%E5%8F%AA%E8%AE%80%E4%B8%80%E9%83%A8%E4%BB%BD%E7%9A%84yaml%E6%88%90ansible%E7%9A%84%E8%AE%8A%E6%95%B8/</link>
+      <pubDate>Mon, 17 Jan 2022 14:40:34 +0000</pubDate>
+      <guid>https://littlebees.github.io/2022/01/%E5%8F%AA%E8%AE%80%E4%B8%80%E9%83%A8%E4%BB%BD%E7%9A%84yaml%E6%88%90ansible%E7%9A%84%E8%AE%8A%E6%95%B8/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;有2種辦法&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>在bash中寫rucursive</title>
+      <link>https://littlebees.github.io/2022/01/%E5%9C%A8bash%E4%B8%AD%E5%AF%ABrucursive/</link>
+      <pubDate>Mon, 17 Jan 2022 11:57:49 +0000</pubDate>
+      <guid>https://littlebees.github.io/2022/01/%E5%9C%A8bash%E4%B8%AD%E5%AF%ABrucursive/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;bash可以寫rucursive!!&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>helm tutorial</title>
+      <link>https://littlebees.github.io/2022/01/helm-tutorial/</link>
+      <pubDate>Mon, 17 Jan 2022 11:15:10 +0000</pubDate>
+      <guid>https://littlebees.github.io/2022/01/helm-tutorial/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;文件寫得不錯，很好懂&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>有用的連結</title>
+      <link>https://littlebees.github.io/2021/10/%E6%9C%89%E7%94%A8%E7%9A%84%E9%80%A3%E7%B5%90/</link>
+      <pubDate>Sat, 30 Oct 2021 23:16:45 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/10/%E6%9C%89%E7%94%A8%E7%9A%84%E9%80%A3%E7%B5%90/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;紀錄&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>英文寫作教學資源</title>
+      <link>https://littlebees.github.io/2021/10/%E8%8B%B1%E6%96%87%E5%AF%AB%E4%BD%9C%E6%95%99%E5%AD%B8%E8%B3%87%E6%BA%90/</link>
+      <pubDate>Sat, 30 Oct 2021 23:08:12 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/10/%E8%8B%B1%E6%96%87%E5%AF%AB%E4%BD%9C%E6%95%99%E5%AD%B8%E8%B3%87%E6%BA%90/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;linggle真的好用&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>用docker compose建一個ipxe的server</title>
+      <link>https://littlebees.github.io/2021/10/%E7%94%A8docker-compose%E5%BB%BA%E4%B8%80%E5%80%8Bipxe%E7%9A%84server/</link>
+      <pubDate>Sat, 30 Oct 2021 22:25:42 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/10/%E7%94%A8docker-compose%E5%BB%BA%E4%B8%80%E5%80%8Bipxe%E7%9A%84server/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;就是把windows與ubuntu的安裝整合在一起 (都是uefi)&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>network的traffic control</title>
+      <link>https://littlebees.github.io/2021/10/network%E7%9A%84traffic-control/</link>
+      <pubDate>Tue, 26 Oct 2021 22:06:11 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/10/network%E7%9A%84traffic-control/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;以前遇過，review一下&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>誰開了檔案</title>
+      <link>https://littlebees.github.io/2021/10/%E8%AA%B0%E9%96%8B%E4%BA%86%E6%AA%94%E6%A1%88/</link>
+      <pubDate>Tue, 26 Oct 2021 20:58:57 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/10/%E8%AA%B0%E9%96%8B%E4%BA%86%E6%AA%94%E6%A1%88/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;紀錄&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>nftables</title>
+      <link>https://littlebees.github.io/2021/10/nftables/</link>
+      <pubDate>Fri, 22 Oct 2021 21:41:30 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/10/nftables/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;記錄用&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>macro與條件式編譯</title>
+      <link>https://littlebees.github.io/2021/10/macro%E8%88%87%E6%A2%9D%E4%BB%B6%E5%BC%8F%E7%B7%A8%E8%AD%AF/</link>
+      <pubDate>Fri, 22 Oct 2021 21:14:01 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/10/macro%E8%88%87%E6%A2%9D%E4%BB%B6%E5%BC%8F%E7%B7%A8%E8%AD%AF/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;已經忘了當初是遇到什麼鍋，但是有留紀錄說要寫下來&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>rootfs與initramfs (with WSL2的安裝)</title>
+      <link>https://littlebees.github.io/2021/10/rootfs%E8%88%87initramfs-with-wsl2%E7%9A%84%E5%AE%89%E8%A3%9D/</link>
+      <pubDate>Fri, 22 Oct 2021 21:08:46 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/10/rootfs%E8%88%87initramfs-with-wsl2%E7%9A%84%E5%AE%89%E8%A3%9D/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;原本是為了裝arch的wsl2所以碰到rootfs，所以來整理一下&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>ltrace-strace</title>
+      <link>https://littlebees.github.io/2021/10/ltrace-strace/</link>
+      <pubDate>Fri, 22 Oct 2021 20:37:55 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/10/ltrace-strace/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;接著說說strace與ltrace&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>linux debug工具 part1</title>
+      <link>https://littlebees.github.io/2021/10/linux-debug%E5%B7%A5%E5%85%B7-part1/</link>
+      <pubDate>Fri, 22 Oct 2021 20:23:31 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/10/linux-debug%E5%B7%A5%E5%85%B7-part1/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;整理一些linux debug工具&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>在wsl2使用vagrant</title>
+      <link>https://littlebees.github.io/2021/10/%E5%9C%A8wsl2%E4%BD%BF%E7%94%A8vagrant/</link>
+      <pubDate>Fri, 15 Oct 2021 22:43:42 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/10/%E5%9C%A8wsl2%E4%BD%BF%E7%94%A8vagrant/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;vm與container的使用情境不同，還是要懂
+同時這個也比docker或是k8s好懂、好操作多&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>幫ansible加速!!</title>
+      <link>https://littlebees.github.io/2021/10/%E5%B9%ABansible%E5%8A%A0%E9%80%9F/</link>
+      <pubDate>Fri, 15 Oct 2021 22:37:45 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/10/%E5%B9%ABansible%E5%8A%A0%E9%80%9F/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;最近常用，來整理一下&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>arch linux的安裝更新</title>
+      <link>https://littlebees.github.io/2021/10/arch-linux%E7%9A%84%E5%AE%89%E8%A3%9D%E6%9B%B4%E6%96%B0/</link>
+      <pubDate>Tue, 05 Oct 2021 00:11:49 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/10/arch-linux%E7%9A%84%E5%AE%89%E8%A3%9D%E6%9B%B4%E6%96%B0/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;這是更新上次安裝arch的流程&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;用systemd-boot&lt;/li&gt;
+&lt;li&gt;用systemd-networkd&lt;/li&gt;
+&lt;li&gt;用systemd-homed&lt;/li&gt;
+&lt;li&gt;用doas&lt;/li&gt;
+&lt;li&gt;優化pacman&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
+    <item>
+      <title>拯救rm的檔案</title>
+      <link>https://littlebees.github.io/2021/10/%E6%8B%AF%E6%95%91rm%E7%9A%84%E6%AA%94%E6%A1%88/</link>
+      <pubDate>Sun, 03 Oct 2021 23:39:37 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/10/%E6%8B%AF%E6%95%91rm%E7%9A%84%E6%AA%94%E6%A1%88/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;紀錄一下&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>netcat的基本用法</title>
+      <link>https://littlebees.github.io/2021/10/netcat%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/</link>
+      <pubDate>Sun, 03 Oct 2021 23:14:34 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/10/netcat%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;netcat就是simple的tcp/udp socket
+重點是很方便，一行就可以把client與server建好!!&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>golang與繼承與template method pattern</title>
+      <link>https://littlebees.github.io/2021/08/golang%E8%88%87%E7%B9%BC%E6%89%BF%E8%88%87template-method-pattern/</link>
+      <pubDate>Tue, 31 Aug 2021 22:59:00 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/golang%E8%88%87%E7%B9%BC%E6%89%BF%E8%88%87template-method-pattern/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;promoted attr只是一種語法糖，不是繼承 (沒有subtype)&lt;/li&gt;
+&lt;li&gt;promoted attr只是展開&lt;/li&gt;
+&lt;li&gt;把struct想成Let Over Lambda&lt;/li&gt;
+&lt;li&gt;struct是value type&lt;/li&gt;
+&lt;li&gt;interface就是看有沒有function&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
+    <item>
+      <title>透過webhook讓github actions rebuild</title>
+      <link>https://littlebees.github.io/2021/07/%E9%80%8F%E9%81%8Ewebhook%E8%AE%93github-actions-rebuild/</link>
+      <pubDate>Fri, 30 Jul 2021 23:32:30 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/%E9%80%8F%E9%81%8Ewebhook%E8%AE%93github-actions-rebuild/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;因為另一個project的需求
+需要CI可以透過web api來rebuild，所以就換到github action了&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>ansible tips</title>
+      <link>https://littlebees.github.io/2021/07/ansible-tips/</link>
+      <pubDate>Mon, 05 Jul 2021 15:24:01 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/ansible-tips/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;這個是用ansible去安裝與設定arch linux遇到的事情記錄在這裡&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>gdb使用筆記</title>
+      <link>https://littlebees.github.io/2021/07/gdb%E4%BD%BF%E7%94%A8%E7%AD%86%E8%A8%98/</link>
+      <pubDate>Thu, 01 Jul 2021 15:39:24 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/gdb%E4%BD%BF%E7%94%A8%E7%AD%86%E8%A8%98/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;之前不常用記錄一下&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>bpf使用筆記</title>
+      <link>https://littlebees.github.io/2021/07/bpf%E4%BD%BF%E7%94%A8%E7%AD%86%E8%A8%98/</link>
+      <pubDate>Thu, 01 Jul 2021 01:13:27 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/bpf%E4%BD%BF%E7%94%A8%E7%AD%86%E8%A8%98/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;systemtap看完後就是bpf了&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>flamegraph筆記</title>
+      <link>https://littlebees.github.io/2021/06/flamegraph%E7%AD%86%E8%A8%98/</link>
+      <pubDate>Wed, 30 Jun 2021 15:13:07 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/06/flamegraph%E7%AD%86%E8%A8%98/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;</description>
+    </item>
+    <item>
+      <title>systemtap使用筆記</title>
+      <link>https://littlebees.github.io/2021/06/systemtap%E4%BD%BF%E7%94%A8%E7%AD%86%E8%A8%98/</link>
+      <pubDate>Wed, 30 Jun 2021 03:48:53 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/06/systemtap%E4%BD%BF%E7%94%A8%E7%AD%86%E8%A8%98/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;受不了只能一直放printf與printk來猜到底哪裡錯的日子，所以來看看systemtap
+發現他真的很強!!&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>grep常用整理</title>
+      <link>https://littlebees.github.io/2021/06/grep%E5%B8%B8%E7%94%A8%E6%95%B4%E7%90%86/</link>
+      <pubDate>Mon, 28 Jun 2021 20:06:20 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/06/grep%E5%B8%B8%E7%94%A8%E6%95%B4%E7%90%86/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;整理常用的grep&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>用twisted迅速架簡單的server</title>
+      <link>https://littlebees.github.io/2021/06/%E7%94%A8twisted%E8%BF%85%E9%80%9F%E6%9E%B6%E7%B0%A1%E5%96%AE%E7%9A%84server/</link>
+      <pubDate>Mon, 28 Jun 2021 01:08:48 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/06/%E7%94%A8twisted%E8%BF%85%E9%80%9F%E6%9E%B6%E7%B0%A1%E5%96%AE%E7%9A%84server/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;之前工作要架簡單的server去測，但裝一般的server還要設定有的沒的，所以用這個來偷吃步&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>windows上用win10的pxe檔案與架pxe server</title>
+      <link>https://littlebees.github.io/2021/06/windows%E4%B8%8A%E7%94%A8win10%E7%9A%84pxe%E6%AA%94%E6%A1%88%E8%88%87%E6%9E%B6pxe-server/</link>
+      <pubDate>Thu, 24 Jun 2021 02:00:28 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/06/windows%E4%B8%8A%E7%94%A8win10%E7%9A%84pxe%E6%AA%94%E6%A1%88%E8%88%87%E6%9E%B6pxe-server/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;我找不到我的隨身碟，剩下的sd卡也掉到某個床縫中，暫時拿不到
+只好來研究怎麼用網路來裝OS了&lt;/p&gt;
+&lt;p&gt;原本用serva，好不容易用完，開機之後發現帳密不管怎麼打都不對，就只好自立自強了&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>keepassxc同步db與自動開db</title>
+      <link>https://littlebees.github.io/2021/06/keepassxc%E5%90%8C%E6%AD%A5db%E8%88%87%E8%87%AA%E5%8B%95%E9%96%8Bdb/</link>
+      <pubDate>Sat, 19 Jun 2021 15:58:02 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/06/keepassxc%E5%90%8C%E6%AD%A5db%E8%88%87%E8%87%AA%E5%8B%95%E9%96%8Bdb/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;keepass2真的有點慢，所以換回去keepassxc，同時找一個辦法避免每次開機都要打master key
+所以我把dropbox給裝上去了&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>改Manga-Loader的心得與一些方法</title>
+      <link>https://littlebees.github.io/2021/06/%E6%94%B9manga-loader%E7%9A%84%E5%BF%83%E5%BE%97%E8%88%87%E4%B8%80%E4%BA%9B%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Wed, 09 Jun 2021 22:46:35 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/06/%E6%94%B9manga-loader%E7%9A%84%E5%BF%83%E5%BE%97%E8%88%87%E4%B8%80%E4%BA%9B%E6%96%B9%E6%B3%95/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;manga loader是神器，來試著加加新的網站&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>英文文法隨便筆記</title>
+      <link>https://littlebees.github.io/2021/02/%E8%8B%B1%E6%96%87%E6%96%87%E6%B3%95%E9%9A%A8%E4%BE%BF%E7%AD%86%E8%A8%98/</link>
+      <pubDate>Sun, 28 Feb 2021 23:50:54 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/02/%E8%8B%B1%E6%96%87%E6%96%87%E6%B3%95%E9%9A%A8%E4%BE%BF%E7%AD%86%E8%A8%98/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;隨手筆記，不期待有人看懂，就只是做紀錄了&lt;/p&gt;
+&lt;p&gt;另外特別感謝google的natural language API&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>設定windows-mail出現0x80070490的錯誤碼</title>
+      <link>https://littlebees.github.io/2021/02/%E8%A8%AD%E5%AE%9Awindows-mail%E5%87%BA%E7%8F%BE0x80070490%E7%9A%84%E9%8C%AF%E8%AA%A4%E7%A2%BC/</link>
+      <pubDate>Sun, 14 Feb 2021 16:23:11 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/02/%E8%A8%AD%E5%AE%9Awindows-mail%E5%87%BA%E7%8F%BE0x80070490%E7%9A%84%E9%8C%AF%E8%AA%A4%E7%A2%BC/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;重灌電腦遇到紀錄一下&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>apply patch到在不同資料夾不同的檔案名的檔案</title>
+      <link>https://littlebees.github.io/2021/02/apply-patch%E5%88%B0%E5%9C%A8%E4%B8%8D%E5%90%8C%E8%B3%87%E6%96%99%E5%A4%BE%E4%B8%8D%E5%90%8C%E7%9A%84%E6%AA%94%E6%A1%88%E5%90%8D%E7%9A%84%E6%AA%94%E6%A1%88/</link>
+      <pubDate>Mon, 01 Feb 2021 23:04:10 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/02/apply-patch%E5%88%B0%E5%9C%A8%E4%B8%8D%E5%90%8C%E8%B3%87%E6%96%99%E5%A4%BE%E4%B8%8D%E5%90%8C%E7%9A%84%E6%AA%94%E6%A1%88%E5%90%8D%E7%9A%84%E6%AA%94%E6%A1%88/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;之前遇到，要apply一個patch到十分類似的檔案，雖然說十分類似，但還是會想說會不會因為有不同的地方所以會報錯之類的，結果沒有，所以記錄一下&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>bash的字串操作</title>
+      <link>https://littlebees.github.io/2020/12/bash%E7%9A%84%E5%AD%97%E4%B8%B2%E6%93%8D%E4%BD%9C/</link>
+      <pubDate>Sun, 27 Dec 2020 01:40:57 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/12/bash%E7%9A%84%E5%AD%97%E4%B8%B2%E6%93%8D%E4%BD%9C/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;想把bash的某個字串轉成大寫，但因為bash太舊，所以不能用substitution來做，只能用awk&lt;/p&gt;
+&lt;p&gt;所以來整理一下，在bash做字串處理的方式&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>進擊的regex</title>
+      <link>https://littlebees.github.io/2020/12/%E9%80%B2%E6%93%8A%E7%9A%84regex/</link>
+      <pubDate>Tue, 08 Dec 2020 02:11:35 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/12/%E9%80%B2%E6%93%8A%E7%9A%84regex/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;超越NFA的regex，酷!!&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>OpenSource授權</title>
+      <link>https://littlebees.github.io/2020/11/opensource%E6%8E%88%E6%AC%8A/</link>
+      <pubDate>Wed, 11 Nov 2020 00:59:27 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/11/opensource%E6%8E%88%E6%AC%8A/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;因為授權的緣故讓我以為我做了一個禮拜的白工，
+到之後再花一個禮拜生出替代方案，
+最後發現其實最初的方案可以用，不過這時最初的code已經不知道跑到哪裡去了QwQ&lt;/p&gt;
+&lt;p&gt;所以整理一下常見的開源授權，讓自己下次不要再被婊了QQ&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>dockerfile的最佳實踐整理</title>
+      <link>https://littlebees.github.io/2020/08/dockerfile%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AF%A6%E8%B8%90%E6%95%B4%E7%90%86/</link>
+      <pubDate>Sun, 09 Aug 2020 16:48:09 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/08/dockerfile%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AF%A6%E8%B8%90%E6%95%B4%E7%90%86/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;看看寫Dockerfile的注意事項&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>dockerfile的用法</title>
+      <link>https://littlebees.github.io/2020/08/dockerfile%E7%9A%84%E7%94%A8%E6%B3%95/</link>
+      <pubDate>Sun, 09 Aug 2020 11:56:21 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/08/dockerfile%E7%9A%84%E7%94%A8%E6%B3%95/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;這裡是研究(自己的觀察與猜測)dockerfile的語意啦&lt;/p&gt;
+&lt;p&gt;docker的container就是應用程式
+只不過每個container都有自己的&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;網路空間&lt;/li&gt;
+&lt;li&gt;儲存空間&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
+    <item>
+      <title>git筆記</title>
+      <link>https://littlebees.github.io/2020/06/git%E7%AD%86%E8%A8%98/</link>
+      <pubDate>Mon, 15 Jun 2020 20:56:10 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/06/git%E7%AD%86%E8%A8%98/</guid>
+      <description>動機 git的指令很多，希望能用一種統一的觀點來看
+commit as Node (folder) -&amp;gt; (stage :: node) -&amp;gt; (repo :: linked list) | \ / (stash :: pool of nodes) Linked List new node &amp;amp; use existing node git add 把folder中的file，加到node中 git stash 把還沒加到repo(linked list)的node放到node的暫存區 edit the last node git amend 修改最後一個node(HEAD) iterate nodes git filter-branch list.map ... git rebase newlist = list.each ...; list.append(newlist) 可以edit, squash(融合), drop, pick(保留) ptr to node git tag 單純的ptr git branch 替node加上新的ptr，只是這個ptr會在他被append一個新node時，把該ptr往後移動 所以可以把這個ptr當成&amp;quot;最新&amp;quot;或是&amp;quot;現在&amp;quot; append node(s) git commit 把目前的node加到目前HEAD的後面 就是list.</description>
+    </item>
+    <item>
+      <title>ubuntu-mirror</title>
+      <link>https://littlebees.github.io/2020/04/ubuntu-mirror/</link>
+      <pubDate>Wed, 15 Apr 2020 01:26:21 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/04/ubuntu-mirror/</guid>
+      <description>灌了ubuntu第一件事，不是更新，是換一個快的mirror
+script #! /bin/bash new=free.nchc.org.tw old=$(cat /etc/apt/sources.list | grep main | awk &amp;#39;{ print $2 }&amp;#39; | cut -d&amp;#39;/&amp;#39; -f3 | sed -n &amp;#39;3P&amp;#39;) sudo sed -i &amp;#34;s/$old/$new/g&amp;#34; /etc/apt/sources.list sudo sed -i &amp;#34;s/security.ubuntu.com/$new/g&amp;#34; /etc/apt/sources.list sudo apt update bash的複習: 各種expansion 給個變數
+hi=123 Arithmetic expansion Variables expansion 單雙引號不一樣 最通用的 Command expansion Ref bash的資料 改mirror的資料</description>
+    </item>
+  </channel>
+</rss>

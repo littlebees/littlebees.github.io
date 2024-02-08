@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Memoization on 記事本</title>
+    <link>https://littlebees.github.io/tags/memoization/</link>
+    <description>Recent content in Memoization on 記事本</description>
+    <image>
+      <title>記事本</title>
+      <url>https://littlebees.github.io/images/papermod-cover.png</url>
+      <link>https://littlebees.github.io/images/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 15 Aug 2021 15:02:32 +0000</lastBuildDate>
+    <atom:link href="https://littlebees.github.io/tags/memoization/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>leetcode-546 - Remove Boxes</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-546-remove-boxes/</link>
+      <pubDate>Sun, 15 Aug 2021 15:02:32 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-546-remove-boxes/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;三維dp!?
+這真的能在45分做出來?&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-698 - Partition to K Equal Sum Subsets</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-698-partition-to-k-equal-sum-subsets/</link>
+      <pubDate>Sat, 31 Jul 2021 20:28:36 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-698-partition-to-k-equal-sum-subsets/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;人生第一次用狀態壓縮&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-1569 - Number of Ways to Reorder Array to Get Same BST</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-1569-number-of-ways-to-reorder-array-to-get-same-bst/</link>
+      <pubDate>Tue, 27 Jul 2021 22:07:54 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-1569-number-of-ways-to-reorder-array-to-get-same-bst/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;很有趣的問題，原來python有可以直接算combination的函數&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-1137 - N-th Tribonacci Number</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-1137-n-th-tribonacci-number/</link>
+      <pubDate>Tue, 27 Jul 2021 16:55:37 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-1137-n-th-tribonacci-number/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;複習fib&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-140 - Word Break II</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-140-word-break-ii/</link>
+      <pubDate>Sun, 25 Jul 2021 22:11:18 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-140-word-break-ii/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;就是backtrack&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-329 - Longest Increasing Path in a Matrix</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-329-longest-increasing-path-in-a-matrix/</link>
+      <pubDate>Sun, 25 Jul 2021 22:09:36 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-329-longest-increasing-path-in-a-matrix/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;因為題目特性，不用考慮重複走的問題&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-139 - Word Break</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-139-word-break/</link>
+      <pubDate>Tue, 20 Jul 2021 14:03:14 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-139-word-break/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;不只一種dp&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-70 - Climbing Stairs</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-70-climbing-stairs/</link>
+      <pubDate>Fri, 16 Jul 2021 00:54:39 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-70-climbing-stairs/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;複習基本DP&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

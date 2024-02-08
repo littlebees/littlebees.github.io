@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Recursion on 記事本</title>
+    <link>https://littlebees.github.io/tags/recursion/</link>
+    <description>Recent content in Recursion on 記事本</description>
+    <image>
+      <title>記事本</title>
+      <url>https://littlebees.github.io/images/papermod-cover.png</url>
+      <link>https://littlebees.github.io/images/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 08 Aug 2021 15:36:42 +0000</lastBuildDate>
+    <atom:link href="https://littlebees.github.io/tags/recursion/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>leetcode-342 - Power of Four</title>
+      <link>https://littlebees.github.io/2021/08/leetcode-342-power-of-four/</link>
+      <pubDate>Sun, 08 Aug 2021 15:36:42 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/08/leetcode-342-power-of-four/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;Bit Manipulation，怕&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-203 - Remove Linked List Elements</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-203-remove-linked-list-elements/</link>
+      <pubDate>Thu, 29 Jul 2021 02:22:16 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-203-remove-linked-list-elements/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;複習Linked list的remove&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-273 - Integer to English Words</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-273-integer-to-english-words/</link>
+      <pubDate>Wed, 28 Jul 2021 00:48:35 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-273-integer-to-english-words/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;天啊&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-24 - Swap Nodes in Pairs</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-24-swap-nodes-in-pairs/</link>
+      <pubDate>Sun, 25 Jul 2021 23:23:05 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-24-swap-nodes-in-pairs/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;接ptr&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-326 - Power of Three</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-326-power-of-three/</link>
+      <pubDate>Sun, 25 Jul 2021 00:21:56 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-326-power-of-three/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;像這種看起來很水的題目，有的時候都會也一些出乎意料的解法&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-344 - Reverse String</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-344-reverse-string/</link>
+      <pubDate>Sat, 24 Jul 2021 23:44:26 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-344-reverse-string/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;就reverse&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-44 - Wildcard Matching</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-44-wildcard-matching/</link>
+      <pubDate>Sat, 24 Jul 2021 23:23:17 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-44-wildcard-matching/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;很有趣的dp&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-394 - Decode String</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-394-decode-string/</link>
+      <pubDate>Sat, 24 Jul 2021 01:13:38 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-394-decode-string/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;不是所有括號都要遞迴&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-234 - Palindrome Linked List</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-234-palindrome-linked-list/</link>
+      <pubDate>Fri, 23 Jul 2021 02:48:25 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-234-palindrome-linked-list/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;可以去看&lt;a href=&#34;https://littlebees.github.io/2021/07/leetcode-143&#34;&gt;143&lt;/a&gt;
+重點是找中點時判斷長度的奇偶姓!!&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-143 - Reorder List</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-143-reorder-list/</link>
+      <pubDate>Thu, 22 Jul 2021 02:55:52 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-143-reorder-list/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;沒想到可以用reverse!!&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-2 - Add Two Numbers</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-2-add-two-numbers/</link>
+      <pubDate>Sat, 17 Jul 2021 16:10:09 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-2-add-two-numbers/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;要記得進位&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-21 - Merge Two Sorted Lists</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-21-merge-two-sorted-lists/</link>
+      <pubDate>Fri, 16 Jul 2021 23:20:51 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-21-merge-two-sorted-lists/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;直接用&lt;a href=&#34;https://littlebees.github.io/2021/07/leetcode-23&#34;&gt;23&lt;/a&gt;的解就ok了&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-206 - Reverse Linked List</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-206-reverse-linked-list/</link>
+      <pubDate>Fri, 16 Jul 2021 23:14:34 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-206-reverse-linked-list/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;複習linked list的reverse&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-50 - Pow(x, n)</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-50-powx-n/</link>
+      <pubDate>Fri, 16 Jul 2021 22:39:55 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-50-powx-n/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;複習快速pow&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-25 - Reverse Nodes in k-Group</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-25-reverse-nodes-in-k-group/</link>
+      <pubDate>Sat, 10 Jul 2021 00:35:44 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-25-reverse-nodes-in-k-group/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;之前寫的很爛，居然還用到例外!?
+所以重寫&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-779 - K-th Symbol in Grammar</title>
+      <link>https://littlebees.github.io/2021/01/leetcode-779-k-th-symbol-in-grammar/</link>
+      <pubDate>Sun, 31 Jan 2021 20:47:08 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/01/leetcode-779-k-th-symbol-in-grammar/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;十分有趣的題目&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-10 - Regular Expression Matching</title>
+      <link>https://littlebees.github.io/2020/11/leetcode-10-regular-expression-matching/</link>
+      <pubDate>Mon, 02 Nov 2020 02:21:51 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/11/leetcode-10-regular-expression-matching/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;dp就是把所有可能性，encode成index在matrix上記錄，在求解時利用index去取得答案&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

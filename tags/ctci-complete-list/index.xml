@@ -1,0 +1,591 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>CTCI-COMPLETE-LIST on 記事本</title>
+    <link>https://littlebees.github.io/tags/ctci-complete-list/</link>
+    <description>Recent content in CTCI-COMPLETE-LIST on 記事本</description>
+    <image>
+      <title>記事本</title>
+      <url>https://littlebees.github.io/images/papermod-cover.png</url>
+      <link>https://littlebees.github.io/images/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 28 Jul 2021 18:56:25 +0000</lastBuildDate>
+    <atom:link href="https://littlebees.github.io/tags/ctci-complete-list/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>leetcode-1172 - Dinner Plate Stacks</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-1172-dinner-plate-stacks/</link>
+      <pubDate>Wed, 28 Jul 2021 18:56:25 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-1172-dinner-plate-stacks/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;直接把後面的空stack拿掉是關鍵&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-51 - N-Queens</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-51-n-queens/</link>
+      <pubDate>Wed, 28 Jul 2021 02:47:33 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-51-n-queens/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;複習backtrack&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-273 - Integer to English Words</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-273-integer-to-english-words/</link>
+      <pubDate>Wed, 28 Jul 2021 00:48:35 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-273-integer-to-english-words/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;天啊&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-376 - Wiggle Subsequence</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-376-wiggle-subsequence/</link>
+      <pubDate>Wed, 28 Jul 2021 00:45:53 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-376-wiggle-subsequence/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;居然用自己的dp過了!!&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-472 - Concatenated Words</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-472-concatenated-words/</link>
+      <pubDate>Wed, 28 Jul 2021 00:37:34 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-472-concatenated-words/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;與&lt;a href=&#34;https://littlebees.github.io/2021/07/leetcode-140&#34;&gt;140&lt;/a&gt;很像&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-1275 - Find Winner on a Tic Tac Toe Game</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-1275-find-winner-on-a-tic-tac-toe-game/</link>
+      <pubDate>Tue, 27 Jul 2021 22:58:34 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-1275-find-winner-on-a-tic-tac-toe-game/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;照著做&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-1679 - Max Number of K-Sum Pairs</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-1679-max-number-of-k-sum-pairs/</link>
+      <pubDate>Tue, 27 Jul 2021 22:26:16 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-1679-max-number-of-k-sum-pairs/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;在相等時不用煩惱該縮哪邊的two sum&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-1569 - Number of Ways to Reorder Array to Get Same BST</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-1569-number-of-ways-to-reorder-array-to-get-same-bst/</link>
+      <pubDate>Tue, 27 Jul 2021 22:07:54 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-1569-number-of-ways-to-reorder-array-to-get-same-bst/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;很有趣的問題，原來python有可以直接算combination的函數&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-278 - First Bad Version</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-278-first-bad-version/</link>
+      <pubDate>Tue, 27 Jul 2021 21:23:30 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-278-first-bad-version/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;複習lower bound&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-1691 - Maximum Height by Stacking Cuboids</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-1691-maximum-height-by-stacking-cuboids/</link>
+      <pubDate>Tue, 27 Jul 2021 21:18:59 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-1691-maximum-height-by-stacking-cuboids/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;原來在py3要用custom cmp是這麼麻煩&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-733 - Flood Fill</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-733-flood-fill/</link>
+      <pubDate>Tue, 27 Jul 2021 20:21:02 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-733-flood-fill/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;複習dfs&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-443 - String Compression</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-443-string-compression/</link>
+      <pubDate>Tue, 27 Jul 2021 18:32:44 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-443-string-compression/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;就統計阿&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-445 - Add Two Numbers II</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-445-add-two-numbers-ii/</link>
+      <pubDate>Tue, 27 Jul 2021 17:58:02 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-445-add-two-numbers-ii/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;linked list是不是與長度,reverse很有緣&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-470 - Implement Rand10() Using Rand7()</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-470-implement-rand10-using-rand7/</link>
+      <pubDate>Tue, 27 Jul 2021 17:43:23 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-470-implement-rand10-using-rand7/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;這三小&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-290 - Word Pattern</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-290-word-pattern/</link>
+      <pubDate>Tue, 27 Jul 2021 17:07:17 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-290-word-pattern/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;水題&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-384 - Shuffle an Array</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-384-shuffle-an-array/</link>
+      <pubDate>Tue, 27 Jul 2021 17:04:13 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-384-shuffle-an-array/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;python有shuffle&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-796 - Rotate String</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-796-rotate-string/</link>
+      <pubDate>Tue, 27 Jul 2021 16:59:52 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-796-rotate-string/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;solution總是會有有趣的解法，rotate之後的string一定是原string相接中的substring&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-1137 - N-th Tribonacci Number</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-1137-n-th-tribonacci-number/</link>
+      <pubDate>Tue, 27 Jul 2021 16:55:37 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-1137-n-th-tribonacci-number/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;複習fib&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-518 - Coin Change 2</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-518-coin-change-2/</link>
+      <pubDate>Tue, 27 Jul 2021 16:54:02 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-518-coin-change-2/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;複習dp&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-232 - Implement Queue using Stacks</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-232-implement-queue-using-stacks/</link>
+      <pubDate>Tue, 27 Jul 2021 16:29:25 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-232-implement-queue-using-stacks/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;很經典，但沒想過可以用兩個stack&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-47 - Permutations II</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-47-permutations-ii/</link>
+      <pubDate>Tue, 27 Jul 2021 16:21:26 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-47-permutations-ii/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://littlebees.github.io/2021/07/leetcode-46&#34;&gt;46&lt;/a&gt;的follow-up&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-86 - Partition List</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-86-partition-list/</link>
+      <pubDate>Tue, 27 Jul 2021 15:52:56 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-86-partition-list/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;直接往後塞&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-81 - Search in Rotated Sorted Array II</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-81-search-in-rotated-sorted-array-ii/</link>
+      <pubDate>Tue, 27 Jul 2021 15:50:31 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-81-search-in-rotated-sorted-array-ii/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;這題是&lt;a href=&#34;https://littlebees.github.io/2021/07/leetcode-33&#34;&gt;33&lt;/a&gt;的follow-up
+如果多了重複怎麼辦?&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-110 - Balanced Binary Tree</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-110-balanced-binary-tree/</link>
+      <pubDate>Tue, 27 Jul 2021 15:34:55 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-110-balanced-binary-tree/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;多回傳值的dfs&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-567 - Permutation in String</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-567-permutation-in-string/</link>
+      <pubDate>Tue, 27 Jul 2021 00:37:09 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-567-permutation-in-string/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;雖然說是複習sliding window，但學到一個很迷的技巧&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-29 - Divide Two Integers</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-29-divide-two-integers/</link>
+      <pubDate>Sun, 25 Jul 2021 22:16:27 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-29-divide-two-integers/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;阿，除法&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-210 - Course Schedule II</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-210-course-schedule-ii/</link>
+      <pubDate>Sun, 25 Jul 2021 22:08:04 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-210-course-schedule-ii/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;沒辦法用cache_computing偷懶了&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-237 - Delete Node in a Linked List</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-237-delete-node-in-a-linked-list/</link>
+      <pubDate>Sat, 24 Jul 2021 23:38:59 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-237-delete-node-in-a-linked-list/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;我的刪除不是你的刪除&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-221 - Maximal Square</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-221-maximal-square/</link>
+      <pubDate>Sat, 24 Jul 2021 01:24:12 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-221-maximal-square/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;設計dp時，要注意到return的東西要可以被接&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-437 - Path Sum III</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-437-path-sum-iii/</link>
+      <pubDate>Sat, 24 Jul 2021 01:10:32 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-437-path-sum-iii/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;原來是prefix sum的靈壓!!&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-236 - Lowest Common Ancestor of a Binary Tree</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-236-lowest-common-ancestor-of-a-binary-tree/</link>
+      <pubDate>Fri, 23 Jul 2021 16:08:06 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-236-lowest-common-ancestor-of-a-binary-tree/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;我忘了localty&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-169 - Majority Element</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-169-majority-element/</link>
+      <pubDate>Fri, 23 Jul 2021 03:40:00 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-169-majority-element/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;複習Counter與認識一個神奇的算法&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-155 - Min Stack</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-155-min-stack/</link>
+      <pubDate>Fri, 23 Jul 2021 03:10:05 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-155-min-stack/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;複習minstk&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-215 - Kth Largest Element in an Array</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-215-kth-largest-element-in-an-array/</link>
+      <pubDate>Fri, 23 Jul 2021 03:00:25 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-215-kth-largest-element-in-an-array/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;沒有魔法的一題&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-234 - Palindrome Linked List</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-234-palindrome-linked-list/</link>
+      <pubDate>Fri, 23 Jul 2021 02:48:25 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-234-palindrome-linked-list/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;可以去看&lt;a href=&#34;https://littlebees.github.io/2021/07/leetcode-143&#34;&gt;143&lt;/a&gt;
+重點是找中點時判斷長度的奇偶姓!!&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-240 - Search a 2D Matrix II</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-240-search-a-2d-matrix-ii/</link>
+      <pubDate>Fri, 23 Jul 2021 02:02:20 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-240-search-a-2d-matrix-ii/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;複習saddle back&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-287 - Find the Duplicate Number</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-287-find-the-duplicate-number/</link>
+      <pubDate>Fri, 23 Jul 2021 01:26:09 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-287-find-the-duplicate-number/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;這題有很多有趣的解法&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-17 - Letter Combinations of a Phone Number</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-17-letter-combinations-of-a-phone-number/</link>
+      <pubDate>Thu, 22 Jul 2021 23:39:05 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-17-letter-combinations-of-a-phone-number/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;複習backtrack&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-295 - Find Median from Data Stream</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-295-find-median-from-data-stream/</link>
+      <pubDate>Thu, 22 Jul 2021 02:48:13 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-295-find-median-from-data-stream/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;寫解題心得才意識到，這就是與two pointer很像&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-268 - Missing Number</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-268-missing-number/</link>
+      <pubDate>Wed, 21 Jul 2021 01:19:53 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-268-missing-number/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;以為要用bsearch&amp;hellip;
+結果是搞混了&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-242 - Valid Anagram</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-242-valid-anagram/</link>
+      <pubDate>Wed, 21 Jul 2021 00:50:56 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-242-valid-anagram/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;複習Counter&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-73 - Set Matrix Zeroes</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-73-set-matrix-zeroes/</link>
+      <pubDate>Tue, 20 Jul 2021 23:37:39 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-73-set-matrix-zeroes/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;讓題我想起多allocate一塊記憶體去當dummy的手法
+但是這裡不用多allocate，而是利用matrix的第一列與第一排&lt;/p&gt;
+&lt;p&gt;而如果第一列與第一排原本就該被處理的話，就用變數存狀態!!&lt;/p&gt;
+&lt;p&gt;這裡的教訓是&lt;em&gt;狀態與被處理的資料勢必要分開&lt;/em&gt;，就像loop會看cond會不會收斂，有關的index會不會收斂，遞迴的變數會不會往base case靠近，是設計時的規則!!&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-48 - Rotate Image</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-48-rotate-image/</link>
+      <pubDate>Tue, 20 Jul 2021 21:59:10 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-48-rotate-image/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;很有因緣的一題&lt;/p&gt;
+&lt;p&gt;當初自己有解出來，不過那個index的方式十分可怕，加上自己本來就不喜歡index的題目(很多時候都是考細不細心而已，想法很簡單，但是實作細節很多)
+所以解完就放著了&lt;/p&gt;
+&lt;p&gt;結果某次offsite就遇到了，同時OJ的網站還十分爛，用stdout當作解答輸出!?
+都什麼年代了!?
+debug的輸出與解答的輸出混在一起，十分痛苦&lt;/p&gt;
+&lt;p&gt;同時那個OJ還要裝browser plugin，來錄音與錄影!!??
+還讓我的mac一直叫!!&lt;/p&gt;
+&lt;p&gt;因此超不喜歡這種題目，讓人感覺回到高中或是大一
+得不到演算法設計有關的啟發，就是比細心的題目
+但就是有人offsite會放這種題目&amp;hellip;&lt;/p&gt;
+&lt;p&gt;所以就重新解一次吧，把當時的錯愕了結於此&lt;/p&gt;
+&lt;p&gt;同時對於所有rotate的題目都用reverse去做就好，不然很痛苦&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-572 - Subtree of Another Tree</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-572-subtree-of-another-tree/</link>
+      <pubDate>Tue, 20 Jul 2021 20:22:37 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-572-subtree-of-another-tree/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;老實地分成兩個dfs&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-19 - Remove Nth Node From End of List</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-19-remove-nth-node-from-end-of-list/</link>
+      <pubDate>Tue, 20 Jul 2021 16:48:37 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-19-remove-nth-node-from-end-of-list/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;對ㄟ，可以先拉一個範圍去走，有點像求中點&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-98 - Validate Binary Search Tree</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-98-validate-binary-search-tree/</link>
+      <pubDate>Tue, 20 Jul 2021 02:09:19 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-98-validate-binary-search-tree/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;當初還想著怎麼看node&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-83 - Remove Duplicates from Sorted List</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-83-remove-duplicates-from-sorted-list/</link>
+      <pubDate>Tue, 20 Jul 2021 00:21:03 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-83-remove-duplicates-from-sorted-list/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;用prev代表重複的第一個node
+也看一下，&lt;a href=&#34;https://littlebees.github.io/2021/07/leetcode-82&#34;&gt;82&lt;/a&gt;作對比&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-102 - Binary Tree Level Order Traversal</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-102-binary-tree-level-order-traversal/</link>
+      <pubDate>Mon, 19 Jul 2021 00:43:13 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-102-binary-tree-level-order-traversal/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;複習bfs&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-78 - Subsets</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-78-subsets/</link>
+      <pubDate>Sun, 18 Jul 2021 15:48:23 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-78-subsets/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;經典子集列舉&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-46 - Permutations</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-46-permutations/</link>
+      <pubDate>Sun, 18 Jul 2021 15:46:50 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-46-permutations/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;經典排序列舉&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-63 - Unique Paths II</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-63-unique-paths-ii/</link>
+      <pubDate>Sun, 18 Jul 2021 15:44:20 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-63-unique-paths-ii/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://littlebees.github.io/2021/07/leetcode-62&#34;&gt;Algorithm, Leetcode-62&lt;/a&gt;多了石頭&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-108 - Convert Sorted Array to Binary Search Tree</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-108-convert-sorted-array-to-binary-search-tree/</link>
+      <pubDate>Sun, 18 Jul 2021 02:26:47 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-108-convert-sorted-array-to-binary-search-tree/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;複習dfs&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-22 - Generate Parentheses</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-22-generate-parentheses/</link>
+      <pubDate>Sat, 17 Jul 2021 16:24:35 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-22-generate-parentheses/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;複習backtrack，比起以前的commit，發現現在code越寫越短了&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-2 - Add Two Numbers</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-2-add-two-numbers/</link>
+      <pubDate>Sat, 17 Jul 2021 16:10:09 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-2-add-two-numbers/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;要記得進位&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-33 - Search in Rotated Sorted Array</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-33-search-in-rotated-sorted-array/</link>
+      <pubDate>Fri, 16 Jul 2021 04:00:08 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-33-search-in-rotated-sorted-array/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;重新體驗binary search&lt;/p&gt;
+&lt;p&gt;這題可以與&lt;a href=&#34;https://littlebees.github.io/2021/07/leetcode-153&#34;&gt;153&lt;/a&gt;一起看，會有新的理解&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-141 - Linked List Cycle</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-141-linked-list-cycle/</link>
+      <pubDate>Wed, 14 Jul 2021 23:20:29 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-141-linked-list-cycle/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;複習判圈&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-53 - Maximum Subarray</title>
+      <link>https://littlebees.github.io/2021/07/leetcode-53-maximum-subarray/</link>
+      <pubDate>Wed, 14 Jul 2021 22:43:03 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/07/leetcode-53-maximum-subarray/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;解一解&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-581 - Shortest Unsorted Continuous Subarray</title>
+      <link>https://littlebees.github.io/2021/01/leetcode-581-shortest-unsorted-continuous-subarray/</link>
+      <pubDate>Sun, 31 Jan 2021 00:38:43 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/01/leetcode-581-shortest-unsorted-continuous-subarray/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;當初想說只要看到第一個不對的點就可以了，但沒想到的是overlap與根本沒有需要的case&amp;hellip;，所以一直出事
+&lt;code&gt;[1,2,3,3,3]&lt;/code&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-127 - Word Ladder</title>
+      <link>https://littlebees.github.io/2021/01/leetcode-127-word-ladder/</link>
+      <pubDate>Fri, 29 Jan 2021 23:22:39 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/01/leetcode-127-word-ladder/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;重點是怎麼找下一個!!
+讓每一次擴展狀態都是有用的，少做許多無用功&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-160 - Intersection of Two Linked Lists</title>
+      <link>https://littlebees.github.io/2021/01/leetcode-160-intersection-of-two-linked-lists/</link>
+      <pubDate>Mon, 18 Jan 2021 01:19:15 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/01/leetcode-160-intersection-of-two-linked-lists/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;不能動node內容!!&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-217 - Contains Duplicate</title>
+      <link>https://littlebees.github.io/2021/01/leetcode-217-contains-duplicate/</link>
+      <pubDate>Sun, 03 Jan 2021 14:40:56 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/01/leetcode-217-contains-duplicate/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;水題&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-172 - Factorial Trailing Zeroes</title>
+      <link>https://littlebees.github.io/2021/01/leetcode-172-factorial-trailing-zeroes/</link>
+      <pubDate>Sun, 03 Jan 2021 14:36:49 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/01/leetcode-172-factorial-trailing-zeroes/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;這應該可以用5進位制來看，但要先把數論找回來&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-703 - Kth Largest Element in a Stream</title>
+      <link>https://littlebees.github.io/2021/01/leetcode-703-kth-largest-element-in-a-stream/</link>
+      <pubDate>Fri, 01 Jan 2021 22:23:09 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/01/leetcode-703-kth-largest-element-in-a-stream/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;當初想的太複雜了，還想用兩個heap&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-49 - Group Anagrams</title>
+      <link>https://littlebees.github.io/2020/12/leetcode-49-group-anagrams/</link>
+      <pubDate>Thu, 31 Dec 2020 01:01:46 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/12/leetcode-49-group-anagrams/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;水題~~&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-146 - LRU Cache</title>
+      <link>https://littlebees.github.io/2020/12/leetcode-146-lru-cache/</link>
+      <pubDate>Mon, 28 Dec 2020 01:48:56 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/12/leetcode-146-lru-cache/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;兩題很像，所以就一起寫&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-460 - LFU Cache</title>
+      <link>https://littlebees.github.io/2020/12/leetcode-460-lfu-cache/</link>
+      <pubDate>Mon, 28 Dec 2020 01:48:56 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/12/leetcode-460-lfu-cache/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;兩題很像，所以就一起寫&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-72 - Edit Distance</title>
+      <link>https://littlebees.github.io/2020/12/leetcode-72-edit-distance/</link>
+      <pubDate>Sun, 06 Dec 2020 23:21:26 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/12/leetcode-72-edit-distance/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;insert是最難想的部分&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-200 - Number of Islands</title>
+      <link>https://littlebees.github.io/2020/11/leetcode-200-number-of-islands/</link>
+      <pubDate>Tue, 03 Nov 2020 00:00:08 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/11/leetcode-200-number-of-islands/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;經典的dfs&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>leetcode-227 - Basic Calculator II</title>
+      <link>https://littlebees.github.io/2020/11/leetcode-227-basic-calculator-ii/</link>
+      <pubDate>Mon, 02 Nov 2020 01:41:27 +0000</pubDate>
+      <guid>https://littlebees.github.io/2020/11/leetcode-227-basic-calculator-ii/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;就是算數，但不要被資料結構的postfix誤導，堅持都用stack的方式去iterate所有數字&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
