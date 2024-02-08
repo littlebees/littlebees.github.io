@@ -11,8 +11,15 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 30 Jul 2022 10:59:35 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 08 Feb 2024 11:23:44 +0800</lastBuildDate>
     <atom:link href="https://littlebees.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>TODO</title>
+      <link>https://littlebees.github.io/tags/todo/</link>
+      <pubDate>Thu, 08 Feb 2024 11:23:44 +0800</pubDate>
+      <guid>https://littlebees.github.io/tags/todo/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Lisp</title>
       <link>https://littlebees.github.io/tags/lisp/</link>
@@ -102,13 +109,6 @@
       <link>https://littlebees.github.io/tags/hash-table/</link>
       <pubDate>Sat, 30 Jul 2022 10:34:19 +0000</pubDate>
       <guid>https://littlebees.github.io/tags/hash-table/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>TODO</title>
-      <link>https://littlebees.github.io/tags/todo/</link>
-      <pubDate>Tue, 12 Apr 2022 01:38:21 +0000</pubDate>
-      <guid>https://littlebees.github.io/tags/todo/</guid>
       <description></description>
     </item>
     <item>

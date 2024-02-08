@@ -2,19 +2,31 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://littlebees.github.io/2024/02/todo-list/</loc>
+    <lastmod>2024-02-08T11:23:44+08:00</lastmod>
+  </url><url>
     <loc>https://littlebees.github.io/categories/</loc>
-    <lastmod>2024-02-08T10:49:52+08:00</lastmod>
+    <lastmod>2024-02-08T11:23:44+08:00</lastmod>
+  </url><url>
+    <loc>https://littlebees.github.io/posts/</loc>
+    <lastmod>2024-02-08T11:23:44+08:00</lastmod>
+  </url><url>
+    <loc>https://littlebees.github.io/tags/</loc>
+    <lastmod>2024-02-08T11:23:44+08:00</lastmod>
+  </url><url>
+    <loc>https://littlebees.github.io/tags/todo/</loc>
+    <lastmod>2024-02-08T11:23:44+08:00</lastmod>
+  </url><url>
+    <loc>https://littlebees.github.io/categories/todo/</loc>
+    <lastmod>2024-02-08T11:23:44+08:00</lastmod>
+  </url><url>
+    <loc>https://littlebees.github.io/</loc>
+    <lastmod>2024-02-08T11:23:44+08:00</lastmod>
   </url><url>
     <loc>https://littlebees.github.io/2024/02/move-to-hugo/</loc>
     <lastmod>2024-02-08T10:49:52+08:00</lastmod>
   </url><url>
-    <loc>https://littlebees.github.io/posts/</loc>
-    <lastmod>2024-02-08T10:49:52+08:00</lastmod>
-  </url><url>
     <loc>https://littlebees.github.io/categories/tips/</loc>
-    <lastmod>2024-02-08T10:49:52+08:00</lastmod>
-  </url><url>
-    <loc>https://littlebees.github.io/</loc>
     <lastmod>2024-02-08T10:49:52+08:00</lastmod>
   </url><url>
     <loc>https://littlebees.github.io/categories/algorithm/</loc>
@@ -30,9 +42,6 @@
     <lastmod>2022-07-30T10:59:35+00:00</lastmod>
   </url><url>
     <loc>https://littlebees.github.io/2022/07/state-monad-reverse-state-monad/</loc>
-    <lastmod>2022-07-30T10:59:35+00:00</lastmod>
-  </url><url>
-    <loc>https://littlebees.github.io/tags/</loc>
     <lastmod>2022-07-30T10:59:35+00:00</lastmod>
   </url><url>
     <loc>https://littlebees.github.io/categories/reading/</loc>
@@ -111,9 +120,6 @@
     <lastmod>2022-04-12T01:41:45+00:00</lastmod>
   </url><url>
     <loc>https://littlebees.github.io/2022/04/review-leetcode/</loc>
-    <lastmod>2022-04-12T01:38:21+00:00</lastmod>
-  </url><url>
-    <loc>https://littlebees.github.io/tags/todo/</loc>
     <lastmod>2022-04-12T01:38:21+00:00</lastmod>
   </url><url>
     <loc>https://littlebees.github.io/tags/distributed/</loc>
