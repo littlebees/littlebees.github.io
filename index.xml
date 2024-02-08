@@ -945,6 +945,14 @@ note: cross往下是負的，cross往上是正的&lt;/p&gt;</description>
 &lt;p&gt;lee215的解法依舊漂亮&lt;/p&gt;</description>
     </item>
     <item>
+      <title>leetcode-1509 - Minimum Difference Between Largest and Smallest Value in Three Moves</title>
+      <link>https://littlebees.github.io/2021/09/leetcode-1509-minimum-difference-between-largest-and-smallest-value-in-three-moves/</link>
+      <pubDate>Thu, 16 Sep 2021 22:12:09 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/09/leetcode-1509-minimum-difference-between-largest-and-smallest-value-in-three-moves/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;當初以為只要把最大或最小3個去掉就好&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>leetcode-1525 - Number of Good Ways to Split a String</title>
       <link>https://littlebees.github.io/2021/09/leetcode-1525-number-of-good-ways-to-split-a-string/</link>
       <pubDate>Thu, 16 Sep 2021 15:43:54 +0000</pubDate>
@@ -5533,18 +5541,6 @@ hi=123 Arithmetic expansion Variables expansion 單雙引號不一樣 最通用�
 Problem Given an array of integers nums and an integer limit, return the size of the longest non-empty subarray such that the absolute difference between any two elements of this subarray is less than or equal to limit.
 Example 1:
 Input: nums = [8,2,4,7], limit = 4Output: 2 Explanation: All subarrays are: [8] with maximum absolute diff |8-8| = 0 &lt;= 4.[8,2] with maximum absolute diff |8-2| = 6 &gt; 4.</description>
-    </item>
-    <item>
-      <title></title>
-      <link>https://littlebees.github.io/1/01/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://littlebees.github.io/1/01/</guid>
-      <description>動機 當初以為只要把最大或最小3個去掉就好&amp;hellip;
-Problem Given an array nums, you are allowed to choose one element of nums and change it by any value in one move.
-Return the minimum difference between the largest and smallest value of nums after perfoming at most 3 moves.
-Example 1:
-Input: nums = [5,3,2,4]Output: 0Explanation: Change the array [5,3,2,4] to [2,2,2,2].The difference between the maximum and minimum is 2-2 = 0.Example 2:
-Input: nums = [1,5,0,10,14]Output: 1Explanation: Change the array [1,5,0,10,14] to [1,1,0,1,1].</description>
     </item>
   </channel>
 </rss>

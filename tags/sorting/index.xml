@@ -50,6 +50,14 @@
 &lt;/ul&gt;</description>
     </item>
     <item>
+      <title>leetcode-1509 - Minimum Difference Between Largest and Smallest Value in Three Moves</title>
+      <link>https://littlebees.github.io/2021/09/leetcode-1509-minimum-difference-between-largest-and-smallest-value-in-three-moves/</link>
+      <pubDate>Thu, 16 Sep 2021 22:12:09 +0000</pubDate>
+      <guid>https://littlebees.github.io/2021/09/leetcode-1509-minimum-difference-between-largest-and-smallest-value-in-three-moves/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;當初以為只要把最大或最小3個去掉就好&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>leetcode-1288 - Remove Covered Intervals</title>
       <link>https://littlebees.github.io/2021/09/leetcode-1288-remove-covered-intervals/</link>
       <pubDate>Tue, 14 Sep 2021 17:37:51 +0000</pubDate>
