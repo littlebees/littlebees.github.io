@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>k8s on 記事本</title>
+    <title>K8s on 記事本</title>
     <link>https://littlebees.github.io/tags/k8s/</link>
-    <description>Recent content in k8s on 記事本</description>
+    <description>Recent content in K8s on 記事本</description>
     <image>
       <title>記事本</title>
       <url>https://littlebees.github.io/images/papermod-cover.png</url>
