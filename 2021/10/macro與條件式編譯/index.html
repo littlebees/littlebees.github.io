@@ -8,7 +8,7 @@
 * Macros can&rsquo;t be debugged
 * 沒有printf, gdb
 program是操作定義在program的資料，程式碼怎麼寫就怎麼動(不考慮side effect與system的鍋)</p><h2 id=條件式編譯與ci>條件式編譯與ci<a hidden class=anchor aria-hidden=true href=#條件式編譯與ci>#</a></h2><p>寫程式的可以自己定義條件式編譯，結果ci沒有跟上新加的編譯，導致ci沒有檢查到新的編譯，讓ci整個沒有用</p><h2 id=解法>解法<a hidden class=anchor aria-hidden=true href=#解法>#</a></h2><ol><li>用enum, const</li><li>用function、與include、inline</li><li>把條件式編譯的參數拆成<ul><li>不同branch</li><li>用設定檔讀參數</li></ul></li></ol><p>重點: macro中不能有business logic在</p></div><footer class=post-footer><ul class=post-tags><li><a href=https://littlebees.github.io/tags/c/c++/>C/C++</a></li></ul><nav class=paginav><a class=prev href=https://littlebees.github.io/2021/10/nftables/><span class=title>« Prev</span><br><span>nftables</span>
-</a><a class=next href=https://littlebees.github.io/2021/10/overlayfs/><span class=title>Next »</span><br><span>overlayfs</span></a></nav></footer></article></main><footer class=footer><span>&copy; 2024 <a href=https://littlebees.github.io/>記事本</a></span>
+</a><a class=next href=https://littlebees.github.io/2021/10/overlayfs/><span class=title>Next »</span><br><span>overlayfs</span></a></nav></footer></article></main><footer class=footer><span>&copy; 2024 <a href=https://littlebees.github.io/>記事本</a></span> ·
 <span>Powered by
 <a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
         <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
