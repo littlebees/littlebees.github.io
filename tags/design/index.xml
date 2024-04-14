@@ -11,8 +11,21 @@
     </image>
     <generator>Hugo -- 0.124.1</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 30 Jul 2022 10:40:16 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 14 Apr 2024 21:33:51 +0800</lastBuildDate>
     <atom:link href="https://littlebees.github.io/tags/design/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Leetcode 715 - Range Module</title>
+      <link>https://littlebees.github.io/2024/04/leetcode-715-range-module/</link>
+      <pubDate>Sun, 14 Apr 2024 21:33:51 +0800</pubDate>
+      <guid>https://littlebees.github.io/2024/04/leetcode-715-range-module/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;不要想著線段樹什麼的&lt;/li&gt;
+&lt;li&gt;魔鬼藏在細節中&lt;/li&gt;
+&lt;li&gt;謝謝花花醬&lt;/li&gt;
+&lt;li&gt;我應該要複習bsearch QQ&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
     <item>
       <title>leetcode-449 - Serialize and Deserialize BST</title>
       <link>https://littlebees.github.io/2022/07/leetcode-449-serialize-and-deserialize-bst/</link>
