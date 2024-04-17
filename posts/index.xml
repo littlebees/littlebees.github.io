@@ -9,9 +9,9 @@
       <url>https://littlebees.github.io/images/papermod-cover.png</url>
       <link>https://littlebees.github.io/images/papermod-cover.png</link>
     </image>
-    <generator>Hugo -- 0.124.1</generator>
+    <generator>Hugo -- 0.125.0</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 16 Apr 2024 22:16:06 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 17 Apr 2024 21:23:53 +0800</lastBuildDate>
     <atom:link href="https://littlebees.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>TODO List</title>
@@ -20,6 +20,14 @@
       <guid>https://littlebees.github.io/2024/02/todo-list/</guid>
       <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
 &lt;p&gt;TODO!!&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Leetcode 740 - Delete and Earn</title>
+      <link>https://littlebees.github.io/2024/04/leetcode-740-delete-and-earn/</link>
+      <pubDate>Wed, 17 Apr 2024 21:23:53 +0800</pubDate>
+      <guid>https://littlebees.github.io/2024/04/leetcode-740-delete-and-earn/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;想像要自由一點&lt;/p&gt;</description>
     </item>
     <item>
       <title>Leetcode 540 - Single Element in a Sorted Array</title>
