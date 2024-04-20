@@ -9,10 +9,18 @@
       <url>https://littlebees.github.io/images/papermod-cover.png</url>
       <link>https://littlebees.github.io/images/papermod-cover.png</link>
     </image>
-    <generator>Hugo -- 0.125.0</generator>
+    <generator>Hugo -- 0.125.1</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 17 Apr 2024 21:23:53 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 20 Apr 2024 23:22:34 +0800</lastBuildDate>
     <atom:link href="https://littlebees.github.io/tags/dynamic-programming/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Leetcode 403 - Frog Jump</title>
+      <link>https://littlebees.github.io/2024/04/leetcode-403-frog-jump/</link>
+      <pubDate>Sat, 20 Apr 2024 23:22:34 +0800</pubDate>
+      <guid>https://littlebees.github.io/2024/04/leetcode-403-frog-jump/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;為什麼沒有loop啊?&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Leetcode 740 - Delete and Earn</title>
       <link>https://littlebees.github.io/2024/04/leetcode-740-delete-and-earn/</link>
