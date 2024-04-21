@@ -9,10 +9,19 @@
       <url>https://littlebees.github.io/images/papermod-cover.png</url>
       <link>https://littlebees.github.io/images/papermod-cover.png</link>
     </image>
-    <generator>Hugo -- 0.125.1</generator>
+    <generator>Hugo -- 0.125.2</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 20 Apr 2024 23:35:01 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 21 Apr 2024 12:40:10 +0800</lastBuildDate>
     <atom:link href="https://littlebees.github.io/tags/dynamic-programming/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Leetcode 1824 - Minimum Sideway Jumps</title>
+      <link>https://littlebees.github.io/2024/04/leetcode-1824-minimum-sideway-jumps/</link>
+      <pubDate>Sun, 21 Apr 2024 12:40:10 +0800</pubDate>
+      <guid>https://littlebees.github.io/2024/04/leetcode-1824-minimum-sideway-jumps/</guid>
+      <description>&lt;h2 id=&#34;動機&#34;&gt;動機&lt;/h2&gt;
+&lt;p&gt;oh Floyd-Warshall，我忘了!!
+原來還可以這樣解loop&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Leetcode 2140 - Solving Questions With Brainpower</title>
       <link>https://littlebees.github.io/2024/04/leetcode-2140-solving-questions-with-brainpower/</link>
